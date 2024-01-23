@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://b6wvrdhnmhehm"]
+
+[node name="LevelOutsideStation" type="Node2D"]
+scale = Vector2(4, 4)
+
+[node name="BoxContainer" type="BoxContainer" parent="."]
+offset_right = 48.0
+offset_bottom = 23.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="BoxContainer"]
+layout_direction = 2
+layout_mode = 2
+text = "LABEL"

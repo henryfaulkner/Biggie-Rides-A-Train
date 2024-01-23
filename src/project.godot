@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="biggie_rides_a_train"
-config/features=PackedStringArray("4.2", "Mobile")
+run/main_scene="res://Main.tscn"
+config/features=PackedStringArray("4.2", "C#", "Mobile")
 config/icon="res://icon.svg"
+
+[dotnet]
+
+project/assembly_name="biggie_rides_a_train"
 
 [rendering]
 
