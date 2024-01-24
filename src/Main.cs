@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class main : Node2D
+public partial class Main : Node2D
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -13,20 +13,22 @@ public partial class main : Node2D
 	{
 	}
 	
-	private void _on_play_pressed()
+	public void _on_play_pressed()
 	{
-		GetTree().ChangeSceneToFile("res://levels/level_outside_station.tscn");
+		var nextScene = (PackedScene)ResourceLoader.Load("res://Levels/LevelOutsideStation.tscn");
+		GetTree().ChangeSceneToPacked(nextScene);
 	}
 
 
-	private void _on_options_pressed()
+	public void _on_options_pressed()
 	{
 		// Replace with function body.
 	}
 
 
-	private void _on_quit_pressed()
+	public void _on_quit_pressed()
 	{
 		GetTree().Quit();
 	}
 }
+
