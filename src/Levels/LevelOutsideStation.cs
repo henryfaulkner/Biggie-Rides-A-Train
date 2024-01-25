@@ -5,6 +5,8 @@ public partial class LevelOutsideStation : Node2D
 {
 	private Node2D _level = null;
 	private TaxiCar _taxi = null;
+	private TextBox _textbox = null;
+	private Biggie _biggie = null;
 	
 	private float _taxiX = 0f;
 	private float _taxiY = 0f;
@@ -14,31 +16,48 @@ public partial class LevelOutsideStation : Node2D
 	private float _viewportX = 0f;
 	private float _viewportY = 0f;
 	
+	private bool _arrivalSceneConcluded = false;
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_level = GetNode<Node2D>("/root/LevelOutsideStation");
-		_taxi = GetNode<TaxiCar>("/root/LevelOutsideStation/LevelWrapper/BoxContainer/TaxiCar");
+		_taxi = GetNode<TaxiCar>("/root/LevelOutsideStation/LevelWrapper/TaxiCarContainer/TaxiCar");
+		_textbox = GetNode<TextBox>("/root/LevelOutsideStation/LevelWrapper/TextBox");
+		_biggie = GetNode<Biggie>("/root/LevelOutsideStation/LevelWrapper/BiggieContainer/Biggie");
 		UpdateTaxiPosition(_taxi.Position.X, _taxi.Position.Y);
 		
 		// ASSUME STATIC VIEWPORT
 		_viewportX = ((Window)GetViewport()).Size.X;
 		_viewportY = ((Window)GetViewport()).Size.Y;
+		
+		_biggie.Hide();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		if (_taxiX < (_viewportX / 8)) {
+			// Approach center
+			_taxi.SetMovingBit(true);
 			UpdateTaxiPosition(_taxiX + _taxiVelocity, _taxiY);
 		}
-		else 
+		else if (!_arrivalSceneConcluded)
 		{
 			_taxi.SetMovingBit(false);
+			_textbox.AddDialogue("Alright. Here you are. The Eastbay Station. Destination, I've got to assume the Westbay for that Westbay Cathedral venue. Everyone raves about the Conductor that place has. I'll get there one day. Good luck, have fun.");
+			_arrivalSceneConcluded = true;
+			_biggie.Show();
+		} 
+		else if (_arrivalSceneConcluded && !_textbox.IsOpen()) 
+		{
+			// Exit scene
+			_taxi.SetMovingBit(true);
+			UpdateTaxiPosition(_taxiX + _taxiVelocity, _taxiY);
 		}
 	}
 	
-	public void UpdateTaxiPosition(float x, float y) {
+	private void UpdateTaxiPosition(float x, float y) {
 		_taxiX = x;
 		_taxiY = y;
 		_taxi.Position = new Vector2(_taxiX, _taxiY); 

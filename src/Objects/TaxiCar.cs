@@ -25,10 +25,14 @@ public partial class TaxiCar : Sprite2D
 		}
 	}
 	
-	public int ReturnSpriteIndex(int frameIncrement) 
+	private int ReturnSpriteIndex(int frameIncrement) 
 	{
 		var result = (frameIncrement / _spriteFrameChangeInterval) % _spriteFramesLength;
 		return result;
+	}
+	
+	public bool GetMovingBit() {
+		return _isMoving;
 	}
 	
 	public void SetMovingBit(bool bit) {
