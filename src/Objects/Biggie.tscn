@@ -6,5 +6,5 @@
 [node name="Biggie" type="Sprite2D"]
 texture = ExtResource("1_pwtfd")
 hframes = 2
-vframes = 2
+vframes = 3
 script = ExtResource("2_8x8xi")

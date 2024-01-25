@@ -6,9 +6,11 @@ public partial class Biggie : Sprite2D
 	private static readonly int _SPRITE_FRAME_IDLE = 0;
 	private static readonly int _SPRITE_FRAME_WALK1 = 1;
 	private static readonly int _SPRITE_FRAME_WALK2 = 2; 
-	public static readonly int _SPRITE_FRAME_CHANGE_INTERVAL = 30;
+	private static readonly int _SPRITE_FRAME_WALK1_LEFT = 3;
+	private static readonly int _SPRITE_FRAME_WALK2_LEFT = 4; 
+	public static readonly int _SPRITE_FRAME_CHANGE_INTERVAL = 45;
 	public static readonly int _SPRITE_WALK_FRAME_LENGTH = 2;
-	public static readonly float _BIGGIE_VELOCITY = 5f;
+	public static readonly float _BIGGIE_VELOCITY = 1.5f;
 	
 	private Sprite2D _nodeSelf = null;
 	private bool _isMoving = false;
@@ -28,24 +30,19 @@ public partial class Biggie : Sprite2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		Movement(_nodeSelf.Position.X, _nodeSelf.Position.Y);
-		
-		if (_isMoving) 
+		if (_nodeSelf.IsVisibleInTree()) 
 		{
-			_frameIncrement += 1;
-			_nodeSelf.Frame = ReturnSpriteWalkFrame(_frameIncrement);
-		}
-		else 
-		{
-			_frameIncrement = 0;
-			_nodeSelf.Frame = _SPRITE_FRAME_IDLE;
+			Movement(_nodeSelf.Position.X, _nodeSelf.Position.Y);
 		}
 	}
 	
-	private int ReturnSpriteWalkFrame(int frameIncrement) 
+	private int ReturnSpriteWalkFrame(int frameIncrement, bool isLeft = false) 
 	{
 		var result = (frameIncrement / _SPRITE_FRAME_CHANGE_INTERVAL) % _SPRITE_WALK_FRAME_LENGTH;
+		// Skip Idle sprite
 		result += 1;
+		// Account for sprite flipping
+		if (isLeft) result += 2;
 		return result;
 	}
 	
@@ -55,26 +52,35 @@ public partial class Biggie : Sprite2D
 		{
 			_isMoving = true;
 			UpdateBiggiePosition(currX - _BIGGIE_VELOCITY, currY);
-			// Flip sprites
+			_frameIncrement += 1;
+			_nodeSelf.Frame = ReturnSpriteWalkFrame(_frameIncrement, true);
 		} 
 		else if (Input.IsActionPressed(_MOVE_UP_INPUT)) 
 		{
 			_isMoving = true;
 			UpdateBiggiePosition(currX, currY - _BIGGIE_VELOCITY);
+			_frameIncrement += 1;
+			_nodeSelf.Frame = ReturnSpriteWalkFrame(_frameIncrement);
 		}
 		else if (Input.IsActionPressed(_MOVE_RIGHT_INPUT)) 
 		{
 			_isMoving = true;
 			UpdateBiggiePosition(currX + _BIGGIE_VELOCITY, currY);
+			_frameIncrement += 1;
+			_nodeSelf.Frame = ReturnSpriteWalkFrame(_frameIncrement);
 		}
 		else if (Input.IsActionPressed(_MOVE_DOWN_INPUT)) 
 		{
 			_isMoving = true;
 			UpdateBiggiePosition(currX, currY + _BIGGIE_VELOCITY);
+			_frameIncrement += 1;
+			_nodeSelf.Frame = ReturnSpriteWalkFrame(_frameIncrement);
 		} 
 		else 
 		{
 			_isMoving = false;
+			_frameIncrement = 0;
+			_nodeSelf.Frame = _SPRITE_FRAME_IDLE;
 		}
 	}
 	
