@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://xexs3slgxyya"]
-
-[ext_resource type="Script" path="res://Objects/ObjectWrappers/LevelWrapper.cs" id="1_i1l75"]
-[ext_resource type="PackedScene" uid="uid://b7731gnrl0uck" path="res://Layout/TextBox.tscn" id="2_vmuxe"]
-
-[node name="LevelWrapper" type="Node2D"]
-script = ExtResource("1_i1l75")
-
-[node name="TextBox" parent="." instance=ExtResource("2_vmuxe")]

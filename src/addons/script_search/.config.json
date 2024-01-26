@@ -1,0 +1,10 @@
+{
+	"allowed_extensions": [
+		"gd",
+		"gdshader"
+	],
+	"directory_blacklist": [
+		"res://.godot",
+		"res://addons"
+	]
+}

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dftxuxvh36ccm"]
+
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/ObjectWrappers/LevelWrapper.tscn" id="1_2llq8"]
+
+[node name="LevelMainStation" type="Node2D"]
+
+[node name="LevelWrapper" parent="." instance=ExtResource("1_2llq8")]

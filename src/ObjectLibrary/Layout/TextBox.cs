@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public partial class TextBox : CanvasLayer
 {
 	private static readonly float _CHAR_READ_RATE = .01f;
-	private static readonly int _DEFAULT_PAGE_LENGTH = 160;
+	private static readonly int _DEFAULT_PAGE_LENGTH = 175;
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
 	
 	private CanvasLayer _nodeSelf = null;
@@ -15,7 +15,8 @@ public partial class TextBox : CanvasLayer
 	private Label _nodeDialogue = null;
 	private Label _nodeEnd = null;	
 	
-	private List<string> _dialogueList = null;
+	private Queue<List<string>> _dialogueListQueue = null;
+	private List<string> _dialogueList = null; // splice of single dialogue instance
 	private int _dialoguePointer = 0;
 	
 	private bool _isOpen = false;
@@ -30,6 +31,7 @@ public partial class TextBox : CanvasLayer
 		_nodeStart = GetNode<Label>("./TextBoxContainer/Panel/MarginContainer/HBoxContainer/Start");
 		_nodeDialogue = GetNode<Label>("./TextBoxContainer/Panel/MarginContainer/HBoxContainer/Dialogue");
 		_nodeEnd = GetNode<Label>("./TextBoxContainer/Panel/MarginContainer/HBoxContainer/End");
+		_dialogueListQueue = new Queue<List<string>>();
 		_dialogueList = new List<string>();
 		HideTextBox();
 	}
@@ -52,10 +54,17 @@ public partial class TextBox : CanvasLayer
 	
 	public void AddDialogue(string fullDialogue) 
 	{
-		_nodeDialogue.Text = fullDialogue;
-		_dialogueList = SplitDialogue(fullDialogue, _DEFAULT_PAGE_LENGTH);
-		ShowTextBox();	
-		ReadDialogue(_dialogueList[0]);
+		_dialogueListQueue.Enqueue(SplitDialogue(fullDialogue, _DEFAULT_PAGE_LENGTH));
+	}
+	
+	public void ExecuteDialogueQueue() 
+	{
+		if (_dialogueListQueue.Count > 0)
+		{
+			_dialogueList = _dialogueListQueue.Dequeue();
+			ShowTextBox();	
+			ReadDialogue(_dialogueList[0]);	
+		}
 	}
 	
 	private List<string> SplitDialogue(string fullDialogue, int pageLength) 
@@ -78,6 +87,7 @@ public partial class TextBox : CanvasLayer
 	
 	private async Task ReadDialogue(string dialogue) 
 	{
+		_nodeDialogue.Text = dialogue;
 		_nodeDialogue.VisibleCharacters = 0;
 		int len = dialogue.Length;
 		TimeSpan span = TimeSpan.FromSeconds((double)(new decimal(_CHAR_READ_RATE)));
@@ -93,7 +103,16 @@ public partial class TextBox : CanvasLayer
 		_dialoguePointer += 1;
 		if (_dialoguePointer >= _dialogueList.Count) 
 		{
-			HideTextBox();
+			if(_dialogueListQueue.Count > 0)
+			{
+				_dialogueList = _dialogueListQueue.Dequeue();
+				ReadDialogue(_dialogueList[0]);	
+				_dialoguePointer = 0;
+			}
+			else 
+			{
+				HideTextBox();
+			}
 		}
 		else 
 		{

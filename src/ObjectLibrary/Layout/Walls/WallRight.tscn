@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://c51aimldgwa0g"]
+
+[ext_resource type="Script" path="res://ObjectLibrary/ObjectWrappers/WallWrapper.cs" id="1_jpo77"]
+[ext_resource type="Texture2D" uid="uid://bebu17xxmdaad" path="res://Assets/objects/Walls/WallRight.png" id="2_rp6hb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ukk0y"]
+size = Vector2(4, 64)
+
+[node name="WallRight" type="StaticBody2D"]
+script = ExtResource("1_jpo77")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_rp6hb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(30, 0)
+shape = SubResource("RectangleShape2D_ukk0y")

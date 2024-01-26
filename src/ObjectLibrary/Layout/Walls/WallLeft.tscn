@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3b4otu0uyw0y"]
+
+[ext_resource type="Script" path="res://ObjectLibrary/ObjectWrappers/WallWrapper.cs" id="1_dmcwb"]
+[ext_resource type="Texture2D" uid="uid://c4b5ni6swfhvj" path="res://Assets/objects/Walls/WallLeft.png" id="2_do0e0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_snv12"]
+size = Vector2(4, 64)
+
+[node name="WallLeft" type="StaticBody2D"]
+script = ExtResource("1_dmcwb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_do0e0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-30, 0)
+shape = SubResource("RectangleShape2D_snv12")

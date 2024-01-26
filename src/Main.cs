@@ -3,6 +3,8 @@ using System;
 
 public partial class Main : Node2D
 {
+	private static readonly StringName _LEVEL_OUTSIDE_STATION = new StringName("res://Levels/OutsideStation/LevelOutsideStation.tscn");
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -15,7 +17,7 @@ public partial class Main : Node2D
 	
 	public void _on_play_pressed()
 	{
-		var nextScene = (PackedScene)ResourceLoader.Load("res://Levels/LevelOutsideStation.tscn");
+		var nextScene = (PackedScene)ResourceLoader.Load(_LEVEL_OUTSIDE_STATION);
 		GetTree().ChangeSceneToPacked(nextScene);
 	}
 

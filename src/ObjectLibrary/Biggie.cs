@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Biggie : Sprite2D
+public partial class Biggie : CharacterBody2D
 {
 	private static readonly int _SPRITE_FRAME_IDLE = 0;
 	private static readonly int _SPRITE_FRAME_WALK1 = 1;
@@ -10,10 +10,12 @@ public partial class Biggie : Sprite2D
 	private static readonly int _SPRITE_FRAME_WALK2_LEFT = 4; 
 	public static readonly int _SPRITE_FRAME_CHANGE_INTERVAL = 45;
 	public static readonly int _SPRITE_WALK_FRAME_LENGTH = 2;
-	public static readonly float _BIGGIE_VELOCITY = 1.5f;
+	public static readonly float _BIGGIE_SPEED = 400f;
 	
-	private Sprite2D _nodeSelf = null;
+	private Biggie _nodeSelf = null;
+	private Sprite2D _nodeBiggieSprites = null;
 	private bool _isMoving = false;
+	private bool _canMove = true;
 	private int _frameIncrement = 0;
 	
 	private static readonly StringName _MOVE_LEFT_INPUT = new StringName("move_left");
@@ -25,14 +27,15 @@ public partial class Biggie : Sprite2D
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Biggie>(".");
+		_nodeBiggieSprites = GetNode<Sprite2D>("./BiggieSprites");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (_nodeSelf.IsVisibleInTree()) 
+		if (_canMove && _nodeSelf.IsVisibleInTree()) 
 		{
-			Movement(_nodeSelf.Position.X, _nodeSelf.Position.Y);
+			Movement(delta);
 		}
 	}
 	
@@ -46,45 +49,57 @@ public partial class Biggie : Sprite2D
 		return result;
 	}
 	
-	private void Movement(float currX, float currY) 
+	private void Movement(double delta) 
 	{
+		Vector2 inputDirection = Input.GetVector(_MOVE_LEFT_INPUT, _MOVE_RIGHT_INPUT, _MOVE_UP_INPUT, _MOVE_DOWN_INPUT);
+		Velocity = inputDirection * _BIGGIE_SPEED;	
+		var collision = MoveAndCollide(Velocity * (float)delta);
+		if (collision != null)
+		{
+			if (collision.GetCollider().HasMethod("Hit")) 
+			{
+				collision.GetCollider().Call("Hit");
+			}
+			Velocity = Velocity.Slide(collision.GetNormal());
+		}
+		
 		if (Input.IsActionPressed(_MOVE_LEFT_INPUT)) 
 		{
 			_isMoving = true;
-			UpdateBiggiePosition(currX - _BIGGIE_VELOCITY, currY);
 			_frameIncrement += 1;
-			_nodeSelf.Frame = ReturnSpriteWalkFrame(_frameIncrement, true);
+			_nodeBiggieSprites.Frame = ReturnSpriteWalkFrame(_frameIncrement, true);
 		} 
 		else if (Input.IsActionPressed(_MOVE_UP_INPUT)) 
 		{
 			_isMoving = true;
-			UpdateBiggiePosition(currX, currY - _BIGGIE_VELOCITY);
 			_frameIncrement += 1;
-			_nodeSelf.Frame = ReturnSpriteWalkFrame(_frameIncrement);
+			_nodeBiggieSprites.Frame = ReturnSpriteWalkFrame(_frameIncrement);
 		}
 		else if (Input.IsActionPressed(_MOVE_RIGHT_INPUT)) 
 		{
 			_isMoving = true;
-			UpdateBiggiePosition(currX + _BIGGIE_VELOCITY, currY);
 			_frameIncrement += 1;
-			_nodeSelf.Frame = ReturnSpriteWalkFrame(_frameIncrement);
+			_nodeBiggieSprites.Frame = ReturnSpriteWalkFrame(_frameIncrement);
 		}
 		else if (Input.IsActionPressed(_MOVE_DOWN_INPUT)) 
 		{
 			_isMoving = true;
-			UpdateBiggiePosition(currX, currY + _BIGGIE_VELOCITY);
 			_frameIncrement += 1;
-			_nodeSelf.Frame = ReturnSpriteWalkFrame(_frameIncrement);
+			_nodeBiggieSprites.Frame = ReturnSpriteWalkFrame(_frameIncrement);
 		} 
 		else 
 		{
 			_isMoving = false;
 			_frameIncrement = 0;
-			_nodeSelf.Frame = _SPRITE_FRAME_IDLE;
+			_nodeBiggieSprites.Frame = _SPRITE_FRAME_IDLE;
 		}
 	}
 	
-	private void UpdateBiggiePosition(float x, float y) {
-		_nodeSelf.Position = new Vector2(x, y); 
+	public bool CanMove() {
+		return _canMove;
+	}
+	
+	public void CanMove(bool canMove) {
+		_canMove = canMove;
 	}
 }

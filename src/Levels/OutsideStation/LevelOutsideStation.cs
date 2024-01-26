@@ -45,15 +45,20 @@ public partial class LevelOutsideStation : Node2D
 		else if (!_arrivalSceneConcluded)
 		{
 			_taxi.SetMovingBit(false);
-			_textbox.AddDialogue("Alright. Here you are. The Eastbay Station. Destination, I've got to assume the Westbay for that Westbay Cathedral venue. Everyone raves about the Conductor that place has. I'll get there one day. Hey, I hope you have a TICKET for that here train. You'll need one if you're wanting to board. Anyways, good luck, have fun.");
+			_textbox.AddDialogue("Alright. Here you are. The Eastbay Station. Destination, I've got to assume the Westbay for that Westbay Cathedral venue."); 
+			_textbox.AddDialogue("Everyone raves about the Conductor that place has. I'll get there one day. Hey, I hope you have a TICKET for that here train. You'll need one if you're wanting to board.");
+			_textbox.AddDialogue("Anyways, good luck, have fun.");
+			_textbox.ExecuteDialogueQueue();
 			_arrivalSceneConcluded = true;
 			_biggie.Show();
+			_biggie.CanMove(false);
 		} 
 		else if (_arrivalSceneConcluded && !_textbox.IsOpen()) 
 		{
 			// Exit scene
 			_taxi.SetMovingBit(true);
 			UpdateTaxiPosition(_taxiX + _taxiVelocity, _taxiY);
+			_biggie.CanMove(true);
 		}
 	}
 	
