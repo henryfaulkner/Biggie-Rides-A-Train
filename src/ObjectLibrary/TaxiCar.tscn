@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://m1wkjfbwccuc"]
 
-[ext_resource type="Texture2D" uid="uid://b3y5hyewevxuf" path="res://Assets/objects/TaxiCab-Spritesheet.png" id="1_b6tgt"]
+[ext_resource type="Texture2D" uid="uid://b3y5hyewevxuf" path="res://Assets/Objects/TaxiCab-Spritesheet.png" id="1_b6tgt"]
 [ext_resource type="Script" path="res://ObjectLibrary/TaxiCar.cs" id="2_bsg3q"]
 
 [node name="TaxiCar" type="Sprite2D"]

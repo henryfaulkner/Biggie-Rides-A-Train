@@ -1,7 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://dftxuxvh36ccm"]
+[gd_scene load_steps=5 format=3 uid="uid://dftxuxvh36ccm"]
 
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/ObjectWrappers/LevelWrapper.tscn" id="1_2llq8"]
+[ext_resource type="Texture2D" uid="uid://dtn0oo3t2ldqa" path="res://Assets/Levels/Main_Station_Level.png" id="2_0i66i"]
+[ext_resource type="PackedScene" uid="uid://1c1rtqkwpgud" path="res://ObjectLibrary/Biggie.tscn" id="3_ikhmg"]
+[ext_resource type="PackedScene" uid="uid://d4kexhj5vcdog" path="res://ObjectLibrary/Teller.tscn" id="4_a4fkh"]
 
 [node name="LevelMainStation" type="Node2D"]
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1010, -4)
+scale = Vector2(0.219059, 0.251358)
+texture = ExtResource("2_0i66i")
+
 [node name="LevelWrapper" parent="." instance=ExtResource("1_2llq8")]
+
+[node name="Biggie" parent="LevelWrapper" instance=ExtResource("3_ikhmg")]
+position = Vector2(1050, 523)
+scale = Vector2(4, 4)
+
+[node name="Camera2D" type="Camera2D" parent="LevelWrapper/Biggie"]
+
+[node name="Teller" parent="LevelWrapper" instance=ExtResource("4_a4fkh")]
+position = Vector2(242, 782)
+scale = Vector2(0.35, 0.35)

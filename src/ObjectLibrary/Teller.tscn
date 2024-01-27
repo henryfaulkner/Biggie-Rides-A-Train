@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://d4kexhj5vcdog"]
+
+[ext_resource type="Script" path="res://ObjectLibrary/Teller.cs" id="1_ck24h"]
+[ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="1_w6dl2"]
+[ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="2_q36xd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2cixc"]
+size = Vector2(898, 707)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n3xmo"]
+size = Vector2(903, 175)
+
+[node name="Teller" type="StaticBody2D"]
+script = ExtResource("1_ck24h")
+
+[node name="TellerSprites" type="Sprite2D" parent="."]
+texture = ExtResource("1_w6dl2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, -3.5)
+shape = SubResource("RectangleShape2D_2cixc")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -447.0
+offset_top = -354.5
+offset_right = 447.0
+offset_bottom = 354.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_q36xd")
+theme_override_font_sizes/font_size = 172
+text = "STATION'S
+TELLER
+STATION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-33, -479)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(35.5, 30.5)
+shape = SubResource("RectangleShape2D_n3xmo")

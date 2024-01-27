@@ -20,7 +20,7 @@ public partial class TextBox : CanvasLayer
 	private int _dialoguePointer = 0;
 	
 	private bool _isOpen = false;
-	
+	private bool _isTextMoving = false;
 	
 	
 	// Called when the node enters the scene tree for the first time.
@@ -40,7 +40,8 @@ public partial class TextBox : CanvasLayer
 	public override void _Process(double delta)
 	{
 		// ASSUMING INPUTMAP HAS A MAPPING FOR interact
-		if (Input.IsActionJustPressed(_INTERACT_INPUT)) {
+		if (Input.IsActionJustPressed(_INTERACT_INPUT) && !_isTextMoving) 
+		{
 			AdvanceTextBox();
 		}
 	}
@@ -87,19 +88,32 @@ public partial class TextBox : CanvasLayer
 	
 	private async Task ReadDialogue(string dialogue) 
 	{
-		_nodeDialogue.Text = dialogue;
 		_nodeDialogue.VisibleCharacters = 0;
+		GD.Print("ReadDialogue Start _nodeDialogue.VisibleCharacters: ", _nodeDialogue.VisibleCharacters);
+		_nodeDialogue.Text = dialogue;
+		_isTextMoving = true;
 		int len = dialogue.Length;
 		TimeSpan span = TimeSpan.FromSeconds((double)(new decimal(_CHAR_READ_RATE)));
 		for (int i = 0; i < len; i++) 
 		{
+			// ASSUMING INPUTMAP HAS A MAPPING FOR interact
+			if (Input.IsActionJustPressed(_INTERACT_INPUT) && _isTextMoving) 
+			{
+				_nodeDialogue.VisibleCharacters = len;
+				_isTextMoving = false;
+				break;
+			}
+			
 			_nodeDialogue.VisibleCharacters += 1;
 			await Task.Delay(span);
 		}
+		_isTextMoving = false;
 	}
 	
 	public void AdvanceTextBox() 
 	{
+		GD.Print("AdvanceTextBox");
+		GD.Print("AdvanceTextBox _dialogueList.Count, ", _dialogueList.Count);
 		_dialoguePointer += 1;
 		if (_dialoguePointer >= _dialogueList.Count) 
 		{
@@ -117,6 +131,7 @@ public partial class TextBox : CanvasLayer
 		else 
 		{
 			_nodeDialogue.Text = _dialogueList[_dialoguePointer];
+			GD.Print("AdvanceTextBox else");
 			ReadDialogue(_dialogueList[_dialoguePointer]);
 		}
 	}
@@ -129,10 +144,16 @@ public partial class TextBox : CanvasLayer
 		_nodeEnd.Text = string.Empty;
 		_dialogueList.Clear();
 		_dialoguePointer = 0;
+		_nodeDialogue.VisibleCharacters = 0;
 		_nodeTextBoxContainer.Hide();
 	}
 	
 	public bool IsOpen() {
 		return _isOpen;
+	}
+	
+	public int GetDialogueListQueueCount() 
+	{
+		return _dialogueListQueue.Count;
 	}
 }

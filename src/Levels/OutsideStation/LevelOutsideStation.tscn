@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Levels/OutsideStation/LevelOutsideStation.cs" id="1_gmt0p"]
 [ext_resource type="PackedScene" uid="uid://m1wkjfbwccuc" path="res://ObjectLibrary/TaxiCar.tscn" id="1_w8fx2"]
-[ext_resource type="Texture2D" uid="uid://dg2wkes4nxv4u" path="res://Assets/objects/Entrance_Level.png" id="2_qjq0m"]
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/ObjectWrappers/LevelWrapper.tscn" id="2_t3brk"]
+[ext_resource type="Texture2D" uid="uid://dg2wkes4nxv4u" path="res://Assets/Levels/Entrance_Level.png" id="2_wlbg8"]
 [ext_resource type="PackedScene" uid="uid://1c1rtqkwpgud" path="res://ObjectLibrary/Biggie.tscn" id="4_d81tg"]
 [ext_resource type="Script" path="res://Levels/OutsideStation/DoorBody.cs" id="6_ujhji"]
 
@@ -17,7 +17,7 @@ script = ExtResource("1_gmt0p")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(256, 147.125)
 scale = Vector2(0.031189, 0.0357971)
-texture = ExtResource("2_qjq0m")
+texture = ExtResource("2_wlbg8")
 
 [node name="LevelWrapper" parent="." instance=ExtResource("2_t3brk")]
 

@@ -3,6 +3,11 @@ using System;
 
 public partial class Biggie : CharacterBody2D
 {
+	private static readonly StringName _MOVE_LEFT_INPUT = new StringName("move_left");
+	private static readonly StringName _MOVE_UP_INPUT = new StringName("move_up");
+	private static readonly StringName _MOVE_RIGHT_INPUT = new StringName("move_right");
+	private static readonly StringName _MOVE_DOWN_INPUT = new StringName("move_down");
+	
 	private static readonly int _SPRITE_FRAME_IDLE = 0;
 	private static readonly int _SPRITE_FRAME_WALK1 = 1;
 	private static readonly int _SPRITE_FRAME_WALK2 = 2; 
@@ -18,11 +23,6 @@ public partial class Biggie : CharacterBody2D
 	private bool _canMove = true;
 	private int _frameIncrement = 0;
 	
-	private static readonly StringName _MOVE_LEFT_INPUT = new StringName("move_left");
-	private static readonly StringName _MOVE_UP_INPUT = new StringName("move_up");
-	private static readonly StringName _MOVE_RIGHT_INPUT = new StringName("move_right");
-	private static readonly StringName _MOVE_DOWN_INPUT = new StringName("move_down");
-	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -35,7 +35,11 @@ public partial class Biggie : CharacterBody2D
 	{
 		if (_canMove && _nodeSelf.IsVisibleInTree()) 
 		{
-			Movement(delta);
+			var collision = Movement(delta);
+			if (collision != null)
+			{
+				Collide(collision);
+			}
 		}
 	}
 	
@@ -49,17 +53,13 @@ public partial class Biggie : CharacterBody2D
 		return result;
 	}
 	
-	private void Movement(double delta) 
+	private KinematicCollision2D Movement(double delta) 
 	{
 		Vector2 inputDirection = Input.GetVector(_MOVE_LEFT_INPUT, _MOVE_RIGHT_INPUT, _MOVE_UP_INPUT, _MOVE_DOWN_INPUT);
 		Velocity = inputDirection * _BIGGIE_SPEED;	
 		var collision = MoveAndCollide(Velocity * (float)delta);
-		if (collision != null)
+		if(collision != null)
 		{
-			if (collision.GetCollider().HasMethod("Hit")) 
-			{
-				collision.GetCollider().Call("Hit");
-			}
 			Velocity = Velocity.Slide(collision.GetNormal());
 		}
 		
@@ -92,6 +92,16 @@ public partial class Biggie : CharacterBody2D
 			_isMoving = false;
 			_frameIncrement = 0;
 			_nodeBiggieSprites.Frame = _SPRITE_FRAME_IDLE;
+		}
+		
+		return collision;
+	}
+	
+	public void Collide(KinematicCollision2D collision) 
+	{	
+		if (collision.GetCollider().HasMethod("Hit")) 
+		{
+			collision.GetCollider().Call("Hit");
 		}
 	}
 	
