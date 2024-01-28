@@ -19,6 +19,8 @@ public partial class Biggie : CharacterBody2D
 	
 	private Biggie _nodeSelf = null;
 	private Sprite2D _nodeBiggieSprites = null;
+	private TextBox _nodeTextBox = null;
+	
 	private bool _isMoving = false;
 	private bool _canMove = true;
 	private int _frameIncrement = 0;
@@ -28,12 +30,15 @@ public partial class Biggie : CharacterBody2D
 	{
 		_nodeSelf = GetNode<Biggie>(".");
 		_nodeBiggieSprites = GetNode<Sprite2D>("./BiggieSprites");
+		_nodeTextBox = GetNode<TextBox>("../TextBox");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (_canMove && _nodeSelf.IsVisibleInTree()) 
+		if (_canMove 
+			&& _nodeSelf.IsVisibleInTree()
+			&& (_nodeTextBox == null || !_nodeTextBox.IsOpen())) 
 		{
 			var collision = Movement(delta);
 			if (collision != null)

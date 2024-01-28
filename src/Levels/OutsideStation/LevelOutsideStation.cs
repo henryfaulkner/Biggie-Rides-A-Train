@@ -68,7 +68,7 @@ public partial class LevelOutsideStation : Node2D
 		_taxi.Position = new Vector2(_taxiX, _taxiY); 
 	}
 	
-	public void DebugTaxiPosition() {
+	private void DebugTaxiPosition() {
 		GD.Print("taxi.Position.X: ", _taxi.Position.X);
 		GD.Print("taxi.Position.y: ", _taxi.Position.Y);
 	}

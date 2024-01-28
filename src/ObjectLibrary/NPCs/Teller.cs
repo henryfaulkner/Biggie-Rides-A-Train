@@ -6,8 +6,8 @@ public partial class Teller : StaticBody2D
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
 	
 	private Teller _nodeSelf = null;
-	private TextBox _nodeTextBox = null;
 	private Area2D _nodeInteractableArea = null;
+	private TextBox _nodeTextBox = null;
 	
 	private bool _hasIntroduced = false;
 	
@@ -15,8 +15,8 @@ public partial class Teller : StaticBody2D
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Teller>(".");
+		_nodeInteractableArea = GetNode<Area2D>("./InteractableArea");
 		_nodeTextBox = GetNode<TextBox>("../TextBox");
-		_nodeInteractableArea = GetNode<Area2D>("./Area2D");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,7 +31,7 @@ public partial class Teller : StaticBody2D
 	
 	private void DisplayDialogue() 
 	{
-		if (_nodeTextBox.IsOpen()) return;
+		if (!_nodeTextBox.CanCreateDialogue()) return;
 		if (!_hasIntroduced) {
 			_nodeTextBox.AddDialogue("Hi, welcome to the Station's Teller Station. I can take your train ticket if you have one.");
 			_nodeTextBox.AddDialogue("Usually, I sell train ticket but not today. Today's train is SOLD OUT. Apparently, there is some huge show happening at the CATHEDRAL in West Bay.");

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://d4kexhj5vcdog"]
 
-[ext_resource type="Script" path="res://ObjectLibrary/Teller.cs" id="1_ck24h"]
+[ext_resource type="Script" path="res://ObjectLibrary/NPCs/Teller.cs" id="1_ck24h"]
 [ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="1_w6dl2"]
 [ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="2_q36xd"]
 
@@ -14,6 +14,8 @@ size = Vector2(903, 175)
 script = ExtResource("1_ck24h")
 
 [node name="TellerSprites" type="Sprite2D" parent="."]
+position = Vector2(0.999914, -6.50006)
+scale = Vector2(8.04688, 7.97656)
 texture = ExtResource("1_w6dl2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -40,10 +42,10 @@ STATION"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="InteractableArea" type="Area2D" parent="."]
 position = Vector2(-33, -479)
 collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
 position = Vector2(35.5, 30.5)
 shape = SubResource("RectangleShape2D_n3xmo")
