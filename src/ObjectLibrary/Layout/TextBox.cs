@@ -7,7 +7,7 @@ public partial class TextBox : CanvasLayer
 {
 	private static readonly float _CHAR_READ_RATE = .01f;
 	private static readonly int _DEFAULT_PAGE_LENGTH = 175;
-	private static readonly StringName _ENTER_INPUT = new StringName("enter");
+	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
 	
 	private CanvasLayer _nodeSelf = null;
 	private MarginContainer _nodeTextBoxContainer = null;
@@ -21,7 +21,7 @@ public partial class TextBox : CanvasLayer
 	
 	private bool _isOpen = false;
 	private bool _isTextMoving = false;
-	
+	private bool _isReading = false;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -40,8 +40,7 @@ public partial class TextBox : CanvasLayer
 	public override void _Process(double delta)
 	{
 		// ASSUMING INPUTMAP HAS A MAPPING FOR interact
-		//if (Input.IsActionJustPressed(_INTERACT_INPUT) && !_isTextMoving) 
-		if (IsOpen() && Input.IsActionJustPressed(_ENTER_INPUT)) 
+		if (Input.IsActionJustPressed(_INTERACT_INPUT) && !_isTextMoving) 
 		{
 			AdvanceTextBox();
 		}
@@ -68,6 +67,7 @@ public partial class TextBox : CanvasLayer
 	public void ExecuteDialogueQueue() 
 	{
 		//DebugDialogueQueue();
+		_isReading = true;
 		if (GetDialogueListQueueCount() > 0)
 		{
 			_dialogueList = _dialogueListQueue.Dequeue();
@@ -144,7 +144,12 @@ public partial class TextBox : CanvasLayer
 	}
 	
 	public bool CanCreateDialogue() {
-		return !_isOpen;
+		if (!_isOpen && IsReading())
+		{
+			IsReading(false);
+			return false;
+		}
+		return !_isOpen && !IsReading();
 	}
 	
 	private void DebugDialogueQueue() 
@@ -180,5 +185,15 @@ public partial class TextBox : CanvasLayer
 		// Account for excess
 		if (excessPageCharCount > 0) result.Add(fullDialogue.Substring(offset, excessPageCharCount));
 		return result;
+	}
+	
+	public bool IsReading() 
+	{
+		return _isReading;
+	}
+	
+	public void IsReading(bool isReading)
+	{
+		_isReading = isReading;
 	}
 }

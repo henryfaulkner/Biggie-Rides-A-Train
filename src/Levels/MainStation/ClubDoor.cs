@@ -31,7 +31,7 @@ public partial class ClubDoor : Area2D
 	
 	private void Redirect() 
 	{
-		var nextScene = (PackedScene)ResourceLoader.Load(_LEVEL_THERAPIST_OFFICE);
+		var nextScene = (PackedScene)ResourceLoader.Load(_LEVEL_CLUB);
 		GetTree().ChangeSceneToPacked(nextScene);	
 	}
 }

@@ -67,11 +67,8 @@ script = ExtResource("8_r02dl")
 position = Vector2(26, 13)
 shape = SubResource("RectangleShape2D_1rv4y")
 
-[node name="HiddenWall" type="HBoxContainer" parent="."]
-offset_left = 3106.0
-offset_top = -781.0
-offset_right = 3289.0
-offset_bottom = -554.0
+[node name="HiddenWall" type="Node2D" parent="."]
+position = Vector2(3105, -799)
 script = ExtResource("9_vh3ts")
 
 [node name="BookCase" type="StaticBody2D" parent="HiddenWall"]
