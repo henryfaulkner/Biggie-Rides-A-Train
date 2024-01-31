@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://d4kexhj5vcdog" path="res://ObjectLibrary/NPCs/Teller.tscn" id="4_a4fkh"]
 [ext_resource type="PackedScene" uid="uid://dw30v70y17poe" path="res://ObjectLibrary/NPCs/Chess.tscn" id="5_l1jc6"]
 [ext_resource type="PackedScene" uid="uid://c2bct32b8umwg" path="res://ObjectLibrary/NPCs/Therapist.tscn" id="6_e726k"]
-[ext_resource type="Script" path="res://Levels/MainStation/TherapistOfficeDoor.cs" id="8_7rdxa"]
-[ext_resource type="Script" path="res://Levels/MainStation/ClubDoor.cs" id="8_r02dl"]
+[ext_resource type="Script" path="res://Levels/MainStation/TherapistOfficeDoor.gd" id="7_0n8id"]
+[ext_resource type="Script" path="res://Levels/MainStation/ClubDoor.gd" id="8_37xkq"]
 [ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="9_vandh"]
 [ext_resource type="Script" path="res://Levels/MainStation/HiddenWall.cs" id="9_vh3ts"]
 
@@ -53,7 +53,7 @@ scale = Vector2(0.4, 0.4)
 [node name="TherapistOfficeDoor" type="Area2D" parent="."]
 position = Vector2(1806, -996)
 collision_layer = 0
-script = ExtResource("8_7rdxa")
+script = ExtResource("7_0n8id")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TherapistOfficeDoor"]
 position = Vector2(1, -2)
@@ -61,7 +61,7 @@ shape = SubResource("RectangleShape2D_4to3t")
 
 [node name="ClubDoor" type="Area2D" parent="."]
 position = Vector2(3173, -684)
-script = ExtResource("8_r02dl")
+script = ExtResource("8_37xkq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClubDoor"]
 position = Vector2(26, 13)

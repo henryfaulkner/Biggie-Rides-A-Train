@@ -1,18 +1,18 @@
 [gd_scene load_steps=8 format=3 uid="uid://b6wvrdhnmhehm"]
 
-[ext_resource type="Script" path="res://Levels/OutsideStation/LevelOutsideStation.cs" id="1_gmt0p"]
 [ext_resource type="PackedScene" uid="uid://m1wkjfbwccuc" path="res://ObjectLibrary/NPCs/TaxiCar.tscn" id="1_w8fx2"]
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/ObjectWrappers/LevelWrapper.tscn" id="2_t3brk"]
 [ext_resource type="Texture2D" uid="uid://dg2wkes4nxv4u" path="res://Assets/Levels/Entrance_Level.png" id="2_wlbg8"]
 [ext_resource type="PackedScene" uid="uid://1c1rtqkwpgud" path="res://ObjectLibrary/Biggie.tscn" id="4_d81tg"]
-[ext_resource type="Script" path="res://Levels/OutsideStation/DoorBody.cs" id="6_ujhji"]
+[ext_resource type="Script" path="res://Levels/OutsideStation/LevelOutsideStation.cs" id="6_ujhji"]
+[ext_resource type="Script" path="res://Levels/OutsideStation/DoorBody.gd" id="6_y6uct"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nxgoo"]
 size = Vector2(66.5, 12.25)
 
 [node name="LevelOutsideStation" type="Node2D"]
 scale = Vector2(4, 4)
-script = ExtResource("1_gmt0p")
+script = ExtResource("6_ujhji")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(256, 147.125)
@@ -43,7 +43,7 @@ position = Vector2(0.25, 0)
 polygon = PackedVector2Array(-0.5, 2, -0.25, 107.75, 218.75, 106.25, 219.25, 121.5, 223.5, 121.5, 223.5, 88.5, 290, 88.25, 290, 122.25, 293.5, 122, 295.25, 106.75, 512.75, 106.75, 512.5, 1)
 
 [node name="DoorBody" type="StaticBody2D" parent="."]
-script = ExtResource("6_ujhji")
+script = ExtResource("6_y6uct")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorBody"]
 position = Vector2(256.75, 94.375)

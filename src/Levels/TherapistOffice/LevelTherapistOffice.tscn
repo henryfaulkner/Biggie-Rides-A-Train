@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/ObjectWrappers/LevelWrapper.tscn" id="2_2icgf"]
 [ext_resource type="PackedScene" uid="uid://1c1rtqkwpgud" path="res://ObjectLibrary/Biggie.tscn" id="3_yah8d"]
 [ext_resource type="PackedScene" uid="uid://c2bct32b8umwg" path="res://ObjectLibrary/NPCs/Therapist.tscn" id="4_lqr6h"]
-[ext_resource type="Script" path="res://Levels/TherapistOffice/MainStationDoor.cs" id="5_n3eus"]
+[ext_resource type="Script" path="res://Levels/TherapistOffice/MainStationDoor.gd" id="5_in3we"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qftja"]
 size = Vector2(2085, 224)
@@ -30,7 +30,7 @@ scale = Vector2(0.4, 0.4)
 
 [node name="MainStationDoor" type="Area2D" parent="."]
 position = Vector2(1055, 976)
-script = ExtResource("5_n3eus")
+script = ExtResource("5_in3we")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MainStationDoor"]
 position = Vector2(-10.5, -65)
