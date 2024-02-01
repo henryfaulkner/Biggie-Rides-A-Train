@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqfcu1cxba7lp"]
+
+[ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="1_kbenc"]
+[ext_resource type="Script" path="res://ObjectLibrary/Layout/InteractionTextbox/OptionContainer.cs" id="1_ldmax"]
+[ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="2_olvl3"]
+
+[sub_resource type="Theme" id="Theme_7dcii"]
+default_font = ExtResource("1_kbenc")
+
+[node name="OptionContainer" type="HBoxContainer"]
+script = ExtResource("1_ldmax")
+
+[node name="SelectionMarker" type="Label" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_7dcii")
+theme_override_fonts/font = ExtResource("2_olvl3")
+theme_override_font_sizes/font_size = 64
+text = "* "
+vertical_alignment = 3
+
+[node name="Option" type="Label" parent="."]
+custom_minimum_size = Vector2(1652, 178)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = SubResource("Theme_7dcii")
+theme_override_font_sizes/font_size = 64
+text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum. recusandae alias error harum maxime adipisci amet laborum. Perspiciatis 
+minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit 
+quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur 
+fugiat, temporibus enim commodi iusto libero magni deleniti quod quam 
+consequuntur! Commodi minima excepturi repudiandae velit hic maxime
+doloremque. Quaerat provident commodi consectetur veniam similique ad 
+earum omnis ipsum saepe, voluptas, hic voluptates pariatur est explicabo 
+fugiat, dolorum eligendi quam cupiditate excepturi mollitia maiores labore 
+suscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium
+modi minima sunt esse temporibus sint culpa, recusandae aliquam numquam 
+totam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam 
+quasi aliquam eligendi, placeat qui corporis!
+numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
+obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
+nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
+tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
+quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos 
+sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam"
+autowrap_mode = 3
+clip_text = true
