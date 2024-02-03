@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://b5dk4plb8i67w"]
 
-[ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="1_4xdph"]
-[ext_resource type="Script" path="res://ObjectLibrary/Layout/InteractionTextbox/InteractionTextbox.cs" id="1_bi0t2"]
-[ext_resource type="PackedScene" uid="uid://cqfcu1cxba7lp" path="res://ObjectLibrary/Layout/InteractionTextbox/OptionContainer.tscn" id="3_v735r"]
+[ext_resource type="Script" path="res://ObjectLibrary/Layout/InteractionTextBox/InteractionTextBox.cs" id="1_42gii"]
+[ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="2_te62x"]
+[ext_resource type="PackedScene" uid="uid://cqfcu1cxba7lp" path="res://ObjectLibrary/Layout/InteractionTextBox/OptionContainer.tscn" id="3_nam7q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtf4x"]
 bg_color = Color(0, 0, 0, 1)
@@ -17,10 +17,10 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_wdp7l"]
-default_font = ExtResource("1_4xdph")
+default_font = ExtResource("2_te62x")
 
-[node name="InteractionTextbox" type="CanvasLayer"]
-script = ExtResource("1_bi0t2")
+[node name="InteractionTextBox" type="CanvasLayer"]
+script = ExtResource("1_42gii")
 
 [node name="TextBoxContainer" type="MarginContainer" parent="."]
 anchors_preset = 12
@@ -72,5 +72,5 @@ text = "Would you like to create prompting text?"
 autowrap_mode = 3
 clip_text = true
 
-[node name="OptionContainer" parent="TextBoxContainer/Panel/MarginContainer/VBoxContainer" instance=ExtResource("3_v735r")]
+[node name="OptionContainer" parent="TextBoxContainer/Panel/MarginContainer/VBoxContainer" instance=ExtResource("3_nam7q")]
 layout_mode = 2

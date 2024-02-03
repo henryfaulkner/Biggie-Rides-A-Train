@@ -1,18 +1,26 @@
 using Godot;
 using System;
-using System.Collecions.Generic;
+using System.Collections.Generic;
 
-public partial class InteractionTextbox : CanvasLayer
+public partial class InteractionTextBox : CanvasLayer
 {
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
+	private static readonly StringName _OPTION_CONTAINER_SCENE = new StringName("interact");
+	
+	private CanvasLayer _nodeSelf = null;
+	private VBoxContainer _nodeVBoxContainer = null;
+	private Label _nodePromptLabel = null;
 	
 	private List<OptionContainer> _optionContainerList;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_optionContainerList = new List<OptionContainer>()
+		_nodeSelf = GetNode<CanvasLayer>(".");
+		_nodeVBoxContainer = GetNode<VBoxContainer>("./TextBoxContainer/Panel/MarginContainer/VBoxContainer");
+		_nodePromptLabel = GetNode<Label>("./TextBoxContainer/Panel/MarginContainer/VBoxContainer/PromptContainer/Prompt");
 		
+		_optionContainerList = new List<OptionContainer>();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -20,22 +28,36 @@ public partial class InteractionTextbox : CanvasLayer
 	{
 	}
 	
+	// call this to instantiate an InteractionTextBox with 
+	// an initial prompt and default option
 	public void StartInteration(string prompt, string firstOption) 
 	{
-		
+		_nodePromptLabel.Text = prompt;
+		AddOption(firstOption);
 	}
 	
-	public void AddTransactionOption(string option)
+	// call this to add an additional option to the Option list
+	public void AddOption(string option)
+	{
+		// I could iomprove the performance of this section by preloading the scene
+		// but I would need to convert code to GDScript to do so
+		var scene = GD.Load<PackedScene>("res://MyScene.tscn");
+	}
+	
+	// call this to display the constructed prompt and option list
+	// to the screen
+	public void DisplayConstructedTransaction() 
 	{
 		
 	}
 	
-	public void ExecuteTransaction() 
+	// respond to an option, whose selection was submitted
+	public void HandleInteraction() 
 	{
 		
 	}
 	
-	public void HandleTransactionResult() 
+	private void ClearInteraction() 
 	{
 		
 	}
