@@ -3,10 +3,11 @@ using System;
 
 public partial class OptionContainer : HBoxContainer
 {
-	private bool _isSelected = false;
 	private HBoxContainer _nodeSelf = null;
 	private Label _nodeSelectionMarker = null;
 	private Label _nodeOption = null;	
+	
+	public bool IsSelected { get; set; } 
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -19,7 +20,7 @@ public partial class OptionContainer : HBoxContainer
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (_isSelected) {
+		if (IsSelected) {
 			_nodeSelectionMarker.Text = "* ";	
 		} 
 		else 

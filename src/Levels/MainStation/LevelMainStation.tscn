@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dftxuxvh36ccm"]
+[gd_scene load_steps=17 format=3 uid="uid://dftxuxvh36ccm"]
 
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/ObjectWrappers/LevelWrapper.tscn" id="1_2llq8"]
 [ext_resource type="Texture2D" uid="uid://dtn0oo3t2ldqa" path="res://Assets/Levels/Main_Station_Level.png" id="2_0i66i"]
@@ -6,10 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://d4kexhj5vcdog" path="res://ObjectLibrary/NPCs/Teller.tscn" id="4_a4fkh"]
 [ext_resource type="PackedScene" uid="uid://dw30v70y17poe" path="res://ObjectLibrary/NPCs/Chess.tscn" id="5_l1jc6"]
 [ext_resource type="PackedScene" uid="uid://c2bct32b8umwg" path="res://ObjectLibrary/NPCs/Therapist.tscn" id="6_e726k"]
+[ext_resource type="Script" path="res://Levels/MainStation/InteractionTest.cs" id="6_yb2wm"]
 [ext_resource type="Script" path="res://Levels/MainStation/TherapistOfficeDoor.gd" id="7_0n8id"]
 [ext_resource type="Script" path="res://Levels/MainStation/ClubDoor.gd" id="8_37xkq"]
 [ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="9_vandh"]
 [ext_resource type="Script" path="res://Levels/MainStation/HiddenWall.cs" id="9_vh3ts"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wgxvf"]
+size = Vector2(815, 302.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4to3t"]
 size = Vector2(256, 252)
@@ -46,8 +50,17 @@ scale = Vector2(0.65, 0.65)
 position = Vector2(226, 385)
 scale = Vector2(0.35, 0.35)
 
+[node name="InteractionTest" type="Area2D" parent="LevelWrapper"]
+position = Vector2(1054, 510)
+scale = Vector2(0.4, 0.4)
+script = ExtResource("6_yb2wm")
+
+[node name="InteractableArea" type="CollisionShape2D" parent="LevelWrapper/InteractionTest"]
+position = Vector2(6.10352e-05, 25)
+shape = SubResource("RectangleShape2D_wgxvf")
+
 [node name="Therapist" parent="LevelWrapper" instance=ExtResource("6_e726k")]
-position = Vector2(1248, -329)
+position = Vector2(1232, -287)
 scale = Vector2(0.4, 0.4)
 
 [node name="TherapistOfficeDoor" type="Area2D" parent="."]

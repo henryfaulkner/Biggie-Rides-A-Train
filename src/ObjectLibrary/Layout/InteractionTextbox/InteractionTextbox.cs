@@ -5,60 +5,147 @@ using System.Collections.Generic;
 public partial class InteractionTextBox : CanvasLayer
 {
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
-	private static readonly StringName _OPTION_CONTAINER_SCENE = new StringName("interact");
+	private static readonly StringName _UP_INPUT = new StringName("move_up");
+	private static readonly StringName _DOWN_INPUT = new StringName("move_down");
+	private static readonly StringName _OPTION_CONTAINER_SCENE = new StringName("res://ObjectLibrary/Layout/InteractionTextBox/OptionContainer.tscn");
 	
 	private CanvasLayer _nodeSelf = null;
+	private MarginContainer _nodeTextBoxContainer = null;
 	private VBoxContainer _nodeVBoxContainer = null;
 	private Label _nodePromptLabel = null;
 	
-	private List<OptionContainer> _optionContainerList;
+	private List<OptionContainer> OptionContainerList { get; set; }
+	private int CurrentSelectedOptionIndex { get; set; }
+	
+	public bool IsOpen { get; set; }
+	public bool IsReading { get; set; }
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<CanvasLayer>(".");
+		_nodeTextBoxContainer = GetNode<MarginContainer>("./TextBoxContainer");
 		_nodeVBoxContainer = GetNode<VBoxContainer>("./TextBoxContainer/Panel/MarginContainer/VBoxContainer");
 		_nodePromptLabel = GetNode<Label>("./TextBoxContainer/Panel/MarginContainer/VBoxContainer/PromptContainer/Prompt");
 		
-		_optionContainerList = new List<OptionContainer>();
+		OptionContainerList = new List<OptionContainer>();
+		CurrentSelectedOptionIndex = 0;
+		HideTextBox();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if (Input.IsActionJustPressed(_INTERACT_INPUT)) 
+		{
+			HandleInteraction();
+		}
+		if (Input.IsActionJustPressed(_UP_INPUT)) 
+		{
+			ShiftSelectionUp();
+		}
+		if (Input.IsActionJustPressed(_DOWN_INPUT)) 
+		{
+			ShiftSelectionDown();
+		}
 	}
 	
 	// call this to instantiate an InteractionTextBox with 
 	// an initial prompt and default option
-	public void StartInteration(string prompt, string firstOption) 
+	public void StartInteration(string promptText, string firstOptionText) 
 	{
-		_nodePromptLabel.Text = prompt;
-		AddOption(firstOption);
+		_nodePromptLabel.Text = promptText;
+		AddOption(firstOptionText);
 	}
 	
 	// call this to add an additional option to the Option list
-	public void AddOption(string option)
+	public void AddOption(string optionText)
 	{
 		// I could iomprove the performance of this section by preloading the scene
 		// but I would need to convert code to GDScript to do so
-		var scene = GD.Load<PackedScene>("res://MyScene.tscn");
+		var scene = GD.Load<PackedScene>(_OPTION_CONTAINER_SCENE);
+		var instance = scene.Instantiate<OptionContainer>();
+		Label nodeOptionLabel = (Label)instance.FindChild("Option", false, false);
+		nodeOptionLabel.Text = optionText;
+		_nodeVBoxContainer.AddChild(instance);
+		OptionContainerList.Add(instance);
 	}
 	
 	// call this to display the constructed prompt and option list
 	// to the screen
-	public void DisplayConstructedTransaction() 
+	public void Execute() 
 	{
-		
+		IsOpen = true;
+		IsReading = true;
+		OptionContainerList[0].IsSelected = true;
+		_nodeTextBoxContainer.Show();
 	}
 	
 	// respond to an option, whose selection was submitted
 	public void HandleInteraction() 
 	{
-		
+		GD.Print("HandleInteraction");
+		HideTextBox();
 	}
 	
-	private void ClearInteraction() 
+	public bool CanCreateDialogue() 
 	{
+		if (!IsOpen && IsReading)
+		{
+			IsReading = false;
+			return false;
+		}
+		return !IsOpen && !IsReading;
+	}
+	
+	private void HideTextBox() 
+	{
+		IsOpen = false;
+		_nodePromptLabel.Text = string.Empty;
+		CurrentSelectedOptionIndex = 0;
+		OptionContainerList.Clear();
+		_nodeTextBoxContainer.Hide();
 		
+		OptionContainerList.ForEach(instance => 
+		{
+			instance.QueueFree();
+		});
+	}
+	
+	private void ShiftSelectionUp() 
+	{
+		int len = OptionContainerList.Count;
+		if (len == 1) return;
+		
+		OptionContainerList[CurrentSelectedOptionIndex].IsSelected = false;
+		if (CurrentSelectedOptionIndex == 0) 
+		{
+			CurrentSelectedOptionIndex = len - 1;
+		}
+		else
+		{
+			CurrentSelectedOptionIndex -= 1;
+		}
+		OptionContainerList[CurrentSelectedOptionIndex].IsSelected = true;
+		return;
+	}
+	
+	private void ShiftSelectionDown()
+	{
+		int len = OptionContainerList.Count;
+		if (len == 1) return;
+		
+		OptionContainerList[CurrentSelectedOptionIndex].IsSelected = false;
+		
+		if (CurrentSelectedOptionIndex == (len - 1))
+		{
+			CurrentSelectedOptionIndex = 0;
+		}
+		else 
+		{
+			CurrentSelectedOptionIndex += 1;
+		}
+		OptionContainerList[CurrentSelectedOptionIndex].IsSelected = true;
+		return;
 	}
 }

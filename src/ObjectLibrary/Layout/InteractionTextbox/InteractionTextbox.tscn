@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5dk4plb8i67w"]
+[gd_scene load_steps=5 format=3 uid="uid://b5dk4plb8i67w"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/Layout/InteractionTextBox/InteractionTextBox.cs" id="1_42gii"]
 [ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="2_te62x"]
-[ext_resource type="PackedScene" uid="uid://cqfcu1cxba7lp" path="res://ObjectLibrary/Layout/InteractionTextBox/OptionContainer.tscn" id="3_nam7q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtf4x"]
 bg_color = Color(0, 0, 0, 1)
@@ -71,6 +70,3 @@ theme_override_font_sizes/font_size = 64
 text = "Would you like to create prompting text?"
 autowrap_mode = 3
 clip_text = true
-
-[node name="OptionContainer" parent="TextBoxContainer/Panel/MarginContainer/VBoxContainer" instance=ExtResource("3_nam7q")]
-layout_mode = 2

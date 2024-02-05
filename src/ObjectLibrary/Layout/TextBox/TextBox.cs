@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public partial class TextBox : CanvasLayer
 {
-	private static readonly float _CHAR_READ_RATE = .01f;
+	private static readonly float _CHAR_READ_RATE = .005f;
 	private static readonly int _DEFAULT_PAGE_LENGTH = 175;
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
 	

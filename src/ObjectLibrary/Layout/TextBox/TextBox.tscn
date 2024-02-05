@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://b7731gnrl0uck"]
 
-[ext_resource type="Script" path="res://ObjectLibrary/Layout/TextBox.cs" id="1_53f7t"]
+[ext_resource type="Script" path="res://ObjectLibrary/Layout/TextBox/TextBox.cs" id="1_53f7t"]
 [ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="1_df5d0"]
 [ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="2_08iod"]
 
