@@ -36,6 +36,7 @@ public partial class InteractionTextBox : CanvasLayer
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if (!IsOpen) return; 
 		if (Input.IsActionJustPressed(_INTERACT_INPUT)) 
 		{
 			HandleInteraction();
@@ -52,19 +53,20 @@ public partial class InteractionTextBox : CanvasLayer
 	
 	// call this to instantiate an InteractionTextBox with 
 	// an initial prompt and default option
-	public void StartInteration(string promptText, string firstOptionText) 
+	public void StartInteration(string promptText, string firstOptionText, int firstOptionId) 
 	{
 		_nodePromptLabel.Text = promptText;
-		AddOption(firstOptionText);
+		AddOption(firstOptionText, firstOptionId);
 	}
 	
 	// call this to add an additional option to the Option list
-	public void AddOption(string optionText)
+	public void AddOption(string optionText, int optionId)
 	{
 		// I could iomprove the performance of this section by preloading the scene
 		// but I would need to convert code to GDScript to do so
 		var scene = GD.Load<PackedScene>(_OPTION_CONTAINER_SCENE);
 		var instance = scene.Instantiate<OptionContainer>();
+		instance.Id = optionId;
 		Label nodeOptionLabel = (Label)instance.FindChild("Option", false, false);
 		nodeOptionLabel.Text = optionText;
 		_nodeVBoxContainer.AddChild(instance);
@@ -82,9 +84,13 @@ public partial class InteractionTextBox : CanvasLayer
 	}
 	
 	// respond to an option, whose selection was submitted
+	[Signal]
+	public delegate void SelectedOptionIdEventHandler(int selectionOptionId);
+	
 	public void HandleInteraction() 
 	{
-		GD.Print("HandleInteraction");
+		GD.Print("HandleInteraction was called.");
+		EmitSignal(SignalName.SelectedOptionId, OptionContainerList[CurrentSelectedOptionIndex].Id);
 		HideTextBox();
 	}
 	
@@ -103,13 +109,12 @@ public partial class InteractionTextBox : CanvasLayer
 		IsOpen = false;
 		_nodePromptLabel.Text = string.Empty;
 		CurrentSelectedOptionIndex = 0;
-		OptionContainerList.Clear();
-		_nodeTextBoxContainer.Hide();
-		
 		OptionContainerList.ForEach(instance => 
 		{
 			instance.QueueFree();
 		});
+		OptionContainerList.Clear();
+		_nodeTextBoxContainer.Hide();
 	}
 	
 	private void ShiftSelectionUp() 

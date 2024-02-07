@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 public partial class TextBox : CanvasLayer
 {
-	private static readonly float _CHAR_READ_RATE = .005f;
 	private static readonly int _DEFAULT_PAGE_LENGTH = 175;
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
+	private static readonly StringName _RIGHT_INPUT = new StringName("move_right");
 	
 	private CanvasLayer _nodeSelf = null;
 	private MarginContainer _nodeTextBoxContainer = null;
@@ -23,9 +23,12 @@ public partial class TextBox : CanvasLayer
 	private bool _isTextMoving = false;
 	private bool _isReading = false;
 	
+	private float CharReadRate { get; set; }
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		CharReadRate = 100f;
 		_nodeSelf = GetNode<CanvasLayer>(".");
 		_nodeTextBoxContainer = GetNode<MarginContainer>("./TextBoxContainer");
 		_nodeStart = GetNode<Label>("./TextBoxContainer/Panel/MarginContainer/HBoxContainer/Start");
@@ -39,10 +42,22 @@ public partial class TextBox : CanvasLayer
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if (!IsOpen()) return;
 		// ASSUMING INPUTMAP HAS A MAPPING FOR interact
 		if (Input.IsActionJustPressed(_INTERACT_INPUT) && !_isTextMoving) 
 		{
 			AdvanceTextBox();
+		}
+		
+		if (Input.IsActionPressed(_RIGHT_INPUT)) 
+		{
+			GD.Print("Hello");
+			CharReadRate = 5000f;
+		} 
+		else
+		{
+			GD.Print("World");
+			CharReadRate = 100f;
 		}
 	}
 	
@@ -82,17 +97,9 @@ public partial class TextBox : CanvasLayer
 		_nodeDialogue.VisibleCharacters = 0;
 		_isTextMoving = true;
 		int len = dialogue.Length;
-		TimeSpan span = TimeSpan.FromSeconds((double)(new decimal(_CHAR_READ_RATE)));
+		TimeSpan span = TimeSpan.FromSeconds((double)(new decimal(1/CharReadRate)));
 		for (int i = 0; i < len; i++) 
 		{
-			// ASSUMING INPUTMAP HAS A MAPPING FOR interact
-			//if (Input.IsActionJustPressed(_INTERACT_INPUT) && _isTextMoving) 
-			//{
-				//_nodeDialogue.VisibleCharacters = len;
-				//_isTextMoving = false;
-				//break;
-			//}
-			
 			_nodeDialogue.VisibleCharacters += 1;
 			await Task.Delay(span);
 		}

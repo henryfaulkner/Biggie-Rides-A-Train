@@ -7,6 +7,7 @@ public partial class OptionContainer : HBoxContainer
 	private Label _nodeSelectionMarker = null;
 	private Label _nodeOption = null;	
 	
+	public int Id { get; set; }
 	public bool IsSelected { get; set; } 
 	
 	// Called when the node enters the scene tree for the first time.

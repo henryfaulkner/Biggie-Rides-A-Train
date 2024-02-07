@@ -13,6 +13,7 @@ public partial class InteractionTest : Area2D
 	{
 		_nodeSelf = GetNode<Area2D>(".");
 		_nodeInteractionTextBox = GetNode<InteractionTextBox>("../InteractionTextBox");
+		_nodeInteractionTextBox.SelectedOptionId += HandleInteraction;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,8 +29,14 @@ public partial class InteractionTest : Area2D
 	private void DisplayDialogue() 
 	{
 		if (!_nodeInteractionTextBox.CanCreateDialogue()) return;
-		_nodeInteractionTextBox.StartInteration("Hello World?", "Yes, hello world");
-		_nodeInteractionTextBox.AddOption("No, hello world");
+		_nodeInteractionTextBox.StartInteration("Hello World?", "Yes, hello world", 1);
+		_nodeInteractionTextBox.AddOption("No, hello world", 2);
 		_nodeInteractionTextBox.Execute();
 	}
+	
+	public void HandleInteraction(int selectedOptionId) 
+	{
+		GD.Print("I am handling the interaction in InteractionTest.");
+		GD.Print("selectedOptionId: ", selectedOptionId);
+	} 
 }
