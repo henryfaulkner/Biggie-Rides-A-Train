@@ -44,20 +44,16 @@ public partial class TextBox : CanvasLayer
 	{
 		if (!IsOpen()) return;
 		// ASSUMING INPUTMAP HAS A MAPPING FOR interact
-		if (Input.IsActionJustPressed(_INTERACT_INPUT) && !_isTextMoving) 
+		if (Input.IsActionJustPressed(_INTERACT_INPUT))// && !_isTextMoving) 
 		{
-			AdvanceTextBox();
-		}
-		
-		if (Input.IsActionPressed(_RIGHT_INPUT)) 
-		{
-			GD.Print("Hello");
-			CharReadRate = 5000f;
-		} 
-		else
-		{
-			GD.Print("World");
-			CharReadRate = 100f;
+			if (_isTextMoving) 
+			{
+				CharReadRate = 5000f;
+			}
+			else
+			{
+				AdvanceTextBox();
+			}
 		}
 	}
 	
@@ -97,9 +93,9 @@ public partial class TextBox : CanvasLayer
 		_nodeDialogue.VisibleCharacters = 0;
 		_isTextMoving = true;
 		int len = dialogue.Length;
-		TimeSpan span = TimeSpan.FromSeconds((double)(new decimal(1/CharReadRate)));
 		for (int i = 0; i < len; i++) 
 		{
+			TimeSpan span = TimeSpan.FromSeconds((double)(new decimal(1/CharReadRate)));
 			_nodeDialogue.VisibleCharacters += 1;
 			await Task.Delay(span);
 		}
@@ -108,6 +104,7 @@ public partial class TextBox : CanvasLayer
 	
 	public void AdvanceTextBox() 
 	{
+		CharReadRate = 100f;
 		_dialogueListPointer += 1;
 		if (_dialogueListPointer >= _dialogueList.Count) 
 		{
@@ -146,7 +143,6 @@ public partial class TextBox : CanvasLayer
 	
 	public int GetDialogueListQueueCount() 
 	{
-		GD.Print("_dialogueListQueue.Count, ", _dialogueListQueue.Count);
 		return _dialogueListQueue.Count;
 	}
 	

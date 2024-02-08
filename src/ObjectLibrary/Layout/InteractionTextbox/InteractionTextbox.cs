@@ -89,7 +89,6 @@ public partial class InteractionTextBox : CanvasLayer
 	
 	public void HandleInteraction() 
 	{
-		GD.Print("HandleInteraction was called.");
 		EmitSignal(SignalName.SelectedOptionId, OptionContainerList[CurrentSelectedOptionIndex].Id);
 		HideTextBox();
 	}
