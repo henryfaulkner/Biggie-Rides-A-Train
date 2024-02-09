@@ -1,19 +1,18 @@
 using Godot;
 using System;
-using Newtonsoft.Json;
 
 public partial class Main : Node2D
 {
 	private static readonly StringName _LEVEL_OUTSIDE_STATION = new StringName("res://Levels/OutsideStation/LevelOutsideStation.tscn");
-	
+
 	private static readonly StringName _TAB_INPUT = new StringName("tab");
 	private static readonly StringName _ENTER_INPUT = new StringName("enter");
 	private static readonly StringName _SPACE_INPUT = new StringName("interact");
-	
+
 	private Button _nodePlay = null;
 	private Button _nodeOptions = null;
 	private Button _nodeQuit = null;
-	
+
 	private Button[] Buttons { get; set; }
 	private int FocusIndex { get; set; }
 
@@ -27,22 +26,25 @@ public partial class Main : Node2D
 		Buttons[0].GrabFocus();
 		FocusIndex = 0;
 		
-		SaveState ss = new SaveState()
+		var sss = new SaveStateService();
+		var ss = new SaveStateModel()
 		{
 			FirstName = "Henry",
 			LastName = "Faulkner"
 		};
-		string json = JsonConvert.SerializeObject(ss, Formatting.Indented);
-		GD.Print(json);
+		sss.Save(ss);
+		
+		var fileSs = sss.Load();
+		GD.Print($"{fileSs.FirstName} {fileSs.LastName}");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed(_TAB_INPUT)) 
+		if (Input.IsActionJustPressed(_TAB_INPUT))
 		{
 			int len = Buttons.Length;
-			if (FocusIndex == len - 1) 
+			if (FocusIndex == len - 1)
 			{
 				Buttons[0].GrabFocus();
 				FocusIndex = 0;
@@ -52,7 +54,7 @@ public partial class Main : Node2D
 				Buttons[FocusIndex + 1].GrabFocus();
 				FocusIndex += 1;
 			}
-			
+
 		}
 	}
 
