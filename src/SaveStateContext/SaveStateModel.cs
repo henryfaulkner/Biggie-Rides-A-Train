@@ -2,6 +2,8 @@ using System;
 
 public class SaveStateModel
 {
+	public IDoorEntrance TargetDoorEntrance { get; set; }
+	
 	public bool HasItemTicketPieceOne { get; set; }
 	public bool HasItemTicketPieceTwo { get; set; }
 	public bool HasItemTicketPieceThree { get; set; }

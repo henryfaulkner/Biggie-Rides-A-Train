@@ -2,9 +2,9 @@ using Godot;
 using System;
 using Newtonsoft.Json;
 
-public class SaveStateContext : IDisposable
+public partial class SaveStateContext : Node, IDisposable
 {
-	private static readonly string _SAVE_STATE_FILE = "res://SaveStateService/SaveState.json";
+	private static readonly string _SAVE_STATE_FILE = "res://SaveStateContext/SaveState.json";
 
 	public void Commit(SaveStateModel saveState)
 	{

@@ -1,4 +1,9 @@
 {
+  "TargetDoorEntrance": {
+	"TargetDoorEntrance": 3,
+	"X": 0,
+	"Y": 0
+  },
   "HasItemTicketPieceOne": false,
   "HasItemTicketPieceTwo": false,
   "HasItemTicketPieceThree": false,
@@ -9,6 +14,6 @@
   "HasItemClubMixRecord": false,
   "ActiveRecord": 0,
   "DialogueStateTeller": 0,
-  "DialogueStateChess": 1,
+  "DialogueStateChess": 0,
   "DialogueStateTherapist": 0
 }

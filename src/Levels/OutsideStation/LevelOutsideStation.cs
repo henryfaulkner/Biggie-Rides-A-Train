@@ -32,6 +32,11 @@ public partial class LevelOutsideStation : Node2D
 		_viewportY = ((Window)GetViewport()).Size.Y;
 		
 		_biggie.Hide();
+		
+		using (var context = new SaveStateContext())
+		{
+			context.Clear();
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
