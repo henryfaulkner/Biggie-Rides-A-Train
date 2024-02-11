@@ -2,13 +2,13 @@ using Godot;
 using System;
 using Newtonsoft.Json;
 
-public class SaveStateService
+public class SaveStateContext : IDisposable
 {
 	private static readonly string _SAVE_STATE_FILE = "res://SaveStateService/SaveState.json";
 
-	public void Save(SaveStateModel saveState)
+	public void Commit(SaveStateModel saveState)
 	{
-		GD.Print("Save");
+		GD.Print("Commit");
 		try
 		{
 			string content = JsonConvert.SerializeObject(saveState, Formatting.Indented);
@@ -17,7 +17,8 @@ public class SaveStateService
 		}
 		catch (Exception exception)
 		{
-			GD.Print($"Save exception: {exception}");
+			GD.Print($"Commit exception: {exception}");
+			GD.Print($"Commit SaveState: {saveState}");
 		}
 	}
 
@@ -35,5 +36,16 @@ public class SaveStateService
 			GD.Print($"Load exception: {exception}");
 		}
 		return new SaveStateModel();
+	}
+	
+	public void Clear()
+	{
+		GD.Print("Clear");
+		Commit(new SaveStateModel());
+	}
+	
+	public void Dispose()
+	{
+		return;
 	}
 }

@@ -53,7 +53,7 @@ public partial class InteractionTextBox : CanvasLayer
 	
 	// call this to instantiate an InteractionTextBox with 
 	// an initial prompt and default option
-	public void StartInteration(string promptText, string firstOptionText, int firstOptionId) 
+	public void StartInteraction(string promptText, string firstOptionText, int firstOptionId) 
 	{
 		_nodePromptLabel.Text = promptText;
 		AddOption(firstOptionText, firstOptionId);

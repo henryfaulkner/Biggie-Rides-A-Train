@@ -9,8 +9,6 @@ public partial class Chess : Node2D
 	private Area2D _nodeInteractableArea = null;
 	private TextBox _nodeTextBox = null;
 	
-	private bool _hasIntroduced = false;
-	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -32,18 +30,26 @@ public partial class Chess : Node2D
 	private void DisplayDialogue() 
 	{
 		if (!_nodeTextBox.CanCreateDialogue()) return;
-		if (!_hasIntroduced) 
+		using (var context = new SaveStateContext())
 		{
-			_nodeTextBox.AddDialogue("Player 1: Hmmmmm...");
-			_nodeTextBox.AddDialogue("Player 2: Hmmmmm...");
-			_nodeTextBox.AddDialogue("*Both players act like it is their turn and are in deep focus*");
-			_nodeTextBox.ExecuteDialogueQueue();
-			_hasIntroduced = true;
-		} 
-		else 
-		{
-			_nodeTextBox.AddDialogue("*Both player look to be focusing intensely but neither has made a move since you have been here*");
-			_nodeTextBox.ExecuteDialogueQueue();
+			var contextState = context.Load();
+			switch(contextState.DialogueStateChess)
+			{
+				case DialogueStates.Chess.Introduce:
+					_nodeTextBox.AddDialogue("Player 1: Hmmmmm...");
+					_nodeTextBox.AddDialogue("Player 2: Hmmmmm...");
+					_nodeTextBox.AddDialogue("*Both players act like it is their turn and are in deep focus*");
+					_nodeTextBox.ExecuteDialogueQueue();
+					contextState.DialogueStateChess = DialogueStates.Chess.PlayOpponent;
+					context.Commit(contextState);
+					break;
+				case DialogueStates.Chess.PlayOpponent:
+					_nodeTextBox.AddDialogue("*Both player look to be focusing intensely but neither has made a move since you have been here*");
+					_nodeTextBox.ExecuteDialogueQueue();
+					break;
+				default:
+					break;
+			}
 		}
 	}
 }

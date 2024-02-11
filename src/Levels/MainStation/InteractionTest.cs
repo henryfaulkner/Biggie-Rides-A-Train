@@ -29,7 +29,7 @@ public partial class InteractionTest : Area2D
 	private void DisplayDialogue() 
 	{
 		if (!_nodeInteractionTextBox.CanCreateDialogue()) return;
-		_nodeInteractionTextBox.StartInteration("Hello World?", "Yes, hello world", 1);
+		_nodeInteractionTextBox.StartInteraction("Hello World?", "Yes, hello world", 1);
 		_nodeInteractionTextBox.AddOption("No, hello world", 2);
 		_nodeInteractionTextBox.Execute();
 	}

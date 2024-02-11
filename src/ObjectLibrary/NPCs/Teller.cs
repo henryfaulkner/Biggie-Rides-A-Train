@@ -8,8 +8,7 @@ public partial class Teller : StaticBody2D
 	private Teller _nodeSelf = null;
 	private Area2D _nodeInteractableArea = null;
 	private TextBox _nodeTextBox = null;
-	
-	private bool _hasIntroduced = false;
+	private InteractionTextBox _nodeInteractionTextBox = null;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -17,6 +16,7 @@ public partial class Teller : StaticBody2D
 		_nodeSelf = GetNode<Teller>(".");
 		_nodeInteractableArea = GetNode<Area2D>("./InteractableArea");
 		_nodeTextBox = GetNode<TextBox>("../TextBox");
+		_nodeInteractionTextBox = GetNode<InteractionTextBox>("../InteractionTextBox");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -32,20 +32,67 @@ public partial class Teller : StaticBody2D
 	private void DisplayDialogue() 
 	{
 		if (!_nodeTextBox.CanCreateDialogue()) return;
-		if (!_hasIntroduced) {
-			_nodeTextBox.AddDialogue("Hi, welcome to the Station's Teller Station. I can take your train ticket if you have one.");
-			_nodeTextBox.AddDialogue("Usually, I sell train ticket but not today. Today's train is SOLD OUT. Apparently, there is some huge show happening at the CATHEDRAL in West Bay.");
-			_nodeTextBox.AddDialogue("Probably another one of the CONDUCTOR'S doing. What a genius.");
-			_nodeTextBox.AddDialogue("I can tell you don't have a train ticket right now. Come back when you have one.");
-			_nodeTextBox.ExecuteDialogueQueue();
-			_hasIntroduced = true;
+		using (var context = new SaveStateContext())
+		{
+			var contextState = context.Load();
+			switch(contextState.DialogueStateTeller)
+			{
+				case DialogueStates.Teller.Introduce:
+					_nodeTextBox.AddDialogue("Hi, welcome to the Station's Teller Station. I can take your train ticket if you have one.");
+					_nodeTextBox.AddDialogue("Usually, I sell train ticket but not today. Today's train is SOLD OUT. Apparently, there is some huge show happening at the CATHEDRAL in West Bay.");
+					_nodeTextBox.AddDialogue("Probably another one of the CONDUCTOR'S doing. What a genius.");
+					_nodeTextBox.AddDialogue("I can tell you don't have a train ticket right now. Come back when you have one.");
+					_nodeTextBox.ExecuteDialogueQueue();
+					contextState.DialogueStateTeller = DialogueStates.Teller.AskForTicket;
+					context.Commit(contextState);
+					break;
+				case DialogueStates.Teller.AskForTicket:
+					_nodeTextBox.AddDialogue("You have a ticket yet?");
+					if (CheckForTicket(contextState))
+					{
+						_nodeTextBox.AddDialogue("It looks like you got your hands on a train ticket!");
+						_nodeTextBox.ExecuteDialogueQueue();
+						_nodeInteractionTextBox.StartInteraction("Are you ready to depart?", "Yes", 1);
+						_nodeInteractionTextBox.AddOption("No", 2);
+						_nodeInteractionTextBox.SelectedOptionId += HandleInteraction_Boarding;
+						_nodeInteractionTextBox.Execute();
+					}
+					else
+					{
+						_nodeTextBox.AddDialogue("It seems like you don't. Come back when you have train ticket.");
+						_nodeTextBox.ExecuteDialogueQueue();
+					}
+					break;
+				default:
+					break;
+			}
+		}
+	}
+	
+	private bool CheckForTicket(SaveStateModel contextState) 
+	{
+		return contextState.HasItemTicketPieceOne 
+			&& contextState.HasItemTicketPieceTwo
+			&& contextState.HasItemTicketPieceThree
+			&& contextState.HasItemTicketPieceFour
+			&& contextState.HasItemTape;
+	}
+	
+	private void HandleInteraction_Boarding(int selectedOptionId) 
+	{
+		if (selectedOptionId == 1) 
+		{
+			TriggerFinalCutScene();
 		} 
 		else
 		{
-			_nodeTextBox.AddDialogue("You have a ticket yet?");
-			_nodeTextBox.AddDialogue("It seems like you don't. Come back when you have train ticket.");
+			_nodeTextBox.AddDialogue("No problemo. Come back when you're ready to board.");
 			_nodeTextBox.ExecuteDialogueQueue();
 		}
-		
+	}
+	
+	private void TriggerFinalCutScene()
+	{
+		return;
 	}
 }

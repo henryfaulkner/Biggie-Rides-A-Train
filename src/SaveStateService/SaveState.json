@@ -1,4 +1,14 @@
 {
-  "FirstName": "Henry",
-  "LastName": "Faulkner"
+  "HasItemTicketPieceOne": false,
+  "HasItemTicketPieceTwo": false,
+  "HasItemTicketPieceThree": false,
+  "HasItemTicketPieceFour": false,
+  "HasItemTape": false,
+  "HasItemMainStationRecord": false,
+  "HasItemSmoothJazzRecord": false,
+  "HasItemClubMixRecord": false,
+  "ActiveRecord": 0,
+  "DialogueStateTeller": 0,
+  "DialogueStateChess": 1,
+  "DialogueStateTherapist": 0
 }

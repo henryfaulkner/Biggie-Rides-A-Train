@@ -25,17 +25,6 @@ public partial class Main : Node2D
 		Buttons = new Button[] { _nodePlay, _nodeOptions, _nodeQuit };
 		Buttons[0].GrabFocus();
 		FocusIndex = 0;
-		
-		var sss = new SaveStateService();
-		var ss = new SaveStateModel()
-		{
-			FirstName = "Henry",
-			LastName = "Faulkner"
-		};
-		sss.Save(ss);
-		
-		var fileSs = sss.Load();
-		GD.Print($"{fileSs.FirstName} {fileSs.LastName}");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

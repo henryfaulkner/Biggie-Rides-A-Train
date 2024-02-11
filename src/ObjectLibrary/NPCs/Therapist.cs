@@ -14,8 +14,6 @@ public partial class Therapist : Node2D
 	private Sprite2D _nodeGoatSprites = null;
 	private TextBox _nodeTextBox = null;
 	
-	private bool _hasIntroduced = false;
-	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -47,16 +45,24 @@ public partial class Therapist : Node2D
 	private void DisplayDialogue() 
 	{
 		if (!_nodeTextBox.CanCreateDialogue()) return;
-		if (!_hasIntroduced) 
+		using (var context = new SaveStateContext())
 		{
-			_nodeTextBox.AddDialogue("Hi. Welcome to Therapy. Please take a seat.");
-			_nodeTextBox.ExecuteDialogueQueue();
-			_hasIntroduced = true;
-		} 
-		else 
-		{
-			_nodeTextBox.AddDialogue("Please take a seat.");
-			_nodeTextBox.ExecuteDialogueQueue();
+			var contextState = context.Load();
+			switch(contextState.DialogueStateTherapist)
+			{
+				case DialogueStates.Therapist.Introduce:
+					_nodeTextBox.AddDialogue("Hi. Welcome to Therapy. Please take a seat.");
+					_nodeTextBox.ExecuteDialogueQueue();
+					contextState.DialogueStateTherapist = DialogueStates.Therapist.OfferTherapy;
+					context.Commit(contextState);
+					break;
+				case DialogueStates.Therapist.OfferTherapy:
+					_nodeTextBox.AddDialogue("Please take a seat.");
+					_nodeTextBox.ExecuteDialogueQueue();
+					break;
+				default:
+					break;
+			}
 		}
 	}
 }
