@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcdbd272fdx4j"]
+
+[ext_resource type="Script" path="res://ObjectLibrary/Wrappers/CombatWrapper.cs" id="1_eulcx"]
+
+[node name="CombatWrapper" type="Node2D"]
+script = ExtResource("1_eulcx")

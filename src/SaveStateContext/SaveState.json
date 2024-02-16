@@ -1,9 +1,5 @@
 {
-  "TargetDoorEntrance": {
-	"TargetDoorEntrance": 3,
-	"X": 0,
-	"Y": 0
-  },
+  "StoredLocation": null,
   "HasItemTicketPieceOne": false,
   "HasItemTicketPieceTwo": false,
   "HasItemTicketPieceThree": false,

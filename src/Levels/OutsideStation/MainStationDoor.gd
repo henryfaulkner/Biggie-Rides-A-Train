@@ -16,7 +16,7 @@ func _process(delta):
 	pass
 
 func Hit():
-	node_relocation_service.SetState_TherapistOffice_MainStationDoor();
+	node_relocation_service.SetState_MainStation_MainEntranceDoor()
 	get_tree().change_scene_to_packed(_MAIN_STATION_SCENE)
 	pass;
 

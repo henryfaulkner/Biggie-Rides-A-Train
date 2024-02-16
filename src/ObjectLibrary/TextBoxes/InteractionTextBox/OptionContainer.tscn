@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cqfcu1cxba7lp"]
 
 [ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="1_kbenc"]
-[ext_resource type="Script" path="res://ObjectLibrary/Layout/InteractionTextBox/OptionContainer.cs" id="1_ldmax"]
+[ext_resource type="Script" path="res://ObjectLibrary/TextBoxes/InteractionTextBox/OptionContainer.cs" id="1_ldmax"]
 [ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="2_olvl3"]
 
 [sub_resource type="Theme" id="Theme_7dcii"]

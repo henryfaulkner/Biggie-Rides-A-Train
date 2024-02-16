@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5dk4plb8i67w"]
+[gd_scene load_steps=4 format=3 uid="uid://kse250jbhx2h"]
 
-[ext_resource type="Script" path="res://ObjectLibrary/Layout/InteractionTextBox/InteractionTextBox.cs" id="1_42gii"]
-[ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="2_te62x"]
+[ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="1_mawx8"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtf4x"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qsdk"]
 bg_color = Color(0, 0, 0, 1)
 border_width_left = 2
 border_width_top = 2
@@ -15,11 +14,10 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="Theme" id="Theme_wdp7l"]
-default_font = ExtResource("2_te62x")
+[sub_resource type="Theme" id="Theme_kxfsh"]
+default_font = ExtResource("1_mawx8")
 
-[node name="InteractionTextBox" type="CanvasLayer"]
-script = ExtResource("1_42gii")
+[node name="BiggieCombatTextBox" type="CanvasLayer"]
 
 [node name="TextBoxContainer" type="MarginContainer" parent="."]
 anchors_preset = 12
@@ -36,7 +34,7 @@ theme_override_constants/margin_bottom = 64
 
 [node name="Panel" type="Panel" parent="TextBoxContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qtf4x")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3qsdk")
 
 [node name="MarginContainer" type="MarginContainer" parent="TextBoxContainer/Panel"]
 layout_mode = 1
@@ -65,7 +63,7 @@ custom_minimum_size = Vector2(1652, 60)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-theme = SubResource("Theme_wdp7l")
+theme = SubResource("Theme_kxfsh")
 theme_override_font_sizes/font_size = 64
 text = "Would you like to create prompting text?"
 autowrap_mode = 3

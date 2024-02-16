@@ -25,9 +25,6 @@ public partial class Main : Node2D
 		Buttons = new Button[] { _nodePlay, _nodeOptions, _nodeQuit };
 		Buttons[0].GrabFocus();
 		FocusIndex = 0;
-
-		var rs = new RelocationService();
-		var entrance = rs.GetOutsideStation_MainStationDoor();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

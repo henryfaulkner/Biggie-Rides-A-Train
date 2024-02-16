@@ -2,7 +2,7 @@ using System;
 
 public class SaveStateModel
 {
-	public IDoorEntrance TargetDoorEntrance { get; set; }
+	public DoorEntrance StoredLocation { get; set; }
 	
 	public bool HasItemTicketPieceOne { get; set; }
 	public bool HasItemTicketPieceTwo { get; set; }
