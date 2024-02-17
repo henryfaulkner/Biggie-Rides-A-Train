@@ -3,7 +3,6 @@ extends StaticBody2D
 const _MAIN_STATION_SCENE = preload("res://Levels/MainStation/LevelMainStation.tscn")
 const _RELOCATION_SERVICE_SCRIPT = preload("res://RelocationService/RelocationService.cs")
 
-var node_save_state_context = null
 var node_relocation_service = null
 
 # Called when the node enters the scene tree for the first time.
@@ -16,7 +15,8 @@ func _process(delta):
 	pass
 
 func Hit():
-	node_relocation_service.SetState_MainStation_MainEntranceDoor()
+	print('Hit')
+	#node_relocation_service.SetState_MainStation_MainEntranceDoor()
 	get_tree().change_scene_to_packed(_MAIN_STATION_SCENE)
 	pass;
 

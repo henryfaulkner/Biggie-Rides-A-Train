@@ -126,15 +126,23 @@ public partial class Biggie : CharacterBody2D
 	private void AttemptStoredLocationApplication()
 	{
 		GD.Print("AttemptStoredLocationApplication");
-		using (var context = new SaveStateContext())
+		try
 		{
-			var contextState = context.Load();
-			var storedLocation = contextState.StoredLocation;
-			var rs = new RelocationService();
-			if (storedLocation != null && rs.IsStoredLocationEmpty(storedLocation)) 
+			using (var context = new SaveStateContext())
 			{
-				_nodeSelf.Position = new Vector2(storedLocation.X, storedLocation.Y);
+				var contextState = context.Load();
+				var storedLocation = contextState.StoredLocation;
+				var rs = new RelocationService();
+				if (storedLocation != null) 
+				{
+					GD.Print($"Biggie applied Position. X: {storedLocation.X}. Y: {storedLocation.Y}");
+					_nodeSelf.Position = new Vector2(storedLocation.X, storedLocation.Y);
+				}
 			}
+		}
+		catch (Exception exception)
+		{
+			GD.Print($"AttemptStoredLocationApplication exception: {exception}");
 		}
 	}
 }

@@ -1,6 +1,20 @@
-public class DoorEntrance : AbstractDoorEntrance
+public class DoorEntrance
 {
-	public override DoorEntrancesEnumeration.DoorEntrances Id { get; }
-	public override int X { get; }
-	public override int Y {  get; }
+	public DoorEntrance() 
+	{ 
+		Id = (int)Enumerations.Scenes.Empty;
+		X = 0;
+		Y = 0;
+	}
+
+	public DoorEntrance(int x, int y)
+	{
+		Id = (int)Enumerations.Scenes.Custom;
+		X = x;
+		Y = y;
+	}
+
+	public int Id { get; set; }
+	public int X { get; set; }
+	public int Y { get; set; }
 }
