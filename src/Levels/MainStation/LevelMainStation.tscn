@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dftxuxvh36ccm"]
+[gd_scene load_steps=19 format=3 uid="uid://dftxuxvh36ccm"]
 
 [ext_resource type="Texture2D" uid="uid://dtn0oo3t2ldqa" path="res://Assets/Levels/Main_Station_Level.png" id="2_0i66i"]
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/LevelWrapper.tscn" id="2_kt736"]
@@ -7,10 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://dw30v70y17poe" path="res://ObjectLibrary/NPCs/Chess.tscn" id="5_l1jc6"]
 [ext_resource type="PackedScene" uid="uid://c2bct32b8umwg" path="res://ObjectLibrary/NPCs/Therapist.tscn" id="6_e726k"]
 [ext_resource type="Script" path="res://Levels/MainStation/InteractionTest.cs" id="6_yb2wm"]
-[ext_resource type="Script" path="res://Levels/MainStation/TherapistOfficeDoor.gd" id="7_0n8id"]
-[ext_resource type="Script" path="res://Levels/MainStation/ClubDoor.gd" id="8_37xkq"]
+[ext_resource type="Script" path="res://Levels/MainStation/Doors/TherapistOfficeDoor.gd" id="8_xnh7u"]
+[ext_resource type="Script" path="res://Levels/MainStation/Doors/ClubDoor.gd" id="9_d2mmd"]
 [ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="9_vandh"]
 [ext_resource type="Script" path="res://Levels/MainStation/HiddenWall.cs" id="9_vh3ts"]
+[ext_resource type="Script" path="res://Levels/MainStation/Doors/OutsideStationDoor.gd" id="12_esd1o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wgxvf"]
 size = Vector2(815, 302.5)
@@ -26,6 +27,9 @@ size = Vector2(203.5, 344)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0huvr"]
 size = Vector2(78, 337)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c7w4a"]
+size = Vector2(595, 110)
 
 [node name="LevelMainStation" type="Node2D"]
 
@@ -66,7 +70,7 @@ scale = Vector2(0.4, 0.4)
 [node name="TherapistOfficeDoor" type="Area2D" parent="."]
 position = Vector2(1806, -996)
 collision_layer = 0
-script = ExtResource("7_0n8id")
+script = ExtResource("8_xnh7u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TherapistOfficeDoor"]
 position = Vector2(1, -2)
@@ -74,7 +78,7 @@ shape = SubResource("RectangleShape2D_4to3t")
 
 [node name="ClubDoor" type="Area2D" parent="."]
 position = Vector2(3173, -684)
-script = ExtResource("8_37xkq")
+script = ExtResource("9_d2mmd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClubDoor"]
 position = Vector2(26, 13)
@@ -102,3 +106,10 @@ position = Vector2(71, 133)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HiddenWall/InteractableArea"]
 position = Vector2(-119, -11)
 shape = SubResource("RectangleShape2D_0huvr")
+
+[node name="OutsideStationDoor" type="Area2D" parent="."]
+position = Vector2(1052, 544)
+script = ExtResource("12_esd1o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OutsideStationDoor"]
+shape = SubResource("RectangleShape2D_c7w4a")

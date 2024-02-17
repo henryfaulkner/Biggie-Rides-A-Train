@@ -1,3 +1,16 @@
-[gd_scene format=3 uid="uid://bskt7rce7m6fm"]
+[gd_scene load_steps=4 format=3 uid="uid://bskt7rce7m6fm"]
+
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/LevelWrapper.tscn" id="1_lkq0q"]
+[ext_resource type="Script" path="res://Levels/Club/Doors/MainStationDoor.gd" id="2_dlane"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7o3px"]
 
 [node name="Club" type="Node2D"]
+
+[node name="LevelWrapper" parent="." instance=ExtResource("1_lkq0q")]
+
+[node name="MainStationDoor" type="Area2D" parent="."]
+script = ExtResource("2_dlane")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainStationDoor"]
+shape = SubResource("RectangleShape2D_7o3px")

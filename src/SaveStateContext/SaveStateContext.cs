@@ -29,10 +29,7 @@ public partial class SaveStateContext : Node, IDisposable
 			GD.Print("Load");
 			using var file = FileAccess.Open(_SAVE_STATE_FILE, FileAccess.ModeFlags.Read);
 			string content = file.GetAsText();
-			GD.Print($"jsonContent: {content}");
 			var json = JsonConvert.DeserializeObject<SaveStateModel>(content);
-			GD.Print($"X: {json.StoredLocation.X}");
-			GD.Print(json.StoredLocation.GetType());
 			return json;
 		}
 		catch (Exception exception)

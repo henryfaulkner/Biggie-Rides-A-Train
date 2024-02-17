@@ -5,6 +5,11 @@ public partial class RelocationService : Node
 {
 	public RelocationService() { }
 
+	public int GetStoredLocationSceneId()
+	{
+		return GetStoredLocation().SceneId;
+	}
+
 	public DoorEntrance GetStoredLocation()
 	{
 		DoorEntrance result = null;
@@ -37,7 +42,7 @@ public partial class RelocationService : Node
 		using (var context = new SaveStateContext())
 		{
 			var contextState = context.Load();
-			contextState.StoredLocation = new DoorEntrance();
+			contextState.StoredLocation = null;
 			context.Commit(contextState);
 		}
 	}
@@ -106,6 +111,4 @@ public partial class RelocationService : Node
 			GD.Print($"SetTargetDoorEntranceState exception.Message: {exception.Message}");
 		}
 	}
-
-
 }
