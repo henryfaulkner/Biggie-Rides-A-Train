@@ -1,12 +1,11 @@
-public static class Enumerations
+public static partial class Enumerations
 {
 	public enum Scenes
 	{
-		Empty,
-		Custom,
-		OutsideStation,
-		MainStation,
-		TherapistOffice,
-		Club
+		Empty = 0,
+		OutsideStation = 1,
+		MainStation = 2,
+		TherapistOffice = 3,
+		Club = 4
 	}
 }

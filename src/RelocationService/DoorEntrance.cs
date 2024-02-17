@@ -1,20 +1,27 @@
 public class DoorEntrance
 {
-	public DoorEntrance() 
-	{ 
-		Id = (int)Enumerations.Scenes.Empty;
+	public DoorEntrance()
+	{
+		SceneId = (int)Enumerations.Scenes.Empty;
 		X = 0;
 		Y = 0;
 	}
 
 	public DoorEntrance(int x, int y)
 	{
-		Id = (int)Enumerations.Scenes.Custom;
+		SceneId = (int)Enumerations.Scenes.Empty;
 		X = x;
 		Y = y;
 	}
 
-	public int Id { get; set; }
+	public DoorEntrance(Enumerations.Scenes scene, int x, int y)
+	{
+		SceneId = (int)scene;
+		X = x;
+		Y = y;
+	}
+
+	public int SceneId { get; set; }
 	public int X { get; set; }
 	public int Y { get; set; }
 }

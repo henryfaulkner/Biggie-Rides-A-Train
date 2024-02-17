@@ -1,8 +1,8 @@
 {
   "StoredLocation": {
-    "Id": 1,
-    "X": 1055,
-    "Y": 976
+	"Id": 1,
+	"X": 1055,
+	"Y": 976
   },
   "HasItemTicketPieceOne": false,
   "HasItemTicketPieceTwo": false,

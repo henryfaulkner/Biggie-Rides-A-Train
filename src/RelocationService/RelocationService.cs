@@ -24,53 +24,69 @@ public partial class RelocationService : Node
 			var contextState = context.Load();
 			result = contextState.StoredLocation;
 		}
-		return result.Id == GetEmptyLocation().Id;
+		return result.SceneId == (int)Enumerations.Scenes.Empty;
 	}
 
 	public bool IsStoredLocationEmpty(DoorEntrance storedLocation)
 	{
-		return storedLocation.Id == GetEmptyLocation().Id;
+		return storedLocation.SceneId == (int)Enumerations.Scenes.Empty;
 	}
 
-	public void ClearStoredLocation()
+	public void Clear()
 	{
 		using (var context = new SaveStateContext())
 		{
 			var contextState = context.Load();
-			contextState.StoredLocation = (DoorEntrance)GetEmptyLocation();
+			contextState.StoredLocation = new DoorEntrance();
 			context.Commit(contextState);
 		}
 	}
 
-	public void SetState_StoredLocation(int x, int y)
+	#region SETTERS
+
+	public void SetState_EmptyLocation()
+	{
+		GD.Print("SetState_EmptyLocation");
+		DoorEntrance doorEntrance = new DoorEntrance();
+		SetTargetDoorEntranceState(doorEntrance);
+	}
+
+	public void SetState_EmptyLocation(int x, int y)
 	{
 		GD.Print("SetState_StoredLocation");
 		var location = new DoorEntrance(x, y);
 		SetTargetDoorEntranceState(location);
 	}
-	
-	public void SetState_EmptyLocation()
+
+	public void SetState_OutsideStation(int x, int y)
 	{
-		GD.Print("SetState_EmptyLocation");
-		DoorEntrance doorEntrance = GetEmptyLocation();
-		SetTargetDoorEntranceState(doorEntrance);
+		GD.Print("SetState_OutsideStation");
+		var location = new DoorEntrance(Enumerations.Scenes.OutsideStation, x, y);
+		SetTargetDoorEntranceState(location);
 	}
-	
-	private DoorEntrance GetEmptyLocation() => GetDoorEntrance(Enumerations.Scenes.Empty);
-	
-	private DoorEntrance GetDoorEntrance(Enumerations.Scenes enumRef)
+
+	public void SetState_MainStation(int x, int y)
 	{
-		DoorEntrance result = null;
-		switch (enumRef)
-		{
-			case Enumerations.Scenes.Empty:
-				result = new DoorEntrances.EmptyLocation();
-				break;
-			default:
-				break;
-		}
-		return result;
+		GD.Print("SetState_MainStation");
+		var location = new DoorEntrance(Enumerations.Scenes.MainStation, x, y);
+		SetTargetDoorEntranceState(location);
 	}
+
+	public void SetState_TherapistOffice(int x, int y)
+	{
+		GD.Print("SetState_TherapistOffice");
+		var location = new DoorEntrance(Enumerations.Scenes.TherapistOffice, x, y);
+		SetTargetDoorEntranceState(location);
+	}
+
+	public void SetState_Club(int x, int y)
+	{
+		GD.Print("SetState_Club");
+		var location = new DoorEntrance(Enumerations.Scenes.Club, x, y);
+		SetTargetDoorEntranceState(location);
+	}
+
+	#endregion
 
 	private void SetTargetDoorEntranceState(DoorEntrance targetDoorEntrance)
 	{
@@ -90,4 +106,6 @@ public partial class RelocationService : Node
 			GD.Print($"SetTargetDoorEntranceState exception.Message: {exception.Message}");
 		}
 	}
+
+
 }
