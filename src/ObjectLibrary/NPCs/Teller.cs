@@ -37,16 +37,16 @@ public partial class Teller : StaticBody2D
 			var contextState = context.Load();
 			switch(contextState.DialogueStateTeller)
 			{
-				case DialogueStates.Teller.Introduce:
+				case Enumerations.DialogueStates.Teller.Introduce:
 					_nodeTextBox.AddDialogue("Hi, welcome to the Station's Teller Station. I can take your train ticket if you have one.");
 					_nodeTextBox.AddDialogue("Usually, I sell train ticket but not today. Today's train is SOLD OUT. Apparently, there is some huge show happening at the CATHEDRAL in West Bay.");
 					_nodeTextBox.AddDialogue("Probably another one of the CONDUCTOR'S doing. What a genius.");
 					_nodeTextBox.AddDialogue("I can tell you don't have a train ticket right now. Come back when you have one.");
 					_nodeTextBox.ExecuteDialogueQueue();
-					contextState.DialogueStateTeller = DialogueStates.Teller.AskForTicket;
+					contextState.DialogueStateTeller = Enumerations.DialogueStates.Teller.AskForTicket;
 					context.Commit(contextState);
 					break;
-				case DialogueStates.Teller.AskForTicket:
+				case Enumerations.DialogueStates.Teller.AskForTicket:
 					_nodeTextBox.AddDialogue("You have a ticket yet?");
 					if (CheckForTicket(contextState))
 					{

@@ -44,9 +44,4 @@ public partial class SaveStateContext : Node, IDisposable
 		GD.Print("Clear");
 		Commit(new SaveStateModel());
 	}
-	
-	public void Dispose()
-	{
-		return;
-	}
 }

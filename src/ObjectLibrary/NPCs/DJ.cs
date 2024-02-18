@@ -1,9 +1,11 @@
 using Godot;
 using System;
 
-public partial class Therapist : Node2D
+public partial class DJ : Node2D
 {
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
+	private static readonly StringName _COMBAT_SCENE_DJ_BATTLE = new StringName("res://CombatScenes/DjBattle/CombatSceneDjBattle.tscn");
+	
 	private static readonly int _SPRITE_FRAME_MUSHROOM = 0;
 	private static readonly int _SPRITE_FRAME_GOAT_IDLE = 1;
 	private static readonly int _SPRITE_FRAME_GOAT_SPEAKING = 2;
@@ -48,17 +50,19 @@ public partial class Therapist : Node2D
 		using (var context = new SaveStateContext())
 		{
 			var contextState = context.Load();
-			switch(contextState.DialogueStateTherapist)
+			switch(contextState.DialogueStateDJ)
 			{
-				case Enumerations.DialogueStates.Therapist.Introduce:
-					_nodeTextBox.AddDialogue("Hi. Welcome to Therapy. Please take a seat.");
+				case Enumerations.DialogueStates.DJ.Introduce:
+					_nodeTextBox.AddDialogue("Hi. Welcome to The Club. Please stand up.");
 					_nodeTextBox.ExecuteDialogueQueue();
-					contextState.DialogueStateTherapist = Enumerations.DialogueStates.Therapist.OfferTherapy;
+					contextState.DialogueStateDJ = Enumerations.DialogueStates.DJ.Battle;
 					context.Commit(contextState);
 					break;
-				case Enumerations.DialogueStates.Therapist.OfferTherapy:
-					_nodeTextBox.AddDialogue("Please take a seat.");
+				case Enumerations.DialogueStates.DJ.Battle:
+					_nodeTextBox.AddDialogue("Alright. I've had enoungh...");
 					_nodeTextBox.ExecuteDialogueQueue();
+					var nextScene = (PackedScene)ResourceLoader.Load(_COMBAT_SCENE_DJ_BATTLE);
+					GetTree().ChangeSceneToPacked(nextScene);
 					break;
 				default:
 					break;

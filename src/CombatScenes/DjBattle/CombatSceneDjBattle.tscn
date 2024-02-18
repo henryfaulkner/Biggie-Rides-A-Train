@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfb835te58a1v"]
+
+[ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper.tscn" id="1_y68ny"]
+
+[node name="CombatSceneDjBattle" type="Node2D"]
+
+[node name="CombatWrapper" parent="." instance=ExtResource("1_y68ny")]

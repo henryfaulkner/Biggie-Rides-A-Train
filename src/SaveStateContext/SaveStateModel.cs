@@ -13,9 +13,10 @@ public class SaveStateModel
 	public bool HasItemSmoothJazzRecord { get; set; }
 	public bool HasItemClubMixRecord { get; set; }
 	
-	public GameMusic.Records ActiveRecord { get; set; }
+	public Enumerations.GameMusic.Records ActiveRecord { get; set; }
 	
-	public DialogueStates.Teller DialogueStateTeller { get; set; }
-	public DialogueStates.Chess DialogueStateChess { get; set; }
-	public DialogueStates.Therapist DialogueStateTherapist { get; set; }
+	public Enumerations.DialogueStates.Teller DialogueStateTeller { get; set; }
+	public Enumerations.DialogueStates.Chess DialogueStateChess { get; set; }
+	public Enumerations.DialogueStates.Therapist DialogueStateTherapist { get; set; }
+	public Enumerations.DialogueStates.DJ DialogueStateDJ { get; set; }
 }

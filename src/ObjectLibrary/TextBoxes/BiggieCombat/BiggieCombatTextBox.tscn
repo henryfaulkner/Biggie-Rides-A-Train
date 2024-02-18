@@ -1,19 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://xbdh31b8gpcu"]
+[gd_scene load_steps=5 format=3 uid="uid://xbdh31b8gpcu"]
 
-[ext_resource type="PackedScene" uid="uid://dux6jnqbujqdp" path="res://ObjectLibrary/TextBoxes/BiggieCombat/OptionContainer.tscn" id="1_3b0rd"]
 [ext_resource type="Script" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BiggieCombatTextBox.cs" id="1_cjp8v"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qsdk"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
+[ext_resource type="PackedScene" uid="uid://clph2g6ck8ex3" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BasePage/BasePagePanel.tscn" id="2_n6akt"]
+[ext_resource type="PackedScene" uid="uid://kvnvsvcpssdn" path="res://ObjectLibrary/TextBoxes/BiggieCombat/ChatPage/ChatPagePanel.tscn" id="3_x1bsp"]
+[ext_resource type="PackedScene" uid="uid://btd1wre3iy1fx" path="res://ObjectLibrary/TextBoxes/BiggieCombat/FightPage/FightPagePanel.tscn" id="4_x0l5s"]
 
 [node name="BiggieCombatTextBox" type="CanvasLayer"]
 script = ExtResource("1_cjp8v")
@@ -31,41 +21,13 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 128
 theme_override_constants/margin_bottom = 64
 
-[node name="Panel" type="Panel" parent="TextBoxContainer"]
+[node name="BasePagePanel" parent="TextBoxContainer" instance=ExtResource("2_n6akt")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3qsdk")
 
-[node name="MarginContainer" type="MarginContainer" parent="TextBoxContainer/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="Panel" type="Panel" parent="TextBoxContainer/Panel/MarginContainer"]
+[node name="ChatPagePanel" parent="TextBoxContainer" instance=ExtResource("3_x1bsp")]
 visible = false
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TextBoxContainer/Panel/MarginContainer"]
-layout_mode = 2
-
-[node name="FirstOption" parent="TextBoxContainer/Panel/MarginContainer/HBoxContainer" instance=ExtResource("1_3b0rd")]
-layout_mode = 2
-
-[node name="SecondOption" parent="TextBoxContainer/Panel/MarginContainer/HBoxContainer" instance=ExtResource("1_3b0rd")]
-layout_mode = 2
-
-[node name="ThirdOption" parent="TextBoxContainer/Panel/MarginContainer/HBoxContainer" instance=ExtResource("1_3b0rd")]
-layout_mode = 2
-
-[node name="Divider" type="VBoxContainer" parent="TextBoxContainer/Panel/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ExitOption" parent="TextBoxContainer/Panel/MarginContainer/HBoxContainer" instance=ExtResource("1_3b0rd")]
+[node name="FightPagePanel" parent="TextBoxContainer" instance=ExtResource("4_x0l5s")]
+visible = false
 layout_mode = 2

@@ -35,15 +35,15 @@ public partial class Chess : Node2D
 			var contextState = context.Load();
 			switch(contextState.DialogueStateChess)
 			{
-				case DialogueStates.Chess.Introduce:
+				case Enumerations.DialogueStates.Chess.Introduce:
 					_nodeTextBox.AddDialogue("Player 1: Hmmmmm...");
 					_nodeTextBox.AddDialogue("Player 2: Hmmmmm...");
 					_nodeTextBox.AddDialogue("*Both players act like it is their turn and are in deep focus*");
 					_nodeTextBox.ExecuteDialogueQueue();
-					contextState.DialogueStateChess = DialogueStates.Chess.PlayOpponent;
+					contextState.DialogueStateChess = Enumerations.DialogueStates.Chess.PlayOpponent;
 					context.Commit(contextState);
 					break;
-				case DialogueStates.Chess.PlayOpponent:
+				case Enumerations.DialogueStates.Chess.PlayOpponent:
 					_nodeTextBox.AddDialogue("*Both player look to be focusing intensely but neither has made a move since you have been here*");
 					_nodeTextBox.ExecuteDialogueQueue();
 					break;

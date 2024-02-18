@@ -1,0 +1,163 @@
+[gd_scene load_steps=5 format=3 uid="uid://btd1wre3iy1fx"]
+
+[ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="1_ljkoy"]
+[ext_resource type="StyleBox" uid="uid://njyu2ifs8go1" path="res://ObjectLibrary/TextBoxes/BiggieCombat/Helpers/SelectionPanelStyleBox.tres" id="2_vscjy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qsdk"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Theme" id="Theme_ro2so"]
+default_font = ExtResource("1_ljkoy")
+default_font_size = 156
+
+[node name="BasePanel" type="Panel"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_3qsdk")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="OptionContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="FightOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/FightOptionContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="MarginContainer/OptionContainer/FightOptionContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/FightOptionContainer/MarginContainer/Button"]
+layout_mode = 2
+offset_right = 516.0
+offset_bottom = 168.0
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("2_vscjy")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/FightOptionContainer/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/FightOptionContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 6
+
+[node name="Label" type="Label" parent="MarginContainer/OptionContainer/FightOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_ro2so")
+theme_override_colors/font_color = Color(0.439216, 0.439216, 0.439216, 1)
+text = "SCRATCH
+"
+
+[node name="ChatOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/ChatOptionContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer/Button"]
+layout_mode = 2
+offset_right = 274.0
+offset_bottom = 168.0
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("2_vscjy")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 6
+
+[node name="Label" type="Label" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_ro2so")
+theme_override_colors/font_color = Color(0.439216, 0.439216, 0.439216, 1)
+text = "BITE
+"
+
+[node name="Divider" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ExitOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/ExitOptionContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/Button"]
+layout_mode = 2
+offset_right = 312.0
+offset_bottom = 168.0
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("2_vscjy")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 6
+
+[node name="Label" type="Label" parent="MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_ro2so")
+theme_override_colors/font_color = Color(0.439216, 0.439216, 0.439216, 1)
+text = "BACK
+"
