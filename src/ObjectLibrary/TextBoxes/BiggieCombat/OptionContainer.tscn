@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://dux6jnqbujqdp"]
+
+[ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="1_2ne80"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vr7t5"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="Theme" id="Theme_h13ir"]
+default_font = ExtResource("1_2ne80")
+default_font_size = 156
+
+[node name="OptionContainer" type="VBoxContainer"]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/Button"]
+layout_mode = 2
+offset_right = 347.0
+offset_bottom = 168.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_vr7t5")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 6
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_h13ir")
+theme_override_colors/font_color = Color(0.439216, 0.439216, 0.439216, 1)
+text = "FIGHT
+"

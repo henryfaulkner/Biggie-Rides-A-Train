@@ -1,9 +1,5 @@
 {
-  "StoredLocation": {
-    "SceneId": 2,
-    "X": 1806,
-    "Y": -996
-  },
+  "StoredLocation": null,
   "HasItemTicketPieceOne": false,
   "HasItemTicketPieceTwo": false,
   "HasItemTicketPieceThree": false,
@@ -15,5 +11,5 @@
   "ActiveRecord": 0,
   "DialogueStateTeller": 0,
   "DialogueStateChess": 0,
-  "DialogueStateTherapist": 1
+  "DialogueStateTherapist": 0
 }
