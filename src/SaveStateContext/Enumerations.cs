@@ -4,26 +4,26 @@ public static partial class Enumerations
 	{
 		public enum Teller
 		{
-			Introduce,
-			AskForTicket,
+			Introduce = 0,
+			AskForTicket = 1,
 		}
 		
 		public enum Chess
 		{
-			Introduce,
-			PlayOpponent,
+			Introduce = 0,
+			PlayOpponent = 1,
 		}
 		
 		public enum Therapist
 		{
-			Introduce,
-			OfferTherapy,
+			Introduce = 0,
+			OfferTherapy = 1,
 		}
 		
 		public enum DJ
 		{
-			Introduce,
-			Battle,
+			Introduce = 0,
+			Battle = 1,
 		}
 	}
 	
@@ -31,10 +31,10 @@ public static partial class Enumerations
 	{
 		public enum Records
 		{
-			Empty,
-			MainStation,
-			SmoothJazz,
-			ClubMix,
+			Empty = 0,
+			MainStation = 1,
+			SmoothJazz = 2,
+			ClubMix = 3,
 		}
 	} 
 }

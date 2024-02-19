@@ -8,34 +8,35 @@ public partial class TaxiCar : Sprite2D
 	private int _frameIncrement = 0;
 	private Sprite2D _self = null;
 	private bool _isMoving = false;
-	
-	// Called when the node enters the scene tree for the first time.
+
 	public override void _Ready()
 	{
 		_self = GetNode<Sprite2D>(".");
 		_isMoving = true;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (_isMoving) {
+		if (_isMoving)
+		{
 			_frameIncrement += 1;
 			_self.Frame = ReturnSpriteIndex(_frameIncrement);
 		}
 	}
-	
-	private int ReturnSpriteIndex(int frameIncrement) 
+
+	private int ReturnSpriteIndex(int frameIncrement)
 	{
 		var result = (frameIncrement / _spriteFrameChangeInterval) % _spriteFramesLength;
 		return result;
 	}
-	
-	public bool GetMovingBit() {
+
+	public bool GetMovingBit()
+	{
 		return _isMoving;
 	}
-	
-	public void SetMovingBit(bool bit) {
+
+	public void SetMovingBit(bool bit)
+	{
 		_isMoving = bit;
 		return;
 	}

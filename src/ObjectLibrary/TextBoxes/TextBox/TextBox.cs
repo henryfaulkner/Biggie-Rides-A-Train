@@ -8,24 +8,23 @@ public partial class TextBox : CanvasLayer
 	private static readonly int _DEFAULT_PAGE_LENGTH = 175;
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
 	private static readonly StringName _RIGHT_INPUT = new StringName("move_right");
-	
+
 	private CanvasLayer _nodeSelf = null;
 	private MarginContainer _nodeTextBoxContainer = null;
 	private Label _nodeStart = null;
 	private Label _nodeDialogue = null;
-	private Label _nodeEnd = null;	
-	
+	private Label _nodeEnd = null;
+
 	private Queue<List<string>> _dialogueListQueue = null;
 	private List<string> _dialogueList = null; // splice of single dialogue instance
 	private int _dialogueListPointer = 0;
-	
+
 	private bool _isOpen = false;
 	private bool _isTextMoving = false;
 	private bool _isReading = false;
-	
+
 	private float CharReadRate { get; set; }
-	
-	// Called when the node enters the scene tree for the first time.
+
 	public override void _Ready()
 	{
 		CharReadRate = 100f;
@@ -39,14 +38,13 @@ public partial class TextBox : CanvasLayer
 		HideTextBox();
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		if (!IsOpen()) return;
 		// ASSUMING INPUTMAP HAS A MAPPING FOR interact
 		if (Input.IsActionJustPressed(_INTERACT_INPUT))// && !_isTextMoving) 
 		{
-			if (_isTextMoving) 
+			if (_isTextMoving)
 			{
 				CharReadRate = 5000f;
 			}
@@ -56,76 +54,76 @@ public partial class TextBox : CanvasLayer
 			}
 		}
 	}
-	
-	public void ShowTextBox() 
-	{	
+
+	public void ShowTextBox()
+	{
 		_isOpen = true;
 		_nodeStart.Text = "* ";
 		_nodeTextBoxContainer.Show();
 	}
-	
-	public void AddDialogue(string fullDialogue) 
+
+	public void AddDialogue(string fullDialogue)
 	{
-		if (IsOpen()) 
+		if (IsOpen())
 		{
 			GD.Print("Do NOT add dialogue while the TextBox is open. Check CanCreateDialogue method before AddDialogue is called");
 			return;
 		}
-		
+
 		_dialogueListQueue.Enqueue(SplitDialogue(fullDialogue, _DEFAULT_PAGE_LENGTH));
 	}
-	
-	public void ExecuteDialogueQueue() 
+
+	public void ExecuteDialogueQueue()
 	{
 		//DebugDialogueQueue();
 		_isReading = true;
 		if (GetDialogueListQueueCount() > 0)
 		{
 			_dialogueList = _dialogueListQueue.Dequeue();
-			ShowTextBox();	
-			ReadDialogue(_dialogueList[0]);	
+			ShowTextBox();
+			ReadDialogue(_dialogueList[0]);
 		}
 	}
-	
-	private async Task ReadDialogue(string dialogue) 
+
+	private async Task ReadDialogue(string dialogue)
 	{
 		_nodeDialogue.Text = dialogue;
 		_nodeDialogue.VisibleCharacters = 0;
 		_isTextMoving = true;
 		int len = dialogue.Length;
-		for (int i = 0; i < len; i++) 
+		for (int i = 0; i < len; i++)
 		{
-			TimeSpan span = TimeSpan.FromSeconds((double)(new decimal(1/CharReadRate)));
+			TimeSpan span = TimeSpan.FromSeconds((double)(new decimal(1 / CharReadRate)));
 			_nodeDialogue.VisibleCharacters += 1;
 			await Task.Delay(span);
 		}
 		_isTextMoving = false;
 	}
-	
-	public void AdvanceTextBox() 
+
+	public void AdvanceTextBox()
 	{
 		CharReadRate = 100f;
 		_dialogueListPointer += 1;
-		if (_dialogueListPointer >= _dialogueList.Count) 
+		if (_dialogueListPointer >= _dialogueList.Count)
 		{
-			if(GetDialogueListQueueCount() > 0)
+			if (GetDialogueListQueueCount() > 0)
 			{
 				_dialogueList = _dialogueListQueue.Dequeue();
-				ReadDialogue(_dialogueList[0]);	
+				ReadDialogue(_dialogueList[0]);
 				_dialogueListPointer = 0;
 			}
-			else 
+			else
 			{
 				HideTextBox();
 			}
 		}
-		else 
+		else
 		{
 			ReadDialogue(_dialogueList[_dialogueListPointer]);
 		}
 	}
-	
-	public void HideTextBox() 
+
+	public void HideTextBox()
 	{
 		_isOpen = false;
 		_nodeStart.Text = string.Empty;
@@ -136,17 +134,19 @@ public partial class TextBox : CanvasLayer
 		_nodeDialogue.VisibleCharacters = 0;
 		_nodeTextBoxContainer.Hide();
 	}
-	
-	public bool IsOpen() {
+
+	public bool IsOpen()
+	{
 		return _isOpen;
 	}
-	
-	public int GetDialogueListQueueCount() 
+
+	public int GetDialogueListQueueCount()
 	{
 		return _dialogueListQueue.Count;
 	}
-	
-	public bool CanCreateDialogue() {
+
+	public bool CanCreateDialogue()
+	{
 		if (!_isOpen && IsReading())
 		{
 			IsReading(false);
@@ -154,14 +154,14 @@ public partial class TextBox : CanvasLayer
 		}
 		return !_isOpen && !IsReading();
 	}
-	
-	private void DebugDialogueQueue() 
+
+	private void DebugDialogueQueue()
 	{
 		GD.Print("**** START DebugDialogueQueue ****");
 		foreach (List<string> queueEntry in _dialogueListQueue)
 		{
 			GD.Print("**** START QUEUE ENTRY ****");
-			foreach (string dialogue in queueEntry) 
+			foreach (string dialogue in queueEntry)
 			{
 				GD.Print("**** START PAGE ENTRY ****");
 				GD.Print(dialogue);
@@ -171,30 +171,30 @@ public partial class TextBox : CanvasLayer
 		}
 		GD.Print("**** END DebugDialogueQueue ****");
 	}
-	
-	private List<string> SplitDialogue(string fullDialogue, int pageLength) 
+
+	private List<string> SplitDialogue(string fullDialogue, int pageLength)
 	{
 		List<string> result = new List<string>();
 		int fullDialogueCharCount = fullDialogue.Length;
 		int fullPageCount = Convert.ToInt32(Math.Floor((double)(fullDialogueCharCount / pageLength)));
 		int excessPageCharCount = fullDialogueCharCount - (fullPageCount * pageLength);
-		
+
 		int offset = 0;
-		for (int i = 0; i < fullPageCount; i += 1) 
+		for (int i = 0; i < fullPageCount; i += 1)
 		{
-			result.Add(fullDialogue.Substring(offset, pageLength));	
+			result.Add(fullDialogue.Substring(offset, pageLength));
 			offset += pageLength;
 		}
 		// Account for excess
 		if (excessPageCharCount > 0) result.Add(fullDialogue.Substring(offset, excessPageCharCount));
 		return result;
 	}
-	
-	public bool IsReading() 
+
+	public bool IsReading()
 	{
 		return _isReading;
 	}
-	
+
 	public void IsReading(bool isReading)
 	{
 		_isReading = isReading;

@@ -16,7 +16,6 @@ public partial class Main : Node2D
 	private Button[] Buttons { get; set; }
 	private int FocusIndex { get; set; }
 
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_nodePlay = GetNode<Button>("./LevelWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/Play");
@@ -27,7 +26,6 @@ public partial class Main : Node2D
 		FocusIndex = 0;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionJustPressed(_TAB_INPUT))

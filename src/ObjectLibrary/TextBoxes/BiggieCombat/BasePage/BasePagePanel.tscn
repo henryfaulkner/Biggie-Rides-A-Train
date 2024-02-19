@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://clph2g6ck8ex3"]
+[gd_scene load_steps=5 format=3 uid="uid://clph2g6ck8ex3"]
 
-[ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="1_1kxx2"]
 [ext_resource type="StyleBox" uid="uid://njyu2ifs8go1" path="res://ObjectLibrary/TextBoxes/BiggieCombat/Helpers/SelectionPanelStyleBox.tres" id="1_icubs"]
-[ext_resource type="Script" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BasePage/BasePanel.cs" id="1_ihyp2"]
+[ext_resource type="Script" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BasePage/BasePageBasePanel.cs" id="1_ihyp2"]
+[ext_resource type="LabelSettings" uid="uid://dx8shuq0qo22" path="res://ObjectLibrary/TextBoxes/BiggieCombat/Helpers/OptionLabelSettings.tres" id="3_px3tn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qsdk"]
 bg_color = Color(0, 0, 0, 1)
@@ -15,10 +15,6 @@ corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
-
-[sub_resource type="Theme" id="Theme_ro2so"]
-default_font = ExtResource("1_1kxx2")
-default_font_size = 156
 
 [node name="BasePanel" type="Panel"]
 theme_override_styles/panel = SubResource("StyleBoxFlat_3qsdk")
@@ -77,10 +73,9 @@ theme_override_constants/margin_bottom = 6
 
 [node name="Label" type="Label" parent="MarginContainer/OptionContainer/FightOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
-theme = SubResource("Theme_ro2so")
-theme_override_colors/font_color = Color(0.439216, 0.439216, 0.439216, 1)
 text = "FIGHT
 "
+label_settings = ExtResource("3_px3tn")
 
 [node name="ChatOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
 layout_mode = 2
@@ -116,10 +111,9 @@ theme_override_constants/margin_bottom = 6
 
 [node name="Label" type="Label" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
-theme = SubResource("Theme_ro2so")
-theme_override_colors/font_color = Color(0.439216, 0.439216, 0.439216, 1)
 text = "CHAT
 "
+label_settings = ExtResource("3_px3tn")
 
 [node name="Divider" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
 layout_mode = 2
@@ -159,7 +153,6 @@ theme_override_constants/margin_bottom = 6
 
 [node name="Label" type="Label" parent="MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
-theme = SubResource("Theme_ro2so")
-theme_override_colors/font_color = Color(0.439216, 0.439216, 0.439216, 1)
 text = "EXIT
 "
+label_settings = ExtResource("3_px3tn")

@@ -4,12 +4,11 @@ using System;
 public partial class Chess : Node2D
 {
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
-	
+
 	private Node2D _nodeSelf = null;
 	private Area2D _nodeInteractableArea = null;
 	private TextBox _nodeTextBox = null;
-	
-	// Called when the node enters the scene tree for the first time.
+
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Node2D>(".");
@@ -17,23 +16,22 @@ public partial class Chess : Node2D
 		_nodeTextBox = GetNode<TextBox>("../TextBox");
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		if (_nodeInteractableArea.GetOverlappingBodies().Count > 3
-			&& Input.IsActionJustPressed(_INTERACT_INPUT)) 
+			&& Input.IsActionJustPressed(_INTERACT_INPUT))
 		{
 			DisplayDialogue();
 		}
 	}
-	
-	private void DisplayDialogue() 
+
+	private void DisplayDialogue()
 	{
 		if (!_nodeTextBox.CanCreateDialogue()) return;
 		using (var context = new SaveStateContext())
 		{
 			var contextState = context.Load();
-			switch(contextState.DialogueStateChess)
+			switch (contextState.DialogueStateChess)
 			{
 				case Enumerations.DialogueStates.Chess.Introduce:
 					_nodeTextBox.AddDialogue("Player 1: Hmmmmm...");

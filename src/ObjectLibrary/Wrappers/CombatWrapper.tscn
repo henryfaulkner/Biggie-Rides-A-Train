@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dcdbd272fdx4j"]
+[gd_scene load_steps=3 format=3 uid="uid://dcdbd272fdx4j"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/Wrappers/CombatWrapper.cs" id="1_eulcx"]
+[ext_resource type="PackedScene" uid="uid://xbdh31b8gpcu" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BiggieCombatTextBox.tscn" id="2_qk0o6"]
 
 [node name="CombatWrapper" type="Node2D"]
 script = ExtResource("1_eulcx")
+
+[node name="BiggieCombatTextBox" parent="." instance=ExtResource("2_qk0o6")]

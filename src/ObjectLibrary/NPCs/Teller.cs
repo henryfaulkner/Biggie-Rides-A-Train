@@ -4,13 +4,12 @@ using System;
 public partial class Teller : StaticBody2D
 {
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
-	
+
 	private Teller _nodeSelf = null;
 	private Area2D _nodeInteractableArea = null;
 	private TextBox _nodeTextBox = null;
 	private InteractionTextBox _nodeInteractionTextBox = null;
-	
-	// Called when the node enters the scene tree for the first time.
+
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Teller>(".");
@@ -19,23 +18,22 @@ public partial class Teller : StaticBody2D
 		_nodeInteractionTextBox = GetNode<InteractionTextBox>("../InteractionTextBox");
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		if (_nodeInteractableArea.GetOverlappingBodies().Count > 0
-			&& Input.IsActionJustPressed(_INTERACT_INPUT)) 
+			&& Input.IsActionJustPressed(_INTERACT_INPUT))
 		{
 			DisplayDialogue();
 		}
 	}
-	
-	private void DisplayDialogue() 
+
+	private void DisplayDialogue()
 	{
 		if (!_nodeTextBox.CanCreateDialogue()) return;
 		using (var context = new SaveStateContext())
 		{
 			var contextState = context.Load();
-			switch(contextState.DialogueStateTeller)
+			switch (contextState.DialogueStateTeller)
 			{
 				case Enumerations.DialogueStates.Teller.Introduce:
 					_nodeTextBox.AddDialogue("Hi, welcome to the Station's Teller Station. I can take your train ticket if you have one.");
@@ -68,29 +66,29 @@ public partial class Teller : StaticBody2D
 			}
 		}
 	}
-	
-	private bool CheckForTicket(SaveStateModel contextState) 
+
+	private bool CheckForTicket(SaveStateModel contextState)
 	{
-		return contextState.HasItemTicketPieceOne 
+		return contextState.HasItemTicketPieceOne
 			&& contextState.HasItemTicketPieceTwo
 			&& contextState.HasItemTicketPieceThree
 			&& contextState.HasItemTicketPieceFour
 			&& contextState.HasItemTape;
 	}
-	
-	private void HandleInteraction_Boarding(int selectedOptionId) 
+
+	private void HandleInteraction_Boarding(int selectedOptionId)
 	{
-		if (selectedOptionId == 1) 
+		if (selectedOptionId == 1)
 		{
 			TriggerFinalCutScene();
-		} 
+		}
 		else
 		{
 			_nodeTextBox.AddDialogue("No problemo. Come back when you're ready to board.");
 			_nodeTextBox.ExecuteDialogueQueue();
 		}
 	}
-	
+
 	private void TriggerFinalCutScene()
 	{
 		return;

@@ -1,7 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://btd1wre3iy1fx"]
 
-[ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="1_ljkoy"]
+[ext_resource type="Script" path="res://ObjectLibrary/TextBoxes/BiggieCombat/FightPage/FightPageBasePanel.cs" id="1_53bd7"]
 [ext_resource type="StyleBox" uid="uid://njyu2ifs8go1" path="res://ObjectLibrary/TextBoxes/BiggieCombat/Helpers/SelectionPanelStyleBox.tres" id="2_vscjy"]
+[ext_resource type="LabelSettings" uid="uid://dx8shuq0qo22" path="res://ObjectLibrary/TextBoxes/BiggieCombat/Helpers/OptionLabelSettings.tres" id="3_pqrgj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qsdk"]
 bg_color = Color(0, 0, 0, 1)
@@ -15,12 +16,9 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="Theme" id="Theme_ro2so"]
-default_font = ExtResource("1_ljkoy")
-default_font_size = 156
-
 [node name="BasePanel" type="Panel"]
 theme_override_styles/panel = SubResource("StyleBoxFlat_3qsdk")
+script = ExtResource("1_53bd7")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -41,10 +39,10 @@ layout_mode = 2
 [node name="OptionContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="FightOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
+[node name="ScratchOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/FightOptionContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/ScratchOptionContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 20
@@ -52,38 +50,37 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="Button" type="Button" parent="MarginContainer/OptionContainer/FightOptionContainer/MarginContainer"]
+[node name="Button" type="Button" parent="MarginContainer/OptionContainer/ScratchOptionContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/FightOptionContainer/MarginContainer/Button"]
+[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/ScratchOptionContainer/MarginContainer/Button"]
 layout_mode = 2
 offset_right = 516.0
 offset_bottom = 168.0
 size_flags_horizontal = 3
 theme_override_styles/panel = ExtResource("2_vscjy")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/FightOptionContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/ScratchOptionContainer/MarginContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/FightOptionContainer/MarginContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/ScratchOptionContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 6
 
-[node name="Label" type="Label" parent="MarginContainer/OptionContainer/FightOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer/OptionContainer/ScratchOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
-theme = SubResource("Theme_ro2so")
-theme_override_colors/font_color = Color(0.439216, 0.439216, 0.439216, 1)
 text = "SCRATCH
 "
+label_settings = ExtResource("3_pqrgj")
 
-[node name="ChatOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
+[node name="BiteOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/ChatOptionContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/BiteOptionContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 20
@@ -91,33 +88,32 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="Button" type="Button" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer"]
+[node name="Button" type="Button" parent="MarginContainer/OptionContainer/BiteOptionContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer/Button"]
+[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/BiteOptionContainer/MarginContainer/Button"]
 layout_mode = 2
 offset_right = 274.0
 offset_bottom = 168.0
 size_flags_horizontal = 3
 theme_override_styles/panel = ExtResource("2_vscjy")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/BiteOptionContainer/MarginContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/BiteOptionContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 6
 
-[node name="Label" type="Label" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer/OptionContainer/BiteOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
-theme = SubResource("Theme_ro2so")
-theme_override_colors/font_color = Color(0.439216, 0.439216, 0.439216, 1)
 text = "BITE
 "
+label_settings = ExtResource("3_pqrgj")
 
 [node name="Divider" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
 layout_mode = 2
@@ -157,7 +153,6 @@ theme_override_constants/margin_bottom = 6
 
 [node name="Label" type="Label" parent="MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
-theme = SubResource("Theme_ro2so")
-theme_override_colors/font_color = Color(0.439216, 0.439216, 0.439216, 1)
 text = "BACK
 "
+label_settings = ExtResource("3_pqrgj")
