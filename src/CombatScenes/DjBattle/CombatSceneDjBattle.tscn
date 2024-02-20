@@ -1,7 +1,69 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfb835te58a1v"]
+[gd_scene load_steps=5 format=3 uid="uid://dfb835te58a1v"]
 
 [ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper.tscn" id="1_y68ny"]
+[ext_resource type="Texture2D" uid="uid://df0xe1tnk46cf" path="res://Assets/Objects/Biggie.png" id="2_ywmyh"]
+[ext_resource type="Texture2D" uid="uid://rq1x43iicrdi" path="res://Assets/Objects/DDRarrows/(final)generic-DDRarrows.png" id="3_6j14d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_77u1h"]
 
 [node name="CombatSceneDjBattle" type="Node2D"]
 
 [node name="CombatWrapper" parent="." instance=ExtResource("1_y68ny")]
+visible = false
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 2048.0
+offset_bottom = 1024.0
+
+[node name="BiggieHeart" type="Area2D" parent="MarginContainer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/BiggieHeart"]
+texture = ExtResource("2_ywmyh")
+hframes = 2
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/BiggieHeart"]
+shape = SubResource("CircleShape2D_77u1h")
+
+[node name="TopArrow" type="Area2D" parent="MarginContainer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/TopArrow"]
+modulate = Color(1, 1, 1, 0.313726)
+position = Vector2(3, -42)
+texture = ExtResource("3_6j14d")
+hframes = 4
+frame = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/TopArrow"]
+
+[node name="RightArrow" type="Area2D" parent="MarginContainer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/RightArrow"]
+modulate = Color(1, 1, 1, 0.313726)
+position = Vector2(51, -1)
+texture = ExtResource("3_6j14d")
+hframes = 4
+frame = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/RightArrow"]
+
+[node name="DownArrow" type="Area2D" parent="MarginContainer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/DownArrow"]
+modulate = Color(1, 1, 1, 0.313726)
+position = Vector2(-2, 40)
+texture = ExtResource("3_6j14d")
+hframes = 4
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/DownArrow"]
+
+[node name="LeftArrow" type="Area2D" parent="MarginContainer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/LeftArrow"]
+modulate = Color(1, 1, 1, 0.313726)
+position = Vector2(-44, -1)
+texture = ExtResource("3_6j14d")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/LeftArrow"]

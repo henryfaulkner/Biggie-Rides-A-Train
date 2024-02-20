@@ -15,6 +15,7 @@ public partial class DJ : Node2D
 	private Area2D _nodeInteractableArea = null;
 	private Sprite2D _nodeGoatSprites = null;
 	private TextBox _nodeTextBox = null;
+	private InteractionTextBox _nodeInteractionTextBox = null;
 
 	public override void _Ready()
 	{
@@ -22,6 +23,8 @@ public partial class DJ : Node2D
 		_nodeInteractableArea = GetNode<Area2D>("./InteractableArea");
 		_nodeGoatSprites = GetNode<Sprite2D>("./VBoxContainer/Goat/Sprite2D");
 		_nodeTextBox = GetNode<TextBox>("../TextBox");
+		_nodeInteractionTextBox = GetNode<InteractionTextBox>("../InteractionTextBox");
+		_nodeInteractionTextBox.SelectedOptionId += HandleInteraction;
 	}
 
 	public override void _Process(double delta)
@@ -57,14 +60,31 @@ public partial class DJ : Node2D
 					context.Commit(contextState);
 					break;
 				case Enumerations.DialogueStates.DJ.Battle:
-					_nodeTextBox.AddDialogue("Alright. I've had enoungh...");
-					_nodeTextBox.ExecuteDialogueQueue();
-					var nextScene = (PackedScene)ResourceLoader.Load(_COMBAT_SCENE_DJ_BATTLE);
-					GetTree().ChangeSceneToPacked(nextScene);
+					_nodeInteractionTextBox.StartInteraction("Do we need to dance battle?", "Yes", 0);
+					_nodeInteractionTextBox.AddOption("No", 1);
+					_nodeInteractionTextBox.Execute();
 					break;
 				default:
 					break;
 			}
+		}
+	}
+
+	public void HandleInteraction(int selectedOptionId)
+	{
+		switch (selectedOptionId)
+		{
+			case 0:
+				var nextScene = (PackedScene)ResourceLoader.Load(_COMBAT_SCENE_DJ_BATTLE);
+				GetTree().ChangeSceneToPacked(nextScene);
+				break;
+			case 1:
+				_nodeTextBox.AddDialogue("Wack!");
+				_nodeTextBox.ExecuteDialogueQueue();
+				break;
+			default:
+				GD.Print("DJ.HandleInteraction option id did not map.");
+				break;
 		}
 	}
 }

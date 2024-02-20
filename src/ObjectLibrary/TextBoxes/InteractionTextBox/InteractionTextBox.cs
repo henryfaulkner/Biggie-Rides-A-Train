@@ -7,7 +7,7 @@ public partial class InteractionTextBox : CanvasLayer
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
 	private static readonly StringName _UP_INPUT = new StringName("move_up");
 	private static readonly StringName _DOWN_INPUT = new StringName("move_down");
-	private static readonly StringName _OPTION_CONTAINER_SCENE = new StringName("res://ObjectLibrary/Layout/InteractionTextBox/OptionContainer.tscn");
+	private static readonly StringName _OPTION_CONTAINER_SCENE = new StringName("res://ObjectLibrary/TextBoxes/InteractionTextBox/OptionContainer.tscn");
 
 	private CanvasLayer _nodeSelf = null;
 	private MarginContainer _nodeTextBoxContainer = null;
@@ -60,8 +60,6 @@ public partial class InteractionTextBox : CanvasLayer
 	// call this to add an additional option to the Option list
 	public void AddOption(string optionText, int optionId)
 	{
-		// I could iomprove the performance of this section by preloading the scene
-		// but I would need to convert code to GDScript to do so
 		var scene = GD.Load<PackedScene>(_OPTION_CONTAINER_SCENE);
 		var instance = scene.Instantiate<OptionContainer>();
 		instance.Id = optionId;

@@ -16,7 +16,6 @@ func _ready():
 func _process(delta):
 	pass
 
-
 func _on_pressed():
 	var scenePlay = decide_scene()
 	get_tree().change_scene_to_packed(scenePlay);	
