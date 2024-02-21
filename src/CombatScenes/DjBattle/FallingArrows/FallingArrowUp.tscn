@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://d34wbh1sig0hs"]
+
+[ext_resource type="Texture2D" uid="uid://b2v42afe1omda" path="res://Assets/Objects/DDRarrows/blue-arrows.png" id="1_ptcjp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jj20t"]
+size = Vector2(39, 38)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vxjo7"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yvkcf"]
+radius = 7.07107
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2ea0t"]
+radius = 5.0
+height = 16.0
+
+[node name="ArrowFalling" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ptcjp")
+hframes = 4
+frame = 2
+
+[node name="CollisionFull" type="CollisionShape2D" parent="."]
+position = Vector2(-2.5, 2)
+shape = SubResource("RectangleShape2D_jj20t")
+
+[node name="AreaPerfect" type="Area2D" parent="."]
+
+[node name="CollisionPerfect" type="CollisionShape2D" parent="AreaPerfect"]
+position = Vector2(-2, -13)
+shape = SubResource("CircleShape2D_vxjo7")
+
+[node name="AreaGood" type="Area2D" parent="."]
+
+[node name="CollisionGood" type="CollisionShape2D" parent="AreaGood"]
+position = Vector2(-2, -2)
+shape = SubResource("CircleShape2D_yvkcf")
+
+[node name="AreaBad" type="Area2D" parent="."]
+
+[node name="CollisionBad" type="CollisionShape2D" parent="AreaBad"]
+position = Vector2(-2, 13)
+shape = SubResource("CapsuleShape2D_2ea0t")
