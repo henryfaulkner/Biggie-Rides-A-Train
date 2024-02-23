@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfb835te58a1v"]
+[gd_scene load_steps=11 format=3 uid="uid://dfb835te58a1v"]
 
 [ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper.tscn" id="1_y68ny"]
 [ext_resource type="Script" path="res://CombatScenes/DjBattle/DjAttackContainer.cs" id="2_614w3"]
 [ext_resource type="Texture2D" uid="uid://df0xe1tnk46cf" path="res://Assets/Objects/Biggie.png" id="2_ywmyh"]
 [ext_resource type="Texture2D" uid="uid://rq1x43iicrdi" path="res://Assets/Objects/DDRarrows/(final)generic-DDRarrows.png" id="3_6j14d"]
 [ext_resource type="PackedScene" uid="uid://d34wbh1sig0hs" path="res://CombatScenes/DjBattle/FallingArrows/FallingArrowUp.tscn" id="4_up7bo"]
+[ext_resource type="PackedScene" uid="uid://dfrevuyjkx64m" path="res://CombatScenes/DjBattle/FallingArrows/FallingArrowRight.tscn" id="6_brt4i"]
+[ext_resource type="PackedScene" uid="uid://g8pxcn571ewu" path="res://CombatScenes/DjBattle/FallingArrows/FallingArrowDown.tscn" id="7_8p1sa"]
+[ext_resource type="PackedScene" uid="uid://mhu3kr7w7sqb" path="res://CombatScenes/DjBattle/FallingArrows/FallingArrowLeft.tscn" id="8_8ok8q"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_77u1h"]
 
@@ -17,8 +20,17 @@ radius = 4.0
 visible = false
 
 [node name="DjAttackContainer" type="MarginContainer" parent="."]
-offset_right = 2048.0
-offset_bottom = 1024.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 1024.0
+offset_top = 456.0
+offset_right = 1024.0
+offset_bottom = 456.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("2_614w3")
 
 [node name="Biggie" type="Area2D" parent="DjAttackContainer"]
@@ -84,3 +96,12 @@ shape = SubResource("CircleShape2D_amehg")
 
 [node name="FallingArrowTop" parent="DjAttackContainer" instance=ExtResource("4_up7bo")]
 position = Vector2(4, -106)
+
+[node name="ArrowFallingRight" parent="DjAttackContainer" instance=ExtResource("6_brt4i")]
+position = Vector2(100, 0)
+
+[node name="ArrowFallingDown" parent="DjAttackContainer" instance=ExtResource("7_8p1sa")]
+position = Vector2(0, 100)
+
+[node name="ArrowFallingLeft" parent="DjAttackContainer" instance=ExtResource("8_8ok8q")]
+position = Vector2(-100, 0)

@@ -5,14 +5,15 @@ using Godot;
 public class CompositionParsingService
 {
 	public CompositionParsingService() { }
-	public CompositionParsingService(string fileName)
-	{
-		Reader = GetCharacterArray($"res://CombatScenes/DjBattle/Compositions/{fileName}");
-		Offset = 0;
-	}
 
 	private char[] Reader { get; set; }
 	private int Offset { get; set; }
+	
+	public void SetNewComposition(string fileName)
+	{
+		Reader = GetCharacterArray($"res://CombatScenes/DjBattle/Composition/Compositions/{fileName}");
+		Offset = 0;
+	}
 
 	public List<char> GetNextToken()
 	{
@@ -59,7 +60,7 @@ public class CompositionParsingService
 		return result;
 	}
 
-	private bool IsBeatToken(char c)
+	public bool IsBeatToken(char c)
 	{
 		switch (c)
 		{
@@ -73,14 +74,14 @@ public class CompositionParsingService
 		}
 	}
 
-	private bool IsArrowToken(char c)
+	public bool IsArrowToken(char c)
 	{
 		switch (c)
 		{
-			case CompositionTokens.U:
-			case CompositionTokens.R:
-			case CompositionTokens.D:
-			case CompositionTokens.L:
+			case CompositionTokens.Up:
+			case CompositionTokens.Right:
+			case CompositionTokens.Down:
+			case CompositionTokens.Left:
 				return true;
 			default:
 				return false;

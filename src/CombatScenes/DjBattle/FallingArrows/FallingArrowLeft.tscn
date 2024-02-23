@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://mhu3kr7w7sqb"]
+[gd_scene load_steps=7 format=3 uid="uid://mhu3kr7w7sqb"]
 
 [ext_resource type="Texture2D" uid="uid://b2v42afe1omda" path="res://Assets/Objects/DDRarrows/blue-arrows.png" id="1_el5u7"]
+[ext_resource type="Script" path="res://CombatScenes/DjBattle/FallingArrows/FallingArrowLeft.cs" id="1_hocd2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jj20t"]
 size = Vector2(40, 43)
@@ -15,7 +16,8 @@ radius = 7.07107
 radius = 5.0
 height = 16.0
 
-[node name="ArrowFalling" type="Area2D"]
+[node name="ArrowFallingLeft" type="CharacterBody2D"]
+script = ExtResource("1_hocd2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_el5u7")
