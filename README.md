@@ -16,10 +16,6 @@ Off-Peak is a psychedelic walking simulator and RPG. Similarly, the objective of
 
 Undertale is the story of a human appearing in a world, under false control, who moves to overturn everything (for better or for worse). Undertale features a combat system where every battle can be won with either violence or compassion. Defense-mode during combat features minigames (usually resembling an enclosed bullet-hell or a rhythm game) where the PC must avoid attacking objects to prevent damage.
 
-### **Player Experience**
-
-In a single screen dungeon
-
 ### **Platform**
 
 The game is developed to be released on Windows and Mac
@@ -32,13 +28,11 @@ The game is developed to be released on Windows and Mac
 
 ### **Genre**
 
-Singleplayer, RPG, Top-down, Casual
+Singleplayer, RPG, Top-down
 
 ### **Target Audience**
 
 This game is marketed toward **casual indie game players** who enjoy a jaunt through a foreign world as Biggie Boy.
-
-##
 
 ## **Concept**
 
@@ -52,10 +46,39 @@ The player controls a PC from a 2D overhead perspective. The PC will navigate th
 
 ### **UI**
 
-On top of the rigid pixel art constituting the rest of the art, a more smooth, higher definition style will be incorporated in the UI. Utilizing many shades of white and black allowed in the art restriction, anti-aliasing is used to further emphasize the UI.
+Various RPG-esc black and white textboxes for combat and dialogue.
 
 ### **Controls**
 
 **Keyboard**
 
 Arrow keys / WASD, spacebar
+
+#### Key Items + Locations:
+- Tape
+- Train Ticket #1
+- Train Ticket #2
+- Train Ticket #3
+- Train Ticket #4
+
+#### Needed Audio Tracks:
+- Main Menu music (Optional)
+- Main Game music [Train Station]
+- Therapy jazz music [Therapist Office]
+- House music [Dance Club]
+
+#### Combat:
+- Biggie options:
+  - Violence (damages physical health):
+    - Scratch
+    - Bite
+  - Passive (damages mental health [hidden]):
+    - Nuzzle
+    - Unique option per fight
+
+#### Enemies:
+- Club DJ
+  - Battle sequence
+- Aquarium
+  - Battle sequence 
+
