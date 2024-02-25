@@ -11,10 +11,11 @@ public partial class DjAttackContainer : MarginContainer
 	private TimeSpan OneOverBPS => TimeSpan.FromSeconds(60 / _BPM);
 
 	private MarginContainer _nodeSelf = null;
-	private Area2D _nodeBaseArrowUp = null;
-	private Area2D _nodeBaseArrowRight = null;
-	private Area2D _nodeBaseArrowDown = null;
-	private Area2D _nodeBaseArrowLeft = null;
+	private BiggieDjCombat _nodeBiggie = null;
+	private BaseArrowUp _nodeBaseArrowUp = null;
+	private BaseArrowRight _nodeBaseArrowRight = null;
+	private BaseArrowDown _nodeBaseArrowDown = null;
+	private BaseArrowLeft _nodeBaseArrowLeft = null;
 
 	private CompositionParsingService CompositionParsingService { get; set; }
 	private FallingArrowFactory FallingArrowFactory { get; set; }
@@ -34,10 +35,11 @@ public partial class DjAttackContainer : MarginContainer
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<MarginContainer>(".");
-		_nodeBaseArrowUp = GetNode<Area2D>("./BaseArrowUp");
-		_nodeBaseArrowRight = GetNode<Area2D>("./BaseArrowRight");
-		_nodeBaseArrowDown = GetNode<Area2D>("./BaseArrowDown");
-		_nodeBaseArrowLeft = GetNode<Area2D>("./BaseArrowLeft");
+		_nodeBiggie = GetNode<BiggieDjCombat>("./BiggieDjCombat");
+		_nodeBaseArrowUp = GetNode<BaseArrowUp>("./BaseArrowUp");
+		_nodeBaseArrowRight = GetNode<BaseArrowRight>("./BaseArrowRight");
+		_nodeBaseArrowDown = GetNode<BaseArrowDown>("./BaseArrowDown");
+		_nodeBaseArrowLeft = GetNode<BaseArrowLeft>("./BaseArrowLeft");
 
 		FallingArrowFactory = new FallingArrowFactory(
 			_nodeBaseArrowUp.Position,
@@ -56,6 +58,16 @@ public partial class DjAttackContainer : MarginContainer
 		CompositionParsingService.SetNewComposition("composition-1.txt");
 		IsAttacking = true;
 		CurrentRound = Enumerations.DjCombatRounds.RoundOne;
+
+		_nodeBiggie.DequeueFallingArrowUp += DequeueUpAndCountMiss;
+		_nodeBiggie.DequeueFallingArrowRight += DequeueRightAndCountMiss;
+		_nodeBiggie.DequeueFallingArrowDown += DequeueDownAndCountMiss;
+		_nodeBiggie.DequeueFallingArrowLeft += DequeueLeftAndCountMiss;
+
+		_nodeBaseArrowUp.DequeueFallingArrowUp += DequeueUpAndCountHit;
+		_nodeBaseArrowRight.DequeueFallingArrowRight += DequeueRightAndCountHit;
+		_nodeBaseArrowDown.DequeueFallingArrowDown += DequeueDownAndCountHit;
+		_nodeBaseArrowLeft.DequeueFallingArrowLeft += DequeueLeftAndCountHit;
 	}
 
 	private int FrameCounter { get; set; }
@@ -155,32 +167,44 @@ public partial class DjAttackContainer : MarginContainer
 		}
 	}
 
+	public void DequeueUpAndCountMiss() { DequeueUpAndCountHit((int)Enumerations.HitType.Miss); }
 	public void DequeueUpAndCountHit(int hitInt)
 	{
+		GD.Print($"DequeueUpAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
 		IncrementHitCount(hit);
-		FallingArrowUpQueue.Dequeue();
+		var instance = FallingArrowUpQueue.Dequeue();
+		instance.QueueFree();
 	}
 
+	public void DequeueRightAndCountMiss() { DequeueRightAndCountHit((int)Enumerations.HitType.Miss); }	
 	public void DequeueRightAndCountHit(int hitInt)
 	{
+		GD.Print($"DequeueRightAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
 		IncrementHitCount(hit);
-		FallingArrowRightQueue.Dequeue();
+		var instance = FallingArrowRightQueue.Dequeue();
+		instance.QueueFree();
 	}
-
+	
+	public void DequeueDownAndCountMiss() { DequeueDownAndCountHit((int)Enumerations.HitType.Miss); }	
 	public void DequeueDownAndCountHit(int hitInt)
 	{
+		GD.Print($"DequeueDownAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
 		IncrementHitCount(hit);
-		FallingArrowDownQueue.Dequeue();
+		var instance = FallingArrowDownQueue.Dequeue();
+		instance.QueueFree();
 	}
 
+	public void DequeueLeftAndCountMiss() { DequeueLeftAndCountHit((int)Enumerations.HitType.Miss); }	
 	public void DequeueLeftAndCountHit(int hitInt)
 	{
+		GD.Print($"DequeueLeftAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
 		IncrementHitCount(hit);
-		FallingArrowLeftQueue.Dequeue();
+		var instance = FallingArrowLeftQueue.Dequeue();
+		instance.QueueFree();
 	}
 
 	private void IncrementHitCount(Enumerations.HitType hit)

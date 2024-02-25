@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class BaseArrowUp : Area2D
+public partial class BaseArrowDown : Area2D
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -12,13 +12,14 @@ public partial class BaseArrowUp : Area2D
 	public override void _Process(double delta)
 	{
 	}
-
+	
 	[Signal]
-	public delegate void DequeueFallingArrowUpEventHandler(int hit);
+	public delegate void DequeueFallingArrowDownEventHandler(int hit);
 
 	public void HandleCollision(Enumerations.HitType hit)
 	{
-		EmitSignal(SignalName.DequeueFallingArrowUp, (int)hit);
+		GD.Print("Down HandleCollision");
+		EmitSignal(SignalName.DequeueFallingArrowDown, (int)hit);
 		return;
 	}
 }

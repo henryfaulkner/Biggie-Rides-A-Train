@@ -1,15 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://dfb835te58a1v"]
+[gd_scene load_steps=12 format=3 uid="uid://dfb835te58a1v"]
 
 [ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper.tscn" id="1_y68ny"]
 [ext_resource type="Script" path="res://CombatScenes/DjBattle/DjAttackContainer.cs" id="2_614w3"]
 [ext_resource type="Texture2D" uid="uid://df0xe1tnk46cf" path="res://Assets/Objects/Biggie.png" id="2_ywmyh"]
 [ext_resource type="Texture2D" uid="uid://rq1x43iicrdi" path="res://Assets/Objects/DDRarrows/(final)generic-DDRarrows.png" id="3_6j14d"]
-[ext_resource type="PackedScene" uid="uid://d34wbh1sig0hs" path="res://CombatScenes/DjBattle/FallingArrows/FallingArrowUp.tscn" id="4_up7bo"]
-[ext_resource type="PackedScene" uid="uid://dfrevuyjkx64m" path="res://CombatScenes/DjBattle/FallingArrows/FallingArrowRight.tscn" id="6_brt4i"]
-[ext_resource type="PackedScene" uid="uid://g8pxcn571ewu" path="res://CombatScenes/DjBattle/FallingArrows/FallingArrowDown.tscn" id="7_8p1sa"]
-[ext_resource type="PackedScene" uid="uid://mhu3kr7w7sqb" path="res://CombatScenes/DjBattle/FallingArrows/FallingArrowLeft.tscn" id="8_8ok8q"]
+[ext_resource type="Script" path="res://CombatScenes/DjBattle/BiggieDjCombat.cs" id="3_da51y"]
+[ext_resource type="Script" path="res://CombatScenes/DjBattle/BaseArrows/BaseArrowUp.cs" id="4_hh5ux"]
+[ext_resource type="Script" path="res://CombatScenes/DjBattle/BaseArrows/BaseArrowRight.cs" id="6_3r5m3"]
+[ext_resource type="Script" path="res://CombatScenes/DjBattle/BaseArrows/BaseArrowDown.cs" id="7_b3hjx"]
+[ext_resource type="Script" path="res://CombatScenes/DjBattle/BaseArrows/BaseArrowLeft.cs" id="8_d5qsp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_77u1h"]
+radius = 3.16228
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_amehg"]
 radius = 4.0
@@ -33,18 +35,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_614w3")
 
-[node name="Biggie" type="Area2D" parent="DjAttackContainer"]
+[node name="BiggieDjCombat" type="CharacterBody2D" parent="DjAttackContainer"]
+script = ExtResource("3_da51y")
 
-[node name="Sprite2D" type="Sprite2D" parent="DjAttackContainer/Biggie"]
+[node name="Sprite2D" type="Sprite2D" parent="DjAttackContainer/BiggieDjCombat"]
 texture = ExtResource("2_ywmyh")
 hframes = 2
 vframes = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DjAttackContainer/Biggie"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DjAttackContainer/BiggieDjCombat"]
+position = Vector2(3, 3)
 shape = SubResource("CircleShape2D_77u1h")
 
 [node name="BaseArrowUp" type="Area2D" parent="DjAttackContainer"]
 position = Vector2(4, -42)
+script = ExtResource("4_hh5ux")
 
 [node name="Sprite2D" type="Sprite2D" parent="DjAttackContainer/BaseArrowUp"]
 modulate = Color(1, 1, 1, 0.313726)
@@ -58,6 +63,7 @@ shape = SubResource("CircleShape2D_amehg")
 
 [node name="BaseArrowRight" type="Area2D" parent="DjAttackContainer"]
 position = Vector2(51, -1)
+script = ExtResource("6_3r5m3")
 
 [node name="Sprite2D" type="Sprite2D" parent="DjAttackContainer/BaseArrowRight"]
 modulate = Color(1, 1, 1, 0.313726)
@@ -71,6 +77,7 @@ shape = SubResource("CircleShape2D_amehg")
 
 [node name="BaseArrowDown" type="Area2D" parent="DjAttackContainer"]
 position = Vector2(-1, 40)
+script = ExtResource("7_b3hjx")
 
 [node name="Sprite2D" type="Sprite2D" parent="DjAttackContainer/BaseArrowDown"]
 modulate = Color(1, 1, 1, 0.313726)
@@ -84,6 +91,7 @@ shape = SubResource("CircleShape2D_amehg")
 
 [node name="BaseArrowLeft" type="Area2D" parent="DjAttackContainer"]
 position = Vector2(-44, -1)
+script = ExtResource("8_d5qsp")
 
 [node name="Sprite2D" type="Sprite2D" parent="DjAttackContainer/BaseArrowLeft"]
 modulate = Color(1, 1, 1, 0.313726)
@@ -93,15 +101,3 @@ hframes = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DjAttackContainer/BaseArrowLeft"]
 position = Vector2(-11, 4)
 shape = SubResource("CircleShape2D_amehg")
-
-[node name="FallingArrowTop" parent="DjAttackContainer" instance=ExtResource("4_up7bo")]
-position = Vector2(4, -106)
-
-[node name="ArrowFallingRight" parent="DjAttackContainer" instance=ExtResource("6_brt4i")]
-position = Vector2(100, 0)
-
-[node name="ArrowFallingDown" parent="DjAttackContainer" instance=ExtResource("7_8p1sa")]
-position = Vector2(0, 100)
-
-[node name="ArrowFallingLeft" parent="DjAttackContainer" instance=ExtResource("8_8ok8q")]
-position = Vector2(-100, 0)

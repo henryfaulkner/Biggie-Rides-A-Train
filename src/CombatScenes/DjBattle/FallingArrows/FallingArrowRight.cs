@@ -3,7 +3,7 @@ using System;
 
 public partial class FallingArrowRight : CharacterBody2D
 {
-	private static readonly float speed = 200;
+	private static readonly float speed = 50;
 
 	public override void _Ready()
 	{
@@ -31,9 +31,10 @@ public partial class FallingArrowRight : CharacterBody2D
 
 	public void Collide(KinematicCollision2D collision)
 	{
-		if (collision.GetCollider().HasMethod("Hit"))
+		GD.Print("Right Collide");
+		if (collision.GetCollider().HasMethod("HandleCollisionRight"))
 		{
-			collision.GetCollider().Call("Hit");
+			collision.GetCollider().Call("HandleCollisionRight");
 		}
 	}
 }
