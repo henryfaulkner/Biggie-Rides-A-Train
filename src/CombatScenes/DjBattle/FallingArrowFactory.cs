@@ -26,7 +26,7 @@ public class FallingArrowFactory
 	{
 		var scene = GD.Load<PackedScene>(_FALLING_ARROW_UP_SCENE);
 		var instance = scene.Instantiate<CharacterBody2D>();
-		instance.Position = new Vector2(BaseArrowUpPosition.X, BaseArrowUpPosition.Y - 150);
+		instance.Position = new Vector2(BaseArrowUpPosition.X, BaseArrowUpPosition.Y - 300);
 		return instance;
 	}
 
@@ -34,7 +34,7 @@ public class FallingArrowFactory
 	{
 		var scene = GD.Load<PackedScene>(_FALLING_ARROW_RIGHT_SCENE);
 		var instance = scene.Instantiate<CharacterBody2D>();
-		instance.Position = new Vector2(BaseArrowRightPosition.X + 150, BaseArrowRightPosition.Y);
+		instance.Position = new Vector2(BaseArrowRightPosition.X + 300, BaseArrowRightPosition.Y);
 		return instance;
 	}
 
@@ -42,7 +42,7 @@ public class FallingArrowFactory
 	{
 		var scene = GD.Load<PackedScene>(_FALLING_ARROW_DOWN_SCENE);
 		var instance = scene.Instantiate<CharacterBody2D>();
-		instance.Position = new Vector2(BaseArrowDownPosition.X, BaseArrowDownPosition.Y + 150);
+		instance.Position = new Vector2(BaseArrowDownPosition.X, BaseArrowDownPosition.Y + 300);
 		return instance;
 	}
 
@@ -50,7 +50,7 @@ public class FallingArrowFactory
 	{
 		var scene = GD.Load<PackedScene>(_FALLING_ARROW_LEFT_SCENE);
 		var instance = scene.Instantiate<CharacterBody2D>();
-		instance.Position = new Vector2(BaseArrowLeftPosition.X - 150, BaseArrowLeftPosition.Y);
+		instance.Position = new Vector2(BaseArrowLeftPosition.X - 300, BaseArrowLeftPosition.Y);
 		return instance;
 	}
 }

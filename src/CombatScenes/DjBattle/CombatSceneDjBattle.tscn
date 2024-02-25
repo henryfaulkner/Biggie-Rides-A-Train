@@ -1,25 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://dfb835te58a1v"]
+[gd_scene load_steps=11 format=3 uid="uid://dfb835te58a1v"]
 
 [ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper.tscn" id="1_y68ny"]
 [ext_resource type="Script" path="res://CombatScenes/DjBattle/DjAttackContainer.cs" id="2_614w3"]
 [ext_resource type="Texture2D" uid="uid://df0xe1tnk46cf" path="res://Assets/Objects/Biggie.png" id="2_ywmyh"]
-[ext_resource type="Texture2D" uid="uid://rq1x43iicrdi" path="res://Assets/Objects/DDRarrows/(final)generic-DDRarrows.png" id="3_6j14d"]
 [ext_resource type="Script" path="res://CombatScenes/DjBattle/BiggieDjCombat.cs" id="3_da51y"]
-[ext_resource type="Script" path="res://CombatScenes/DjBattle/BaseArrows/BaseArrowUp.cs" id="4_hh5ux"]
-[ext_resource type="Script" path="res://CombatScenes/DjBattle/BaseArrows/BaseArrowRight.cs" id="6_3r5m3"]
-[ext_resource type="Script" path="res://CombatScenes/DjBattle/BaseArrows/BaseArrowDown.cs" id="7_b3hjx"]
-[ext_resource type="Script" path="res://CombatScenes/DjBattle/BaseArrows/BaseArrowLeft.cs" id="8_d5qsp"]
+[ext_resource type="PackedScene" uid="uid://buh5m7wlv85cl" path="res://CombatScenes/DjBattle/BaseArrows/BaseArrowUp.tscn" id="5_0afeh"]
+[ext_resource type="PackedScene" uid="uid://841ckydqawjr" path="res://CombatScenes/DjBattle/BaseArrows/BaseArrowRight.tscn" id="6_lggkr"]
+[ext_resource type="PackedScene" uid="uid://btg4ir18g3vbg" path="res://CombatScenes/DjBattle/BaseArrows/BaseArrowDown.tscn" id="7_wbk1w"]
+[ext_resource type="PackedScene" uid="uid://dct7ljxh0mq3o" path="res://CombatScenes/DjBattle/BaseArrows/BaseArrowLeft.tscn" id="8_7x2mt"]
+[ext_resource type="PackedScene" uid="uid://b81vlgqa3npjo" path="res://CombatScenes/DjBattle/HitCallout.tscn" id="9_njxru"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_77u1h"]
-radius = 3.16228
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_amehg"]
-radius = 4.0
+radius = 12.0416
 
 [node name="CombatSceneDjBattle" type="Node2D"]
 
 [node name="CombatWrapper" parent="." instance=ExtResource("1_y68ny")]
-visible = false
 
 [node name="DjAttackContainer" type="MarginContainer" parent="."]
 anchors_preset = 8
@@ -33,71 +29,33 @@ offset_right = 1024.0
 offset_bottom = 456.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("2_614w3")
 
 [node name="BiggieDjCombat" type="CharacterBody2D" parent="DjAttackContainer"]
 script = ExtResource("3_da51y")
 
 [node name="Sprite2D" type="Sprite2D" parent="DjAttackContainer/BiggieDjCombat"]
+scale = Vector2(4, 4)
 texture = ExtResource("2_ywmyh")
 hframes = 2
 vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DjAttackContainer/BiggieDjCombat"]
-position = Vector2(3, 3)
+position = Vector2(3, 8)
 shape = SubResource("CircleShape2D_77u1h")
 
-[node name="BaseArrowUp" type="Area2D" parent="DjAttackContainer"]
-position = Vector2(4, -42)
-script = ExtResource("4_hh5ux")
+[node name="BaseArrowUp" parent="DjAttackContainer" instance=ExtResource("5_0afeh")]
+position = Vector2(4, -100)
 
-[node name="Sprite2D" type="Sprite2D" parent="DjAttackContainer/BaseArrowUp"]
-modulate = Color(1, 1, 1, 0.313726)
-texture = ExtResource("3_6j14d")
-hframes = 4
-frame = 2
+[node name="BaseArrowRight" parent="DjAttackContainer" instance=ExtResource("6_lggkr")]
+position = Vector2(125, -1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DjAttackContainer/BaseArrowUp"]
-position = Vector2(-2, -14)
-shape = SubResource("CircleShape2D_amehg")
+[node name="BaseArrowDown" parent="DjAttackContainer" instance=ExtResource("7_wbk1w")]
+position = Vector2(-1, 100)
 
-[node name="BaseArrowRight" type="Area2D" parent="DjAttackContainer"]
-position = Vector2(51, -1)
-script = ExtResource("6_3r5m3")
+[node name="BaseArrowLeft" parent="DjAttackContainer" instance=ExtResource("8_7x2mt")]
+position = Vector2(-125, -1)
 
-[node name="Sprite2D" type="Sprite2D" parent="DjAttackContainer/BaseArrowRight"]
-modulate = Color(1, 1, 1, 0.313726)
-texture = ExtResource("3_6j14d")
-hframes = 4
-frame = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DjAttackContainer/BaseArrowRight"]
-position = Vector2(7, 3)
-shape = SubResource("CircleShape2D_amehg")
-
-[node name="BaseArrowDown" type="Area2D" parent="DjAttackContainer"]
-position = Vector2(-1, 40)
-script = ExtResource("7_b3hjx")
-
-[node name="Sprite2D" type="Sprite2D" parent="DjAttackContainer/BaseArrowDown"]
-modulate = Color(1, 1, 1, 0.313726)
-texture = ExtResource("3_6j14d")
-hframes = 4
-frame = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DjAttackContainer/BaseArrowDown"]
-position = Vector2(3, 21)
-shape = SubResource("CircleShape2D_amehg")
-
-[node name="BaseArrowLeft" type="Area2D" parent="DjAttackContainer"]
-position = Vector2(-44, -1)
-script = ExtResource("8_d5qsp")
-
-[node name="Sprite2D" type="Sprite2D" parent="DjAttackContainer/BaseArrowLeft"]
-modulate = Color(1, 1, 1, 0.313726)
-texture = ExtResource("3_6j14d")
-hframes = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DjAttackContainer/BaseArrowLeft"]
-position = Vector2(-11, 4)
-shape = SubResource("CircleShape2D_amehg")
+[node name="HitCalloutCanvasLayer" parent="." instance=ExtResource("9_njxru")]

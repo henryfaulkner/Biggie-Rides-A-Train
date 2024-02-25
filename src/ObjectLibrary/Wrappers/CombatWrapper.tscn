@@ -7,3 +7,4 @@
 script = ExtResource("1_eulcx")
 
 [node name="BiggieCombatTextBox" parent="." instance=ExtResource("2_qk0o6")]
+visible = false

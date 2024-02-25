@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://b81vlgqa3npjo"]
+
+[ext_resource type="Texture2D" uid="uid://bc7xku0su42l7" path="res://Assets/CombatScenes/DDR/perfect.svg" id="2_6tsn0"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yqtyp"]
+texture = ExtResource("2_6tsn0")
+
+[node name="HitCalloutCanvasLayer" type="CanvasLayer"]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 248.0
+grow_horizontal = 2
+
+[node name="HitCalloutPanel" type="Panel" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 120
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 2
+
+[node name="1_3" type="Panel" parent="MarginContainer/MarginContainer/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="2_3" type="Panel" parent="MarginContainer/MarginContainer/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_yqtyp")

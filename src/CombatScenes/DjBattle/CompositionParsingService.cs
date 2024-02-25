@@ -25,6 +25,12 @@ public class CompositionParsingService
 			char c = Reader[Offset];
 			if (hasArrowToken)
 			{
+				if (c == CompositionTokens.EndPhrase)
+				{
+					Offset += 1;
+					return result;
+				}
+				
 				if (IsBeatToken(c))
 				{
 					// if the result already contains arrows return arrows

@@ -5,6 +5,12 @@ using System.Collections.Generic;
 
 public partial class DjAttackContainer : MarginContainer
 {
+	private static readonly StringName _HIT_CALLOUT_STYLEBOX_NAME = new StringName("panel");
+	private static readonly StringName _MISS_IMAGE_ASSET = new StringName("res://Assets/CombatScenes/DDR/miss.svg");
+	private static readonly StringName _BAD_IMAGE_ASSET = new StringName("res://Assets/CombatScenes/DDR/bad.svg");
+	private static readonly StringName _GOOD_IMAGE_ASSET = new StringName("res://Assets/CombatScenes/DDR/good.svg");
+	private static readonly StringName _PERFECT_IMAGE_ASSET = new StringName("res://Assets/CombatScenes/DDR/perfect.svg");
+	
 	private static readonly int _BPM = 120;
 	private static readonly int _FPS = 60;
 	private static readonly int _SECONDS_IN_A_MINUTE = 60;
@@ -16,6 +22,7 @@ public partial class DjAttackContainer : MarginContainer
 	private BaseArrowRight _nodeBaseArrowRight = null;
 	private BaseArrowDown _nodeBaseArrowDown = null;
 	private BaseArrowLeft _nodeBaseArrowLeft = null;
+	private Panel _nodeHitCallout = null;
 
 	private CompositionParsingService CompositionParsingService { get; set; }
 	private FallingArrowFactory FallingArrowFactory { get; set; }
@@ -40,6 +47,7 @@ public partial class DjAttackContainer : MarginContainer
 		_nodeBaseArrowRight = GetNode<BaseArrowRight>("./BaseArrowRight");
 		_nodeBaseArrowDown = GetNode<BaseArrowDown>("./BaseArrowDown");
 		_nodeBaseArrowLeft = GetNode<BaseArrowLeft>("./BaseArrowLeft");
+		_nodeHitCallout = GetNode<Panel>("../HitCalloutCanvasLayer/MarginContainer/MarginContainer/HBoxContainer/Panel");
 
 		FallingArrowFactory = new FallingArrowFactory(
 			_nodeBaseArrowUp.Position,
@@ -170,8 +178,10 @@ public partial class DjAttackContainer : MarginContainer
 	public void DequeueUpAndCountMiss() { DequeueUpAndCountHit((int)Enumerations.HitType.Miss); }
 	public void DequeueUpAndCountHit(int hitInt)
 	{
+		if (FallingArrowUpQueue.Count == 0) return;
 		GD.Print($"DequeueUpAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
+		HitCallout(hit);
 		IncrementHitCount(hit);
 		var instance = FallingArrowUpQueue.Dequeue();
 		instance.QueueFree();
@@ -180,8 +190,10 @@ public partial class DjAttackContainer : MarginContainer
 	public void DequeueRightAndCountMiss() { DequeueRightAndCountHit((int)Enumerations.HitType.Miss); }	
 	public void DequeueRightAndCountHit(int hitInt)
 	{
+		if (FallingArrowRightQueue.Count == 0) return;
 		GD.Print($"DequeueRightAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
+		HitCallout(hit);
 		IncrementHitCount(hit);
 		var instance = FallingArrowRightQueue.Dequeue();
 		instance.QueueFree();
@@ -190,8 +202,10 @@ public partial class DjAttackContainer : MarginContainer
 	public void DequeueDownAndCountMiss() { DequeueDownAndCountHit((int)Enumerations.HitType.Miss); }	
 	public void DequeueDownAndCountHit(int hitInt)
 	{
+		if (FallingArrowDownQueue.Count == 0) return;
 		GD.Print($"DequeueDownAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
+		HitCallout(hit);
 		IncrementHitCount(hit);
 		var instance = FallingArrowDownQueue.Dequeue();
 		instance.QueueFree();
@@ -200,11 +214,47 @@ public partial class DjAttackContainer : MarginContainer
 	public void DequeueLeftAndCountMiss() { DequeueLeftAndCountHit((int)Enumerations.HitType.Miss); }	
 	public void DequeueLeftAndCountHit(int hitInt)
 	{
+		if (FallingArrowLeftQueue.Count == 0) return;
 		GD.Print($"DequeueLeftAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
+		HitCallout(hit);
 		IncrementHitCount(hit);
 		var instance = FallingArrowLeftQueue.Dequeue();
 		instance.QueueFree();
+	}
+	
+	private void HitCallout(Enumerations.HitType hit)
+	{
+		switch (hit)
+		{
+			case Enumerations.HitType.Miss:
+				ChangeHitCalloutTexture(_MISS_IMAGE_ASSET);
+				break;
+			case Enumerations.HitType.Bad:
+				ChangeHitCalloutTexture(_BAD_IMAGE_ASSET);
+				break;
+			case Enumerations.HitType.Good:
+				ChangeHitCalloutTexture(_GOOD_IMAGE_ASSET);
+				break;
+			case Enumerations.HitType.Perfect:
+				ChangeHitCalloutTexture(_PERFECT_IMAGE_ASSET);
+				break;
+			default:
+				GD.Print("A HitType did not map.");
+				break;
+		}
+	}
+	
+	private void ChangeHitCalloutTexture(StringName imagePath)
+	{
+		if (_nodeHitCallout.HasThemeStylebox(_HIT_CALLOUT_STYLEBOX_NAME))
+		{
+			StyleBoxTexture newStyleboxNormal = _nodeHitCallout.GetThemeStylebox(_HIT_CALLOUT_STYLEBOX_NAME).Duplicate() as StyleBoxTexture;
+			var image = new Image();
+			image.Load(imagePath);
+			newStyleboxNormal.Texture = ImageTexture.CreateFromImage(image);
+			_nodeHitCallout.AddThemeStyleboxOverride(_HIT_CALLOUT_STYLEBOX_NAME, newStyleboxNormal);
+		}
 	}
 
 	private void IncrementHitCount(Enumerations.HitType hit)
