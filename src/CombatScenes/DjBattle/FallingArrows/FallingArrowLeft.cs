@@ -31,7 +31,7 @@ public partial class FallingArrowLeft : CharacterBody2D
 
 	public void Collide(KinematicCollision2D collision)
 	{
-		GD.Print("Left Collide");
+		//GD.Print("Left Collide");
 		if (collision.GetCollider().HasMethod("HandleCollisionLeft"))
 		{
 			collision.GetCollider().Call("HandleCollisionLeft");

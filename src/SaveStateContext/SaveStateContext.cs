@@ -8,7 +8,7 @@ public partial class SaveStateContext : Node, IDisposable
 
 	public void Commit(SaveStateModel saveState)
 	{
-		GD.Print("Commit");
+		//GD.Print("Commit");
 		try
 		{
 			string content = JsonConvert.SerializeObject(saveState, Formatting.Indented);
@@ -17,8 +17,8 @@ public partial class SaveStateContext : Node, IDisposable
 		}
 		catch (Exception exception)
 		{
-			GD.Print($"Commit exception: {exception}");
-			GD.Print($"Commit SaveState: {saveState}");
+			//GD.Print($"Commit exception: {exception}");
+			//GD.Print($"Commit SaveState: {saveState}");
 		}
 	}
 
@@ -26,7 +26,7 @@ public partial class SaveStateContext : Node, IDisposable
 	{
 		try
 		{
-			GD.Print("Load");
+			//GD.Print("Load");
 			using var file = FileAccess.Open(_SAVE_STATE_FILE, FileAccess.ModeFlags.Read);
 			string content = file.GetAsText();
 			var json = JsonConvert.DeserializeObject<SaveStateModel>(content);
@@ -34,14 +34,14 @@ public partial class SaveStateContext : Node, IDisposable
 		}
 		catch (Exception exception)
 		{
-			GD.Print($"Load exception: {exception}");
+			//GD.Print($"Load exception: {exception}");
 		}
 		return new SaveStateModel();
 	}
-	
+
 	public void Clear()
 	{
-		GD.Print("Clear");
+		//GD.Print("Clear");
 		Commit(new SaveStateModel());
 	}
 }

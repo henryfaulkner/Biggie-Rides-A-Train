@@ -3,6 +3,7 @@ using System;
 
 public partial class BasePageBasePanel : Panel
 {
+	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
 	private static readonly StringName _LEFT_INPUT = new StringName("move_left");
 	private static readonly StringName _RIGHT_INPUT = new StringName("move_right");
 
@@ -53,22 +54,31 @@ public partial class BasePageBasePanel : Panel
 			{
 				_nodeSelf.Visible = true;
 			}
+			else
+			{
+				if (Input.IsActionJustPressed(_INTERACT_INPUT))
+				{
+					EmitSignal(SignalName.SelectBase, SelectionHelperInstance.GetSelectedOptionId());
+				}
+			}
 		}
-
 
 		if (Input.IsActionJustPressed(_LEFT_INPUT))
 		{
-			GD.Print("Left Input");
+			//GD.Print("Left Input");
 			SelectionHelperInstance.ShiftSelectionLeft();
 			ProcessSelection();
 		}
 		if (Input.IsActionJustPressed(_RIGHT_INPUT))
 		{
-			GD.Print("Right Input");
+			//GD.Print("Right Input");
 			SelectionHelperInstance.ShiftSelectionRight();
 			ProcessSelection();
 		}
 	}
+
+	[Signal]
+	public delegate void SelectBaseEventHandler(int index);
 
 	public void ProcessSelection()
 	{
@@ -78,7 +88,7 @@ public partial class BasePageBasePanel : Panel
 			{
 				if (option.IsSelected)
 				{
-					GD.Print($"Selected action: {option.Id}");
+					//GD.Print($"Selected action: {option.Id}");
 					SelectionHelperInstance.AddWhiteFont(option.OptionLabel);
 					SelectionHelperInstance.AddSelectBorder(option.SelectionPanel);
 				}
@@ -90,7 +100,7 @@ public partial class BasePageBasePanel : Panel
 			}
 			catch (Exception exception)
 			{
-				GD.Print($"Exception occured on option id {option.Id}: {exception.Message}");
+				//GD.Print($"Exception occured on option id {option.Id}: {exception.Message}");
 			}
 		}
 	}

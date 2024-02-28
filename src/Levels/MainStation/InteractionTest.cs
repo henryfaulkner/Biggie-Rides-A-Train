@@ -34,7 +34,7 @@ public partial class InteractionTest : Area2D
 
 	public void HandleInteraction(int selectedOptionId)
 	{
-		GD.Print("I am handling the interaction in InteractionTest.");
-		GD.Print("selectedOptionId: ", selectedOptionId);
+		//GD.Print("I am handling the interaction in InteractionTest.");
+		//GD.Print("selectedOptionId: ", selectedOptionId);
 	}
 }

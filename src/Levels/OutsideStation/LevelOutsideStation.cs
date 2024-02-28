@@ -70,7 +70,7 @@ public partial class LevelOutsideStation : Node2D
 
 	private void DebugTaxiPosition()
 	{
-		GD.Print("taxi.Position.X: ", _taxi.Position.X);
-		GD.Print("taxi.Position.y: ", _taxi.Position.Y);
+		//GD.Print("taxi.Position.X: ", _taxi.Position.X);
+		//GD.Print("taxi.Position.y: ", _taxi.Position.Y);
 	}
 }

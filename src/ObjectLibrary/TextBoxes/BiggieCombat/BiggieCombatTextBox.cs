@@ -20,75 +20,102 @@ public partial class BiggieCombatTextBox : CanvasLayer
 		_nodeBasePagePanel.IsOpen = true;
 		_nodeChatPagePanel.IsOpen = false;
 		_nodeFightPagePanel.IsOpen = false;
+
+		_nodeBasePagePanel.SelectBase += HandleBaseSelection;
+		_nodeChatPagePanel.SelectChat += HandleChatSelection;
+		_nodeFightPagePanel.SelectFight += HandleFightSelection;
 	}
 
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed(_INTERACT_INPUT))
+		//if (Input.IsActionJustPressed(_INTERACT_INPUT))
+		//{
+		////GD.Print("Interact Input");
+		//HandleInteraction();
+		//}
+	}
+
+	public void StartTurn()
+	{
+
+	}
+
+	[Signal]
+	public delegate void EndBiggieTurnEventHandler();
+
+	public void EndTurn()
+	{
+
+	}
+
+	public void HandleBaseSelection(int selection)
+	{
+		//GD.Print("HandleBaseSelection");
+		switch (selection)
 		{
-			GD.Print("Interact Input");
-			HandleInteraction();
+			case (int)Enumerations.BasePagePanelOptions.Fight:
+				_nodeBasePagePanel.IsOpen = false;
+				_nodeFightPagePanel.IsOpen = true;
+				break;
+			case (int)Enumerations.BasePagePanelOptions.Chat:
+				_nodeBasePagePanel.IsOpen = false;
+				_nodeChatPagePanel.IsOpen = true;
+				break;
+			case (int)Enumerations.BasePagePanelOptions.Exit:
+				break;
+			default:
+				//GD.Print("_nodeBasePagePanel.IsOpen but not mapped");
+				break;
 		}
 	}
 
-	public void HandleInteraction()
+	public void HandleFightSelection(int selection)
 	{
-		if (_nodeBasePagePanel.IsOpen)
+		//GD.Print($"HandleFightSelection {selection}");
+		try
 		{
-			switch (_nodeBasePagePanel.SelectionHelperInstance.GetSelectedOptionId())
-			{
-				case (int)Enumerations.BasePagePanelOptions.Fight:
-					_nodeBasePagePanel.IsOpen = false;
-					_nodeFightPagePanel.IsOpen = true;
-					break;
-				case (int)Enumerations.BasePagePanelOptions.Chat:
-					_nodeBasePagePanel.IsOpen = false;
-					_nodeChatPagePanel.IsOpen = true;
-					break;
-				case (int)Enumerations.BasePagePanelOptions.Exit:
-					break;
-				default:
-					GD.Print("_nodeBasePagePanel.IsOpen but not mapped");
-					break;
-			}
-		}
-		else if (_nodeChatPagePanel.IsOpen)
-		{
-			switch (_nodeChatPagePanel.SelectionHelperInstance.GetSelectedOptionId())
-			{
-				case (int)Enumerations.ChatPagePanelOptions.Ask:
-					break;
-				case (int)Enumerations.ChatPagePanelOptions.Charm:
-					break;
-				case (int)Enumerations.ChatPagePanelOptions.Back:
-					_nodeBasePagePanel.IsOpen = true;
-					_nodeChatPagePanel.IsOpen = false;
-					break;
-				default:
-					GD.Print("_nodeChatPagePanel.IsOpen but not mapped");
-					break;
-			}
-		}
-		else if (_nodeFightPagePanel.IsOpen)
-		{
-			switch (_nodeFightPagePanel.SelectionHelperInstance.GetSelectedOptionId())
+			switch (selection)
 			{
 				case (int)Enumerations.FightPagePanelOptions.Scratch:
+					//GD.Print("Scratch");
+					EmitSignal(SignalName.EndBiggieTurn);
 					break;
 				case (int)Enumerations.FightPagePanelOptions.Bite:
+					EmitSignal(SignalName.EndBiggieTurn);
 					break;
 				case (int)Enumerations.FightPagePanelOptions.Back:
 					_nodeBasePagePanel.IsOpen = true;
 					_nodeFightPagePanel.IsOpen = false;
 					break;
 				default:
-					GD.Print("_nodeFightPagePanel.IsOpen but not mapped");
+					//GD.Print("_nodeFightPagePanel.IsOpen but not mapped");
 					break;
 			}
 		}
-		else
+		catch (Exception exception)
 		{
-			GD.Print("BiggieCombatTextBox.HandleInteraction: uhghh nothing was open ??");
+			//GD.Print($"exception {exception.Message}");
+		}
+	}
+
+	public void HandleChatSelection(int selection)
+	{
+		//GD.Print("HandleChatSelection");
+		switch (selection)
+		{
+			case (int)Enumerations.ChatPagePanelOptions.Ask:
+				EmitSignal(SignalName.EndBiggieTurn);
+				break;
+			case (int)Enumerations.ChatPagePanelOptions.Charm:
+				EmitSignal(SignalName.EndBiggieTurn);
+				break;
+			case (int)Enumerations.ChatPagePanelOptions.Back:
+				_nodeBasePagePanel.IsOpen = true;
+				_nodeChatPagePanel.IsOpen = false;
+				break;
+			default:
+				//GD.Print("_nodeChatPagePanel.IsOpen but not mapped");
+				break;
 		}
 	}
 }

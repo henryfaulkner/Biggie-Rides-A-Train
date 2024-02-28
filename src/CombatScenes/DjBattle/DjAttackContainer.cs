@@ -10,7 +10,7 @@ public partial class DjAttackContainer : MarginContainer
 	private static readonly StringName _BAD_IMAGE_ASSET = new StringName("res://Assets/CombatScenes/DDR/bad.svg");
 	private static readonly StringName _GOOD_IMAGE_ASSET = new StringName("res://Assets/CombatScenes/DDR/good.svg");
 	private static readonly StringName _PERFECT_IMAGE_ASSET = new StringName("res://Assets/CombatScenes/DDR/perfect.svg");
-	
+
 	private static readonly int _BPM = 120;
 	private static readonly int _FPS = 60;
 	private static readonly int _SECONDS_IN_A_MINUTE = 60;
@@ -47,7 +47,7 @@ public partial class DjAttackContainer : MarginContainer
 		_nodeBaseArrowRight = GetNode<BaseArrowRight>("./BaseArrowRight");
 		_nodeBaseArrowDown = GetNode<BaseArrowDown>("./BaseArrowDown");
 		_nodeBaseArrowLeft = GetNode<BaseArrowLeft>("./BaseArrowLeft");
-		_nodeHitCallout = GetNode<Panel>("../HitCalloutCanvasLayer/MarginContainer/MarginContainer/HBoxContainer/Panel");
+		_nodeHitCallout = GetNode<Panel>("../HitCallout/MarginContainer/MarginContainer/HBoxContainer/Panel");
 
 		FallingArrowFactory = new FallingArrowFactory(
 			_nodeBaseArrowUp.Position,
@@ -101,17 +101,39 @@ public partial class DjAttackContainer : MarginContainer
 		FrameCounter += 1;
 	}
 
+	public void StartTurn()
+	{
+		IsAttacking = true;
+	}
+
+	[Signal]
+	public delegate void EndOpponentTurnEventHandler();
+
+	public void EndTurn()
+	{
+		IsAttacking = false;
+	}
+
+	public bool eocFound { get; set; }
 	public void AttackRoundOne()
 	{
 		var nextToken = CompositionParsingService.GetNextToken();
-		if (nextToken.Count > 0 && nextToken[0] == CompositionTokens.EOC)
+		
+		if (nextToken.Count > 0 && nextToken[0] != CompositionTokens.EOC)
+		{
+			GenerateAttack(nextToken);
+		}
+		else if (
+			FallingArrowUpQueue.Count == 0 && FallingArrowRightQueue.Count == 0 
+			&& FallingArrowDownQueue.Count == 0 && FallingArrowLeftQueue.Count == 0 
+		)	
 		{
 			CompositionParsingService.SetNewComposition("composition-1.txt");
-			IsAttacking = false;
 			CurrentRound = Enumerations.DjCombatRounds.RoundTwo;
+			//GD.Print("EOC");
+			EmitSignal(SignalName.EndOpponentTurn);
 			return;
 		}
-		GenerateAttack(nextToken);
 	}
 
 	private void GenerateAttack(List<char> tokens)
@@ -121,16 +143,16 @@ public partial class DjAttackContainer : MarginContainer
 			switch (tokens[0])
 			{
 				case CompositionTokens.Beat:
-					GD.Print("Beat");
+					//GD.Print("Beat");
 					break;
 				case CompositionTokens.TwoBeats:
-					GD.Print("TwoBeats");
+					//GD.Print("TwoBeats");
 					break;
 				case CompositionTokens.FourBeats:
-					GD.Print("FourBeats");
+					//GD.Print("FourBeats");
 					break;
 				default:
-					GD.Print("A Beat Token did not map.");
+					//GD.Print("A Beat Token did not map.");
 					break;
 			}
 			return;
@@ -167,11 +189,11 @@ public partial class DjAttackContainer : MarginContainer
 						_nodeSelf.AddChild(instanceLeft);
 						break;
 					default:
-						GD.Print("A FallingArrow Token did not map.");
+						//GD.Print("A FallingArrow Token did not map.");
 						break;
 				}
 			}
-			GD.Print(str);
+			//GD.Print(str);
 		}
 	}
 
@@ -179,7 +201,7 @@ public partial class DjAttackContainer : MarginContainer
 	public void DequeueUpAndCountHit(int hitInt)
 	{
 		if (FallingArrowUpQueue.Count == 0) return;
-		GD.Print($"DequeueUpAndCountHit {hitInt}");
+		//GD.Print($"DequeueUpAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
 		HitCallout(hit);
 		IncrementHitCount(hit);
@@ -187,23 +209,23 @@ public partial class DjAttackContainer : MarginContainer
 		instance.QueueFree();
 	}
 
-	public void DequeueRightAndCountMiss() { DequeueRightAndCountHit((int)Enumerations.HitType.Miss); }	
+	public void DequeueRightAndCountMiss() { DequeueRightAndCountHit((int)Enumerations.HitType.Miss); }
 	public void DequeueRightAndCountHit(int hitInt)
 	{
 		if (FallingArrowRightQueue.Count == 0) return;
-		GD.Print($"DequeueRightAndCountHit {hitInt}");
+		//GD.Print($"DequeueRightAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
 		HitCallout(hit);
 		IncrementHitCount(hit);
 		var instance = FallingArrowRightQueue.Dequeue();
 		instance.QueueFree();
 	}
-	
-	public void DequeueDownAndCountMiss() { DequeueDownAndCountHit((int)Enumerations.HitType.Miss); }	
+
+	public void DequeueDownAndCountMiss() { DequeueDownAndCountHit((int)Enumerations.HitType.Miss); }
 	public void DequeueDownAndCountHit(int hitInt)
 	{
 		if (FallingArrowDownQueue.Count == 0) return;
-		GD.Print($"DequeueDownAndCountHit {hitInt}");
+		//GD.Print($"DequeueDownAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
 		HitCallout(hit);
 		IncrementHitCount(hit);
@@ -211,18 +233,18 @@ public partial class DjAttackContainer : MarginContainer
 		instance.QueueFree();
 	}
 
-	public void DequeueLeftAndCountMiss() { DequeueLeftAndCountHit((int)Enumerations.HitType.Miss); }	
+	public void DequeueLeftAndCountMiss() { DequeueLeftAndCountHit((int)Enumerations.HitType.Miss); }
 	public void DequeueLeftAndCountHit(int hitInt)
 	{
 		if (FallingArrowLeftQueue.Count == 0) return;
-		GD.Print($"DequeueLeftAndCountHit {hitInt}");
+		//GD.Print($"DequeueLeftAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
 		HitCallout(hit);
 		IncrementHitCount(hit);
 		var instance = FallingArrowLeftQueue.Dequeue();
 		instance.QueueFree();
 	}
-	
+
 	private void HitCallout(Enumerations.HitType hit)
 	{
 		switch (hit)
@@ -240,11 +262,11 @@ public partial class DjAttackContainer : MarginContainer
 				ChangeHitCalloutTexture(_PERFECT_IMAGE_ASSET);
 				break;
 			default:
-				GD.Print("A HitType did not map.");
+				//GD.Print("A HitType did not map.");
 				break;
 		}
 	}
-	
+
 	private void ChangeHitCalloutTexture(StringName imagePath)
 	{
 		if (_nodeHitCallout.HasThemeStylebox(_HIT_CALLOUT_STYLEBOX_NAME))
@@ -274,7 +296,7 @@ public partial class DjAttackContainer : MarginContainer
 				PerfectCount += 1;
 				break;
 			default:
-				GD.Print("A HitType did not map.");
+				//GD.Print("A HitType did not map.");
 				break;
 		}
 	}

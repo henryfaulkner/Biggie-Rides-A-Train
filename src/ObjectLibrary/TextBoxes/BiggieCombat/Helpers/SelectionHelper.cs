@@ -100,7 +100,7 @@ public class SelectionHelper
 		}
 		else
 		{
-			GD.Print("LabelSettings are null. White FontColor was not applied");
+			//GD.Print("LabelSettings are null. White FontColor was not applied");
 		}
 	}
 
@@ -114,7 +114,7 @@ public class SelectionHelper
 		}
 		else
 		{
-			GD.Print("LabelSettings are null. Grey FontColor was not applied");
+			//GD.Print("LabelSettings are null. Grey FontColor was not applied");
 		}
 	}
 }

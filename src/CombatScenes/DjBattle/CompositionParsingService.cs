@@ -8,7 +8,7 @@ public class CompositionParsingService
 
 	private char[] Reader { get; set; }
 	private int Offset { get; set; }
-	
+
 	public void SetNewComposition(string fileName)
 	{
 		Reader = GetCharacterArray($"res://CombatScenes/DjBattle/Composition/Compositions/{fileName}");
@@ -25,12 +25,17 @@ public class CompositionParsingService
 			char c = Reader[Offset];
 			if (hasArrowToken)
 			{
+				if (c == CompositionTokens.EOC)
+				{
+					return result;
+				}
+				
 				if (c == CompositionTokens.EndPhrase)
 				{
 					Offset += 1;
 					return result;
 				}
-				
+
 				if (IsBeatToken(c))
 				{
 					// if the result already contains arrows return arrows
@@ -104,7 +109,7 @@ public class CompositionParsingService
 		}
 		catch (Exception ex)
 		{
-			GD.Print($"An error occurred: {ex.Message}");
+			//GD.Print($"An error occurred: {ex.Message}");
 			return null;
 		}
 		return new char[0];

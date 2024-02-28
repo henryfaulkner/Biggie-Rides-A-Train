@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://CombatScenes/DjBattle/FallingArrows/FallingArrowUp.cs" id="1_undfw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jj20t"]
-size = Vector2(8.5, 3.75)
+size = Vector2(8.5, 0.5)
 
 [node name="ArrowFallingUp" type="CharacterBody2D"]
 scale = Vector2(2, 2)
@@ -16,5 +16,5 @@ hframes = 4
 frame = 2
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
-position = Vector2(-2.5, 2.875)
+position = Vector2(-2.5, 3.25)
 shape = SubResource("RectangleShape2D_jj20t")

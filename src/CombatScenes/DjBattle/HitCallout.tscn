@@ -5,7 +5,7 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yqtyp"]
 texture = ExtResource("2_6tsn0")
 
-[node name="HitCalloutCanvasLayer" type="CanvasLayer"]
+[node name="HitCallout" type="CanvasLayer"]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 10
