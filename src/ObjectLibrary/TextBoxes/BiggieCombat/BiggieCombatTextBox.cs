@@ -45,7 +45,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 
 	public void EndTurn()
 	{
-
+		ResetPageState();
 	}
 
 	public void HandleBaseSelection(int selection)
@@ -67,6 +67,8 @@ public partial class BiggieCombatTextBox : CanvasLayer
 				//GD.Print("_nodeBasePagePanel.IsOpen but not mapped");
 				break;
 		}
+
+		_nodeBasePagePanel.ResetPointerOffset();
 	}
 
 	public void HandleFightSelection(int selection)
@@ -91,6 +93,8 @@ public partial class BiggieCombatTextBox : CanvasLayer
 					//GD.Print("_nodeFightPagePanel.IsOpen but not mapped");
 					break;
 			}
+
+			_nodeFightPagePanel.ResetPointerOffset();
 		}
 		catch (Exception exception)
 		{
@@ -117,5 +121,17 @@ public partial class BiggieCombatTextBox : CanvasLayer
 				//GD.Print("_nodeChatPagePanel.IsOpen but not mapped");
 				break;
 		}
+
+		_nodeChatPagePanel.ResetPointerOffset();
+	}
+
+	private void ResetPageState()
+	{
+		_nodeBasePagePanel.ResetPointerOffset();
+		_nodeChatPagePanel.ResetPointerOffset();
+		_nodeFightPagePanel.ResetPointerOffset();
+		_nodeBasePagePanel.IsOpen = true;
+		_nodeChatPagePanel.IsOpen = false;
+		_nodeFightPagePanel.IsOpen = false;
 	}
 }

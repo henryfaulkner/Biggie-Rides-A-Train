@@ -11,7 +11,6 @@ public partial class CombatSceneDjBattle : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GD.Print("CUM");
 		_nodeSelf = GetNode<Node2D>(".");
 		_nodeBiggieCombatTextBox = GetNode<BiggieCombatTextBox>("./CombatWrapper/BiggieCombatTextBox");
 		_nodeDjAttackContainer = GetNode<DjAttackContainer>("./DjAttackContainer");
@@ -36,7 +35,7 @@ public partial class CombatSceneDjBattle : Node2D
 
 	public void EndBiggieTurn()
 	{
-		//GD.Print("EndBiggieTurn");
+		GD.Print("EndBiggieTurn");
 		_nodeBiggieCombatTextBox.Visible = false;
 		_nodeBiggieCombatTextBox.EndTurn();
 		StartOpponentTurn();

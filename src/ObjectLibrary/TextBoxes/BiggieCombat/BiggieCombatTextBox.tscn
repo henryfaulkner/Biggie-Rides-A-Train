@@ -1,12 +1,74 @@
-[gd_scene load_steps=5 format=3 uid="uid://xbdh31b8gpcu"]
+[gd_scene load_steps=9 format=3 uid="uid://xbdh31b8gpcu"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BiggieCombatTextBox.cs" id="1_cjp8v"]
+[ext_resource type="Script" path="res://ObjectLibrary/TextBoxes/BiggieCombat/Health.cs" id="2_6ehbr"]
+[ext_resource type="LabelSettings" uid="uid://dhr4jjrifryn4" path="res://Assets/LabelSettings/HealthLabelSettings.tres" id="2_m3dpt"]
 [ext_resource type="PackedScene" uid="uid://clph2g6ck8ex3" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BasePage/BasePagePanel.tscn" id="2_n6akt"]
 [ext_resource type="PackedScene" uid="uid://kvnvsvcpssdn" path="res://ObjectLibrary/TextBoxes/BiggieCombat/ChatPage/ChatPagePanel.tscn" id="3_x1bsp"]
 [ext_resource type="PackedScene" uid="uid://btd1wre3iy1fx" path="res://ObjectLibrary/TextBoxes/BiggieCombat/FightPage/FightPagePanel.tscn" id="4_x0l5s"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cqu1w"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hak2k"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [node name="BiggieCombatTextBox" type="CanvasLayer"]
 script = ExtResource("1_cjp8v")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 160.0
+offset_top = 650.0
+offset_right = 1952.0
+offset_bottom = 691.0
+
+[node name="HealthContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 450
+
+[node name="Health" type="HBoxContainer" parent="HBoxContainer/HealthContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_6ehbr")
+
+[node name="HpTitleLabel" type="Label" parent="HBoxContainer/HealthContainer/Health"]
+layout_mode = 2
+text = "HP"
+label_settings = ExtResource("2_m3dpt")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/HealthContainer/Health"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/HealthContainer/Health/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_cqu1w")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hak2k")
+value = 33.0
+rounded = true
+show_percentage = false
+
+[node name="HpValueLabel" type="Label" parent="HBoxContainer/HealthContainer/Health"]
+layout_mode = 2
+text = "9/9"
+label_settings = ExtResource("2_m3dpt")
+
+[node name="ActionInfo" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="TextBoxContainer" type="MarginContainer" parent="."]
 anchors_preset = 12

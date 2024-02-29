@@ -85,20 +85,28 @@ public partial class DjAttackContainer : MarginContainer
 		{
 			if (IsAttacking)
 			{
-				switch (CurrentRound)
-				{
-					case Enumerations.DjCombatRounds.RoundOne:
-						AttackRoundOne();
-						break;
-					case Enumerations.DjCombatRounds.RoundTwo:
-						break;
-					default:
-						break;
-				}
+				Attack();
 			}
 		}
 
 		FrameCounter += 1;
+	}
+
+	public void SetNewComposition()
+	{
+		switch (CurrentRound)
+		{
+			case Enumerations.DjCombatRounds.RoundOne:
+				CompositionParsingService.SetNewComposition("composition-1.txt");
+				CurrentRound = Enumerations.DjCombatRounds.RoundTwo;
+				break;
+			case Enumerations.DjCombatRounds.RoundTwo:
+				CompositionParsingService.SetNewComposition("composition-2.txt");
+				CurrentRound = Enumerations.DjCombatRounds.RoundOne;
+				break;
+			default:
+				break;
+		}
 	}
 
 	public void StartTurn()
@@ -114,24 +122,22 @@ public partial class DjAttackContainer : MarginContainer
 		IsAttacking = false;
 	}
 
-	public bool eocFound { get; set; }
-	public void AttackRoundOne()
+	public void Attack()
 	{
 		var nextToken = CompositionParsingService.GetNextToken();
-		
+
 		if (nextToken.Count > 0 && nextToken[0] != CompositionTokens.EOC)
 		{
 			GenerateAttack(nextToken);
 		}
 		else if (
-			FallingArrowUpQueue.Count == 0 && FallingArrowRightQueue.Count == 0 
-			&& FallingArrowDownQueue.Count == 0 && FallingArrowLeftQueue.Count == 0 
-		)	
+			FallingArrowUpQueue.Count == 0 && FallingArrowRightQueue.Count == 0
+			&& FallingArrowDownQueue.Count == 0 && FallingArrowLeftQueue.Count == 0
+		)
 		{
-			CompositionParsingService.SetNewComposition("composition-1.txt");
-			CurrentRound = Enumerations.DjCombatRounds.RoundTwo;
 			//GD.Print("EOC");
 			EmitSignal(SignalName.EndOpponentTurn);
+			SetNewComposition();
 			return;
 		}
 	}

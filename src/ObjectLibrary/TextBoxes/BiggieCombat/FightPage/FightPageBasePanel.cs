@@ -15,7 +15,7 @@ public partial class FightPageBasePanel : Panel
 	private Panel _nodeBackSelectionPanel = null;
 	private Label _nodeBackOptionLabel = null;
 
-	public SelectionHelper SelectionHelperInstance { get; set; }
+	private SelectionHelper SelectionHelperInstance { get; set; }
 	public bool IsOpen { get; set; }
 
 	public override void _Ready()
@@ -48,32 +48,29 @@ public partial class FightPageBasePanel : Panel
 			}
 			return;
 		}
+
+		if (!_nodeSelf.Visible)
+		{
+			_nodeSelf.Visible = true;
+		}
 		else
 		{
-			if (!_nodeSelf.Visible)
+			if (Input.IsActionJustPressed(_INTERACT_INPUT))
 			{
-				_nodeSelf.Visible = true;
+				EmitSignal(SignalName.SelectFight, SelectionHelperInstance.GetSelectedOptionId());
 			}
-			else
+			if (Input.IsActionJustPressed(_LEFT_INPUT))
 			{
-				if (Input.IsActionJustPressed(_INTERACT_INPUT))
-				{
-					EmitSignal(SignalName.SelectFight, SelectionHelperInstance.GetSelectedOptionId());
-				}
+				GD.Print("Left Input");
+				SelectionHelperInstance.ShiftSelectionLeft();
+				ProcessSelection();
 			}
-		}
-
-		if (Input.IsActionJustPressed(_LEFT_INPUT))
-		{
-			//GD.Print("Left Input");
-			SelectionHelperInstance.ShiftSelectionLeft();
-			ProcessSelection();
-		}
-		if (Input.IsActionJustPressed(_RIGHT_INPUT))
-		{
-			//GD.Print("Right Input");
-			SelectionHelperInstance.ShiftSelectionRight();
-			ProcessSelection();
+			if (Input.IsActionJustPressed(_RIGHT_INPUT))
+			{
+				GD.Print("Right Input");
+				SelectionHelperInstance.ShiftSelectionRight();
+				ProcessSelection();
+			}
 		}
 	}
 
@@ -103,5 +100,10 @@ public partial class FightPageBasePanel : Panel
 				//GD.Print($"Exception occured on option id {option.Id}: {exception.Message}");
 			}
 		}
+	}
+
+	public void ResetPointerOffset()
+	{
+		SelectionHelperInstance.Reset();
 	}
 }

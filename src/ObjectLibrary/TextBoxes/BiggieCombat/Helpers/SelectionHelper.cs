@@ -117,4 +117,25 @@ public class SelectionHelper
 			//GD.Print("LabelSettings are null. Grey FontColor was not applied");
 		}
 	}
+
+	public void Reset()
+	{
+		CurrentSelectedOptionIndex = 0;
+		int len = OptionList.Count;
+		for (int i = 0; i < len; i += 1)
+		{
+			if (i == 0)
+			{
+				OptionList[i].IsSelected = true;
+				AddSelectBorder(OptionList[i].SelectionPanel);
+				AddWhiteFont(OptionList[i].OptionLabel);
+			}
+			else
+			{
+				OptionList[i].IsSelected = false;
+				RemoveSelectBorder(OptionList[i].SelectionPanel);
+				AddGreyFont(OptionList[i].OptionLabel);
+			}
+		}
+	}
 }

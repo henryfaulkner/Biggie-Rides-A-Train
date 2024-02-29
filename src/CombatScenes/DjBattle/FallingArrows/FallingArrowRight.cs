@@ -3,7 +3,7 @@ using System;
 
 public partial class FallingArrowRight : CharacterBody2D
 {
-	private static readonly float speed = 50;
+	private static readonly float speed = 150;
 
 	public override void _Ready()
 	{
