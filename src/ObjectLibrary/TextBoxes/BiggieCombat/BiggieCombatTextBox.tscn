@@ -1,32 +1,51 @@
-[gd_scene load_steps=9 format=3 uid="uid://xbdh31b8gpcu"]
+[gd_scene load_steps=16 format=3 uid="uid://xbdh31b8gpcu"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BiggieCombatTextBox.cs" id="1_cjp8v"]
 [ext_resource type="Script" path="res://ObjectLibrary/TextBoxes/BiggieCombat/Health.cs" id="2_6ehbr"]
 [ext_resource type="LabelSettings" uid="uid://dhr4jjrifryn4" path="res://Assets/LabelSettings/HealthLabelSettings.tres" id="2_m3dpt"]
 [ext_resource type="PackedScene" uid="uid://clph2g6ck8ex3" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BasePage/BasePagePanel.tscn" id="2_n6akt"]
 [ext_resource type="PackedScene" uid="uid://kvnvsvcpssdn" path="res://ObjectLibrary/TextBoxes/BiggieCombat/ChatPage/ChatPagePanel.tscn" id="3_x1bsp"]
+[ext_resource type="StyleBox" uid="uid://csvwoicreew7r" path="res://Assets/LabelSettings/TextBoxPanelStyles.tres" id="4_1j34p"]
+[ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="4_nf0po"]
 [ext_resource type="PackedScene" uid="uid://btd1wre3iy1fx" path="res://ObjectLibrary/TextBoxes/BiggieCombat/FightPage/FightPagePanel.tscn" id="4_x0l5s"]
+[ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="5_7dq2x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cqu1w"]
 bg_color = Color(1, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hak2k"]
 bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y8akg"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 48
+corner_radius_top_right = 48
+corner_radius_bottom_right = 48
+corner_radius_bottom_left = 48
+
+[sub_resource type="Theme" id="Theme_1avqj"]
+default_font = ExtResource("4_nf0po")
+default_font_size = 48
+
+[sub_resource type="Theme" id="Theme_603li"]
+default_font = ExtResource("4_nf0po")
+default_font_size = 30
+
+[sub_resource type="Theme" id="Theme_psuxo"]
+default_font = ExtResource("5_7dq2x")
+default_font_size = 30
 
 [node name="BiggieCombatTextBox" type="CanvasLayer"]
 script = ExtResource("1_cjp8v")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 offset_left = 160.0
-offset_top = 650.0
+offset_top = 391.0
 offset_right = 1952.0
 offset_bottom = 691.0
 
@@ -35,33 +54,38 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_right = 450
 
-[node name="Health" type="HBoxContainer" parent="HBoxContainer/HealthContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/HealthContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 240
+
+[node name="Health" type="HBoxContainer" parent="HBoxContainer/HealthContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("2_6ehbr")
 
-[node name="HpTitleLabel" type="Label" parent="HBoxContainer/HealthContainer/Health"]
+[node name="HpTitleLabel" type="Label" parent="HBoxContainer/HealthContainer/MarginContainer/Health"]
 layout_mode = 2
 text = "HP"
 label_settings = ExtResource("2_m3dpt")
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/HealthContainer/Health"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/HealthContainer/MarginContainer/Health"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
 
-[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/HealthContainer/Health/MarginContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/HealthContainer/MarginContainer/Health/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_styles/background = SubResource("StyleBoxFlat_cqu1w")
 theme_override_styles/fill = SubResource("StyleBoxFlat_hak2k")
 value = 33.0
-rounded = true
 show_percentage = false
 
-[node name="HpValueLabel" type="Label" parent="HBoxContainer/HealthContainer/Health"]
+[node name="HpValueLabel" type="Label" parent="HBoxContainer/HealthContainer/MarginContainer/Health"]
 layout_mode = 2
 text = "9/9"
 label_settings = ExtResource("2_m3dpt")
@@ -69,6 +93,52 @@ label_settings = ExtResource("2_m3dpt")
 [node name="ActionInfo" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/margin_left = 275
+theme_override_constants/margin_right = 30
+
+[node name="Panel" type="Panel" parent="HBoxContainer/ActionInfo"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y8akg")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/ActionInfo/Panel"]
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 50.0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="HBoxContainer/ActionInfo/Panel/MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ActionInfo/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ActionName" type="Label" parent="HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1avqj")
+text = "Scratch"
+
+[node name="Panel" type="Panel" parent="HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ActionEffect" type="Label" parent="HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_603li")
+text = "1 damage, -25% armor"
+
+[node name="ActionDescription" type="Label" parent="HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 2
+theme = SubResource("Theme_psuxo")
+text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae weid. Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae."
+autowrap_mode = 3
 
 [node name="TextBoxContainer" type="MarginContainer" parent="."]
 anchors_preset = 12
@@ -85,6 +155,7 @@ theme_override_constants/margin_bottom = 64
 
 [node name="BasePagePanel" parent="TextBoxContainer" instance=ExtResource("2_n6akt")]
 layout_mode = 2
+theme_override_styles/panel = ExtResource("4_1j34p")
 
 [node name="ChatPagePanel" parent="TextBoxContainer" instance=ExtResource("3_x1bsp")]
 visible = false

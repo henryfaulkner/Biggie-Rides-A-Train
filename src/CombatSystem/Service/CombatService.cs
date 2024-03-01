@@ -13,31 +13,31 @@ public class CombatService : ICombatService
 
     public double GetSourceHealth()
     {
-        return Source.Health;
+        return Source.CurrentHealth;
     }
 
     public double GetTargetHealth()
     {
-        return Target.Health;
+        return Target.CurrentHealth;
     }
 
     public void TakeDamage(double damage)
     {
-        Source.Health -= damage;
+        Source.CurrentHealth -= damage;
     }
 
     public void GiveDamage(double damage)
     {
-        Target.Health -= damage;
+        Target.CurrentHealth -= damage;
     }
 
     public bool SourceBelowZero()
     {
-        return Source.Health > 0;
+        return Source.CurrentHealth > 0;
     }
 
     public bool TargetBelowZero()
     {
-        return Target.Health > 0;
+        return Target.CurrentHealth > 0;
     }
 }
