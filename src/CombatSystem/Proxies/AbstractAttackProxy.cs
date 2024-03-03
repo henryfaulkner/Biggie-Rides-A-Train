@@ -1,6 +1,7 @@
 public abstract class AbstractAttackProxy
 {
-    protected abstract CombatService CombatService { get; set; }
+	protected abstract CombatService CombatService { get; set; }
 
-    protected abstract void DealDamage(double damage);
+	public abstract void DealDamage(double damage);
+	public abstract int GetTargetHealthPercentage();
 }

@@ -1,7 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dcdbd272fdx4j"]
+[gd_scene load_steps=3 format=3 uid="uid://dcdbd272fdx4j"]
 
+[ext_resource type="PackedScene" uid="uid://cbnxk7w87v22a" path="res://ObjectLibrary/Wrappers/enemy_physical_health.tscn" id="1_cep38"]
 [ext_resource type="PackedScene" uid="uid://xbdh31b8gpcu" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BiggieCombatTextBox.tscn" id="2_qk0o6"]
 
 [node name="CombatWrapper" type="Node2D"]
+
+[node name="EnemyPhysicalHealth" parent="." instance=ExtResource("1_cep38")]
 
 [node name="BiggieCombatTextBox" parent="." instance=ExtResource("2_qk0o6")]

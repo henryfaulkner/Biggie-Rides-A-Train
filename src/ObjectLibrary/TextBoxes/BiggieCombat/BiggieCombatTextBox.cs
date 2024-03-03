@@ -41,6 +41,8 @@ public partial class BiggieCombatTextBox : CanvasLayer
 	}
 
 	[Signal]
+	public delegate void DealPhysicalDamageEventHandler();
+	[Signal]
 	public delegate void EndBiggieTurnEventHandler();
 
 	public void EndTurn()

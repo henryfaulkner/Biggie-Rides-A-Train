@@ -7,6 +7,9 @@ public partial class CombatSceneDjBattle : Node2D
 	private BiggieCombatTextBox _nodeBiggieCombatTextBox = null;
 	private DjAttackContainer _nodeDjAttackContainer = null;
 	private CanvasLayer _nodeHitCallout = null;
+	private ProgressBar _nodeHealthBar = null;
+	
+	private CombatSingleton _globalCombatSingleton = null;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -15,8 +18,13 @@ public partial class CombatSceneDjBattle : Node2D
 		_nodeBiggieCombatTextBox = GetNode<BiggieCombatTextBox>("./CombatWrapper/BiggieCombatTextBox");
 		_nodeDjAttackContainer = GetNode<DjAttackContainer>("./DjAttackContainer");
 		_nodeHitCallout = GetNode<CanvasLayer>("./HitCallout");
+		_nodeHealthBar = GetNode<ProgressBar>("HBoxContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
+		
+		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 
+		_nodeBiggieCombatTextBox.DealPhysicalDamage += ChangeOpponentHealthBar;
 		_nodeBiggieCombatTextBox.EndBiggieTurn += EndBiggieTurn;
+		_nodeDjAttackContainer.DealPhysicalDamage += ChangeBiggieHealthBar;
 		_nodeDjAttackContainer.EndOpponentTurn += EndOpponentTurn;
 
 		EndOpponentTurn();
@@ -57,5 +65,15 @@ public partial class CombatSceneDjBattle : Node2D
 		_nodeDjAttackContainer.EndTurn();
 		StartBiggieTurn();
 		return;
+	}
+	
+	public void ChangeBiggieHealthBar()
+	{
+		_nodeHealthBar.Value = _globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetHealthPercentage();
+	}
+	
+	public void ChangeOpponentHealthBar()
+	{
+		_nodeHealthBar.Value = _globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetHealthPercentage();
 	}
 }

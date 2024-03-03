@@ -1,7 +1,9 @@
 public interface ICombatService
 {
-	public double GetSourceHealth();
-	public double GetTargetHealth();
+	public double GetSourceCurrentHealth();
+	public double GetSourceMaxHealth();
+	public double GetTargetCurrentHealth();
+	public double GetTargetMaxHealth();
 	public void TakeDamage(double damage);
 	public void GiveDamage(double damage);
 	public bool SourceBelowZero();

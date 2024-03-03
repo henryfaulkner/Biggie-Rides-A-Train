@@ -9,17 +9,24 @@ using System;
 // another for emotionally dealing damage.
 public class BiggieAttackProxy : AbstractAttackProxy
 {
-    public BiggieAttackProxy() { }
+	public BiggieAttackProxy() { }
 
-    public BiggieAttackProxy(CombatBiggieModel biggie, CombatParticipantModel physicalOrEmotional)
-    {
-        CombatService = new CombatService(biggie, physicalOrEmotional);
-    }
+	public BiggieAttackProxy(CombatBiggieModel biggie, CombatParticipantModel physicalOrEmotional)
+	{
+		CombatService = new CombatService(biggie, physicalOrEmotional);
+	}
 
-    protected override CombatService CombatService { get; set; }
+	protected override CombatService CombatService { get; set; }
 
-    protected override void DealDamage(double damage)
-    {
-        CombatService.GiveDamage(damage);
-    }
+	public override void DealDamage(double damage)
+	{
+		CombatService.GiveDamage(damage);
+	}
+	
+	public override int GetTargetHealthPercentage()
+	{
+		return (int)Math.Ceiling(
+			(double)(CombatService.GetTargetCurrentHealth() / CombatService.GetTargetMaxHealth()) * 100
+		);
+	}
 }
