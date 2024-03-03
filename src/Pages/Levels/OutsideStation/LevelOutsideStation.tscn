@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://b6wvrdhnmhehm"]
+
+[ext_resource type="PackedScene" uid="uid://m1wkjfbwccuc" path="res://ObjectLibrary/NPCs/TaxiCar.tscn" id="1_w8fx2"]
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="2_t3brk"]
+[ext_resource type="Texture2D" uid="uid://dg2wkes4nxv4u" path="res://Assets/Levels/Entrance_Level.png" id="2_wlbg8"]
+[ext_resource type="PackedScene" uid="uid://1c1rtqkwpgud" path="res://ObjectLibrary/Biggie.tscn" id="4_d81tg"]
+[ext_resource type="Script" path="res://Pages/Levels/OutsideStation/LevelOutsideStation.cs" id="6_ujhji"]
+[ext_resource type="Script" path="res://Pages/Levels/OutsideStation/Doors/MainStationDoor.gd" id="6_yxxdu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nxgoo"]
+size = Vector2(66.5, 12.25)
+
+[node name="LevelOutsideStation" type="Node2D"]
+scale = Vector2(4, 4)
+script = ExtResource("6_ujhji")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(256, 147.125)
+scale = Vector2(0.031189, 0.0357971)
+texture = ExtResource("2_wlbg8")
+
+[node name="LevelWrapper" parent="." instance=ExtResource("2_t3brk")]
+
+[node name="TaxiCarContainer" type="BoxContainer" parent="LevelWrapper"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TaxiCar" parent="LevelWrapper/TaxiCarContainer" instance=ExtResource("1_w8fx2")]
+position = Vector2(-21, 152.75)
+
+[node name="BiggieContainer" type="BoxContainer" parent="LevelWrapper"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Biggie" parent="LevelWrapper/BiggieContainer" instance=ExtResource("4_d81tg")]
+position = Vector2(255.75, 133.25)
+scale = Vector2(0.75, 0.75)
+
+[node name="BuildingBody" type="StaticBody2D" parent="."]
+position = Vector2(0.25, 0)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BuildingBody"]
+polygon = PackedVector2Array(-0.5, 2, -0.25, 107.75, 218.75, 106.25, 219.25, 121.5, 223.5, 121.5, 223.5, 88.5, 290, 88.25, 290, 122.25, 293.5, 122, 295.25, 106.75, 512.75, 106.75, 512.5, 1)
+
+[node name="MainStationDoor" type="Area2D" parent="."]
+position = Vector2(256.5, 94)
+script = ExtResource("6_yxxdu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainStationDoor"]
+shape = SubResource("RectangleShape2D_nxgoo")

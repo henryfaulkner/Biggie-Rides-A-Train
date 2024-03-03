@@ -45,7 +45,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 	}
 
 	[Signal]
-	public delegate void DealPhysicalDamageEventHandler();
+	public delegate void DealPhysicalDamageSigEventHandler();
 	[Signal]
 	public delegate void EndBiggieTurnEventHandler();
 
@@ -90,7 +90,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 					EmitSignal(SignalName.EndBiggieTurn);
 					break;
 				case (int)Enumerations.FightPagePanelOptions.Bite:
-					GD.Print("Bite")
+					GD.Print("Bite");
 					DealPhysicalDamage(2);
 					EmitSignal(SignalName.EndBiggieTurn);
 					break;
@@ -151,7 +151,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 	public void DealPhysicalDamage(int damage)
 	{
 		_globalCombatSingleton.BiggiePhysicalAttackProxy.DealDamage(damage);
-		EmitSignal(SignalName.DealPhysicalDamage);
+		EmitSignal(SignalName.DealPhysicalDamageSig);
 	}
 
 	public void DealEmotionalDamage(int damage)

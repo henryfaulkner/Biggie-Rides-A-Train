@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-CombatSingleton="*res://CombatSystem/CombatSingleton.cs"
+CombatSingleton="*res://Core/CombatSystem/CombatSingleton.cs"
 
 [display]
 

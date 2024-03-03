@@ -4,7 +4,7 @@ using System;
 public partial class DJ : Node2D
 {
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
-	private static readonly StringName _COMBAT_SCENE_DJ_BATTLE = new StringName("res://CombatScenes/DjBattle/CombatSceneDjBattle.tscn");
+	private static readonly StringName _COMBAT_SCENE_DJ_BATTLE = new StringName("res://Pages/CombatScenes/DjBattle/CombatSceneDjBattle.tscn");
 
 	private static readonly int _SPRITE_FRAME_MUSHROOM = 0;
 	private static readonly int _SPRITE_FRAME_GOAT_IDLE = 1;
