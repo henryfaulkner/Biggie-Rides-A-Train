@@ -1,7 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://xbdh31b8gpcu"]
+[gd_scene load_steps=15 format=3 uid="uid://xbdh31b8gpcu"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BiggieCombatTextBox.cs" id="1_cjp8v"]
-[ext_resource type="Script" path="res://ObjectLibrary/TextBoxes/BiggieCombat/Health.cs" id="2_6ehbr"]
 [ext_resource type="LabelSettings" uid="uid://dhr4jjrifryn4" path="res://Assets/LabelSettings/HealthLabelSettings.tres" id="2_m3dpt"]
 [ext_resource type="PackedScene" uid="uid://clph2g6ck8ex3" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BasePage/BasePagePanel.tscn" id="2_n6akt"]
 [ext_resource type="PackedScene" uid="uid://kvnvsvcpssdn" path="res://ObjectLibrary/TextBoxes/BiggieCombat/ChatPage/ChatPagePanel.tscn" id="3_x1bsp"]
@@ -61,7 +60,6 @@ theme_override_constants/margin_top = 240
 [node name="Health" type="HBoxContainer" parent="HBoxContainer/HealthContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource("2_6ehbr")
 
 [node name="HpTitleLabel" type="Label" parent="HBoxContainer/HealthContainer/MarginContainer/Health"]
 layout_mode = 2

@@ -10,12 +10,16 @@ public partial class BiggieCombatTextBox : CanvasLayer
 	private ChatPageBasePanel _nodeChatPagePanel = null;
 	private FightPageBasePanel _nodeFightPagePanel = null;
 
+	private CombatSingleton _globalCombatSingleton = null;
+
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<CanvasLayer>(".");
 		_nodeBasePagePanel = GetNode<BasePageBasePanel>("./TextBoxContainer/BasePagePanel");
 		_nodeChatPagePanel = GetNode<ChatPageBasePanel>("./TextBoxContainer/ChatPagePanel");
 		_nodeFightPagePanel = GetNode<FightPageBasePanel>("./TextBoxContainer/FightPagePanel");
+
+		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 
 		_nodeBasePagePanel.IsOpen = true;
 		_nodeChatPagePanel.IsOpen = false;
@@ -81,10 +85,13 @@ public partial class BiggieCombatTextBox : CanvasLayer
 			switch (selection)
 			{
 				case (int)Enumerations.FightPagePanelOptions.Scratch:
-					//GD.Print("Scratch");
+					GD.Print("Scratch");
+					DealPhysicalDamage(1);
 					EmitSignal(SignalName.EndBiggieTurn);
 					break;
 				case (int)Enumerations.FightPagePanelOptions.Bite:
+					GD.Print("Bite")
+					DealPhysicalDamage(2);
 					EmitSignal(SignalName.EndBiggieTurn);
 					break;
 				case (int)Enumerations.FightPagePanelOptions.Back:
@@ -110,9 +117,13 @@ public partial class BiggieCombatTextBox : CanvasLayer
 		switch (selection)
 		{
 			case (int)Enumerations.ChatPagePanelOptions.Ask:
+				GD.Print("Ask");
+				DealEmotionalDamage(1);
 				EmitSignal(SignalName.EndBiggieTurn);
 				break;
 			case (int)Enumerations.ChatPagePanelOptions.Charm:
+				GD.Print("Charm");
+				DealEmotionalDamage(2);
 				EmitSignal(SignalName.EndBiggieTurn);
 				break;
 			case (int)Enumerations.ChatPagePanelOptions.Back:
@@ -135,5 +146,16 @@ public partial class BiggieCombatTextBox : CanvasLayer
 		_nodeBasePagePanel.IsOpen = true;
 		_nodeChatPagePanel.IsOpen = false;
 		_nodeFightPagePanel.IsOpen = false;
+	}
+
+	public void DealPhysicalDamage(int damage)
+	{
+		_globalCombatSingleton.BiggiePhysicalAttackProxy.DealDamage(damage);
+		EmitSignal(SignalName.DealPhysicalDamage);
+	}
+
+	public void DealEmotionalDamage(int damage)
+	{
+		_globalCombatSingleton.BiggieEmotionalAttackProxy.DealDamage(damage);
 	}
 }

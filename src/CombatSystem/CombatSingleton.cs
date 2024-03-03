@@ -1,4 +1,7 @@
-public class CombatSingleton
+using Godot;
+using System;
+
+public partial class CombatSingleton : Node
 {
 	public BiggieAttackProxy BiggiePhysicalAttackProxy { get; set; }
 	public BiggieAttackProxy BiggieEmotionalAttackProxy { get; set; }

@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://b6w17s4raeiau"]
 
 [ext_resource type="Script" path="res://CombatScenes/DjBattle/CombatSceneDjBattle.cs" id="1_6t7d8"]
-[ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper.tscn" id="1_y68ny"]
+[ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.tscn" id="1_y68ny"]
 [ext_resource type="Script" path="res://CombatScenes/DjBattle/DjAttackContainer.cs" id="2_614w3"]
 [ext_resource type="Texture2D" uid="uid://df0xe1tnk46cf" path="res://Assets/Objects/Biggie.png" id="2_ywmyh"]
 [ext_resource type="Script" path="res://CombatScenes/DjBattle/BiggieDjCombat.cs" id="3_da51y"]

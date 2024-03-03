@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cbnxk7w87v22a"]
+[gd_scene load_steps=10 format=3 uid="uid://cbnxk7w87v22a"]
 
-[ext_resource type="Script" path="res://ObjectLibrary/TextBoxes/BiggieCombat/Health.cs" id="1_6w60v"]
-[ext_resource type="LabelSettings" uid="uid://dhr4jjrifryn4" path="res://Assets/LabelSettings/HealthLabelSettings.tres" id="2_sgu12"]
-[ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="3_fo21t"]
-[ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="4_m3d3n"]
+[ext_resource type="LabelSettings" uid="uid://dhr4jjrifryn4" path="res://Assets/LabelSettings/HealthLabelSettings.tres" id="2_u66ji"]
+[ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="3_pmga4"]
+[ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="4_cdb7o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5o4sw"]
 bg_color = Color(1, 0, 0, 1)
@@ -24,43 +23,44 @@ corner_radius_bottom_right = 48
 corner_radius_bottom_left = 48
 
 [sub_resource type="Theme" id="Theme_mbl4f"]
-default_font = ExtResource("3_fo21t")
+default_font = ExtResource("3_pmga4")
 default_font_size = 48
 
 [sub_resource type="Theme" id="Theme_j7784"]
-default_font = ExtResource("3_fo21t")
+default_font = ExtResource("3_pmga4")
 default_font_size = 30
 
 [sub_resource type="Theme" id="Theme_afg67"]
-default_font = ExtResource("4_m3d3n")
+default_font = ExtResource("4_cdb7o")
 default_font_size = 30
 
-[node name="EnemyPhysicalHealth" type="HBoxContainer"]
+[node name="EnemyPhysicalHealth" type="CanvasLayer"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 offset_left = 160.0
 offset_right = 1952.0
 offset_bottom = 300.0
 
-[node name="HealthContainer" type="MarginContainer" parent="."]
+[node name="HealthContainer" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_right = 450
 
-[node name="MarginContainer" type="MarginContainer" parent="HealthContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/HealthContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_bottom = 210
 
-[node name="Health" type="HBoxContainer" parent="HealthContainer/MarginContainer"]
+[node name="Health" type="HBoxContainer" parent="HBoxContainer/HealthContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource("1_6w60v")
 
-[node name="HpTitleLabel" type="Label" parent="HealthContainer/MarginContainer/Health"]
+[node name="HpTitleLabel" type="Label" parent="HBoxContainer/HealthContainer/MarginContainer/Health"]
 layout_mode = 2
 text = "HP"
-label_settings = ExtResource("2_sgu12")
+label_settings = ExtResource("2_u66ji")
 
-[node name="MarginContainer" type="MarginContainer" parent="HealthContainer/MarginContainer/Health"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/HealthContainer/MarginContainer/Health"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 15
@@ -68,7 +68,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 10
 
-[node name="ProgressBar" type="ProgressBar" parent="HealthContainer/MarginContainer/Health/MarginContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/HealthContainer/MarginContainer/Health/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -77,23 +77,23 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_prjj8")
 value = 33.0
 show_percentage = false
 
-[node name="HpValueLabel" type="Label" parent="HealthContainer/MarginContainer/Health"]
+[node name="HpValueLabel" type="Label" parent="HBoxContainer/HealthContainer/MarginContainer/Health"]
 layout_mode = 2
 text = "9/9"
-label_settings = ExtResource("2_sgu12")
+label_settings = ExtResource("2_u66ji")
 
-[node name="ActionInfo" type="MarginContainer" parent="."]
+[node name="ActionInfo" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 275
 theme_override_constants/margin_right = 30
 
-[node name="Panel" type="Panel" parent="ActionInfo"]
+[node name="Panel" type="Panel" parent="HBoxContainer/ActionInfo"]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_abtws")
 
-[node name="MarginContainer" type="MarginContainer" parent="ActionInfo/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/ActionInfo/Panel"]
 layout_mode = 0
 offset_right = 500.0
 offset_bottom = 50.0
@@ -102,31 +102,31 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="Panel" type="Panel" parent="ActionInfo/Panel/MarginContainer"]
+[node name="Panel" type="Panel" parent="HBoxContainer/ActionInfo/Panel/MarginContainer"]
 visible = false
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ActionInfo/Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ActionInfo/Panel/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ActionInfo/Panel/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ActionName" type="Label" parent="ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ActionName" type="Label" parent="HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_mbl4f")
 text = "Scratch"
 
-[node name="Panel" type="Panel" parent="ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Panel" type="Panel" parent="HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ActionEffect" type="Label" parent="ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ActionEffect" type="Label" parent="HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_j7784")
 text = "1 damage, -25% armor"
 
-[node name="ActionDescription" type="Label" parent="ActionInfo/Panel/MarginContainer/VBoxContainer"]
+[node name="ActionDescription" type="Label" parent="HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(500, 200)
 layout_mode = 2
 theme = SubResource("Theme_afg67")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://xexs3slgxyya"]
 
-[ext_resource type="Script" path="res://ObjectLibrary/Wrappers/LevelWrapper.cs" id="1_esufc"]
+[ext_resource type="Script" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.cs" id="1_esufc"]
 [ext_resource type="PackedScene" uid="uid://b5dk4plb8i67w" path="res://ObjectLibrary/TextBoxes/InteractionTextBox/InteractionTextBox.tscn" id="2_ddmi0"]
 [ext_resource type="PackedScene" uid="uid://b7731gnrl0uck" path="res://ObjectLibrary/TextBoxes/TextBox/TextBox.tscn" id="3_uc7y4"]
 
