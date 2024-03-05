@@ -115,7 +115,7 @@ public partial class DjAttackContainer : MarginContainer
 	}
 
 	[Signal]
-	public delegate void DealPhysicalDamageEventHandler();
+	public delegate void ProjectPhysicalDamageEventHandler();
 	[Signal]
 	public delegate void EndOpponentTurnEventHandler();
 

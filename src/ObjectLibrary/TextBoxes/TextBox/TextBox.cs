@@ -25,6 +25,8 @@ public partial class TextBox : CanvasLayer
 
 	private float CharReadRate { get; set; }
 
+	private LoggingService _globalLogger = null;
+
 	public override void _Ready()
 	{
 		CharReadRate = 100f;
@@ -36,6 +38,9 @@ public partial class TextBox : CanvasLayer
 		_dialogueListQueue = new Queue<List<string>>();
 		_dialogueList = new List<string>();
 		HideTextBox();
+
+		_globalLogger = GetNode<LoggingService>("/root/LoggingService");
+		//_globalLogger.LogError("I'm gonna lose it");
 	}
 
 	public override void _Process(double delta)

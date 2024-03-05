@@ -45,7 +45,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 	}
 
 	[Signal]
-	public delegate void DealPhysicalDamageSigEventHandler();
+	public delegate void ProjectPhysicalDamageEventHandler();
 	[Signal]
 	public delegate void EndBiggieTurnEventHandler();
 
@@ -151,7 +151,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 	public void DealPhysicalDamage(int damage)
 	{
 		_globalCombatSingleton.BiggiePhysicalAttackProxy.DealDamage(damage);
-		EmitSignal(SignalName.DealPhysicalDamageSig);
+		EmitSignal(SignalName.ProjectPhysicalDamage);
 	}
 
 	public void DealEmotionalDamage(int damage)

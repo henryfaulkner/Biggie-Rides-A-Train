@@ -3,12 +3,16 @@ using System;
 
 public partial class CombatSceneDjBattle : Node2D
 {
+	private static readonly int _MAX_HEALTH_PHYSICAL_BIGGIE = 9;
+	private static readonly int _MAX_HEALTH_PHYSICAL_DJ = 9;
+	private static readonly int _MAX_HEALTH_EMOTIONAL_DJ = 9;
+
 	private Node2D _nodeSelf = null;
 	private BiggieCombatTextBox _nodeBiggieCombatTextBox = null;
 	private DjAttackContainer _nodeDjAttackContainer = null;
 	private CanvasLayer _nodeHitCallout = null;
 	private ProgressBar _nodeHealthBar = null;
-	
+
 	private CombatSingleton _globalCombatSingleton = null;
 
 	// Called when the node enters the scene tree for the first time.
@@ -19,12 +23,15 @@ public partial class CombatSceneDjBattle : Node2D
 		_nodeDjAttackContainer = GetNode<DjAttackContainer>("./DjAttackContainer");
 		_nodeHitCallout = GetNode<CanvasLayer>("./HitCallout");
 		_nodeHealthBar = GetNode<ProgressBar>("HBoxContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
-		
-		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 
-		_nodeBiggieCombatTextBox.DealPhysicalDamageSig += ChangeOpponentHealthBar;
+		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
+		_globalCombatSingleton.NewBattle(_MAX_HEALTH_PHYSICAL_BIGGIE, _MAX_HEALTH_PHYSICAL_DJ, _MAX_HEALTH_EMOTIONAL_DJ);
+		ChangeBiggieHealthBar();
+		ChangeDjHealthBar();
+
+		_nodeBiggieCombatTextBox.ProjectPhysicalDamage += ChangeDjHealthBar;
 		_nodeBiggieCombatTextBox.EndBiggieTurn += EndBiggieTurn;
-		_nodeDjAttackContainer.DealPhysicalDamage += ChangeBiggieHealthBar;
+		_nodeDjAttackContainer.ProjectPhysicalDamage += ChangeBiggieHealthBar;
 		_nodeDjAttackContainer.EndOpponentTurn += EndOpponentTurn;
 
 		EndOpponentTurn();
@@ -66,13 +73,13 @@ public partial class CombatSceneDjBattle : Node2D
 		StartBiggieTurn();
 		return;
 	}
-	
+
 	public void ChangeBiggieHealthBar()
 	{
 		_nodeHealthBar.Value = _globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetHealthPercentage();
 	}
-	
-	public void ChangeOpponentHealthBar()
+
+	public void ChangeDjHealthBar()
 	{
 		_nodeHealthBar.Value = _globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetHealthPercentage();
 	}

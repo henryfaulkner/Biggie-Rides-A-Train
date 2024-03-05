@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 CombatSingleton="*res://Core/CombatSystem/CombatSingleton.cs"
+LoggingService="res://Core/LoggingService/LoggingService.cs"
 
 [display]
 

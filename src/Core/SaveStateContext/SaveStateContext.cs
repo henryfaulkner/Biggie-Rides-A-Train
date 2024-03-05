@@ -5,10 +5,16 @@ using Newtonsoft.Json;
 public partial class SaveStateContext : Node, IDisposable
 {
 	private static readonly string _SAVE_STATE_FILE = "res://Core/SaveStateContext/SaveState.json";
+	private LoggingService _globalLogger = null;
+
+	public SaveStateContext()
+	{
+		_globalLogger = GetNode<LoggingService>("/root/LoggingService");
+	}
 
 	public void Commit(SaveStateModel saveState)
 	{
-		//GD.Print("Commit");
+		//_globalLogger.LogDebug("Commit");
 		try
 		{
 			string content = JsonConvert.SerializeObject(saveState, Formatting.Indented);
@@ -17,8 +23,8 @@ public partial class SaveStateContext : Node, IDisposable
 		}
 		catch (Exception exception)
 		{
-			//GD.Print($"Commit exception: {exception}");
-			//GD.Print($"Commit SaveState: {saveState}");
+			//_globalLogger.LogError($"Commit exception: {exception}");
+			//_globalLogger.LogError($"Commit SaveState: {saveState}");
 		}
 	}
 
@@ -26,7 +32,8 @@ public partial class SaveStateContext : Node, IDisposable
 	{
 		try
 		{
-			//GD.Print("Load");
+			GD.Print("Load");
+			//_globalLogger.LogDebug("Load");
 			using var file = FileAccess.Open(_SAVE_STATE_FILE, FileAccess.ModeFlags.Read);
 			string content = file.GetAsText();
 			var json = JsonConvert.DeserializeObject<SaveStateModel>(content);
@@ -34,14 +41,14 @@ public partial class SaveStateContext : Node, IDisposable
 		}
 		catch (Exception exception)
 		{
-			//GD.Print($"Load exception: {exception}");
+			//_globalLogger.LogError($"Load exception: {exception}");
 		}
 		return new SaveStateModel();
 	}
 
 	public void Clear()
 	{
-		//GD.Print("Clear");
+		//_globalLogger.LogDebug("Clear");
 		Commit(new SaveStateModel());
 	}
 }

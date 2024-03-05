@@ -13,19 +13,21 @@ public partial class CombatSingleton : Node
 
 	public CombatSingleton()
 	{
-		BiggiePhysical = new CombatBiggieModel();
-		EnemyEmotional = new CombatParticipantModel();
-		EnemyPhysical = new CombatParticipantModel();
+		BiggiePhysical = null;
+		EnemyEmotional = null;
+		EnemyPhysical = null;
+		BiggiePhysicalAttackProxy = null;
+		BiggieEmotionalAttackProxy = null;
+		EnemyPhysicalAttackProxy = null;
+	}
 
+	public void NewBattle(double totalBiggiePhysicalHealth, double totalEnemyPhysicalHealth, double totalEnemyEmotionalHealth)
+	{
+		BiggiePhysical = new CombatBiggieModel(totalBiggiePhysicalHealth);
+		EnemyPhysical = new CombatParticipantModel(totalEnemyPhysicalHealth);
+		EnemyEmotional = new CombatParticipantModel(totalEnemyEmotionalHealth);
 		BiggiePhysicalAttackProxy = new BiggieAttackProxy(BiggiePhysical, EnemyPhysical);
 		BiggieEmotionalAttackProxy = new BiggieAttackProxy(BiggiePhysical, EnemyEmotional);
 		EnemyPhysicalAttackProxy = new OpponentAttackProxy(EnemyPhysical, BiggiePhysical);
-	}
-
-	public void NewBattle(double totalBiggiePhysicalHealth, double totalEnemyEmotionalHealth, double totalEnemyPhysicalHealth)
-	{
-		BiggiePhysical = new CombatBiggieModel(totalBiggiePhysicalHealth);
-		EnemyEmotional = new CombatParticipantModel(totalEnemyEmotionalHealth);
-		EnemyPhysical = new CombatParticipantModel(totalEnemyPhysicalHealth);
 	}
 }
