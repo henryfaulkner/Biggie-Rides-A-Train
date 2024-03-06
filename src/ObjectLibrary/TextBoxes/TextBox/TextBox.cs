@@ -39,7 +39,7 @@ public partial class TextBox : CanvasLayer
 		_dialogueList = new List<string>();
 		HideTextBox();
 
-		_globalLogger = GetNode<LoggingService>("/root/LoggingService");
+		//_globalLogger = GetNode<LoggingService>("/root/LoggingService");
 		//_globalLogger.LogError("I'm gonna lose it");
 	}
 

@@ -9,7 +9,7 @@ public partial class SaveStateContext : Node, IDisposable
 
 	public SaveStateContext()
 	{
-		_globalLogger = GetNode<LoggingService>("/root/LoggingService");
+		//_globalLogger = GetNode<LoggingService>("/root/LoggingService");
 	}
 
 	public void Commit(SaveStateModel saveState)

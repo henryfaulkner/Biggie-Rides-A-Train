@@ -150,7 +150,9 @@ public partial class BiggieCombatTextBox : CanvasLayer
 
 	public void DealPhysicalDamage(int damage)
 	{
+		GD.Print("DealPhysicalDamage");
 		_globalCombatSingleton.BiggiePhysicalAttackProxy.DealDamage(damage);
+		GD.Print($"enemy health: {_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage()}");
 		EmitSignal(SignalName.ProjectPhysicalDamage);
 	}
 

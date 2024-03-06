@@ -120,7 +120,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="ExitOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
-visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/ExitOptionContainer"]

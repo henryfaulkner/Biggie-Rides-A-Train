@@ -18,7 +18,26 @@ public class OpponentAttackProxy : AbstractAttackProxy
 	{
 		CombatService.GiveDamage(damage);
 	}
-	
+
+	public override int GetTargetCurrentHealth()
+	{
+		return (int)Math.Ceiling(
+			CombatService.GetTargetCurrentHealth()
+		);
+	}
+
+	public override int GetTargetMaxHealth()
+	{
+		return (int)Math.Ceiling(
+			CombatService.GetTargetMaxHealth()
+		);
+	}
+
+	public override bool IsTargetDefeated()
+	{
+		return CombatService.GetTargetCurrentHealth() <= 0;
+	}
+
 	public override int GetTargetHealthPercentage()
 	{
 		return (int)Math.Ceiling(

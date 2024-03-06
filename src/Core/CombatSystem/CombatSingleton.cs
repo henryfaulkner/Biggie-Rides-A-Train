@@ -23,11 +23,13 @@ public partial class CombatSingleton : Node
 
 	public void NewBattle(double totalBiggiePhysicalHealth, double totalEnemyPhysicalHealth, double totalEnemyEmotionalHealth)
 	{
+		GD.Print("Start NewBattle");
 		BiggiePhysical = new CombatBiggieModel(totalBiggiePhysicalHealth);
 		EnemyPhysical = new CombatParticipantModel(totalEnemyPhysicalHealth);
 		EnemyEmotional = new CombatParticipantModel(totalEnemyEmotionalHealth);
 		BiggiePhysicalAttackProxy = new BiggieAttackProxy(BiggiePhysical, EnemyPhysical);
 		BiggieEmotionalAttackProxy = new BiggieAttackProxy(BiggiePhysical, EnemyEmotional);
 		EnemyPhysicalAttackProxy = new OpponentAttackProxy(EnemyPhysical, BiggiePhysical);
+		GD.Print("End NewBattle");
 	}
 }

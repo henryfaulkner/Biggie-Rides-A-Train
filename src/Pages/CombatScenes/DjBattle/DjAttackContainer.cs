@@ -24,6 +24,8 @@ public partial class DjAttackContainer : MarginContainer
 	private BaseArrowLeft _nodeBaseArrowLeft = null;
 	private Panel _nodeHitCallout = null;
 
+	private CombatSingleton _globalCombatSingleton = null;
+
 	private CompositionParsingService CompositionParsingService { get; set; }
 	private FallingArrowFactory FallingArrowFactory { get; set; }
 	private Queue<CharacterBody2D> FallingArrowUpQueue { get; set; }
@@ -48,6 +50,8 @@ public partial class DjAttackContainer : MarginContainer
 		_nodeBaseArrowDown = GetNode<BaseArrowDown>("./BaseArrowDown");
 		_nodeBaseArrowLeft = GetNode<BaseArrowLeft>("./BaseArrowLeft");
 		_nodeHitCallout = GetNode<Panel>("../HitCallout/MarginContainer/MarginContainer/HBoxContainer/Panel");
+
+		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 
 		FallingArrowFactory = new FallingArrowFactory(
 			_nodeBaseArrowUp.Position,
@@ -211,6 +215,7 @@ public partial class DjAttackContainer : MarginContainer
 		if (FallingArrowUpQueue.Count == 0) return;
 		//GD.Print($"DequeueUpAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
+		CheckDamage(hit);
 		HitCallout(hit);
 		IncrementHitCount(hit);
 		var instance = FallingArrowUpQueue.Dequeue();
@@ -223,6 +228,7 @@ public partial class DjAttackContainer : MarginContainer
 		if (FallingArrowRightQueue.Count == 0) return;
 		//GD.Print($"DequeueRightAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
+		CheckDamage(hit);
 		HitCallout(hit);
 		IncrementHitCount(hit);
 		var instance = FallingArrowRightQueue.Dequeue();
@@ -235,6 +241,7 @@ public partial class DjAttackContainer : MarginContainer
 		if (FallingArrowDownQueue.Count == 0) return;
 		//GD.Print($"DequeueDownAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
+		CheckDamage(hit);
 		HitCallout(hit);
 		IncrementHitCount(hit);
 		var instance = FallingArrowDownQueue.Dequeue();
@@ -247,10 +254,30 @@ public partial class DjAttackContainer : MarginContainer
 		if (FallingArrowLeftQueue.Count == 0) return;
 		//GD.Print($"DequeueLeftAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
+		CheckDamage(hit);
 		HitCallout(hit);
 		IncrementHitCount(hit);
 		var instance = FallingArrowLeftQueue.Dequeue();
 		instance.QueueFree();
+	}
+
+	private void CheckDamage(Enumerations.HitType hit)
+	{
+		switch (hit)
+		{
+			case Enumerations.HitType.Miss:
+				_globalCombatSingleton.EnemyPhysicalAttackProxy.DealDamage(1);
+				break;
+			case Enumerations.HitType.Bad:
+				break;
+			case Enumerations.HitType.Good:
+				break;
+			case Enumerations.HitType.Perfect:
+				break;
+			default:
+				//GD.Print("A HitType did not map.");
+				break;
+		}
 	}
 
 	private void HitCallout(Enumerations.HitType hit)
