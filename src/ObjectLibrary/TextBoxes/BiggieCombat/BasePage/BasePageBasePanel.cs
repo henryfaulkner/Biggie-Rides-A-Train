@@ -8,6 +8,7 @@ public partial class BasePageBasePanel : Panel
 	private static readonly StringName _RIGHT_INPUT = new StringName("move_right");
 
 	private Panel _nodeSelf = null;
+	private Panel _nodeDescriptionPanel = null;
 	private Panel _nodeFightSelectionPanel = null;
 	private Label _nodeFightOptionLabel = null;
 	private Panel _nodeChatSelectionPanel = null;
@@ -22,6 +23,8 @@ public partial class BasePageBasePanel : Panel
 	{
 		// Combat Scene Nodes
 		_nodeSelf = GetNode<Panel>(".");
+		_nodeDescriptionPanel = GetNode<Panel>("../HBoxContainer/ActionInfo/Panel");
+		_nodeDescriptionPanel.Visible = false;
 
 		// Base Panel Nodes
 		_nodeFightSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/FightOptionContainer/MarginContainer/Button/Panel");
@@ -32,9 +35,9 @@ public partial class BasePageBasePanel : Panel
 		_nodeExitOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
 
 		SelectionHelperInstance = new SelectionHelper();
-		SelectionHelperInstance.AddOption((int)Enumerations.BasePagePanelOptions.Fight, true, _nodeFightSelectionPanel, _nodeFightOptionLabel);
-		SelectionHelperInstance.AddOption((int)Enumerations.BasePagePanelOptions.Chat, false, _nodeChatSelectionPanel, _nodeChatOptionLabel);
-		SelectionHelperInstance.AddOption((int)Enumerations.BasePagePanelOptions.Exit, false, _nodeExitSelectionPanel, _nodeExitOptionLabel);
+		SelectionHelperInstance.AddOption(-1, (int)Enumerations.BasePagePanelOptions.Fight, true, _nodeFightSelectionPanel, _nodeFightOptionLabel);
+		SelectionHelperInstance.AddOption(-1, (int)Enumerations.BasePagePanelOptions.Chat, false, _nodeChatSelectionPanel, _nodeChatOptionLabel);
+		SelectionHelperInstance.AddOption(-1, (int)Enumerations.BasePagePanelOptions.Exit, false, _nodeExitSelectionPanel, _nodeExitOptionLabel);
 		ProcessSelection();
 	}
 
@@ -89,6 +92,7 @@ public partial class BasePageBasePanel : Panel
 					//GD.Print($"Selected action: {option.Id}");
 					SelectionHelperInstance.AddWhiteFont(option.OptionLabel);
 					SelectionHelperInstance.AddSelectBorder(option.SelectionPanel);
+					SelectionHelperInstance.HandleSelectedOptionDescription(option.Id, )
 				}
 				else
 				{

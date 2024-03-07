@@ -32,9 +32,9 @@ public partial class ChatPageBasePanel : Panel
 		_nodeBackOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/BackOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
 
 		SelectionHelperInstance = new SelectionHelper();
-		SelectionHelperInstance.AddOption((int)Enumerations.ChatPagePanelOptions.Ask, true, _nodeAskSelectionPanel, _nodeAskOptionLabel);
-		SelectionHelperInstance.AddOption((int)Enumerations.ChatPagePanelOptions.Charm, false, _nodeCharmSelectionPanel, _nodeCharmOptionLabel);
-		SelectionHelperInstance.AddOption((int)Enumerations.ChatPagePanelOptions.Back, false, _nodeBackSelectionPanel, _nodeBackOptionLabel);
+		SelectionHelperInstance.AddOption((int)Enumerations.CombatOptions.Ask, (int)Enumerations.ChatPagePanelOptions.Ask, true, _nodeAskSelectionPanel, _nodeAskOptionLabel);
+		SelectionHelperInstance.AddOption((int)Enumerations.CombatOptions.Charm, (int)Enumerations.ChatPagePanelOptions.Charm, false, _nodeCharmSelectionPanel, _nodeCharmOptionLabel);
+		SelectionHelperInstance.AddOption(-1, (int)Enumerations.ChatPagePanelOptions.Back, false, _nodeBackSelectionPanel, _nodeBackOptionLabel);
 		ProcessSelection();
 	}
 

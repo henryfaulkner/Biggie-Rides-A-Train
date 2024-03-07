@@ -32,9 +32,9 @@ public partial class FightPageBasePanel : Panel
 		_nodeBackOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
 
 		SelectionHelperInstance = new SelectionHelper();
-		SelectionHelperInstance.AddOption((int)Enumerations.FightPagePanelOptions.Scratch, true, _nodeScratchSelectionPanel, _nodeScratchOptionLabel);
-		SelectionHelperInstance.AddOption((int)Enumerations.FightPagePanelOptions.Bite, false, _nodeBiteSelectionPanel, _nodeBiteOptionLabel);
-		SelectionHelperInstance.AddOption((int)Enumerations.FightPagePanelOptions.Back, false, _nodeBackSelectionPanel, _nodeBackOptionLabel);
+		SelectionHelperInstance.AddOption((int)Enumerations.CombatOptions.Scratch, (int)Enumerations.FightPagePanelOptions.Scratch, true, _nodeScratchSelectionPanel, _nodeScratchOptionLabel);
+		SelectionHelperInstance.AddOption((int)Enumerations.CombatOptions.Bite, (int)Enumerations.FightPagePanelOptions.Bite, false, _nodeBiteSelectionPanel, _nodeBiteOptionLabel);
+		SelectionHelperInstance.AddOption(-1, (int)Enumerations.FightPagePanelOptions.Back, false, _nodeBackSelectionPanel, _nodeBackOptionLabel);
 		ProcessSelection();
 	}
 

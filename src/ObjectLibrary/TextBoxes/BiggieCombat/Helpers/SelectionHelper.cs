@@ -16,9 +16,9 @@ public class SelectionHelper
 	public List<OptionModel> OptionList { get; set; }
 	private int CurrentSelectedOptionIndex { get; set; }
 
-	public void AddOption(int id, bool isSelected, Panel panel, Label label)
+	public void AddOption(int id, int uiId, bool isSelected, Panel panel, Label label)
 	{
-		var option = new OptionModel(id, isSelected, panel, label);
+		var option = new OptionModel(id, uiId, isSelected, panel, label);
 		OptionList.Add(option);
 	}
 
@@ -116,6 +116,32 @@ public class SelectionHelper
 		{
 			//GD.Print("LabelSettings are null. Grey FontColor was not applied");
 		}
+	}
+
+	public void HandleSelectedOptionDescription(Enumerations.CombatOptions combatOptionId, Panel mainPanel, Label name, Label subname, Label desciption)
+	{
+		if ((int)combatOptionId == -1) return;
+
+		CombatOption combatOption = new CombatOption(combatOptionId);
+		switch (combatOptionId)
+		{
+			case Enumerations.CombatOptions.Ask:
+			case Enumerations.CombatOptions.Charm:
+				mainPanel.Visible = false;
+				break;
+			case Enumerations.CombatOptions.Bite:
+				mainPanel.Visible = true;
+				break;
+			case Enumerations.CombatOptions.Scratch:
+				mainPanel.Visible = true;
+				break;
+			default:
+				GD.Print("CombatOptions could not map to Enumerations.CombatOptions");
+				break;
+		}
+		name.Text = combatOption.Name;
+		subname.Text = combatOption.Subname;
+		desciption.Text = combatOption.Description;
 	}
 
 	public void Reset()
