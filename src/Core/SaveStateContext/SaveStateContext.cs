@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 public partial class SaveStateContext : Node, IDisposable
 {
-	private static readonly string _SAVE_STATE_FILE = "res://Core/SaveStateContext/SaveState.json";
+	private static readonly StringName _SAVE_STATE_FILE = new StringName("res://Core/SaveStateContext/SaveState.json");
 	private LoggingService _globalLogger = null;
 
 	public SaveStateContext()

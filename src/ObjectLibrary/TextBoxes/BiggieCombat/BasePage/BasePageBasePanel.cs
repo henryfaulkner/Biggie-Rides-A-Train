@@ -16,6 +16,11 @@ public partial class BasePageBasePanel : Panel
 	private Panel _nodeExitSelectionPanel = null;
 	private Label _nodeExitOptionLabel = null;
 
+	private Panel _nodeActionDescriptionMainPanel = null;
+	private Label _nodeActionTitleLabel = null;
+	private Label _nodeActionEffectLabel = null;
+	private Label _nodeActionDescriptionLabel = null;
+
 	private SelectionHelper SelectionHelperInstance { get; set; }
 	public bool IsOpen { get; set; }
 
@@ -23,8 +28,6 @@ public partial class BasePageBasePanel : Panel
 	{
 		// Combat Scene Nodes
 		_nodeSelf = GetNode<Panel>(".");
-		_nodeDescriptionPanel = GetNode<Panel>("../HBoxContainer/ActionInfo/Panel");
-		_nodeDescriptionPanel.Visible = false;
 
 		// Base Panel Nodes
 		_nodeFightSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/FightOptionContainer/MarginContainer/Button/Panel");
@@ -34,11 +37,15 @@ public partial class BasePageBasePanel : Panel
 		_nodeExitSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/Button/Panel");
 		_nodeExitOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
 
+		_nodeActionDescriptionMainPanel = GetNode<Panel>("../../HBoxContainer/ActionInfo/Panel");
+		_nodeActionTitleLabel = GetNode<Label>("../../HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionName");
+		_nodeActionEffectLabel = GetNode<Label>("../../HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionEffect");
+		_nodeActionDescriptionLabel = GetNode<Label>("../../HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/ActionDescription");
+
 		SelectionHelperInstance = new SelectionHelper();
 		SelectionHelperInstance.AddOption(-1, (int)Enumerations.BasePagePanelOptions.Fight, true, _nodeFightSelectionPanel, _nodeFightOptionLabel);
 		SelectionHelperInstance.AddOption(-1, (int)Enumerations.BasePagePanelOptions.Chat, false, _nodeChatSelectionPanel, _nodeChatOptionLabel);
 		SelectionHelperInstance.AddOption(-1, (int)Enumerations.BasePagePanelOptions.Exit, false, _nodeExitSelectionPanel, _nodeExitOptionLabel);
-		ProcessSelection();
 	}
 
 	public override void _Process(double delta)
@@ -89,10 +96,10 @@ public partial class BasePageBasePanel : Panel
 			{
 				if (option.IsSelected)
 				{
-					//GD.Print($"Selected action: {option.Id}");
+					GD.Print($"Selected action: {option.Id}");
 					SelectionHelperInstance.AddWhiteFont(option.OptionLabel);
 					SelectionHelperInstance.AddSelectBorder(option.SelectionPanel);
-					SelectionHelperInstance.HandleSelectedOptionDescription(option.Id, )
+					SelectionHelperInstance.HandleSelectedOptionDescription(option.Id, _nodeActionDescriptionMainPanel, _nodeActionTitleLabel, _nodeActionEffectLabel, _nodeActionDescriptionLabel);
 				}
 				else
 				{

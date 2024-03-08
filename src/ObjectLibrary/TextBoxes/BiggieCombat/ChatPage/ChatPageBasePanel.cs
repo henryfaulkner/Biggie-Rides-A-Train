@@ -15,6 +15,11 @@ public partial class ChatPageBasePanel : Panel
 	private Panel _nodeBackSelectionPanel = null;
 	private Label _nodeBackOptionLabel = null;
 
+	private Panel _nodeActionDescriptionMainPanel = null;
+	private Label _nodeActionTitleLabel = null;
+	private Label _nodeActionEffectLabel = null;
+	private Label _nodeActionDescriptionLabel = null;
+
 	private SelectionHelper SelectionHelperInstance { get; set; }
 	public bool IsOpen { get; set; }
 
@@ -31,11 +36,15 @@ public partial class ChatPageBasePanel : Panel
 		_nodeBackSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/BackOptionContainer/MarginContainer/Button/Panel");
 		_nodeBackOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/BackOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
 
+		_nodeActionDescriptionMainPanel = GetNode<Panel>("../../HBoxContainer/ActionInfo/Panel");
+		_nodeActionTitleLabel = GetNode<Label>("../../HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionName");
+		_nodeActionEffectLabel = GetNode<Label>("../../HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionEffect");
+		_nodeActionDescriptionLabel = GetNode<Label>("../../HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/ActionDescription");
+
 		SelectionHelperInstance = new SelectionHelper();
 		SelectionHelperInstance.AddOption((int)Enumerations.CombatOptions.Ask, (int)Enumerations.ChatPagePanelOptions.Ask, true, _nodeAskSelectionPanel, _nodeAskOptionLabel);
 		SelectionHelperInstance.AddOption((int)Enumerations.CombatOptions.Charm, (int)Enumerations.ChatPagePanelOptions.Charm, false, _nodeCharmSelectionPanel, _nodeCharmOptionLabel);
 		SelectionHelperInstance.AddOption(-1, (int)Enumerations.ChatPagePanelOptions.Back, false, _nodeBackSelectionPanel, _nodeBackOptionLabel);
-		ProcessSelection();
 	}
 
 	public override void _Process(double delta)
@@ -85,9 +94,9 @@ public partial class ChatPageBasePanel : Panel
 			{
 				if (option.IsSelected)
 				{
-					//GD.Print($"Selected action: {option.Id}");
 					SelectionHelperInstance.AddWhiteFont(option.OptionLabel);
 					SelectionHelperInstance.AddSelectBorder(option.SelectionPanel);
+					SelectionHelperInstance.HandleSelectedOptionDescription(option.Id, _nodeActionDescriptionMainPanel, _nodeActionTitleLabel, _nodeActionEffectLabel, _nodeActionDescriptionLabel);
 				}
 				else
 				{

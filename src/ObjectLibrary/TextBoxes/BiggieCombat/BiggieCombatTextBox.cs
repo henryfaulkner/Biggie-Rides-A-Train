@@ -62,10 +62,12 @@ public partial class BiggieCombatTextBox : CanvasLayer
 			case (int)Enumerations.BasePagePanelOptions.Fight:
 				_nodeBasePagePanel.IsOpen = false;
 				_nodeFightPagePanel.IsOpen = true;
+				_nodeFightPagePanel.ProcessSelection();
 				break;
 			case (int)Enumerations.BasePagePanelOptions.Chat:
 				_nodeBasePagePanel.IsOpen = false;
 				_nodeChatPagePanel.IsOpen = true;
+				_nodeChatPagePanel.ProcessSelection();
 				break;
 			case (int)Enumerations.BasePagePanelOptions.Exit:
 				break;
@@ -97,6 +99,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 				case (int)Enumerations.FightPagePanelOptions.Back:
 					_nodeBasePagePanel.IsOpen = true;
 					_nodeFightPagePanel.IsOpen = false;
+					_nodeBasePagePanel.ProcessSelection();
 					break;
 				default:
 					//GD.Print("_nodeFightPagePanel.IsOpen but not mapped");
@@ -129,6 +132,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 			case (int)Enumerations.ChatPagePanelOptions.Back:
 				_nodeBasePagePanel.IsOpen = true;
 				_nodeChatPagePanel.IsOpen = false;
+				_nodeBasePagePanel.ProcessSelection();
 				break;
 			default:
 				//GD.Print("_nodeChatPagePanel.IsOpen but not mapped");

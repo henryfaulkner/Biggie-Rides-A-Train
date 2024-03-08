@@ -95,6 +95,7 @@ theme_override_constants/margin_left = 275
 theme_override_constants/margin_right = 30
 
 [node name="Panel" type="Panel" parent="HBoxContainer/ActionInfo"]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_y8akg")
 

@@ -15,6 +15,11 @@ public partial class FightPageBasePanel : Panel
 	private Panel _nodeBackSelectionPanel = null;
 	private Label _nodeBackOptionLabel = null;
 
+	private Panel _nodeActionDescriptionMainPanel = null;
+	private Label _nodeActionTitleLabel = null;
+	private Label _nodeActionEffectLabel = null;
+	private Label _nodeActionDescriptionLabel = null;
+
 	private SelectionHelper SelectionHelperInstance { get; set; }
 	public bool IsOpen { get; set; }
 
@@ -31,11 +36,15 @@ public partial class FightPageBasePanel : Panel
 		_nodeBackSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/Button/Panel");
 		_nodeBackOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
 
+		_nodeActionDescriptionMainPanel = GetNode<Panel>("../../HBoxContainer/ActionInfo/Panel");
+		_nodeActionTitleLabel = GetNode<Label>("../../HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionName");
+		_nodeActionEffectLabel = GetNode<Label>("../../HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionEffect");
+		_nodeActionDescriptionLabel = GetNode<Label>("../../HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/ActionDescription");
+
 		SelectionHelperInstance = new SelectionHelper();
 		SelectionHelperInstance.AddOption((int)Enumerations.CombatOptions.Scratch, (int)Enumerations.FightPagePanelOptions.Scratch, true, _nodeScratchSelectionPanel, _nodeScratchOptionLabel);
 		SelectionHelperInstance.AddOption((int)Enumerations.CombatOptions.Bite, (int)Enumerations.FightPagePanelOptions.Bite, false, _nodeBiteSelectionPanel, _nodeBiteOptionLabel);
 		SelectionHelperInstance.AddOption(-1, (int)Enumerations.FightPagePanelOptions.Back, false, _nodeBackSelectionPanel, _nodeBackOptionLabel);
-		ProcessSelection();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -88,7 +97,9 @@ public partial class FightPageBasePanel : Panel
 					//GD.Print($"Selected action: {option.Id}");
 					SelectionHelperInstance.AddWhiteFont(option.OptionLabel);
 					SelectionHelperInstance.AddSelectBorder(option.SelectionPanel);
+					SelectionHelperInstance.HandleSelectedOptionDescription(option.Id, _nodeActionDescriptionMainPanel, _nodeActionTitleLabel, _nodeActionEffectLabel, _nodeActionDescriptionLabel);
 				}
+
 				else
 				{
 					SelectionHelperInstance.AddGreyFont(option.OptionLabel);

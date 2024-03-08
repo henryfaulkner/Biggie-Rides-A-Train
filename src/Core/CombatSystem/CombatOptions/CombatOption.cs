@@ -4,56 +4,79 @@ using Newtonsoft.Json;
 
 public class CombatOption
 {
-    public static readonly string _ASK = "res://Core/CombatSystem/CombatOptions/Chat/Ask";
-    public static readonly string _CHARM = "res://Core/CombatSystem/CombatOptions/Chat/Charm";
-    public static readonly string _BITE = "res://Core/CombatSystem/CombatOptions/Fight/Bite";
-    public static readonly string _SCRATCH = "res://Core/CombatSystem/CombatOptions/Fight/Scratch";
+    public static readonly StringName _ASK = new StringName("res://Core/CombatSystem/CombatOptions/Chat/Ask.json");
+    public static readonly StringName _CHARM = new StringName("res://Core/CombatSystem/CombatOptions/Chat/Charm.json");
+    public static readonly StringName _BITE = new StringName("res://Core/CombatSystem/CombatOptions/Fight/Bite.json");
+    public static readonly StringName _SCRATCH = new StringName("res://Core/CombatSystem/CombatOptions/Fight/Scratch.json");
 
-    public CombatOption(Enumerations.CombatOptions id)
+    public CombatOption() { }
+    public CombatOption(int id)
     {
-        switch (id)
+        try
         {
-            case Enumerations.CombatOptions.Ask:
-                var objAsk = JsonConvert.DeserializeObject<CombatOption>(_ASK);
-                Id = objAsk.Id;
-                Type = objAsk.Type;
-                Name = objAsk.Name;
-                Subname = objAsk.Subname;
-                Description = objAsk.Description;
-                break;
-            case Enumerations.CombatOptions.Charm:
-                var objCharm = JsonConvert.DeserializeObject<CombatOption>(_CHARM);
-                Id = objCharm.Id;
-                Type = objCharm.Type;
-                Name = objCharm.Name;
-                Subname = objCharm.Subname;
-                Description = objCharm.Description;
-                break;
-            case Enumerations.CombatOptions.Bite:
-                var objBite = JsonConvert.DeserializeObject<CombatOption>(_BITE);
-                Id = objBite.Id;
-                Type = objBite.Type;
-                Name = objBite.Name;
-                Subname = objBite.Subname;
-                Description = objBite.Description;
-                break;
-            case Enumerations.CombatOptions.Scratch:
-                var objScratch = JsonConvert.DeserializeObject<CombatOption>(_SCRATCH);
-                Id = objScratch.Id;
-                Type = objScratch.Type;
-                Name = objScratch.Name;
-                Subname = objScratch.Subname;
-                Description = objScratch.Description;
-                break;
-            default:
-                GD.Print("CombatOptions could not map to Enumerations.CombatOptions");
-                break;
+            string filePath = null;
+            switch (id)
+            {
+                case (int)Enumerations.CombatOptions.Ask:
+                    filePath = _ASK;
+                    break;
+                case (int)Enumerations.CombatOptions.Charm:
+                    filePath = _CHARM;
+                    break;
+                case (int)Enumerations.CombatOptions.Bite:
+                    filePath = _BITE;
+                    break;
+                case (int)Enumerations.CombatOptions.Scratch:
+                    filePath = _SCRATCH;
+                    break;
+                case -1:
+                    filePath = string.Empty;
+                    break;
+                default:
+                    GD.Print("CombatOptions could not map to Enumerations.CombatOptions");
+                    filePath = string.Empty;
+                    break;
+            }
+
+            if (string.IsNullOrEmpty(filePath))
+            {
+                Id = -1;
+                Type = -1;
+                Name = string.Empty;
+                Effect = string.Empty;
+                Description = string.Empty;
+                return;
+            }
+
+            using var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Read);
+            string content = file.GetAsText();
+            GD.Print($"content {content}");
+            var obj = JsonConvert.DeserializeObject<CombatOption>(content);
+            Id = obj.Id;
+            Type = obj.Type;
+            Name = obj.Name;
+            Effect = obj.Effect;
+            Description = obj.Description;
+        }
+        catch (Exception exception)
+        {
+            GD.Print($"Error: CombatOption not mapped on id {id}");
+            GD.PrintErr(exception.Message);
         }
     }
 
+    [JsonProperty("Id")]
     public int Id { get; set; }
+
+    [JsonProperty("Type")]
     public int Type { get; set; }
+
+    [JsonProperty("Name")]
     public string Name { get; set; }
-    public string Subname { get; set; }
+
+    [JsonProperty("Effect")]
+    public string Effect { get; set; }
+
+    [JsonProperty("Description")]
     public string Description { get; set; }
 }

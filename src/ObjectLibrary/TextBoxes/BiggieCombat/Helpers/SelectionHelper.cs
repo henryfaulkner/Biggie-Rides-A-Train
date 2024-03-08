@@ -25,6 +25,11 @@ public class SelectionHelper
 	public void ShiftSelectionLeft()
 	{
 		int len = OptionList.Count;
+		if (len == 0)
+		{
+			GD.Print("Error: OptionList is empty");
+			return;
+		}
 		if (len == 1) return;
 
 		OptionList[CurrentSelectedOptionIndex].IsSelected = false;
@@ -43,6 +48,11 @@ public class SelectionHelper
 	public void ShiftSelectionRight()
 	{
 		int len = OptionList.Count;
+		if (len == 0)
+		{
+			GD.Print("Error: OptionList is empty");
+			return;
+		}
 		if (len == 1) return;
 
 		OptionList[CurrentSelectedOptionIndex].IsSelected = false;
@@ -118,30 +128,16 @@ public class SelectionHelper
 		}
 	}
 
-	public void HandleSelectedOptionDescription(Enumerations.CombatOptions combatOptionId, Panel mainPanel, Label name, Label subname, Label desciption)
+	public void HandleSelectedOptionDescription(int combatOptionId, Panel mainPanel, Label titleLabel, Label subtitleLabel, Label desciptionLabel)
 	{
-		if ((int)combatOptionId == -1) return;
-
 		CombatOption combatOption = new CombatOption(combatOptionId);
-		switch (combatOptionId)
-		{
-			case Enumerations.CombatOptions.Ask:
-			case Enumerations.CombatOptions.Charm:
-				mainPanel.Visible = false;
-				break;
-			case Enumerations.CombatOptions.Bite:
-				mainPanel.Visible = true;
-				break;
-			case Enumerations.CombatOptions.Scratch:
-				mainPanel.Visible = true;
-				break;
-			default:
-				GD.Print("CombatOptions could not map to Enumerations.CombatOptions");
-				break;
-		}
-		name.Text = combatOption.Name;
-		subname.Text = combatOption.Subname;
-		desciption.Text = combatOption.Description;
+		mainPanel.Visible = !string.IsNullOrEmpty(combatOption.Name) || !string.IsNullOrEmpty(combatOption.Effect) || !string.IsNullOrEmpty(combatOption.Description);
+		GD.Print($"combatOption.Name {combatOption.Name}");
+		GD.Print($"combatOption.Effect {combatOption.Effect}");
+		GD.Print($"combatOption.Description {combatOption.Description}");
+		titleLabel.Text = combatOption.Name;
+		subtitleLabel.Text = combatOption.Effect;
+		desciptionLabel.Text = combatOption.Description;
 	}
 
 	public void Reset()

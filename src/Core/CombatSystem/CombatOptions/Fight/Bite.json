@@ -1,7 +1,7 @@
 {
-    "Id": 2,
-    "Type": 1,
-    "Name": "Bite",
-    "Subname": "+2 Damage",
-    "Description": "Biggie will go for the BIG bite. He knaws at loose skin and almost brakes skin."
+  "Id": 2,
+  "Type": 1,
+  "Name": "Bite",
+  "Effect": "+2 Damage",
+  "Description": "Biggie will go for the BIG bite. He knaws a bit and almost brakes skin."
 }
