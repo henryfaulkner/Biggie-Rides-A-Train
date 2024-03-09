@@ -6,5 +6,6 @@
 [node name="CombatWrapper" type="Node2D"]
 
 [node name="EnemyPhysicalHealth" parent="." instance=ExtResource("1_cep38")]
+visible = false
 
 [node name="BiggieCombatTextBox" parent="." instance=ExtResource("2_qk0o6")]

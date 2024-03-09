@@ -1,3 +1,48 @@
-[gd_scene format=3 uid="uid://bvopssmjqq4tw"]
+[gd_scene load_steps=5 format=3 uid="uid://bvopssmjqq4tw"]
+
+[ext_resource type="Texture2D" uid="uid://bfgeql8c1jfmr" path="res://Assets/DefeatScenes/Biggie Vanquished.png" id="1_d5lfb"]
+[ext_resource type="Script" path="res://Pages/DefeatScenes/DjBattle/DefeatSceneDjBattle.cs" id="1_fnqp6"]
+[ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="2_daww7"]
+
+[sub_resource type="Theme" id="Theme_eow5x"]
 
 [node name="DefeatSceneDjBattle" type="Node2D"]
+script = ExtResource("1_fnqp6")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 2048.0
+offset_bottom = 1024.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DefeatTextPanel" type="Panel" parent="MarginContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BiggieVanquished" type="Sprite2D" parent="MarginContainer/VBoxContainer/DefeatTextPanel"]
+position = Vector2(1024, 350)
+scale = Vector2(1.06667, 0.937037)
+texture = ExtResource("1_d5lfb")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 250
+theme_override_constants/margin_top = 125
+theme_override_constants/margin_right = 250
+theme_override_constants/margin_bottom = 300
+
+[node name="MainMenuButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_eow5x")
+theme_override_fonts/font = ExtResource("2_daww7")
+theme_override_font_sizes/font_size = 48
+text = "Return to Main Menu"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

@@ -13,7 +13,7 @@
   "HasItemSmoothJazzRecord": false,
   "HasItemClubMixRecord": false,
   "ActiveRecord": 0,
-  "DialogueStateTeller": 1,
+  "DialogueStateTeller": 0,
   "DialogueStateChess": 1,
   "DialogueStateTherapist": 1,
   "DialogueStateDJ": 1

@@ -99,7 +99,7 @@ public partial class CombatSceneDjBattle : Node2D
 		if (_globalCombatSingleton.EnemyPhysicalAttackProxy.IsTargetDefeated())
 		{
 			GD.Print("Biggie Physical Defeat");
-			HandleDjPhysicalDefeat();
+			HandleBiggieDefeat();
 			return;
 		}
 
@@ -127,7 +127,18 @@ public partial class CombatSceneDjBattle : Node2D
 
 	public void HandleBiggieDefeat()
 	{
-		GetTree().ChangeSceneToFile(_SCENE_BIGGIE_DEFEAT);
+		GD.Print("HandleBiggieDefeat");
+		var root = GetTree().Root;
+
+		// Remove the current level
+		var level = root.GetNode("CombatSceneDjBattle");
+		root.RemoveChild(level);
+		level.CallDeferred("free");
+
+		// Add the next level
+		var nextLevelResource = GD.Load<PackedScene>(_SCENE_BIGGIE_DEFEAT);
+		var nextLevel = nextLevelResource.Instantiate<Node>();
+		root.AddChild(nextLevel);
 	}
 
 	public void HandleDjPhysicalDefeat()
