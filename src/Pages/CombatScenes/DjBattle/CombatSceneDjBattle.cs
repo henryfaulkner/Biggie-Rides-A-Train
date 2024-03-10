@@ -28,8 +28,8 @@ public partial class CombatSceneDjBattle : Node2D
 		_nodeBiggieCombatTextBox = GetNode<BiggieCombatTextBox>("./CombatWrapper/BiggieCombatTextBox");
 		_nodeDjAttackContainer = GetNode<DjAttackContainer>("./DjAttackContainer");
 		_nodeHitCallout = GetNode<CanvasLayer>("./HitCallout");
-		_nodeBiggieHealthBar = GetNode<ProgressBar>("./CombatWrapper/BiggieCombatTextBox/HBoxContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
-		_nodeBiggieHpValueLabel = GetNode<Label>("./CombatWrapper/BiggieCombatTextBox/HBoxContainer/HealthContainer/MarginContainer/Health/HpValueLabel");
+		_nodeBiggieHealthBar = GetNode<ProgressBar>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
+		_nodeBiggieHpValueLabel = GetNode<Label>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/HpValueLabel");
 		_nodeDjHealthBar = GetNode<ProgressBar>("./CombatWrapper/EnemyPhysicalHealth/HBoxContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
 		_nodeDjHpValueLabel = GetNode<Label>("./CombatWrapper/EnemyPhysicalHealth/HBoxContainer/HealthContainer/MarginContainer/Health/HpValueLabel");
 

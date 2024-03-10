@@ -1,24 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://1h2lgc5062ur"]
+[gd_scene load_steps=4 format=3 uid="uid://1h2lgc5062ur"]
 
+[ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.tscn" id="1_iugt0"]
 [ext_resource type="Script" path="res://Pages/CombatScenes/TestBattle/CombatSceneTestBattle.cs" id="1_utk73"]
 [ext_resource type="StyleBox" uid="uid://csvwoicreew7r" path="res://Assets/LabelSettings/TextBoxPanelStyles.tres" id="1_yhcsl"]
 
 [node name="CombatSceneTestBattle" type="Node2D"]
 script = ExtResource("1_utk73")
 
+[node name="CombatWrapper" parent="." instance=ExtResource("1_iugt0")]
+
 [node name="TargetPanel" type="Panel" parent="."]
+visible = false
 offset_left = 747.0
 offset_top = 163.0
 offset_right = 1347.0
-offset_bottom = 682.0
-size_flags_vertical = 3
-theme_override_styles/panel = ExtResource("1_yhcsl")
-
-[node name="SubjectPanel" type="Panel" parent="."]
-visible = false
-offset_left = 3.0
-offset_top = 365.0
-offset_right = 2055.0
-offset_bottom = 675.0
+offset_bottom = 674.0
 size_flags_vertical = 3
 theme_override_styles/panel = ExtResource("1_yhcsl")

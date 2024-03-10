@@ -1,11 +1,160 @@
-[gd_scene load_steps=3 format=3 uid="uid://dcdbd272fdx4j"]
+[gd_scene load_steps=12 format=3 uid="uid://dcdbd272fdx4j"]
 
 [ext_resource type="PackedScene" uid="uid://cbnxk7w87v22a" path="res://ObjectLibrary/Wrappers/CombatWrapper/EnemyPhysicalHealth.tscn" id="1_cep38"]
+[ext_resource type="LabelSettings" uid="uid://dhr4jjrifryn4" path="res://Assets/LabelSettings/HealthLabelSettings.tres" id="2_jvtxu"]
 [ext_resource type="PackedScene" uid="uid://xbdh31b8gpcu" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BiggieCombatTextBox.tscn" id="2_qk0o6"]
+[ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="3_srhic"]
+[ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="4_qbxj4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5xso"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nvi10"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_78s8h"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 48
+corner_radius_top_right = 48
+corner_radius_bottom_right = 48
+corner_radius_bottom_left = 48
+
+[sub_resource type="Theme" id="Theme_4qy4a"]
+default_font = ExtResource("3_srhic")
+default_font_size = 48
+
+[sub_resource type="Theme" id="Theme_f1wt1"]
+default_font = ExtResource("3_srhic")
+default_font_size = 30
+
+[sub_resource type="Theme" id="Theme_c6mv2"]
+default_font = ExtResource("4_qbxj4")
+default_font_size = 30
 
 [node name="CombatWrapper" type="Node2D"]
 
 [node name="EnemyPhysicalHealth" parent="." instance=ExtResource("1_cep38")]
 visible = false
 
+[node name="HudContainer" type="HBoxContainer" parent="."]
+offset_left = 160.0
+offset_top = 391.0
+offset_right = 1952.0
+offset_bottom = 691.0
+
+[node name="HealthContainer" type="MarginContainer" parent="HudContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 450
+
+[node name="MarginContainer" type="MarginContainer" parent="HudContainer/HealthContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 240
+
+[node name="Health" type="HBoxContainer" parent="HudContainer/HealthContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HpTitleLabel" type="Label" parent="HudContainer/HealthContainer/MarginContainer/Health"]
+layout_mode = 2
+text = "HP"
+label_settings = ExtResource("2_jvtxu")
+
+[node name="MarginContainer" type="MarginContainer" parent="HudContainer/HealthContainer/MarginContainer/Health"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
+
+[node name="ProgressBar" type="ProgressBar" parent="HudContainer/HealthContainer/MarginContainer/Health/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_f5xso")
+theme_override_styles/fill = SubResource("StyleBoxFlat_nvi10")
+value = 33.0
+show_percentage = false
+
+[node name="HpValueLabel" type="Label" parent="HudContainer/HealthContainer/MarginContainer/Health"]
+layout_mode = 2
+text = "9/9"
+label_settings = ExtResource("2_jvtxu")
+
+[node name="ActionInfo" type="MarginContainer" parent="HudContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 275
+theme_override_constants/margin_right = 30
+
+[node name="Panel" type="Panel" parent="HudContainer/ActionInfo"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_78s8h")
+
+[node name="MarginContainer" type="MarginContainer" parent="HudContainer/ActionInfo/Panel"]
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 50.0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="HudContainer/ActionInfo/Panel/MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HudContainer/ActionInfo/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ActionName" type="Label" parent="HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_4qy4a")
+text = "Scratch"
+
+[node name="Panel" type="Panel" parent="HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ActionEffect" type="Label" parent="HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_f1wt1")
+text = "1 damage, -25% armor"
+
+[node name="ActionDescription" type="Label" parent="HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 2
+theme = SubResource("Theme_c6mv2")
+text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae weid. Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae."
+autowrap_mode = 3
+
 [node name="BiggieCombatTextBox" parent="." instance=ExtResource("2_qk0o6")]
+
+[node name="EnemyAttackContainer" type="MarginContainer" parent="."]
+visible = false
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 424.0
+offset_right = 2048.0
+offset_bottom = 1024.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 724
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 724
+theme_override_constants/margin_bottom = 64
+
+[node name="EnemyAttackPanel" type="Panel" parent="EnemyAttackContainer"]
+layout_mode = 2
