@@ -1,13 +1,13 @@
 using Godot;
 using System;
 
-public class ControlAnimationHelper
+public class PanelAnimationHelper
 {
-    private static readonly float _ANIMATION_SPEED = 5;
+    private static readonly float _ANIMATION_SPEED = 6f;
 
     // Translate subjectArea towards targetArea x and y, simulatiously
     // return false until subjectArea's x and y are equal to targetArea's x and y
-    public bool TranslateControlOverTime(float delta, Control subjectArea, Control targetArea)
+    public bool TranslateOverTime(double delta, Control subjectArea, Control targetArea)
     {
         // +1 is right, -1 is left 
         int translateDirectionX = subjectArea.Position.X == targetArea.Position.X ? 0 : (subjectArea.Position.X < targetArea.Position.X ? 1 : -1);
@@ -47,9 +47,14 @@ public class ControlAnimationHelper
         return CheckPosition(subjectArea, targetArea);
     }
 
+    CenterScaleHorizontal(double delta, Control subjectArea, Control targetArea)
+    {
+
+    }
+
     // Scale subjectArea towards targetArea, scale x first, then scale y
     // return false until subjectArea's width, y, and height are equal to targetArea's x, width, y, and height
-    public bool ScaleControlOverTime(float delta, Control subjectArea, Control targetArea)
+    public bool CenterScaleHAndUniScaleYOverTime(double delta, Control subjectArea, Control targetArea)
     {
         // +1 is right, -1 is left 
         int translateDirectionX = subjectArea.Position.X == targetArea.Position.X ? 0 : (subjectArea.Position.X < targetArea.Position.X ? 1 : -1);
@@ -125,7 +130,7 @@ public class ControlAnimationHelper
                 {
                     subjectArea.Position = new Vector2(
                         subjectArea.Position.X,
-                        subjectArea.Position.Y + (translateDirectionY * amountToTranslate)
+                        subjectArea.Position.Y + (translateDirectionY * amountToScale)
                     );
                 }
             }

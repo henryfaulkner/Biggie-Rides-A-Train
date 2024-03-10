@@ -1,33 +1,34 @@
 public static partial class Enumerations
 {
-	public struct DialogueStates 
+	public struct DialogueStates
 	{
 		public enum Teller
 		{
 			Introduce = 0,
 			AskForTicket = 1,
 		}
-		
+
 		public enum Chess
 		{
 			Introduce = 0,
 			PlayOpponent = 1,
 		}
-		
+
 		public enum Therapist
 		{
 			Introduce = 0,
 			OfferTherapy = 1,
+			TestBattle = 2,
 		}
-		
+
 		public enum DJ
 		{
 			Introduce = 0,
 			Battle = 1,
 		}
 	}
-	
-	public static class GameMusic 
+
+	public static class GameMusic
 	{
 		public enum Records
 		{
@@ -36,5 +37,5 @@ public static partial class Enumerations
 			SmoothJazz = 2,
 			ClubMix = 3,
 		}
-	} 
+	}
 }
