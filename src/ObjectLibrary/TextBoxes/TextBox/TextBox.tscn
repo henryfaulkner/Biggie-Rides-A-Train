@@ -18,6 +18,7 @@ corner_radius_bottom_left = 24
 
 [sub_resource type="Theme" id="Theme_scwaj"]
 default_font = ExtResource("1_df5d0")
+default_font_size = 52
 
 [node name="TextBox" type="CanvasLayer"]
 script = ExtResource("1_53f7t")
@@ -66,17 +67,13 @@ theme_override_fonts/font = ExtResource("2_08iod")
 theme_override_font_sizes/font_size = 64
 text = "* "
 
-[node name="Dialogue" type="Label" parent="TextBoxContainer/Panel/MarginContainer/HBoxContainer"]
+[node name="Dialogue" type="RichTextLabel" parent="TextBoxContainer/Panel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(1652, 178)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 1
 theme = SubResource("Theme_scwaj")
-theme_override_font_sizes/font_size = 64
-text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum. recusandae alias error harum maxime adipisci amet laborum. Perspiciatis 
-minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit 
-quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur 
+bbcode_enabled = true
+text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum. recusandae alias error harum maxime adipisci amet laborum. Perspiciatis minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit  quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur 
 fugiat, temporibus enim commodi iusto libero magni deleniti quod quam 
 consequuntur! Commodi minima excepturi repudiandae velit hic maxime
 doloremque. Quaerat provident commodi consectetur veniam similique ad 
@@ -93,8 +90,6 @@ nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
 tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
 quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos 
 sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam"
-autowrap_mode = 3
-clip_text = true
 
 [node name="End" type="Label" parent="TextBoxContainer/Panel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 24)

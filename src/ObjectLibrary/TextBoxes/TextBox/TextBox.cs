@@ -12,7 +12,7 @@ public partial class TextBox : CanvasLayer
 	private CanvasLayer _nodeSelf = null;
 	private MarginContainer _nodeTextBoxContainer = null;
 	private Label _nodeStart = null;
-	private Label _nodeDialogue = null;
+	private RichTextLabel _nodeDialogue = null;
 	private Label _nodeEnd = null;
 
 	private Queue<List<string>> _dialogueListQueue = null;
@@ -33,7 +33,7 @@ public partial class TextBox : CanvasLayer
 		_nodeSelf = GetNode<CanvasLayer>(".");
 		_nodeTextBoxContainer = GetNode<MarginContainer>("./TextBoxContainer");
 		_nodeStart = GetNode<Label>("./TextBoxContainer/Panel/MarginContainer/HBoxContainer/Start");
-		_nodeDialogue = GetNode<Label>("./TextBoxContainer/Panel/MarginContainer/HBoxContainer/Dialogue");
+		_nodeDialogue = GetNode<RichTextLabel>("./TextBoxContainer/Panel/MarginContainer/HBoxContainer/Dialogue");
 		_nodeEnd = GetNode<Label>("./TextBoxContainer/Panel/MarginContainer/HBoxContainer/End");
 		_dialogueListQueue = new Queue<List<string>>();
 		_dialogueList = new List<string>();
@@ -86,13 +86,14 @@ public partial class TextBox : CanvasLayer
 		{
 			_dialogueList = _dialogueListQueue.Dequeue();
 			ShowTextBox();
-			ReadDialogue(_dialogueList[0]);
+			_ = ReadDialogue(_dialogueList[0]);
 		}
 	}
 
 	private async Task ReadDialogue(string dialogue)
 	{
-		_nodeDialogue.Text = dialogue;
+		string bbDialogue = ProcessDialogue(dialogue);
+		_nodeDialogue.AppendText(bbDialogue); ;
 		_nodeDialogue.VisibleCharacters = 0;
 		_isTextMoving = true;
 		int len = dialogue.Length;
@@ -114,7 +115,7 @@ public partial class TextBox : CanvasLayer
 			if (GetDialogueListQueueCount() > 0)
 			{
 				_dialogueList = _dialogueListQueue.Dequeue();
-				ReadDialogue(_dialogueList[0]);
+				_ = ReadDialogue(_dialogueList[0]);
 				_dialogueListPointer = 0;
 			}
 			else
@@ -124,7 +125,7 @@ public partial class TextBox : CanvasLayer
 		}
 		else
 		{
-			ReadDialogue(_dialogueList[_dialogueListPointer]);
+			_ = ReadDialogue(_dialogueList[_dialogueListPointer]);
 		}
 	}
 
@@ -203,5 +204,13 @@ public partial class TextBox : CanvasLayer
 	public void IsReading(bool isReading)
 	{
 		_isReading = isReading;
+	}
+
+	public string ProcessDialogue(string dialogue)
+	{
+		// Use this video to help process emphasis text with wavy effect
+		//https://www.youtube.com/watch?v=2Womvf8Uemk&t=392s
+		var result = dialogue;
+		return result;
 	}
 }
