@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://dcdbd272fdx4j"]
+[gd_scene load_steps=14 format=3 uid="uid://dcdbd272fdx4j"]
 
 [ext_resource type="PackedScene" uid="uid://cbnxk7w87v22a" path="res://ObjectLibrary/Wrappers/CombatWrapper/EnemyPhysicalHealth.tscn" id="1_cep38"]
 [ext_resource type="LabelSettings" uid="uid://dhr4jjrifryn4" path="res://Assets/LabelSettings/HealthLabelSettings.tres" id="2_jvtxu"]
 [ext_resource type="PackedScene" uid="uid://xbdh31b8gpcu" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BiggieCombatTextBox.tscn" id="2_qk0o6"]
 [ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="3_srhic"]
 [ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="4_qbxj4"]
+[ext_resource type="StyleBox" uid="uid://csvwoicreew7r" path="res://Assets/LabelSettings/TextBoxPanelStyles.tres" id="6_i3s6a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5xso"]
 bg_color = Color(1, 0, 0, 1)
@@ -35,6 +36,32 @@ default_font_size = 30
 [sub_resource type="Theme" id="Theme_c6mv2"]
 default_font = ExtResource("4_qbxj4")
 default_font_size = 30
+
+[sub_resource type="CSharpScript" id="CSharpScript_hbdiu"]
+script/source = "using Godot;
+using System;
+
+public partial class SquareAttackContainer : MarginContainer
+{
+	private SquareAttackContainer _nodeSelf = null;
+	
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+		_nodeSelf = GetNode<SquareAttackContainer>(\".\");
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+	
+	public void SetOpacity(float opacity)
+	{
+		_nodeSelf.Modulate = new Color(1, 1, 1, opacity);
+	}
+}
+"
 
 [node name="CombatWrapper" type="Node2D"]
 
@@ -140,8 +167,7 @@ autowrap_mode = 3
 
 [node name="BiggieCombatTextBox" parent="." instance=ExtResource("2_qk0o6")]
 
-[node name="EnemyAttackContainer" type="MarginContainer" parent="."]
-visible = false
+[node name="SquareAttackContainer" type="MarginContainer" parent="."]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -156,5 +182,20 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 724
 theme_override_constants/margin_bottom = 64
 
-[node name="EnemyAttackPanel" type="Panel" parent="EnemyAttackContainer"]
+[node name="SquareAttackPanel" type="Panel" parent="SquareAttackContainer"]
 layout_mode = 2
+theme_override_styles/panel = ExtResource("6_i3s6a")
+
+[node name="TransformContainer" type="MarginContainer" parent="."]
+offset_top = 424.0
+offset_right = 2048.0
+offset_bottom = 1024.0
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 294
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 64
+script = SubResource("CSharpScript_hbdiu")
+
+[node name="TransformPanel" type="Panel" parent="TransformContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("6_i3s6a")

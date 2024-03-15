@@ -6,6 +6,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
 
 	private CanvasLayer _nodeSelf = null;
+	private MarginContainer _nodeTextBoxContainer = null;
 	private BasePageBasePanel _nodeBasePagePanel = null;
 	private ChatPageBasePanel _nodeChatPagePanel = null;
 	private FightPageBasePanel _nodeFightPagePanel = null;
@@ -15,6 +16,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<CanvasLayer>(".");
+		_nodeTextBoxContainer = GetNode<MarginContainer>("./TextBoxContainer");
 		_nodeBasePagePanel = GetNode<BasePageBasePanel>("./TextBoxContainer/BasePagePanel");
 		_nodeChatPagePanel = GetNode<ChatPageBasePanel>("./TextBoxContainer/ChatPagePanel");
 		_nodeFightPagePanel = GetNode<FightPageBasePanel>("./TextBoxContainer/FightPagePanel");

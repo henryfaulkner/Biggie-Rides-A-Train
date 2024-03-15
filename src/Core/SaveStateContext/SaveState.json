@@ -14,7 +14,7 @@
   "HasItemClubMixRecord": false,
   "ActiveRecord": 0,
   "DialogueStateTeller": 1,
-  "DialogueStateChess": 1,
+  "DialogueStateChess": 0,
   "DialogueStateTherapist": 2,
   "DialogueStateDJ": 0
 }

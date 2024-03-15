@@ -1,19 +1,54 @@
-[gd_scene load_steps=4 format=3 uid="uid://1h2lgc5062ur"]
+[gd_scene load_steps=11 format=3 uid="uid://1h2lgc5062ur"]
 
 [ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.tscn" id="1_iugt0"]
 [ext_resource type="Script" path="res://Pages/CombatScenes/TestBattle/CombatSceneTestBattle.cs" id="1_utk73"]
-[ext_resource type="StyleBox" uid="uid://csvwoicreew7r" path="res://Assets/LabelSettings/TextBoxPanelStyles.tres" id="1_yhcsl"]
+[ext_resource type="Script" path="res://Pages/CombatScenes/DjBattle/DjAttackContainer.cs" id="4_pimsq"]
+[ext_resource type="Script" path="res://Pages/CombatScenes/DjBattle/BiggieDjCombat.cs" id="5_fryc6"]
+[ext_resource type="Texture2D" uid="uid://df0xe1tnk46cf" path="res://Assets/Objects/Biggie.png" id="6_b344g"]
+[ext_resource type="PackedScene" uid="uid://buh5m7wlv85cl" path="res://Pages/CombatScenes/DjBattle/BaseArrows/BaseArrowUp.tscn" id="7_xo17u"]
+[ext_resource type="PackedScene" uid="uid://841ckydqawjr" path="res://Pages/CombatScenes/DjBattle/BaseArrows/BaseArrowRight.tscn" id="8_f08mb"]
+[ext_resource type="PackedScene" uid="uid://btg4ir18g3vbg" path="res://Pages/CombatScenes/DjBattle/BaseArrows/BaseArrowDown.tscn" id="9_qjftb"]
+[ext_resource type="PackedScene" uid="uid://dct7ljxh0mq3o" path="res://Pages/CombatScenes/DjBattle/BaseArrows/BaseArrowLeft.tscn" id="10_aueu0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a05xm"]
+radius = 12.0416
 
 [node name="CombatSceneTestBattle" type="Node2D"]
 script = ExtResource("1_utk73")
 
 [node name="CombatWrapper" parent="." instance=ExtResource("1_iugt0")]
 
-[node name="TargetPanel" type="Panel" parent="."]
-visible = false
-offset_left = 747.0
-offset_top = 163.0
-offset_right = 1347.0
-offset_bottom = 674.0
+[node name="DjAttackContainer" type="MarginContainer" parent="CombatWrapper"]
+offset_left = 724.0
+offset_top = 456.0
+offset_right = 1324.0
+offset_bottom = 960.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/panel = ExtResource("1_yhcsl")
+script = ExtResource("4_pimsq")
+
+[node name="BiggieDjCombat" type="CharacterBody2D" parent="CombatWrapper/DjAttackContainer"]
+position = Vector2(296, 247)
+script = ExtResource("5_fryc6")
+
+[node name="Sprite2D" type="Sprite2D" parent="CombatWrapper/DjAttackContainer/BiggieDjCombat"]
+scale = Vector2(4, 4)
+texture = ExtResource("6_b344g")
+hframes = 2
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatWrapper/DjAttackContainer/BiggieDjCombat"]
+position = Vector2(3, 8)
+shape = SubResource("CircleShape2D_a05xm")
+
+[node name="BaseArrowUp" parent="CombatWrapper/DjAttackContainer" instance=ExtResource("7_xo17u")]
+position = Vector2(300, 147)
+
+[node name="BaseArrowRight" parent="CombatWrapper/DjAttackContainer" instance=ExtResource("8_f08mb")]
+position = Vector2(421, 246)
+
+[node name="BaseArrowDown" parent="CombatWrapper/DjAttackContainer" instance=ExtResource("9_qjftb")]
+position = Vector2(295, 347)
+
+[node name="BaseArrowLeft" parent="CombatWrapper/DjAttackContainer" instance=ExtResource("10_aueu0")]
+position = Vector2(171, 246)

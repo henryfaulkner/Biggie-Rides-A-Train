@@ -55,6 +55,7 @@ public partial class TextBox : CanvasLayer
 			}
 			else
 			{
+				_nodeDialogue.Clear();
 				AdvanceTextBox();
 			}
 		}
@@ -86,14 +87,15 @@ public partial class TextBox : CanvasLayer
 		{
 			_dialogueList = _dialogueListQueue.Dequeue();
 			ShowTextBox();
-			_ = ReadDialogue(_dialogueList[0]);
+			ReadDialogue(_dialogueList[0]);
 		}
 	}
 
 	private async Task ReadDialogue(string dialogue)
 	{
-		string bbDialogue = ProcessDialogue(dialogue);
-		_nodeDialogue.AppendText(bbDialogue); ;
+		// BBCode
+		//https://www.youtube.com/watch?v=2Womvf8Uemk&t=392s
+		_nodeDialogue.AppendText(dialogue); ;
 		_nodeDialogue.VisibleCharacters = 0;
 		_isTextMoving = true;
 		int len = dialogue.Length;
@@ -115,7 +117,7 @@ public partial class TextBox : CanvasLayer
 			if (GetDialogueListQueueCount() > 0)
 			{
 				_dialogueList = _dialogueListQueue.Dequeue();
-				_ = ReadDialogue(_dialogueList[0]);
+				ReadDialogue(_dialogueList[0]);
 				_dialogueListPointer = 0;
 			}
 			else
@@ -125,7 +127,7 @@ public partial class TextBox : CanvasLayer
 		}
 		else
 		{
-			_ = ReadDialogue(_dialogueList[_dialogueListPointer]);
+			ReadDialogue(_dialogueList[_dialogueListPointer]);
 		}
 	}
 
@@ -204,13 +206,5 @@ public partial class TextBox : CanvasLayer
 	public void IsReading(bool isReading)
 	{
 		_isReading = isReading;
-	}
-
-	public string ProcessDialogue(string dialogue)
-	{
-		// Use this video to help process emphasis text with wavy effect
-		//https://www.youtube.com/watch?v=2Womvf8Uemk&t=392s
-		var result = dialogue;
-		return result;
 	}
 }
