@@ -36,10 +36,10 @@ public partial class ChatPageBasePanel : Panel
 		_nodeBackSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/BackOptionContainer/MarginContainer/Button/Panel");
 		_nodeBackOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/BackOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
 
-		_nodeActionDescriptionMainPanel = GetNode<Panel>("../../HBoxContainer/ActionInfo/Panel");
-		_nodeActionTitleLabel = GetNode<Label>("../../HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionName");
-		_nodeActionEffectLabel = GetNode<Label>("../../HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionEffect");
-		_nodeActionDescriptionLabel = GetNode<Label>("../../HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/ActionDescription");
+		_nodeActionDescriptionMainPanel = GetNode<Panel>("../../../HudContainer/ActionInfo/Panel");
+		_nodeActionTitleLabel = GetNode<Label>("../../../HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionName");
+		_nodeActionEffectLabel = GetNode<Label>("../../../HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionEffect");
+		_nodeActionDescriptionLabel = GetNode<Label>("../../../HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/ActionDescription");
 
 		SelectionHelperInstance = new SelectionHelper();
 		SelectionHelperInstance.AddOption((int)Enumerations.CombatOptions.Ask, (int)Enumerations.ChatPagePanelOptions.Ask, true, _nodeAskSelectionPanel, _nodeAskOptionLabel);

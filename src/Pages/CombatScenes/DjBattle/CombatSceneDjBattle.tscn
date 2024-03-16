@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dct7ljxh0mq3o" path="res://Pages/CombatScenes/DjBattle/BaseArrows/BaseArrowLeft.tscn" id="8_7x2mt"]
 [ext_resource type="PackedScene" uid="uid://b81vlgqa3npjo" path="res://Pages/CombatScenes/DjBattle/HitCallout.tscn" id="9_njxru"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_77u1h"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_5awgj"]
 radius = 12.0416
 
 [node name="CombatSceneDjBattle" type="Node2D"]
@@ -19,45 +19,39 @@ script = ExtResource("1_6t7d8")
 
 [node name="CombatWrapper" parent="." instance=ExtResource("1_y68ny")]
 
-[node name="DjAttackContainer" type="MarginContainer" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 1024.0
+[node name="DjAttackContainer" type="MarginContainer" parent="CombatWrapper"]
+offset_left = 724.0
 offset_top = 456.0
-offset_right = 1024.0
-offset_bottom = 456.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 1324.0
+offset_bottom = 960.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("2_614w3")
 
-[node name="BiggieDjCombat" type="CharacterBody2D" parent="DjAttackContainer"]
+[node name="BiggieDjCombat" type="CharacterBody2D" parent="CombatWrapper/DjAttackContainer"]
+position = Vector2(296, 247)
 script = ExtResource("3_da51y")
 
-[node name="Sprite2D" type="Sprite2D" parent="DjAttackContainer/BiggieDjCombat"]
+[node name="Sprite2D" type="Sprite2D" parent="CombatWrapper/DjAttackContainer/BiggieDjCombat"]
 scale = Vector2(4, 4)
 texture = ExtResource("2_ywmyh")
 hframes = 2
 vframes = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DjAttackContainer/BiggieDjCombat"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatWrapper/DjAttackContainer/BiggieDjCombat"]
 position = Vector2(3, 8)
-shape = SubResource("CircleShape2D_77u1h")
+shape = SubResource("CircleShape2D_5awgj")
 
-[node name="BaseArrowUp" parent="DjAttackContainer" instance=ExtResource("5_0afeh")]
-position = Vector2(4, -100)
+[node name="BaseArrowUp" parent="CombatWrapper/DjAttackContainer" instance=ExtResource("5_0afeh")]
+position = Vector2(300, 147)
 
-[node name="BaseArrowRight" parent="DjAttackContainer" instance=ExtResource("6_lggkr")]
-position = Vector2(125, -1)
+[node name="BaseArrowRight" parent="CombatWrapper/DjAttackContainer" instance=ExtResource("6_lggkr")]
+position = Vector2(421, 246)
 
-[node name="BaseArrowDown" parent="DjAttackContainer" instance=ExtResource("7_wbk1w")]
-position = Vector2(-1, 100)
+[node name="BaseArrowDown" parent="CombatWrapper/DjAttackContainer" instance=ExtResource("7_wbk1w")]
+position = Vector2(295, 347)
 
-[node name="BaseArrowLeft" parent="DjAttackContainer" instance=ExtResource("8_7x2mt")]
-position = Vector2(-125, -1)
+[node name="BaseArrowLeft" parent="CombatWrapper/DjAttackContainer" instance=ExtResource("8_7x2mt")]
+position = Vector2(171, 246)
 
-[node name="HitCallout" parent="." instance=ExtResource("9_njxru")]
+[node name="HitCallout" parent="CombatWrapper" instance=ExtResource("9_njxru")]

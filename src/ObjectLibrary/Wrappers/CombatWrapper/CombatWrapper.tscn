@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://dcdbd272fdx4j"]
+[gd_scene load_steps=15 format=3 uid="uid://dcdbd272fdx4j"]
 
+[ext_resource type="Script" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.cs" id="1_c2u0m"]
 [ext_resource type="PackedScene" uid="uid://cbnxk7w87v22a" path="res://ObjectLibrary/Wrappers/CombatWrapper/EnemyPhysicalHealth.tscn" id="1_cep38"]
 [ext_resource type="LabelSettings" uid="uid://dhr4jjrifryn4" path="res://Assets/LabelSettings/HealthLabelSettings.tres" id="2_jvtxu"]
 [ext_resource type="PackedScene" uid="uid://xbdh31b8gpcu" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BiggieCombatTextBox.tscn" id="2_qk0o6"]
@@ -64,6 +65,7 @@ public partial class SquareAttackContainer : MarginContainer
 "
 
 [node name="CombatWrapper" type="Node2D"]
+script = ExtResource("1_c2u0m")
 
 [node name="EnemyPhysicalHealth" parent="." instance=ExtResource("1_cep38")]
 visible = false

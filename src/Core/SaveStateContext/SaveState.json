@@ -1,8 +1,8 @@
 {
   "StoredLocation": {
-    "SceneId": 2,
-    "X": 1052,
-    "Y": 544
+    "SceneId": 4,
+    "X": 188,
+    "Y": 324
   },
   "HasItemTicketPieceOne": false,
   "HasItemTicketPieceTwo": false,
@@ -16,5 +16,5 @@
   "DialogueStateTeller": 1,
   "DialogueStateChess": 0,
   "DialogueStateTherapist": 2,
-  "DialogueStateDJ": 0
+  "DialogueStateDJ": 1
 }

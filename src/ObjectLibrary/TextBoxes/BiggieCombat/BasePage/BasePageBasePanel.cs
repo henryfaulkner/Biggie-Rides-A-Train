@@ -37,10 +37,10 @@ public partial class BasePageBasePanel : Panel
 		_nodeExitSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/Button/Panel");
 		_nodeExitOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
 
-		_nodeActionDescriptionMainPanel = GetNode<Panel>("../../HBoxContainer/ActionInfo/Panel");
-		_nodeActionTitleLabel = GetNode<Label>("../../HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionName");
-		_nodeActionEffectLabel = GetNode<Label>("../../HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionEffect");
-		_nodeActionDescriptionLabel = GetNode<Label>("../../HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/ActionDescription");
+		_nodeActionDescriptionMainPanel = GetNode<Panel>("../../../HudContainer/ActionInfo/Panel");
+		_nodeActionTitleLabel = GetNode<Label>("../../../HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionName");
+		_nodeActionEffectLabel = GetNode<Label>("../../../HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionEffect");
+		_nodeActionDescriptionLabel = GetNode<Label>("../../../HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/ActionDescription");
 
 		SelectionHelperInstance = new SelectionHelper();
 		SelectionHelperInstance.AddOption(-1, (int)Enumerations.BasePagePanelOptions.Fight, true, _nodeFightSelectionPanel, _nodeFightOptionLabel);
