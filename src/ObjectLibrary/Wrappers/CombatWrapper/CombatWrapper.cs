@@ -9,12 +9,16 @@ public partial class CombatWrapper : Node2D
 	private HBoxContainer _nodeHudContainerSubject = null;
 	private HBoxContainer _nodeHudContainerTargetDown = null;
 	private HBoxContainer _nodeHudContainerTargetUp = null;
+	private MarginContainer _nodeActionInfo = null;
 
 	private MarginContainer _nodeTextContainer = null;
 	private MarginContainer _nodeAttackContainer = null;
 
 	private PanelAnimationHelper HudAnimationHelper { get; set; }
+	private static readonly float _HUD_SPEED_SLOW = 3f;
+	private static readonly float _HUD_SPEED_FAST = 8f;
 	private PanelAnimationHelper MainAnimationHelper { get; set; }
+	private static readonly float _MAIN_SPEED = 20f;
 
 	public bool Attacking { get; set; }
 
@@ -30,35 +34,36 @@ public partial class CombatWrapper : Node2D
 		_nodeHudContainerTargetDown = CreateHudContainerTarget(_nodeHudContainerSubject, 0, 250);
 		// Need to Queue Free this at some point
 		_nodeHudContainerTargetUp = CreateHudContainerTarget(_nodeHudContainerSubject, 0, 0);
-		HudAnimationHelper = new PanelAnimationHelper(3f);
-		MainAnimationHelper = new PanelAnimationHelper(20f);
+		HudAnimationHelper = new PanelAnimationHelper(_HUD_SPEED_SLOW);
+		MainAnimationHelper = new PanelAnimationHelper(_MAIN_SPEED);
 
+		_nodeActionInfo = GetNode<MarginContainer>("HudContainer/ActionInfo");
 		_nodeTextContainer = GetNode<MarginContainer>("./BiggieCombatTextBox/TextBoxContainer");
 		_nodeAttackContainer = GetNode<MarginContainer>("./SquareAttackContainer");
-		_nodeTextContainer.Hide();
-		_nodeAttackContainer.Hide();
 	}
 
 	public override void _Process(double delta)
 	{
 	}
-	
+
 	public bool TranslateHudDown()
 	{
 		if (HudAnimationHelper.CheckPosition(_nodeHudContainerSubject, _nodeHudContainerTargetDown))
 		{
-			return true;	
+			return true;
 		}
+		HudAnimationHelper.AnimationSpeed = _HUD_SPEED_SLOW;
 		HudAnimationHelper.TranslateOverTime(_nodeHudContainerSubject, _nodeHudContainerTargetDown);
 		return false;
 	}
-	
+
 	public bool TranslateHudUp()
 	{
 		if (HudAnimationHelper.CheckPosition(_nodeHudContainerSubject, _nodeHudContainerTargetUp))
 		{
-			return true;	
+			return true;
 		}
+		HudAnimationHelper.AnimationSpeed = _HUD_SPEED_FAST;
 		HudAnimationHelper.TranslateOverTime(_nodeHudContainerSubject, _nodeHudContainerTargetUp);
 		return false;
 	}
@@ -72,7 +77,7 @@ public partial class CombatWrapper : Node2D
 			_nodeAttackContainer.Show();
 			return true;
 		}
-		
+
 		if (!MainAnimationHelper.CheckPositionX(_nodeSubjectPanel, _nodeAttackPanel)
 			|| !MainAnimationHelper.CheckSizeX(_nodeSubjectPanel, _nodeAttackPanel))
 		{
@@ -99,7 +104,7 @@ public partial class CombatWrapper : Node2D
 			_nodeTextContainer.Show();
 			return true;
 		}
-		
+
 		if (!MainAnimationHelper.CheckPositionY(_nodeSubjectPanel, _nodeBaseTextPanel)
 			|| !MainAnimationHelper.CheckSizeY(_nodeSubjectPanel, _nodeBaseTextPanel))
 		{
@@ -116,7 +121,7 @@ public partial class CombatWrapper : Node2D
 		}
 		return false;
 	}
-	
+
 	private HBoxContainer CreateHudContainerTarget(HBoxContainer subject, float diffX, float diffY)
 	{
 		var result = _nodeHudContainerSubject.Duplicate() as HBoxContainer;
@@ -124,5 +129,35 @@ public partial class CombatWrapper : Node2D
 			result.Position.X + diffX, result.Position.Y + diffY
 		);
 		return result;
+	}
+
+	public void ShowAttackContainer()
+	{
+		_nodeAttackContainer.Show();
+	}
+
+	public void HideAttackContainer()
+	{
+		_nodeAttackContainer.Hide();
+	}
+
+	public void ShowTextContainer()
+	{
+		_nodeTextContainer.Show();
+	}
+
+	public void HideTextContainer()
+	{
+		_nodeTextContainer.Hide();
+	}
+
+	public void ShowActionInfo()
+	{
+		_nodeActionInfo.Modulate = new Color(1, 1, 1, 1);
+	}
+
+	public void HideActionInfo()
+	{
+		_nodeActionInfo.Modulate = new Color(1, 1, 1, 0);
 	}
 }

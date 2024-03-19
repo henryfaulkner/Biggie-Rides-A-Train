@@ -46,9 +46,10 @@ public partial class CombatSceneDjBattle : Node2D
 		_nodeDjAttackContainer.ProjectPhysicalDamage += ChangeBiggieHealthBar;
 		_nodeDjAttackContainer.EndOpponentTurn += EndOpponentTurn;
 
-		
+
 		CombatState = Enumerations.CombatStates.Text;
 		_nodeDjAttackContainer.Visible = false;
+		_nodeCombatWrapper.HideAttackContainer();
 		_nodeHitCallout.Visible = false;
 		_nodeDjAttackContainer.EndTurn();
 		StartBiggieTurn();
@@ -57,15 +58,15 @@ public partial class CombatSceneDjBattle : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (CombatState == Enumerations.CombatStates.TransitionToAttack) 
+		if (CombatState == Enumerations.CombatStates.TransitionToAttack)
 		{
 			if (TransitionToAttack())
 			{
 				CombatState = Enumerations.CombatStates.Attack;
 				StartOpponentTurn();
 			}
-		} 
-		else if (CombatState == Enumerations.CombatStates.TransitionToText) 
+		}
+		else if (CombatState == Enumerations.CombatStates.TransitionToText)
 		{
 			if (TransitionToText())
 			{
@@ -78,6 +79,7 @@ public partial class CombatSceneDjBattle : Node2D
 	public void StartBiggieTurn()
 	{
 		_nodeBiggieCombatTextBox.Visible = true;
+		_nodeCombatWrapper.ShowActionInfo();
 		_nodeBiggieCombatTextBox.StartTurn();
 	}
 
@@ -85,6 +87,7 @@ public partial class CombatSceneDjBattle : Node2D
 	{
 		GD.Print("EndBiggieTurn");
 		_nodeBiggieCombatTextBox.Visible = false;
+		_nodeCombatWrapper.HideActionInfo();
 		_nodeBiggieCombatTextBox.EndTurn();
 		ChangeDjHealthBar();
 
@@ -109,6 +112,7 @@ public partial class CombatSceneDjBattle : Node2D
 	{
 		_nodeDjAttackContainer.Visible = true;
 		_nodeHitCallout.Visible = true;
+		_nodeCombatWrapper.ShowAttackContainer();
 		_nodeDjAttackContainer.StartTurn();
 	}
 
@@ -117,6 +121,7 @@ public partial class CombatSceneDjBattle : Node2D
 		GD.Print("EndOpponentTurn");
 		_nodeDjAttackContainer.Visible = false;
 		_nodeHitCallout.Visible = false;
+		_nodeCombatWrapper.HideAttackContainer();
 		_nodeDjAttackContainer.EndTurn();
 		ChangeBiggieHealthBar();
 
@@ -126,7 +131,7 @@ public partial class CombatSceneDjBattle : Node2D
 			HandleBiggieDefeat();
 			return;
 		}
-		
+
 		CombatState = Enumerations.CombatStates.TransitionToText;
 		return;
 	}
@@ -174,7 +179,7 @@ public partial class CombatSceneDjBattle : Node2D
 	{
 		GetTree().ChangeSceneToFile(_SCENE_CLUB);
 	}
-	
+
 	private bool TransitionToAttack()
 	{
 		bool finished = false;
@@ -182,7 +187,7 @@ public partial class CombatSceneDjBattle : Node2D
 		finished = _nodeCombatWrapper.TransformToAttack() && finished;
 		return finished;
 	}
-	
+
 	private bool TransitionToText()
 	{
 		bool finished = false;
