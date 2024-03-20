@@ -41,6 +41,8 @@ public partial class CombatSceneDjBattle : Node2D
 		ChangeBiggieHealthBar();
 		ChangeDjHealthBar();
 
+		_nodeCombatWrapper.StartBiggieTurn += StartBiggieTurn;
+		_nodeCombatWrapper.StartOpponentTurn += StartOpponentTurn;
 		_nodeBiggieCombatTextBox.ProjectPhysicalDamage += ChangeDjHealthBar;
 		_nodeBiggieCombatTextBox.EndBiggieTurn += EndBiggieTurn;
 		_nodeDjAttackContainer.ProjectPhysicalDamage += ChangeBiggieHealthBar;
@@ -58,22 +60,6 @@ public partial class CombatSceneDjBattle : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (CombatState == Enumerations.CombatStates.TransitionToAttack)
-		{
-			if (TransitionToAttack())
-			{
-				CombatState = Enumerations.CombatStates.Attack;
-				StartOpponentTurn();
-			}
-		}
-		else if (CombatState == Enumerations.CombatStates.TransitionToText)
-		{
-			if (TransitionToText())
-			{
-				CombatState = Enumerations.CombatStates.Text;
-				StartBiggieTurn();
-			}
-		}
 	}
 
 	public void StartBiggieTurn()
@@ -104,7 +90,7 @@ public partial class CombatSceneDjBattle : Node2D
 			return;
 		}
 
-		CombatState = Enumerations.CombatStates.TransitionToAttack;
+		CombatState = Enumerations.CombatStates.TransitionToEnemyAttack;
 		return;
 	}
 
@@ -178,21 +164,5 @@ public partial class CombatSceneDjBattle : Node2D
 	public void HandleDjEmotionalDefeat()
 	{
 		GetTree().ChangeSceneToFile(_SCENE_CLUB);
-	}
-
-	private bool TransitionToAttack()
-	{
-		bool finished = false;
-		finished = _nodeCombatWrapper.TranslateHudDown();
-		finished = _nodeCombatWrapper.TransformToAttack() && finished;
-		return finished;
-	}
-
-	private bool TransitionToText()
-	{
-		bool finished = false;
-		finished = _nodeCombatWrapper.TranslateHudUp();
-		finished = _nodeCombatWrapper.TransformToText() && finished;
-		return finished;
 	}
 }

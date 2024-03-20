@@ -3,11 +3,15 @@ public partial class Enumerations
 	public enum CombatStates
 	{
 		Text = 0,
-		TransitionToAttack = 1,
-		Attack = 2,
+		TransitionToEnemyAttack = 1,
+		EnemyAttack = 2,
 		TransitionToText = 3,
+		BiggieFight = 4,
+		TransitionToBiggieFight = 5,
+		BiggieChat = 6,
+		TransitionToBiggieChat = 7,
 	}
-	
+
 	public enum CombatOptions
 	{
 		Ask = 0,
@@ -21,14 +25,14 @@ public partial class Enumerations
 		Emotional = 0,
 		Physical = 1,
 	}
-	
+
 	public enum LogLevels
 	{
 		Debug = 0,
 		Info = 1,
 		Error = 2,
 	}
-	
+
 	public enum Scenes
 	{
 		Empty = 0,
@@ -37,7 +41,7 @@ public partial class Enumerations
 		TherapistOffice = 3,
 		Club = 4
 	}
-	
+
 	public struct DialogueStates
 	{
 		public enum Teller
