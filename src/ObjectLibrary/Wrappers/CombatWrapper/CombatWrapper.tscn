@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dcdbd272fdx4j"]
+[gd_scene load_steps=16 format=3 uid="uid://dcdbd272fdx4j"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.cs" id="1_c2u0m"]
 [ext_resource type="PackedScene" uid="uid://cbnxk7w87v22a" path="res://ObjectLibrary/Wrappers/CombatWrapper/EnemyPhysicalHealth.tscn" id="1_cep38"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://xbdh31b8gpcu" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BiggieCombatTextBox.tscn" id="2_qk0o6"]
 [ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="3_srhic"]
 [ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="4_qbxj4"]
+[ext_resource type="PackedScene" uid="uid://d3mnt3xkdh0fn" path="res://Pages/CombatScenes/DjBattle/dj_attack_container.tscn" id="5_ln7p2"]
 [ext_resource type="StyleBox" uid="uid://csvwoicreew7r" path="res://Assets/LabelSettings/TextBoxPanelStyles.tres" id="6_i3s6a"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_hbdiu"]
@@ -103,8 +104,16 @@ theme_override_constants/margin_right = 724
 theme_override_constants/margin_bottom = 64
 
 [node name="SquareAttackPanel" type="Panel" parent="SquareAttackContainer"]
+clip_contents = true
 layout_mode = 2
 theme_override_styles/panel = ExtResource("6_i3s6a")
+
+[node name="DjAttackContainer" parent="SquareAttackContainer/SquareAttackPanel" instance=ExtResource("5_ln7p2")]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="TransformContainer" type="MarginContainer" parent="."]
 offset_top = 424.0

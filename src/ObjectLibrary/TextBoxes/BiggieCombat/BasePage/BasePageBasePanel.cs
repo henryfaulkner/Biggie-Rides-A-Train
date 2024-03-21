@@ -44,8 +44,9 @@ public partial class BasePageBasePanel : Panel
 
 		SelectionHelperInstance = new SelectionHelper();
 		SelectionHelperInstance.AddOption(-1, (int)Enumerations.BasePagePanelOptions.Fight, true, _nodeFightSelectionPanel, _nodeFightOptionLabel);
-		SelectionHelperInstance.AddOption(-1, (int)Enumerations.BasePagePanelOptions.Chat, false, _nodeChatSelectionPanel, _nodeChatOptionLabel);
-		SelectionHelperInstance.AddOption(-1, (int)Enumerations.BasePagePanelOptions.Exit, false, _nodeExitSelectionPanel, _nodeExitOptionLabel);
+		SelectionHelperInstance.AddOption(-2, (int)Enumerations.BasePagePanelOptions.Chat, false, _nodeChatSelectionPanel, _nodeChatOptionLabel);
+		SelectionHelperInstance.AddOption(-3, (int)Enumerations.BasePagePanelOptions.Exit, false, _nodeExitSelectionPanel, _nodeExitOptionLabel);
+		ProcessSelection();
 	}
 
 	public override void _Process(double delta)

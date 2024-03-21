@@ -45,6 +45,7 @@ public partial class FightPageBasePanel : Panel
 		SelectionHelperInstance.AddOption((int)Enumerations.CombatOptions.Scratch, (int)Enumerations.FightPagePanelOptions.Scratch, true, _nodeScratchSelectionPanel, _nodeScratchOptionLabel);
 		SelectionHelperInstance.AddOption((int)Enumerations.CombatOptions.Bite, (int)Enumerations.FightPagePanelOptions.Bite, false, _nodeBiteSelectionPanel, _nodeBiteOptionLabel);
 		SelectionHelperInstance.AddOption(-1, (int)Enumerations.FightPagePanelOptions.Back, false, _nodeBackSelectionPanel, _nodeBackOptionLabel);
+
 	}
 
 	public override void _PhysicsProcess(double delta)

@@ -3,6 +3,8 @@ using System;
 
 public partial class CombatSingleton : Node
 {
+	public Enumerations.CombatStates CombatState { get; set; }
+
 	public BiggieAttackProxy BiggiePhysicalAttackProxy { get; set; }
 	public BiggieAttackProxy BiggieEmotionalAttackProxy { get; set; }
 	public OpponentAttackProxy EnemyPhysicalAttackProxy { get; set; }

@@ -6,7 +6,7 @@ public partial class CombatSceneTestBattle : Node2D
 	private Node _nodeSelf = null;
 	private CombatWrapper _nodeCombatWrapper = null;
 	private MarginContainer _nodeDjAttackContainer = null;
-	public bool Attacking { get; set; }
+	private CombatSingleton _globalCombatSingleton = null;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -15,20 +15,18 @@ public partial class CombatSceneTestBattle : Node2D
 		_nodeCombatWrapper = GetNode<CombatWrapper>("./CombatWrapper");
 		_nodeDjAttackContainer = GetNode<MarginContainer>("./CombatWrapper/DjAttackContainer");
 		_nodeDjAttackContainer.Hide();
-		Attacking = true;
-		_nodeCombatWrapper.Attacking = true;
+		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (Attacking)
+		if (_globalCombatSingleton.CombatState == Enumerations.CombatStates.EnemyAttack)
 		{
 			_nodeDjAttackContainer.Show();
 		}
 		else
 		{
-
 			_nodeDjAttackContainer.Hide();
 		}
 	}

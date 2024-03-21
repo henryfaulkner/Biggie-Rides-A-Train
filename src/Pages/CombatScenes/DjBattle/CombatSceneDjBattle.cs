@@ -21,7 +21,6 @@ public partial class CombatSceneDjBattle : Node2D
 	private Label _nodeDjHpValueLabel = null;
 
 	private CombatSingleton _globalCombatSingleton = null;
-	public Enumerations.CombatStates CombatState { get; set; }
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -29,7 +28,7 @@ public partial class CombatSceneDjBattle : Node2D
 		_nodeSelf = GetNode<Node2D>(".");
 		_nodeCombatWrapper = GetNode<CombatWrapper>("./CombatWrapper");
 		_nodeBiggieCombatTextBox = GetNode<BiggieCombatTextBox>("./CombatWrapper/BiggieCombatTextBox");
-		_nodeDjAttackContainer = GetNode<DjAttackContainer>("./CombatWrapper/DjAttackContainer");
+		_nodeDjAttackContainer = GetNode<DjAttackContainer>("./CombatWrapper/SquareAttackContainer/SquareAttackPanel/DjAttackContainer");
 		_nodeHitCallout = GetNode<CanvasLayer>("./CombatWrapper/HitCallout");
 		_nodeBiggieHealthBar = GetNode<ProgressBar>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
 		_nodeBiggieHpValueLabel = GetNode<Label>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/HpValueLabel");
@@ -41,20 +40,19 @@ public partial class CombatSceneDjBattle : Node2D
 		ChangeBiggieHealthBar();
 		ChangeDjHealthBar();
 
-		_nodeCombatWrapper.StartBiggieTurn += StartBiggieTurn;
-		_nodeCombatWrapper.StartOpponentTurn += StartOpponentTurn;
+		_nodeCombatWrapper.StartBiggieTextTurn += StartBiggieTextTurn;
+		_nodeCombatWrapper.StartEnemyAttackTurn += StartEnemyAttackTurn;
 		_nodeBiggieCombatTextBox.ProjectPhysicalDamage += ChangeDjHealthBar;
-		_nodeBiggieCombatTextBox.EndBiggieTurn += EndBiggieTurn;
+		_nodeBiggieCombatTextBox.EndBiggieTextTurn += EndBiggieTextTurn;
 		_nodeDjAttackContainer.ProjectPhysicalDamage += ChangeBiggieHealthBar;
-		_nodeDjAttackContainer.EndOpponentTurn += EndOpponentTurn;
+		_nodeDjAttackContainer.EndEnemyAttackTurn += EndEnemyAttackTurn;
 
 
-		CombatState = Enumerations.CombatStates.Text;
-		_nodeDjAttackContainer.Visible = false;
-		_nodeCombatWrapper.HideAttackContainer();
-		_nodeHitCallout.Visible = false;
-		_nodeDjAttackContainer.EndTurn();
-		StartBiggieTurn();
+		_globalCombatSingleton.CombatState = Enumerations.CombatStates.Text;
+		_nodeDjAttackContainer.Hide();
+		_nodeHitCallout.Hide();
+		_nodeDjAttackContainer.IsAttacking = false;
+		StartBiggieTextTurn();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -62,18 +60,16 @@ public partial class CombatSceneDjBattle : Node2D
 	{
 	}
 
-	public void StartBiggieTurn()
+	public void StartBiggieTextTurn()
 	{
-		_nodeBiggieCombatTextBox.Visible = true;
-		_nodeCombatWrapper.ShowActionInfo();
 		_nodeBiggieCombatTextBox.StartTurn();
+		_nodeBiggieCombatTextBox.Show();
 	}
 
-	public void EndBiggieTurn()
+	public void EndBiggieTextTurn()
 	{
 		GD.Print("EndBiggieTurn");
 		_nodeBiggieCombatTextBox.Visible = false;
-		_nodeCombatWrapper.HideActionInfo();
 		_nodeBiggieCombatTextBox.EndTurn();
 		ChangeDjHealthBar();
 
@@ -90,24 +86,21 @@ public partial class CombatSceneDjBattle : Node2D
 			return;
 		}
 
-		CombatState = Enumerations.CombatStates.TransitionToEnemyAttack;
+		_globalCombatSingleton.CombatState = Enumerations.CombatStates.TransitionToEnemyAttack;
 		return;
 	}
 
-	public void StartOpponentTurn()
+	public void StartEnemyAttackTurn()
 	{
 		_nodeDjAttackContainer.Visible = true;
 		_nodeHitCallout.Visible = true;
-		_nodeCombatWrapper.ShowAttackContainer();
 		_nodeDjAttackContainer.StartTurn();
 	}
 
-	public void EndOpponentTurn()
+	public void EndEnemyAttackTurn()
 	{
-		GD.Print("EndOpponentTurn");
 		_nodeDjAttackContainer.Visible = false;
 		_nodeHitCallout.Visible = false;
-		_nodeCombatWrapper.HideAttackContainer();
 		_nodeDjAttackContainer.EndTurn();
 		ChangeBiggieHealthBar();
 
@@ -118,7 +111,7 @@ public partial class CombatSceneDjBattle : Node2D
 			return;
 		}
 
-		CombatState = Enumerations.CombatStates.TransitionToText;
+		_globalCombatSingleton.CombatState = Enumerations.CombatStates.TransitionToText;
 		return;
 	}
 

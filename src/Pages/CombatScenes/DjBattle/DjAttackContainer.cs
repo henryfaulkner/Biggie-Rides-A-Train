@@ -49,7 +49,7 @@ public partial class DjAttackContainer : MarginContainer
 		_nodeBaseArrowRight = GetNode<BaseArrowRight>("./BaseArrowRight");
 		_nodeBaseArrowDown = GetNode<BaseArrowDown>("./BaseArrowDown");
 		_nodeBaseArrowLeft = GetNode<BaseArrowLeft>("./BaseArrowLeft");
-		_nodeHitCallout = GetNode<Panel>("../HitCallout/MarginContainer/MarginContainer/HBoxContainer/Panel");
+		_nodeHitCallout = GetNode<Panel>("../../../HitCallout/MarginContainer/MarginContainer/HBoxContainer/Panel");
 
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 
@@ -68,7 +68,6 @@ public partial class DjAttackContainer : MarginContainer
 		// String.Concat(charList);  
 		CompositionParsingService = new CompositionParsingService();
 		CompositionParsingService.SetNewComposition("composition-1.txt");
-		IsAttacking = true;
 		CurrentRound = Enumerations.DjCombatRounds.RoundOne;
 
 		_nodeBiggie.DequeueFallingArrowUp += DequeueUpAndCountMiss;
@@ -121,7 +120,7 @@ public partial class DjAttackContainer : MarginContainer
 	[Signal]
 	public delegate void ProjectPhysicalDamageEventHandler();
 	[Signal]
-	public delegate void EndOpponentTurnEventHandler();
+	public delegate void EndEnemyAttackTurnEventHandler();
 
 	public void EndTurn()
 	{
@@ -142,7 +141,7 @@ public partial class DjAttackContainer : MarginContainer
 		)
 		{
 			//GD.Print("EOC");
-			EmitSignal(SignalName.EndOpponentTurn);
+			EmitSignal(SignalName.EndEnemyAttackTurn);
 			SetNewComposition();
 			return;
 		}

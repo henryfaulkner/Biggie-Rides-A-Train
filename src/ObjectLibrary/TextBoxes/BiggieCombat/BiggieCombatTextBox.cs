@@ -43,13 +43,14 @@ public partial class BiggieCombatTextBox : CanvasLayer
 
 	public void StartTurn()
 	{
-
+		GD.Print("BiggieCombatTextBox StartTurn");
+		ResetPageState();
 	}
 
 	[Signal]
 	public delegate void ProjectPhysicalDamageEventHandler();
 	[Signal]
-	public delegate void EndBiggieTurnEventHandler();
+	public delegate void EndBiggieTextTurnEventHandler();
 
 	public void EndTurn()
 	{
@@ -91,12 +92,12 @@ public partial class BiggieCombatTextBox : CanvasLayer
 				case (int)Enumerations.FightPagePanelOptions.Scratch:
 					GD.Print("Scratch");
 					DealPhysicalDamage(1);
-					EmitSignal(SignalName.EndBiggieTurn);
+					EmitSignal(SignalName.EndBiggieTextTurn);
 					break;
 				case (int)Enumerations.FightPagePanelOptions.Bite:
 					GD.Print("Bite");
 					DealPhysicalDamage(2);
-					EmitSignal(SignalName.EndBiggieTurn);
+					EmitSignal(SignalName.EndBiggieTextTurn);
 					break;
 				case (int)Enumerations.FightPagePanelOptions.Back:
 					_nodeBasePagePanel.IsOpen = true;
@@ -124,12 +125,12 @@ public partial class BiggieCombatTextBox : CanvasLayer
 			case (int)Enumerations.ChatPagePanelOptions.Ask:
 				GD.Print("Ask");
 				DealEmotionalDamage(1);
-				EmitSignal(SignalName.EndBiggieTurn);
+				EmitSignal(SignalName.EndBiggieTextTurn);
 				break;
 			case (int)Enumerations.ChatPagePanelOptions.Charm:
 				GD.Print("Charm");
 				DealEmotionalDamage(2);
-				EmitSignal(SignalName.EndBiggieTurn);
+				EmitSignal(SignalName.EndBiggieTextTurn);
 				break;
 			case (int)Enumerations.ChatPagePanelOptions.Back:
 				_nodeBasePagePanel.IsOpen = true;

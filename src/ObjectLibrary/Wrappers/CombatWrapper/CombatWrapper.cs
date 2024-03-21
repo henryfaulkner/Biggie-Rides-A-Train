@@ -3,6 +3,8 @@ using System;
 
 public partial class CombatWrapper : Node2D
 {
+	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
+
 	private Panel _nodeSubjectPanel = null;
 	private Panel _nodeBasePagePanel = null;
 	private FightPageBasePanel _nodeFightPageBasePanel = null;
@@ -20,13 +22,12 @@ public partial class CombatWrapper : Node2D
 	private Panel _nodeBiggieAttackPanel = null;
 
 	private PanelAnimationHelper HudAnimationHelper { get; set; }
-	private static readonly float _HUD_SPEED_SLOW = 3f;
+	private static readonly float _HUD_SPEED_SLOW = 5f;
 	private static readonly float _HUD_SPEED_FAST = 8f;
 	private PanelAnimationHelper MainAnimationHelper { get; set; }
 	private static readonly float _MAIN_SPEED = 20f;
 
-	public Enumerations.CombatStates CombatState { get; set; }
-	public bool Attacking { get; set; }
+	private CombatSingleton _globalCombatSingleton = null;
 
 	public override void _Ready()
 	{
@@ -53,34 +54,99 @@ public partial class CombatWrapper : Node2D
 		_nodeBiggieAttackContainer = GetNode<MarginContainer>("./WideAttackContainer");
 		_nodeBiggieAttackPanel = GetNode<Panel>("./WideAttackContainer/WideAttackPanel");
 
-		// _nodeFightPageBasePanel.SelectFight += HandleFightSelection;
-		// _nodeChatPageBasePanel.SelectChat += HandleChatSelection;
+		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
+
+		_nodeFightPageBasePanel.SelectFight += HandleFightSelection;
+		_nodeChatPageBasePanel.SelectChat += HandleChatSelection;
+
+		HideEnemyAttackContainer();
+		HideBiggieAttackContainer();
+
+		FirstFramePass = true;
 	}
 
+	private bool FirstFramePass { get; set; }
+	private void ProcessFirstPass()
+	{
+		if (FirstFramePass)
+		{
+			_nodeSubjectPanel.Show();
+			FirstFramePass = false;
+		}
+	}
 	public override void _Process(double delta)
 	{
-		if (CombatState == Enumerations.CombatStates.TransitionToEnemyAttack)
+		if (_globalCombatSingleton.CombatState == Enumerations.CombatStates.TransitionToEnemyAttack)
 		{
-			if (TransitionToAttack())
+			//ProcessFirstPass();
+			HideBiggieAttackContainer();
+			if (TransitionToEnemyAttack())
 			{
-				CombatState = Enumerations.CombatStates.EnemyAttack;
-				EmitSignal(SignalName.StartOpponentTurn);
+				// FirstFramePass = true;
+				// _nodeSubjectPanel.Hide();
+				EmitSignal(SignalName.StartEnemyAttackTurn);
+				ShowEnemyAttackContainer();
+				_globalCombatSingleton.CombatState = Enumerations.CombatStates.EnemyAttack;
+				GD.Print("EmitSignal(SignalName.StartOpponentTurn);");
 			}
 		}
-		else if (CombatState == Enumerations.CombatStates.TransitionToText)
+		else if (_globalCombatSingleton.CombatState == Enumerations.CombatStates.TransitionToText)
 		{
+			//ProcessFirstPass();
+			HideEnemyAttackContainer();
 			if (TransitionToText())
 			{
-				CombatState = Enumerations.CombatStates.Text;
-				EmitSignal(SignalName.StartBiggieTurn);
+				// FirstFramePass = true;
+				// _nodeSubjectPanel.Hide();
+				EmitSignal(SignalName.StartBiggieTextTurn);
+				ShowActionInfo();
+				ShowBiggieTextContainer();
+				_globalCombatSingleton.CombatState = Enumerations.CombatStates.Text;
 			}
+		}
+		else if (_globalCombatSingleton.CombatState == Enumerations.CombatStates.TransitionToBiggieFight)
+		{
+			//ProcessFirstPass();
+			HideBiggieAttackContainer();
+			HideActionInfo();
+			if (TransitionToBiggieAttack())
+			{
+				// FirstFramePass = true;
+				// _nodeSubjectPanel.Hide();
+				EmitSignal(SignalName.StartBiggieAttackTurn);
+				ShowBiggieAttackContainer();
+				_globalCombatSingleton.CombatState = Enumerations.CombatStates.BiggieFight;
+			}
+		}
+		else if (_globalCombatSingleton.CombatState == Enumerations.CombatStates.TransitionToBiggieChat)
+		{
+			//ProcessFirstPass();
+			HideBiggieTextContainer();
+			HideActionInfo();
+			if (TransitionToBiggieAttack())
+			{
+				// FirstFramePass = true;
+				// _nodeSubjectPanel.Hide();
+				EmitSignal(SignalName.StartBiggieAttackTurn);
+				ShowBiggieAttackContainer();
+				_globalCombatSingleton.CombatState = Enumerations.CombatStates.BiggieChat;
+			}
+		}
+
+		if ((_globalCombatSingleton.CombatState == Enumerations.CombatStates.BiggieChat
+			|| _globalCombatSingleton.CombatState == Enumerations.CombatStates.BiggieFight)
+			&& Input.IsActionJustPressed(_INTERACT_INPUT))
+		{
+			_globalCombatSingleton.CombatState = Enumerations.CombatStates.TransitionToEnemyAttack;
 		}
 	}
 
 	[Signal]
-	public delegate void StartOpponentTurnEventHandler();
+	public delegate void StartEnemyAttackTurnEventHandler();
 	[Signal]
-	public delegate void StartBiggieTurnEventHandler();
+	public delegate void StartBiggieTextTurnEventHandler();
+	[Signal]
+	public delegate void StartBiggieAttackTurnEventHandler();
 
 	public bool TranslateHudEnemyAttack()
 	{
@@ -99,7 +165,7 @@ public partial class CombatWrapper : Node2D
 		{
 			return true;
 		}
-		HudAnimationHelper.AnimationSpeed = _HUD_SPEED_SLOW;
+		HudAnimationHelper.AnimationSpeed = _HUD_SPEED_FAST;
 		HudAnimationHelper.TranslateOverTime(_nodeHudContainerSubject, _nodeHudContainerTargetBiggieAttack);
 		return false;
 	}
@@ -205,22 +271,32 @@ public partial class CombatWrapper : Node2D
 		return result;
 	}
 
-	public void ShowAttackContainer()
+	public void ShowEnemyAttackContainer()
 	{
 		_nodeEnemyAttackContainer.Show();
 	}
 
-	public void HideAttackContainer()
+	public void HideEnemyAttackContainer()
 	{
 		_nodeEnemyAttackContainer.Hide();
 	}
 
-	public void ShowTextContainer()
+	public void ShowBiggieAttackContainer()
+	{
+		_nodeBiggieAttackContainer.Show();
+	}
+
+	public void HideBiggieAttackContainer()
+	{
+		_nodeBiggieAttackContainer.Hide();
+	}
+
+	public void ShowBiggieTextContainer()
 	{
 		_nodeTextContainer.Show();
 	}
 
-	public void HideTextContainer()
+	public void HideBiggieTextContainer()
 	{
 		_nodeTextContainer.Hide();
 	}
@@ -235,17 +311,31 @@ public partial class CombatWrapper : Node2D
 		_nodeActionInfo.Modulate = new Color(1, 1, 1, 0);
 	}
 
-	public void HandleFightSelection()
+	public void HandleFightSelection(int selectedIndex)
 	{
-		// Transform to BiggieFight panel
+		if (selectedIndex != (int)Enumerations.FightPagePanelOptions.Back)
+		{
+			_globalCombatSingleton.CombatState = Enumerations.CombatStates.TransitionToBiggieFight;
+		}
 	}
 
-	public void HandleChatSelection()
+	public void HandleChatSelection(int selectedIndex)
 	{
-		// Transform to BiggieChat panel
+		if (selectedIndex != (int)Enumerations.ChatPagePanelOptions.Back)
+		{
+			_globalCombatSingleton.CombatState = Enumerations.CombatStates.TransitionToBiggieChat;
+		}
 	}
 
-	private bool TransitionToAttack()
+	private bool TransitionToBiggieAttack()
+	{
+		bool finished = false;
+		finished = TranslateHudBiggieAttack();
+		finished = TransformToBiggieAttack() && finished;
+		return finished;
+	}
+
+	private bool TransitionToEnemyAttack()
 	{
 		bool finished = false;
 		finished = TranslateHudEnemyAttack();
