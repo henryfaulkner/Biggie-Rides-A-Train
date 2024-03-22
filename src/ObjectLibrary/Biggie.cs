@@ -125,7 +125,7 @@ public partial class Biggie : CharacterBody2D
 
 	private void AttemptStoredLocationApplication()
 	{
-		//GD.Print("AttemptStoredLocationApplication");
+		////GD.Print("AttemptStoredLocationApplication");
 		try
 		{
 			using (var context = new SaveStateContext())
@@ -135,14 +135,14 @@ public partial class Biggie : CharacterBody2D
 				var rs = new RelocationService();
 				if (storedLocation != null)
 				{
-					//GD.Print($"Biggie applied Position. X: {storedLocation.X}. Y: {storedLocation.Y}");
+					////GD.Print($"Biggie applied Position. X: {storedLocation.X}. Y: {storedLocation.Y}");
 					_nodeSelf.Position = new Vector2(storedLocation.X, storedLocation.Y);
 				}
 			}
 		}
 		catch (Exception exception)
 		{
-			//GD.Print($"AttemptStoredLocationApplication exception: {exception}");
+			////GD.Print($"AttemptStoredLocationApplication exception: {exception}");
 		}
 	}
 }

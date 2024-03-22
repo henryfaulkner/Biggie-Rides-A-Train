@@ -71,13 +71,13 @@ public partial class FightPageBasePanel : Panel
 			}
 			if (Input.IsActionJustPressed(_LEFT_INPUT))
 			{
-				GD.Print("Left Input");
+				//GD.Print("Left Input");
 				SelectionHelperInstance.ShiftSelectionLeft();
 				ProcessSelection();
 			}
 			if (Input.IsActionJustPressed(_RIGHT_INPUT))
 			{
-				GD.Print("Right Input");
+				//GD.Print("Right Input");
 				SelectionHelperInstance.ShiftSelectionRight();
 				ProcessSelection();
 			}
@@ -95,7 +95,7 @@ public partial class FightPageBasePanel : Panel
 			{
 				if (option.IsSelected)
 				{
-					//GD.Print($"Selected action: {option.Id}");
+					////GD.Print($"Selected action: {option.Id}");
 					SelectionHelperInstance.AddWhiteFont(option.OptionLabel);
 					SelectionHelperInstance.AddSelectBorder(option.SelectionPanel);
 					SelectionHelperInstance.HandleSelectedOptionDescription(option.Id, _nodeActionDescriptionMainPanel, _nodeActionTitleLabel, _nodeActionEffectLabel, _nodeActionDescriptionLabel);
@@ -109,7 +109,7 @@ public partial class FightPageBasePanel : Panel
 			}
 			catch (Exception exception)
 			{
-				//GD.Print($"Exception occured on option id {option.Id}: {exception.Message}");
+				////GD.Print($"Exception occured on option id {option.Id}: {exception.Message}");
 			}
 		}
 	}

@@ -33,7 +33,7 @@ public class CombatOption
                     filePath = string.Empty;
                     break;
                 default:
-                    GD.Print("CombatOptions could not map to Enumerations.CombatOptions");
+                    //GD.Print("CombatOptions could not map to Enumerations.CombatOptions");
                     filePath = string.Empty;
                     break;
             }
@@ -50,7 +50,7 @@ public class CombatOption
 
             using var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Read);
             string content = file.GetAsText();
-            GD.Print($"content {content}");
+            //GD.Print($"content {content}");
             var obj = JsonConvert.DeserializeObject<CombatOption>(content);
             Id = obj.Id;
             Type = obj.Type;
@@ -60,8 +60,8 @@ public class CombatOption
         }
         catch (Exception exception)
         {
-            GD.Print($"Error: CombatOption not mapped on id {id}");
-            GD.PrintErr(exception.Message);
+            //GD.Print($"Error: CombatOption not mapped on id {id}");
+            //GD.PrintErr(exception.Message);
         }
     }
 

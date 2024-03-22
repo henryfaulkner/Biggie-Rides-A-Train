@@ -72,7 +72,7 @@ public partial class TextBox : CanvasLayer
 	{
 		if (IsOpen())
 		{
-			//GD.Print("Do NOT add dialogue while the TextBox is open. Check CanCreateDialogue method before AddDialogue is called");
+			////GD.Print("Do NOT add dialogue while the TextBox is open. Check CanCreateDialogue method before AddDialogue is called");
 			return;
 		}
 
@@ -165,19 +165,19 @@ public partial class TextBox : CanvasLayer
 
 	private void DebugDialogueQueue()
 	{
-		//GD.Print("**** START DebugDialogueQueue ****");
+		////GD.Print("**** START DebugDialogueQueue ****");
 		foreach (List<string> queueEntry in _dialogueListQueue)
 		{
-			//GD.Print("**** START QUEUE ENTRY ****");
+			////GD.Print("**** START QUEUE ENTRY ****");
 			foreach (string dialogue in queueEntry)
 			{
-				//GD.Print("**** START PAGE ENTRY ****");
-				//GD.Print(dialogue);
-				//GD.Print("**** END PAGE ENTRY ****");
+				////GD.Print("**** START PAGE ENTRY ****");
+				////GD.Print(dialogue);
+				////GD.Print("**** END PAGE ENTRY ****");
 			}
-			//GD.Print("**** END QUEUE ENTRY ****");
+			////GD.Print("**** END QUEUE ENTRY ****");
 		}
-		//GD.Print("**** END DebugDialogueQueue ****");
+		////GD.Print("**** END DebugDialogueQueue ****");
 	}
 
 	private List<string> SplitDialogue(string fullDialogue, int pageLength)

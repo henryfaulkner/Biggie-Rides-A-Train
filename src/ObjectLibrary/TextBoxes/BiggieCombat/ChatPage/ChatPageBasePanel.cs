@@ -71,13 +71,13 @@ public partial class ChatPageBasePanel : Panel
 			}
 			if (Input.IsActionJustPressed(_LEFT_INPUT))
 			{
-				GD.Print("Left Input");
+				//GD.Print("Left Input");
 				SelectionHelperInstance.ShiftSelectionLeft();
 				ProcessSelection();
 			}
 			if (Input.IsActionJustPressed(_RIGHT_INPUT))
 			{
-				GD.Print("Right Input");
+				//GD.Print("Right Input");
 				SelectionHelperInstance.ShiftSelectionRight();
 				ProcessSelection();
 			}
@@ -107,7 +107,7 @@ public partial class ChatPageBasePanel : Panel
 			}
 			catch (Exception exception)
 			{
-				//GD.Print($"Exception occured on option id {option.Id}: {exception.Message}");
+				////GD.Print($"Exception occured on option id {option.Id}: {exception.Message}");
 			}
 		}
 	}

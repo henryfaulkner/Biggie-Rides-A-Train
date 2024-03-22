@@ -27,7 +27,7 @@ public class SelectionHelper
 		int len = OptionList.Count;
 		if (len == 0)
 		{
-			GD.Print("Error: OptionList is empty");
+			//GD.Print("Error: OptionList is empty");
 			return;
 		}
 		if (len == 1) return;
@@ -50,7 +50,7 @@ public class SelectionHelper
 		int len = OptionList.Count;
 		if (len == 0)
 		{
-			GD.Print("Error: OptionList is empty");
+			//GD.Print("Error: OptionList is empty");
 			return;
 		}
 		if (len == 1) return;
@@ -110,7 +110,7 @@ public class SelectionHelper
 		}
 		else
 		{
-			//GD.Print("LabelSettings are null. White FontColor was not applied");
+			////GD.Print("LabelSettings are null. White FontColor was not applied");
 		}
 	}
 
@@ -124,7 +124,7 @@ public class SelectionHelper
 		}
 		else
 		{
-			//GD.Print("LabelSettings are null. Grey FontColor was not applied");
+			////GD.Print("LabelSettings are null. Grey FontColor was not applied");
 		}
 	}
 
@@ -132,9 +132,9 @@ public class SelectionHelper
 	{
 		CombatOption combatOption = new CombatOption(combatOptionId);
 		mainPanel.Visible = !string.IsNullOrEmpty(combatOption.Name) || !string.IsNullOrEmpty(combatOption.Effect) || !string.IsNullOrEmpty(combatOption.Description);
-		GD.Print($"combatOption.Name {combatOption.Name}");
-		GD.Print($"combatOption.Effect {combatOption.Effect}");
-		GD.Print($"combatOption.Description {combatOption.Description}");
+		//GD.Print($"combatOption.Name {combatOption.Name}");
+		//GD.Print($"combatOption.Effect {combatOption.Effect}");
+		//GD.Print($"combatOption.Description {combatOption.Description}");
 		titleLabel.Text = combatOption.Name;
 		subtitleLabel.Text = combatOption.Effect;
 		desciptionLabel.Text = combatOption.Description;

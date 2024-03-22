@@ -34,35 +34,35 @@ public partial class BaseArrowLeft : Area2D
 	{
 		if (Input.IsActionJustPressed(_LEFT_INPUT))
 		{
-			//GD.Print("LEFT pressed.");
+			////GD.Print("LEFT pressed.");
 			if (_nodeAreaEarlyBad.HasOverlappingBodies())
 			{
-				//GD.Print("LEFT early bad.");
+				////GD.Print("LEFT early bad.");
 				HandleCollision(Enumerations.HitType.Bad);
 			}
 			else if (_nodeAreaEarlyGood.HasOverlappingBodies())
 			{
-				//GD.Print("LEFT early good.");
+				////GD.Print("LEFT early good.");
 				HandleCollision(Enumerations.HitType.Good);
 			}
 			else if (_nodeAreaPerfect.HasOverlappingBodies())
 			{
-				//GD.Print("LEFT perfect.");
+				////GD.Print("LEFT perfect.");
 				HandleCollision(Enumerations.HitType.Perfect);
 			}
 			else if (_nodeAreaLateGood.HasOverlappingBodies())
 			{
-				//GD.Print("LEFT late good.");
+				////GD.Print("LEFT late good.");
 				HandleCollision(Enumerations.HitType.Good);
 			}
 			else if (_nodeAreaLateBad.HasOverlappingBodies())
 			{
-				//GD.Print("LEFT late bad.");
+				////GD.Print("LEFT late bad.");
 				HandleCollision(Enumerations.HitType.Bad);
 			}
 			else
 			{
-				//GD.Print("LEFT miss.");
+				////GD.Print("LEFT miss.");
 				HandleCollision(Enumerations.HitType.Miss);
 			}
 		}
@@ -73,7 +73,7 @@ public partial class BaseArrowLeft : Area2D
 
 	public void HandleCollision(Enumerations.HitType hit)
 	{
-		//GD.Print("Left HandleCollision");
+		////GD.Print("Left HandleCollision");
 		EmitSignal(SignalName.DequeueFallingArrowLeft, (int)hit);
 		return;
 	}

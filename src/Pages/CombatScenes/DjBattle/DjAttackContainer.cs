@@ -140,7 +140,7 @@ public partial class DjAttackContainer : MarginContainer
 			&& FallingArrowDownQueue.Count == 0 && FallingArrowLeftQueue.Count == 0
 		)
 		{
-			//GD.Print("EOC");
+			////GD.Print("EOC");
 			EmitSignal(SignalName.EndEnemyAttackTurn);
 			SetNewComposition();
 			return;
@@ -154,16 +154,16 @@ public partial class DjAttackContainer : MarginContainer
 			switch (tokens[0])
 			{
 				case CompositionTokens.Beat:
-					//GD.Print("Beat");
+					////GD.Print("Beat");
 					break;
 				case CompositionTokens.TwoBeats:
-					//GD.Print("TwoBeats");
+					////GD.Print("TwoBeats");
 					break;
 				case CompositionTokens.FourBeats:
-					//GD.Print("FourBeats");
+					////GD.Print("FourBeats");
 					break;
 				default:
-					//GD.Print("A Beat Token did not map.");
+					////GD.Print("A Beat Token did not map.");
 					break;
 			}
 			return;
@@ -200,11 +200,11 @@ public partial class DjAttackContainer : MarginContainer
 						_nodeSelf.AddChild(instanceLeft);
 						break;
 					default:
-						//GD.Print("A FallingArrow Token did not map.");
+						////GD.Print("A FallingArrow Token did not map.");
 						break;
 				}
 			}
-			//GD.Print(str);
+			////GD.Print(str);
 		}
 	}
 
@@ -212,7 +212,7 @@ public partial class DjAttackContainer : MarginContainer
 	public void DequeueUpAndCountHit(int hitInt)
 	{
 		if (FallingArrowUpQueue.Count == 0) return;
-		//GD.Print($"DequeueUpAndCountHit {hitInt}");
+		////GD.Print($"DequeueUpAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
 		CheckDamage(hit);
 		HitCallout(hit);
@@ -225,7 +225,7 @@ public partial class DjAttackContainer : MarginContainer
 	public void DequeueRightAndCountHit(int hitInt)
 	{
 		if (FallingArrowRightQueue.Count == 0) return;
-		//GD.Print($"DequeueRightAndCountHit {hitInt}");
+		////GD.Print($"DequeueRightAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
 		CheckDamage(hit);
 		HitCallout(hit);
@@ -238,7 +238,7 @@ public partial class DjAttackContainer : MarginContainer
 	public void DequeueDownAndCountHit(int hitInt)
 	{
 		if (FallingArrowDownQueue.Count == 0) return;
-		//GD.Print($"DequeueDownAndCountHit {hitInt}");
+		////GD.Print($"DequeueDownAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
 		CheckDamage(hit);
 		HitCallout(hit);
@@ -251,7 +251,7 @@ public partial class DjAttackContainer : MarginContainer
 	public void DequeueLeftAndCountHit(int hitInt)
 	{
 		if (FallingArrowLeftQueue.Count == 0) return;
-		//GD.Print($"DequeueLeftAndCountHit {hitInt}");
+		////GD.Print($"DequeueLeftAndCountHit {hitInt}");
 		var hit = (Enumerations.HitType)hitInt;
 		CheckDamage(hit);
 		HitCallout(hit);
@@ -274,7 +274,7 @@ public partial class DjAttackContainer : MarginContainer
 			case Enumerations.HitType.Perfect:
 				break;
 			default:
-				//GD.Print("A HitType did not map.");
+				////GD.Print("A HitType did not map.");
 				break;
 		}
 	}
@@ -296,7 +296,7 @@ public partial class DjAttackContainer : MarginContainer
 				ChangeHitCalloutTexture(_PERFECT_IMAGE_ASSET);
 				break;
 			default:
-				//GD.Print("A HitType did not map.");
+				////GD.Print("A HitType did not map.");
 				break;
 		}
 	}
@@ -330,7 +330,7 @@ public partial class DjAttackContainer : MarginContainer
 				PerfectCount += 1;
 				break;
 			default:
-				//GD.Print("A HitType did not map.");
+				////GD.Print("A HitType did not map.");
 				break;
 		}
 	}

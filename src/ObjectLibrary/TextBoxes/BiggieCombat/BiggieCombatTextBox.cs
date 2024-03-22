@@ -36,15 +36,14 @@ public partial class BiggieCombatTextBox : CanvasLayer
 	{
 		//if (Input.IsActionJustPressed(_INTERACT_INPUT))
 		//{
-		////GD.Print("Interact Input");
+		//////GD.Print("Interact Input");
 		//HandleInteraction();
 		//}
 	}
 
 	public void StartTurn()
 	{
-		GD.Print("BiggieCombatTextBox StartTurn");
-		ResetPageState();
+		//GD.Print("BiggieCombatTextBox StartTurn");
 	}
 
 	[Signal]
@@ -59,7 +58,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 
 	public void HandleBaseSelection(int selection)
 	{
-		//GD.Print("HandleBaseSelection");
+		////GD.Print("HandleBaseSelection");
 		switch (selection)
 		{
 			case (int)Enumerations.BasePagePanelOptions.Fight:
@@ -75,7 +74,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 			case (int)Enumerations.BasePagePanelOptions.Exit:
 				break;
 			default:
-				//GD.Print("_nodeBasePagePanel.IsOpen but not mapped");
+				////GD.Print("_nodeBasePagePanel.IsOpen but not mapped");
 				break;
 		}
 
@@ -84,18 +83,18 @@ public partial class BiggieCombatTextBox : CanvasLayer
 
 	public void HandleFightSelection(int selection)
 	{
-		//GD.Print($"HandleFightSelection {selection}");
+		////GD.Print($"HandleFightSelection {selection}");
 		try
 		{
 			switch (selection)
 			{
 				case (int)Enumerations.FightPagePanelOptions.Scratch:
-					GD.Print("Scratch");
+					//GD.Print("Scratch");
 					DealPhysicalDamage(1);
 					EmitSignal(SignalName.EndBiggieTextTurn);
 					break;
 				case (int)Enumerations.FightPagePanelOptions.Bite:
-					GD.Print("Bite");
+					//GD.Print("Bite");
 					DealPhysicalDamage(2);
 					EmitSignal(SignalName.EndBiggieTextTurn);
 					break;
@@ -105,7 +104,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 					_nodeBasePagePanel.ProcessSelection();
 					break;
 				default:
-					//GD.Print("_nodeFightPagePanel.IsOpen but not mapped");
+					////GD.Print("_nodeFightPagePanel.IsOpen but not mapped");
 					break;
 			}
 
@@ -113,22 +112,22 @@ public partial class BiggieCombatTextBox : CanvasLayer
 		}
 		catch (Exception exception)
 		{
-			//GD.Print($"exception {exception.Message}");
+			////GD.Print($"exception {exception.Message}");
 		}
 	}
 
 	public void HandleChatSelection(int selection)
 	{
-		//GD.Print("HandleChatSelection");
+		////GD.Print("HandleChatSelection");
 		switch (selection)
 		{
 			case (int)Enumerations.ChatPagePanelOptions.Ask:
-				GD.Print("Ask");
+				//GD.Print("Ask");
 				DealEmotionalDamage(1);
 				EmitSignal(SignalName.EndBiggieTextTurn);
 				break;
 			case (int)Enumerations.ChatPagePanelOptions.Charm:
-				GD.Print("Charm");
+				//GD.Print("Charm");
 				DealEmotionalDamage(2);
 				EmitSignal(SignalName.EndBiggieTextTurn);
 				break;
@@ -138,7 +137,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 				_nodeBasePagePanel.ProcessSelection();
 				break;
 			default:
-				//GD.Print("_nodeChatPagePanel.IsOpen but not mapped");
+				////GD.Print("_nodeChatPagePanel.IsOpen but not mapped");
 				break;
 		}
 
@@ -157,9 +156,9 @@ public partial class BiggieCombatTextBox : CanvasLayer
 
 	public void DealPhysicalDamage(int damage)
 	{
-		GD.Print("DealPhysicalDamage");
+		//GD.Print("DealPhysicalDamage");
 		_globalCombatSingleton.BiggiePhysicalAttackProxy.DealDamage(damage);
-		GD.Print($"enemy health: {_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage()}");
+		//GD.Print($"enemy health: {_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage()}");
 		EmitSignal(SignalName.ProjectPhysicalDamage);
 	}
 

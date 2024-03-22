@@ -1,5 +1,9 @@
 {
-  "StoredLocation": null,
+  "StoredLocation": {
+    "SceneId": 4,
+    "X": 188,
+    "Y": 324
+  },
   "HasItemTicketPieceOne": false,
   "HasItemTicketPieceTwo": false,
   "HasItemTicketPieceThree": false,
@@ -12,5 +16,5 @@
   "DialogueStateTeller": 0,
   "DialogueStateChess": 0,
   "DialogueStateTherapist": 0,
-  "DialogueStateDJ": 0
+  "DialogueStateDJ": 1
 }
