@@ -31,6 +31,10 @@ window/size/viewport_height=1024
 
 project/assembly_name="biggie_rides_a_train"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/sprite_mesh/plugin.cfg")
+
 [input]
 
 restart_scene={
