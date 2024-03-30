@@ -7,7 +7,7 @@ public partial class Biggie3D : CharacterBody3D
 	private static readonly StringName _MOVE_UP_INPUT = new StringName("move_up");
 	private static readonly StringName _MOVE_RIGHT_INPUT = new StringName("move_right");
 	private static readonly StringName _MOVE_DOWN_INPUT = new StringName("move_down");
-	
+
 	private static readonly int _SPRITE_FRAME_IDLE = 0;
 	private static readonly int _SPRITE_FRAME_WALK1 = 1;
 	private static readonly int _SPRITE_FRAME_WALK2 = 2;
@@ -19,6 +19,8 @@ public partial class Biggie3D : CharacterBody3D
 
 	private Biggie3D _nodeSelf = null;
 	private Node _nodeBiggieSpriteMeshInstance = null;
+	private TextBox _nodeTextBox = null;
+	private InteractionTextBox _nodeInteractionTextBox = null;
 
 	private bool _isMoving = false;
 	private bool _canMove = true;
@@ -27,20 +29,29 @@ public partial class Biggie3D : CharacterBody3D
 
 	public override void _Ready()
 	{
-		GD.Print("Hello World");
 		_nodeSelf = GetNode<Biggie3D>(".");
 		_nodeBiggieSpriteMeshInstance = GetNode("./SpriteMeshInstance");
+		_nodeTextBox = GetNode<TextBox>("../TextBox");
+		_nodeInteractionTextBox = GetNode<InteractionTextBox>("../InteractionTextBox");
 
-		// Access the GDScript instance through the Script property
-		//var spriteMeshInstance = _nodeBiggieSprites.GetScript();
 		//AttemptStoredLocationApplication();
 	}
 
 	public override void _Process(double delta)
 	{
-		Movement(delta);
+		if (_canMove
+			&& _nodeSelf.IsVisibleInTree()
+			&& (_nodeTextBox == null || !_nodeTextBox.IsOpen())
+			&& (_nodeInteractionTextBox == null || !_nodeInteractionTextBox.IsOpen))
+		{
+			var collision = Movement(delta);
+			if (collision != null)
+			{
+				Collide(collision);
+			}
+		}
 	}
-	
+
 	private int ReturnSpriteWalkFrame(int frameIncrement)
 	{
 		var result = (frameIncrement / _SPRITE_FRAME_CHANGE_INTERVAL) % _SPRITE_WALK_FRAME_LENGTH;
@@ -51,7 +62,7 @@ public partial class Biggie3D : CharacterBody3D
 		return result;
 	}
 
-	private void Movement(double delta)
+	private KinematicCollision3D Movement(double delta)
 	{
 		Vector3 inputDirection = new Vector3();
 
@@ -71,7 +82,7 @@ public partial class Biggie3D : CharacterBody3D
 			_currentFrameDirection = Enumerations.Movement.Directions.Left;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
-		
+
 		if (Input.IsActionPressed(_MOVE_DOWN_INPUT))
 		{
 			inputDirection.Z += .7f;
@@ -86,7 +97,7 @@ public partial class Biggie3D : CharacterBody3D
 			_frameIncrement += 1;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
-		
+
 		if (IsIdle())
 		{
 			_isMoving = false;
@@ -100,13 +111,15 @@ public partial class Biggie3D : CharacterBody3D
 		}
 
 		Velocity = inputDirection;
-		MoveAndSlide();
+		return MoveAndCollide(Velocity * (float)delta);
 	}
 
-	public void Collide(KinematicCollision2D collision)
+	public void Collide(KinematicCollision3D collision)
 	{
+		GD.Print("Collide");
 		if (collision.GetCollider().HasMethod("Hit"))
 		{
+			GD.Print("Call Hit");
 			collision.GetCollider().Call("Hit");
 		}
 	}
@@ -143,10 +156,10 @@ public partial class Biggie3D : CharacterBody3D
 			////GD.Print($"AttemptStoredLocationApplication exception: {exception}");
 		}
 	}
-	
+
 	private bool IsIdle()
 	{
-		return 
+		return
 			!Input.IsActionPressed(_MOVE_UP_INPUT)
 			&& !Input.IsActionPressed(_MOVE_RIGHT_INPUT)
 			&& !Input.IsActionPressed(_MOVE_DOWN_INPUT)

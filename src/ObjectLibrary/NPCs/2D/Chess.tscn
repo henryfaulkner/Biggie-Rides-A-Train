@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dw30v70y17poe"]
 
 [ext_resource type="Texture2D" uid="uid://cfaojejuep84p" path="res://Assets/Objects/ChessScene.png" id="1_5nbl8"]
-[ext_resource type="Script" path="res://ObjectLibrary/NPCs/Chess.cs" id="1_on6ig"]
+[ext_resource type="Script" path="res://ObjectLibrary/NPCs/2D/Chess.cs" id="1_on6ig"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cvhvi"]
 size = Vector2(136, 243)

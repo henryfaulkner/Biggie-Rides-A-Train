@@ -11,6 +11,6 @@
   "ActiveRecord": 0,
   "DialogueStateTeller": 0,
   "DialogueStateChess": 0,
-  "DialogueStateTherapist": 2,
+  "DialogueStateTherapist": 1,
   "DialogueStateDJ": 0
 }

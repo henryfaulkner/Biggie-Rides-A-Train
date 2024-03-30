@@ -32,7 +32,6 @@ public partial class Therapist3D : Node3D
 		if (_nodeInteractableArea.GetOverlappingBodies().Count > 1
 			&& Input.IsActionJustPressed(_INTERACT_INPUT))
 		{
-			GD.Print("DisplayDialogue()");
 			DisplayDialogue();
 		}
 

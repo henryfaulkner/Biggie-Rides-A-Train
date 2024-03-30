@@ -1,19 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2bct32b8umwg"]
+[gd_scene load_steps=6 format=3 uid="uid://b38tu1iwidkvx"]
 
-[ext_resource type="Texture2D" uid="uid://co7aoj6hlth3i" path="res://Assets/Objects/Therapist.png" id="1_ut3ho"]
-[ext_resource type="Script" path="res://ObjectLibrary/NPCs/Therapist.cs" id="1_yjugm"]
+[ext_resource type="Script" path="res://ObjectLibrary/NPCs/2D/DJ.cs" id="1_n0nah"]
+[ext_resource type="Texture2D" uid="uid://co7aoj6hlth3i" path="res://Assets/Objects/Therapist.png" id="1_xyhya"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3yyj2"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mv8u6"]
 size = Vector2(416, 284.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n758t"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7s4i0"]
 size = Vector2(246, 438.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0m4cn"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajsgu"]
 size = Vector2(652, 884)
 
-[node name="Therapist" type="Node2D"]
-script = ExtResource("1_yjugm")
+[node name="DJ" type="Node2D"]
+script = ExtResource("1_n0nah")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 offset_right = 40.0
@@ -23,10 +23,10 @@ offset_bottom = 40.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/Mushroom"]
 position = Vector2(-4, 196.75)
-shape = SubResource("RectangleShape2D_3yyj2")
+shape = SubResource("RectangleShape2D_mv8u6")
 
 [node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/Mushroom"]
-texture = ExtResource("1_ut3ho")
+texture = ExtResource("1_xyhya")
 hframes = 2
 vframes = 2
 
@@ -34,10 +34,10 @@ vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/Goat"]
 position = Vector2(-13, -92.25)
-shape = SubResource("RectangleShape2D_n758t")
+shape = SubResource("RectangleShape2D_7s4i0")
 
 [node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/Goat"]
-texture = ExtResource("1_ut3ho")
+texture = ExtResource("1_xyhya")
 hframes = 2
 vframes = 2
 frame = 1
@@ -46,4 +46,4 @@ frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
 position = Vector2(0, 121)
-shape = SubResource("RectangleShape2D_0m4cn")
+shape = SubResource("RectangleShape2D_ajsgu")
