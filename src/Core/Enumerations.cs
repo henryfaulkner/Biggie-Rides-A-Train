@@ -101,4 +101,16 @@ public partial class Enumerations
 			ClubMix = 3,
 		}
 	}
+	
+	public static class Movement
+	{
+		public enum Directions 
+		{
+			Up = 0,
+			Right = 1,
+			Down = 2,
+			Left = 3,
+			Idle = 4,
+		}	
+	}
 }

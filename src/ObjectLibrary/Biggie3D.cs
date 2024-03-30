@@ -15,7 +15,7 @@ public partial class Biggie3D : CharacterBody3D
 	private static readonly int _SPRITE_FRAME_WALK2_LEFT = 4;
 	public static readonly int _SPRITE_FRAME_CHANGE_INTERVAL = 45;
 	public static readonly int _SPRITE_WALK_FRAME_LENGTH = 2;
-	public static readonly float _BIGGIE_SPEED = 400f;
+	public static readonly float _BIGGIE_SPEED = 2400f;
 
 	private Biggie3D _nodeSelf = null;
 	private Node _nodeBiggieSpriteMeshInstance = null;
@@ -23,6 +23,7 @@ public partial class Biggie3D : CharacterBody3D
 	private bool _isMoving = false;
 	private bool _canMove = true;
 	private int _frameIncrement = 0;
+	private Enumerations.Movement.Directions _currentFrameDirection = Enumerations.Movement.Directions.Down;
 
 	public override void _Ready()
 	{
@@ -40,13 +41,13 @@ public partial class Biggie3D : CharacterBody3D
 		Movement(delta);
 	}
 	
-	private int ReturnSpriteWalkFrame(int frameIncrement, bool isLeft = false)
+	private int ReturnSpriteWalkFrame(int frameIncrement)
 	{
 		var result = (frameIncrement / _SPRITE_FRAME_CHANGE_INTERVAL) % _SPRITE_WALK_FRAME_LENGTH;
 		// Skip Idle sprite
 		result += 1;
 		// Account for sprite flipping
-		if (isLeft) result += 2;
+		if (_currentFrameDirection == Enumerations.Movement.Directions.Right) result += 2;
 		return result;
 	}
 
@@ -59,13 +60,7 @@ public partial class Biggie3D : CharacterBody3D
 			inputDirection.X -= 1.0f;
 			_isMoving = true;
 			_frameIncrement += 1;
-			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement, true));
-		}
-		else if (Input.IsActionPressed(_MOVE_UP_INPUT))
-		{
-			inputDirection.Z += 1.0f;
-			_isMoving = true;
-			_frameIncrement += 1;
+			_currentFrameDirection = Enumerations.Movement.Directions.Right;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
 		else if (Input.IsActionPressed(_MOVE_RIGHT_INPUT))
@@ -73,16 +68,26 @@ public partial class Biggie3D : CharacterBody3D
 			inputDirection.X += 1.0f;
 			_isMoving = true;
 			_frameIncrement += 1;
+			_currentFrameDirection = Enumerations.Movement.Directions.Left;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
-		else if (Input.IsActionPressed(_MOVE_DOWN_INPUT))
+		
+		if (Input.IsActionPressed(_MOVE_DOWN_INPUT))
 		{
-			inputDirection.Z -= 1.0f;
+			inputDirection.Z += .7f;
 			_isMoving = true;
 			_frameIncrement += 1;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
-		else
+		else if (Input.IsActionPressed(_MOVE_UP_INPUT))
+		{
+			inputDirection.Z -= .7f;
+			_isMoving = true;
+			_frameIncrement += 1;
+			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
+		}
+		
+		if (IsIdle())
 		{
 			_isMoving = false;
 			_frameIncrement = 0;
@@ -137,5 +142,14 @@ public partial class Biggie3D : CharacterBody3D
 		{
 			////GD.Print($"AttemptStoredLocationApplication exception: {exception}");
 		}
+	}
+	
+	private bool IsIdle()
+	{
+		return 
+			!Input.IsActionPressed(_MOVE_UP_INPUT)
+			&& !Input.IsActionPressed(_MOVE_RIGHT_INPUT)
+			&& !Input.IsActionPressed(_MOVE_DOWN_INPUT)
+			&& !Input.IsActionPressed(_MOVE_LEFT_INPUT);
 	}
 }

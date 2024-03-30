@@ -33,7 +33,7 @@ project/assembly_name="biggie_rides_a_train"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/sprite_mesh/plugin.cfg")
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg", "res://addons/sprite_mesh/plugin.cfg")
 
 [input]
 
