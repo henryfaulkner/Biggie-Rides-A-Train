@@ -1,11 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://dcdbd272fdx4j"]
+[gd_scene load_steps=18 format=3 uid="uid://dcdbd272fdx4j"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.cs" id="1_c2u0m"]
 [ext_resource type="PackedScene" uid="uid://cbnxk7w87v22a" path="res://ObjectLibrary/Wrappers/CombatWrapper/EnemyPhysicalHealth.tscn" id="1_cep38"]
 [ext_resource type="LabelSettings" uid="uid://dhr4jjrifryn4" path="res://Assets/LabelSettings/HealthLabelSettings.tres" id="2_jvtxu"]
 [ext_resource type="PackedScene" uid="uid://xbdh31b8gpcu" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BiggieCombatTextBox.tscn" id="2_qk0o6"]
 [ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="3_srhic"]
+[ext_resource type="Script" path="res://ObjectLibrary/Wrappers/CombatWrapper/BiggieAttackContainer.cs" id="4_8a2r2"]
 [ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="4_qbxj4"]
+[ext_resource type="Texture2D" uid="uid://dilofe1ockehf" path="res://Assets/CombatScenes/FightCombatZone.png" id="5_g7ds0"]
 [ext_resource type="PackedScene" uid="uid://d3mnt3xkdh0fn" path="res://Pages/CombatScenes/DjBattle/dj_attack_container.tscn" id="5_ln7p2"]
 [ext_resource type="StyleBox" uid="uid://csvwoicreew7r" path="res://Assets/LabelSettings/TextBoxPanelStyles.tres" id="6_i3s6a"]
 
@@ -72,8 +74,9 @@ script = ExtResource("1_c2u0m")
 visible = false
 
 [node name="BiggieCombatTextBox" parent="." instance=ExtResource("2_qk0o6")]
+visible = false
 
-[node name="WideAttackContainer" type="MarginContainer" parent="."]
+[node name="BiggieAttackContainer" type="MarginContainer" parent="."]
 offset_top = 424.0
 offset_right = 2048.0
 offset_bottom = 1024.0
@@ -83,12 +86,21 @@ theme_override_constants/margin_left = 128
 theme_override_constants/margin_top = 128
 theme_override_constants/margin_right = 128
 theme_override_constants/margin_bottom = 64
+script = ExtResource("4_8a2r2")
 
-[node name="WideAttackPanel" type="Panel" parent="WideAttackContainer"]
+[node name="BiggieAttackPanel" type="Panel" parent="BiggieAttackContainer"]
 layout_mode = 2
 theme_override_styles/panel = ExtResource("6_i3s6a")
 
-[node name="SquareAttackContainer" type="MarginContainer" parent="."]
+[node name="FightZoneSprite2D" type="Sprite2D" parent="BiggieAttackContainer"]
+position = Vector2(1025, 332)
+scale = Vector2(1.74805, 1.57812)
+texture = ExtResource("5_g7ds0")
+hframes = 5
+vframes = 24
+
+[node name="EnemyAttackContainer" type="MarginContainer" parent="."]
+visible = false
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -103,12 +115,12 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 724
 theme_override_constants/margin_bottom = 64
 
-[node name="SquareAttackPanel" type="Panel" parent="SquareAttackContainer"]
+[node name="EnemyAttackPanel" type="Panel" parent="EnemyAttackContainer"]
 clip_contents = true
 layout_mode = 2
 theme_override_styles/panel = ExtResource("6_i3s6a")
 
-[node name="DjAttackContainer" parent="SquareAttackContainer/SquareAttackPanel" instance=ExtResource("5_ln7p2")]
+[node name="DjAttackContainer" parent="EnemyAttackContainer/EnemyAttackPanel" instance=ExtResource("5_ln7p2")]
 layout_mode = 0
 offset_left = 0.0
 offset_top = 0.0
@@ -116,6 +128,7 @@ offset_right = 0.0
 offset_bottom = 0.0
 
 [node name="TransformContainer" type="MarginContainer" parent="."]
+visible = false
 offset_top = 424.0
 offset_right = 2048.0
 offset_bottom = 1024.0
@@ -130,6 +143,7 @@ layout_mode = 2
 theme_override_styles/panel = ExtResource("6_i3s6a")
 
 [node name="HudContainer" type="HBoxContainer" parent="."]
+visible = false
 offset_left = 160.0
 offset_top = 391.0
 offset_right = 1952.0

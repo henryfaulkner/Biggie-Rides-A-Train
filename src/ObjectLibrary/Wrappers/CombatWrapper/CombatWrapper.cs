@@ -49,10 +49,10 @@ public partial class CombatWrapper : Node2D
 
 		_nodeActionInfo = GetNode<MarginContainer>("HudContainer/ActionInfo");
 		_nodeTextContainer = GetNode<MarginContainer>("./BiggieCombatTextBox/TextBoxContainer");
-		_nodeEnemyAttackContainer = GetNode<MarginContainer>("./SquareAttackContainer");
-		_nodeEnemyAttackPanel = GetNode<Panel>("./SquareAttackContainer/SquareAttackPanel");
-		_nodeBiggieAttackContainer = GetNode<MarginContainer>("./WideAttackContainer");
-		_nodeBiggieAttackPanel = GetNode<Panel>("./WideAttackContainer/WideAttackPanel");
+		_nodeEnemyAttackContainer = GetNode<MarginContainer>("./EnemyAttackContainer");
+		_nodeEnemyAttackPanel = GetNode<Panel>("./EnemyAttackContainer/EnemyAttackPanel");
+		_nodeBiggieAttackContainer = GetNode<MarginContainer>("./BiggieAttackContainer");
+		_nodeBiggieAttackPanel = GetNode<Panel>("./BiggieAttackContainer/BiggieAttackPanel");
 
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 

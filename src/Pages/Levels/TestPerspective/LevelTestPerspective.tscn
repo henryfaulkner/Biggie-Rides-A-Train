@@ -85,7 +85,7 @@ script = ExtResource("5_gngot")
 meshes = Array[ArrayMesh]([SubResource("ArrayMesh_ccisv"), SubResource("ArrayMesh_sgq76"), SubResource("ArrayMesh_hmhov"), SubResource("ArrayMesh_fv1ie")])
 material = SubResource("StandardMaterial3D_wq3cx")
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_63653"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_dto4x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8b4e"]
 
@@ -188,7 +188,7 @@ generated_sprite_mesh = SubResource("Resource_w132s")
 [node name="StaticBody3D" type="StaticBody3D" parent="LevelWrapper"]
 
 [node name="SpriteMeshInstance" type="MeshInstance3D" parent="LevelWrapper/StaticBody3D"]
-mesh = SubResource("ArrayMesh_63653")
+mesh = SubResource("ArrayMesh_dto4x")
 script = ExtResource("4_vombc")
 generated_sprite_mesh = SubResource("Resource_hx40a")
 
@@ -225,7 +225,7 @@ shape = SubResource("BoxShape3D_02bme")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 2.68679, 3.40958)
-fov = 73.5391
+fov = 74.9911
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Camera3D"]
 light_energy = 4.0
