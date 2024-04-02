@@ -13,8 +13,9 @@ public partial class CombatWrapper : Node2D
 	private HBoxContainer _nodeHudContainerTargetEnemyAttack = null;
 	private HBoxContainer _nodeHudContainerTargetBiggieAttack = null;
 	private HBoxContainer _nodeHudContainerTargetText = null;
-	private MarginContainer _nodeActionInfo = null;
 
+	private MarginContainer _nodeActionInfo = null;
+	private BiggieCombatTextBox _nodeBiggieCombatTextBox = null;
 	private MarginContainer _nodeTextContainer = null;
 	private MarginContainer _nodeEnemyAttackContainer = null;
 	private Panel _nodeEnemyAttackPanel = null;
@@ -28,6 +29,7 @@ public partial class CombatWrapper : Node2D
 	private static readonly float _MAIN_SPEED = 20f;
 
 	private CombatSingleton _globalCombatSingleton = null;
+	private Enumerations.CombatOptions LastCombatOptionUsed { get; set; }
 
 	public override void _Ready()
 	{
@@ -48,6 +50,7 @@ public partial class CombatWrapper : Node2D
 		MainAnimationHelper = new PanelAnimationHelper(_MAIN_SPEED);
 
 		_nodeActionInfo = GetNode<MarginContainer>("HudContainer/ActionInfo");
+		_nodeBiggieCombatTextBox = GetNode<BiggieCombatTextBox>("./BiggieCombatTextBox");
 		_nodeTextContainer = GetNode<MarginContainer>("./BiggieCombatTextBox/TextBoxContainer");
 		_nodeEnemyAttackContainer = GetNode<MarginContainer>("./EnemyAttackContainer");
 		_nodeEnemyAttackPanel = GetNode<Panel>("./EnemyAttackContainer/EnemyAttackPanel");
@@ -58,6 +61,7 @@ public partial class CombatWrapper : Node2D
 
 		_nodeFightPageBasePanel.SelectFight += HandleFightSelection;
 		_nodeChatPageBasePanel.SelectChat += HandleChatSelection;
+		_nodeBiggieCombatTextBox.EndBiggieTextTurn += HandleEndBiggieTextTurn;
 
 		HideEnemyAttackContainer();
 		HideBiggieAttackContainer();
@@ -360,5 +364,46 @@ public partial class CombatWrapper : Node2D
 		finished = TranslateHudText();
 		finished = TransformToText() && finished;
 		return finished;
+	}
+
+	private void HandleEndBiggieAttackTurn(int damagePercentage)
+	{
+		switch (LastCombatOptionUsed)
+		{
+			case Enumerations.CombatOptions.Scratch:
+				DealPhysicalDamage(1 * damagePercentage);
+				break;
+			case Enumerations.CombatOptions.Bite:
+				DealPhysicalDamage(2 * damagePercentage);
+				break;
+			case Enumerations.CombatOptions.Ask:
+				DealEmotionalDamage(1 * damagePercentage);
+				break;
+			case Enumerations.CombatOptions.Charm:
+				DealEmotionalDamage(2 * damagePercentage);
+				break;
+			default:
+				break;
+		}
+	}
+
+	private void HandleEndBiggieTextTurn(int combatOption)
+	{
+		LastCombatOptionUsed = (Enumerations.CombatOptions)combatOption;
+	}
+
+	[Signal]
+	public delegate void ProjectPhysicalDamageEventHandler();
+	public void DealPhysicalDamage(int damage)
+	{
+		//GD.Print("DealPhysicalDamage");
+		_globalCombatSingleton.BiggiePhysicalAttackProxy.DealDamage(damage);
+		//GD.Print($"enemy health: {_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage()}");
+		EmitSignal(SignalName.ProjectPhysicalDamage);
+	}
+
+	public void DealEmotionalDamage(int damage)
+	{
+		_globalCombatSingleton.BiggieEmotionalAttackProxy.DealDamage(damage);
 	}
 }

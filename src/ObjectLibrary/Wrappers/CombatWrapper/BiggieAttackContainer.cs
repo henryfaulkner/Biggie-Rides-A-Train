@@ -6,21 +6,21 @@ public partial class BiggieAttackContainer : MarginContainer
     #region Fight Zone Frame Details
     public static readonly int _SPRITESHEET_LENGTH = 119;
     public static readonly int _EARLY_TRASH_RANGE_START = 0;
-    public static readonly int _EARLY_TRASH_RANGE_END = 0;
-    public static readonly int _EARLY_BAD_RANGE_START = 0;
-    public static readonly int _EARLY_BAD_RANGE_END = 0;
-    public static readonly int _EARLY_GOOD_RANGE_START = 0;
-    public static readonly int _EARLY_GOOD_RANGE_END = 0;
-    public static readonly int _GREAT_RANGE_START = 0;
-    public static readonly int _GREAT_RANGE_END = 0;
-    public static readonly int _PERFECT_RANGE_START = 0;
-    public static readonly int _PERFECT_RANGE_END = 0;
-    public static readonly int _LATE_GOOD_RANGE_START = 0;
-    public static readonly int _LATE_GOOD_RANGE_END = 0;
-    public static readonly int _LATE_BAD_RANGE_START = 0;
-    public static readonly int _LATE_BAD_RANGE_END = 0;
-    public static readonly int _LATE_TRASH_RANGE_START = 0;
-    public static readonly int _LATE_TRASH_RANGE_END = 0;
+    public static readonly int _EARLY_TRASH_RANGE_END = 9;
+    public static readonly int _EARLY_BAD_RANGE_START = 10;
+    public static readonly int _EARLY_BAD_RANGE_END = 36;
+    public static readonly int _EARLY_GOOD_RANGE_START = 37;
+    public static readonly int _EARLY_GOOD_RANGE_END = 53;
+    public static readonly int _GREAT_RANGE_START = 54;
+    public static readonly int _GREAT_RANGE_END = 58;
+    public static readonly int _PERFECT_RANGE_START = 59;
+    public static readonly int _PERFECT_RANGE_END = 59;
+    public static readonly int _LATE_GOOD_RANGE_START = 60;
+    public static readonly int _LATE_GOOD_RANGE_END = 64;
+    public static readonly int _LATE_BAD_RANGE_START = 65;
+    public static readonly int _LATE_BAD_RANGE_END = 81;
+    public static readonly int _LATE_TRASH_RANGE_START = 82;
+    public static readonly int _LATE_TRASH_RANGE_END = 118;
     #endregion
 
     private static readonly StringName _SPACE_INPUT = new StringName("interact");
@@ -61,12 +61,12 @@ public partial class BiggieAttackContainer : MarginContainer
     }
 
     [Signal]
-    public delegate void BiggieAttackDealDamageEventHandler(double damagePercentage);
+    public delegate void EndBiggieAttackTurnEventHandler(double damagePercentage);
     private void DealDamage(int frameIndex)
     {
         var damageZone = GetDamageZone(frameIndex);
         var damagePercentage = GetDamagePercentage(damageZone);
-        EmitSignal(SignalName.BiggieAttackDealDamage, damagePercentage);
+        EmitSignal(SignalName.EndBiggieAttackTurn, damagePercentage);
     }
 
     private DamageZones GetDamageZone(int frameIndex)

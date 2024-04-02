@@ -47,9 +47,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 	}
 
 	[Signal]
-	public delegate void ProjectPhysicalDamageEventHandler();
-	[Signal]
-	public delegate void EndBiggieTextTurnEventHandler();
+	public delegate void EndBiggieTextTurnEventHandler(int combatOption);
 
 	public void EndTurn()
 	{
@@ -90,13 +88,11 @@ public partial class BiggieCombatTextBox : CanvasLayer
 			{
 				case (int)Enumerations.FightPagePanelOptions.Scratch:
 					//GD.Print("Scratch");
-					DealPhysicalDamage(1);
-					EmitSignal(SignalName.EndBiggieTextTurn);
+					EmitSignal(SignalName.EndBiggieTextTurn, (int)Enumerations.CombatOptions.Scratch);
 					break;
 				case (int)Enumerations.FightPagePanelOptions.Bite:
 					//GD.Print("Bite");
-					DealPhysicalDamage(2);
-					EmitSignal(SignalName.EndBiggieTextTurn);
+					EmitSignal(SignalName.EndBiggieTextTurn, (int)Enumerations.CombatOptions.Bite);
 					break;
 				case (int)Enumerations.FightPagePanelOptions.Back:
 					_nodeBasePagePanel.IsOpen = true;
@@ -123,13 +119,11 @@ public partial class BiggieCombatTextBox : CanvasLayer
 		{
 			case (int)Enumerations.ChatPagePanelOptions.Ask:
 				//GD.Print("Ask");
-				DealEmotionalDamage(1);
-				EmitSignal(SignalName.EndBiggieTextTurn);
+				EmitSignal(SignalName.EndBiggieTextTurn, (int)Enumerations.CombatOptions.Ask);
 				break;
 			case (int)Enumerations.ChatPagePanelOptions.Charm:
 				//GD.Print("Charm");
-				DealEmotionalDamage(2);
-				EmitSignal(SignalName.EndBiggieTextTurn);
+				EmitSignal(SignalName.EndBiggieTextTurn, (int)Enumerations.CombatOptions.Charm);
 				break;
 			case (int)Enumerations.ChatPagePanelOptions.Back:
 				_nodeBasePagePanel.IsOpen = true;
@@ -154,16 +148,5 @@ public partial class BiggieCombatTextBox : CanvasLayer
 		_nodeFightPagePanel.IsOpen = false;
 	}
 
-	public void DealPhysicalDamage(int damage)
-	{
-		//GD.Print("DealPhysicalDamage");
-		_globalCombatSingleton.BiggiePhysicalAttackProxy.DealDamage(damage);
-		//GD.Print($"enemy health: {_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage()}");
-		EmitSignal(SignalName.ProjectPhysicalDamage);
-	}
 
-	public void DealEmotionalDamage(int damage)
-	{
-		_globalCombatSingleton.BiggieEmotionalAttackProxy.DealDamage(damage);
-	}
 }

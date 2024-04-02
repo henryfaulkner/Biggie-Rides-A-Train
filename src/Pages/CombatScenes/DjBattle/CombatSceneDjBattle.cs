@@ -42,11 +42,10 @@ public partial class CombatSceneDjBattle : Node2D
 
 		_nodeCombatWrapper.StartBiggieTextTurn += StartBiggieTextTurn;
 		_nodeCombatWrapper.StartEnemyAttackTurn += StartEnemyAttackTurn;
-		_nodeBiggieCombatTextBox.ProjectPhysicalDamage += ChangeDjHealthBar;
+		_nodeCombatWrapper.ProjectPhysicalDamage += ChangeDjHealthBar;
 		_nodeBiggieCombatTextBox.EndBiggieTextTurn += EndBiggieTextTurn;
 		_nodeDjAttackContainer.ProjectPhysicalDamage += ChangeBiggieHealthBar;
 		_nodeDjAttackContainer.EndEnemyAttackTurn += EndEnemyAttackTurn;
-
 
 		_globalCombatSingleton.CombatState = Enumerations.CombatStates.Text;
 		_nodeDjAttackContainer.Hide();
@@ -66,7 +65,7 @@ public partial class CombatSceneDjBattle : Node2D
 		_nodeBiggieCombatTextBox.Show();
 	}
 
-	public void EndBiggieTextTurn()
+	public void EndBiggieTextTurn(int CombatOptions)
 	{
 		//GD.Print("EndBiggieTurn");
 		_nodeBiggieCombatTextBox.Visible = false;
@@ -157,5 +156,10 @@ public partial class CombatSceneDjBattle : Node2D
 	public void HandleDjEmotionalDefeat()
 	{
 		GetTree().ChangeSceneToFile(_SCENE_CLUB);
+	}
+
+	public void HandleBiggieAttackDealDamage(double damagePercentage)
+	{
+
 	}
 }
