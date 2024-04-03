@@ -18,9 +18,9 @@ public partial class Main : Node2D
 
 	public override void _Ready()
 	{
-		_nodePlay = GetNode<Button>("./LevelWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/Play");
-		_nodeOptions = GetNode<Button>("./LevelWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Options");
-		_nodeQuit = GetNode<Button>("./LevelWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Quit");
+		_nodePlay = GetNode<Button>("./TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/Play");
+		_nodeOptions = GetNode<Button>("./TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Options");
+		_nodeQuit = GetNode<Button>("./TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Quit");
 		Buttons = new Button[] { _nodePlay, _nodeOptions, _nodeQuit };
 		Buttons[0].GrabFocus();
 		FocusIndex = 0;

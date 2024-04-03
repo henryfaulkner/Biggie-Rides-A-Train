@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bvjits38cqdap"]
 
 [ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="1_6lyjk"]
-[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_lkq0q"]
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="1_lkq0q"]
 [ext_resource type="PackedScene" uid="uid://b38tu1iwidkvx" path="res://ObjectLibrary/NPCs/2D/DJ.tscn" id="3_ducl5"]
 [ext_resource type="PackedScene" uid="uid://1c1rtqkwpgud" path="res://ObjectLibrary/Biggie.tscn" id="3_f0u5u"]
 [ext_resource type="Script" path="res://Pages/Levels/Club/Doors/MainStationDoor.gd" id="4_x3fec"]
@@ -29,14 +29,14 @@ texture = ExtResource("1_6lyjk")
 position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_0qekg")
 
-[node name="LevelWrapper" parent="." instance=ExtResource("1_lkq0q")]
+[node name="TextBoxWrapper" parent="." instance=ExtResource("1_lkq0q")]
 position = Vector2(-66, -222)
 
-[node name="Biggie" parent="LevelWrapper" instance=ExtResource("3_f0u5u")]
+[node name="Biggie" parent="TextBoxWrapper" instance=ExtResource("3_f0u5u")]
 scale = Vector2(4, 4)
 
-[node name="Camera2D" type="Camera2D" parent="LevelWrapper/Biggie"]
+[node name="Camera2D" type="Camera2D" parent="TextBoxWrapper/Biggie"]
 
-[node name="DJ" parent="LevelWrapper" instance=ExtResource("3_ducl5")]
+[node name="DJ" parent="TextBoxWrapper" instance=ExtResource("3_ducl5")]
 position = Vector2(1106, 442)
 scale = Vector2(0.3, 0.3)

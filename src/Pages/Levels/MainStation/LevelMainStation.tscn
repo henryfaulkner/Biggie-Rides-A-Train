@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://dftxuxvh36ccm"]
 
 [ext_resource type="Texture2D" uid="uid://dtn0oo3t2ldqa" path="res://Assets/Levels/Main_Station_Level.png" id="2_0i66i"]
-[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="2_kt736"]
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_kt736"]
 [ext_resource type="PackedScene" uid="uid://1c1rtqkwpgud" path="res://ObjectLibrary/Biggie.tscn" id="3_ikhmg"]
 [ext_resource type="PackedScene" uid="uid://d4kexhj5vcdog" path="res://ObjectLibrary/NPCs/2D/Teller.tscn" id="4_a4fkh"]
 [ext_resource type="PackedScene" uid="uid://dw30v70y17poe" path="res://ObjectLibrary/NPCs/2D/Chess.tscn" id="5_l1jc6"]
@@ -38,32 +38,32 @@ position = Vector2(1045, -256.5)
 scale = Vector2(2.22656, 1.69238)
 texture = ExtResource("2_0i66i")
 
-[node name="LevelWrapper" parent="." instance=ExtResource("2_kt736")]
+[node name="TextBoxWrapper" parent="." instance=ExtResource("2_kt736")]
 
-[node name="Biggie" parent="LevelWrapper" instance=ExtResource("3_ikhmg")]
+[node name="Biggie" parent="TextBoxWrapper" instance=ExtResource("3_ikhmg")]
 position = Vector2(1050, 523)
 scale = Vector2(4, 4)
 
-[node name="Camera2D" type="Camera2D" parent="LevelWrapper/Biggie"]
+[node name="Camera2D" type="Camera2D" parent="TextBoxWrapper/Biggie"]
 
-[node name="Chess" parent="LevelWrapper" instance=ExtResource("5_l1jc6")]
+[node name="Chess" parent="TextBoxWrapper" instance=ExtResource("5_l1jc6")]
 position = Vector2(283, -151)
 scale = Vector2(0.65, 0.65)
 
-[node name="Teller" parent="LevelWrapper" instance=ExtResource("4_a4fkh")]
+[node name="Teller" parent="TextBoxWrapper" instance=ExtResource("4_a4fkh")]
 position = Vector2(226, 385)
 scale = Vector2(0.35, 0.35)
 
-[node name="InteractionTest" type="Area2D" parent="LevelWrapper"]
+[node name="InteractionTest" type="Area2D" parent="TextBoxWrapper"]
 position = Vector2(1054, 510)
 scale = Vector2(0.4, 0.4)
 script = ExtResource("6_yb2wm")
 
-[node name="InteractableArea" type="CollisionShape2D" parent="LevelWrapper/InteractionTest"]
+[node name="InteractableArea" type="CollisionShape2D" parent="TextBoxWrapper/InteractionTest"]
 position = Vector2(6.10352e-05, 25)
 shape = SubResource("RectangleShape2D_wgxvf")
 
-[node name="Therapist" parent="LevelWrapper" instance=ExtResource("6_e726k")]
+[node name="Therapist" parent="TextBoxWrapper" instance=ExtResource("6_e726k")]
 position = Vector2(1232, -287)
 scale = Vector2(0.4, 0.4)
 

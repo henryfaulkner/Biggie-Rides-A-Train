@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class LevelWrapper : Node2D
+public partial class TextBoxWrapper : Node2D
 {
 	public static readonly Vector2I _windowSize = new Vector2I(2048, 1024);
 	// https://www.reddit.com/r/godot/comments/17tqipk/in_c_beware_using_strings_in_inputisactionpressed/

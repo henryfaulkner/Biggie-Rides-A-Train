@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://b3edyud0q27q6"]
 
 [ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="1_rjh8j"]
-[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="2_ftokm"]
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_ftokm"]
 [ext_resource type="PackedScene" uid="uid://1c1rtqkwpgud" path="res://ObjectLibrary/Biggie.tscn" id="3_yah8d"]
 [ext_resource type="PackedScene" uid="uid://c2bct32b8umwg" path="res://ObjectLibrary/NPCs/2D/Therapist.tscn" id="4_lqr6h"]
 [ext_resource type="Script" path="res://Pages/Levels/TherapistOffice/Doors/MainStationDoor.gd" id="5_in3we"]
@@ -16,15 +16,15 @@ position = Vector2(1108, 413)
 scale = Vector2(2.47656, 1.73242)
 texture = ExtResource("1_rjh8j")
 
-[node name="LevelWrapper" parent="." instance=ExtResource("2_ftokm")]
+[node name="TextBoxWrapper" parent="." instance=ExtResource("2_ftokm")]
 
-[node name="Biggie" parent="LevelWrapper" instance=ExtResource("3_yah8d")]
+[node name="Biggie" parent="TextBoxWrapper" instance=ExtResource("3_yah8d")]
 position = Vector2(1049, 961)
 scale = Vector2(4, 4)
 
-[node name="Camera2D" type="Camera2D" parent="LevelWrapper/Biggie"]
+[node name="Camera2D" type="Camera2D" parent="TextBoxWrapper/Biggie"]
 
-[node name="Therapist" parent="LevelWrapper" instance=ExtResource("4_lqr6h")]
+[node name="Therapist" parent="TextBoxWrapper" instance=ExtResource("4_lqr6h")]
 position = Vector2(205, 137)
 scale = Vector2(0.4, 0.4)
 

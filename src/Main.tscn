@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bnrmjtfaqyxy8"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_cnm6e"]
-[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="2_fkue4"]
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_fkue4"]
 [ext_resource type="Texture2D" uid="uid://qqicdcuj2qyt" path="res://Assets/MainMenu/ascii_header_2048_480.png" id="3_s6wup"]
 [ext_resource type="Script" path="res://Play.gd" id="4_1vg3r"]
 
@@ -9,9 +9,9 @@
 script = ExtResource("1_cnm6e")
 metadata/_edit_vertical_guides_ = [2540.0]
 
-[node name="LevelWrapper" parent="." instance=ExtResource("2_fkue4")]
+[node name="TextBoxWrapper" parent="." instance=ExtResource("2_fkue4")]
 
-[node name="MarginContainer" type="MarginContainer" parent="LevelWrapper"]
+[node name="MarginContainer" type="MarginContainer" parent="TextBoxWrapper"]
 offset_right = 2288.0
 offset_bottom = 1130.0
 scale = Vector2(0.89, 1)
@@ -22,25 +22,25 @@ theme_override_constants/margin_top = 190
 theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 80
 
-[node name="HBoxContainer" type="HBoxContainer" parent="LevelWrapper/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextBoxWrapper/MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LevelWrapper/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TextBoxWrapper/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="LevelWrapper/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_bottom = 100
 
-[node name="TextureRect" type="TextureRect" parent="LevelWrapper/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer"]
 clip_contents = true
 layout_mode = 2
 texture = ExtResource("3_s6wup")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LevelWrapper/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Play" type="Button" parent="LevelWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="Play" type="Button" parent="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
 layout_direction = 1
 layout_mode = 2
 size_flags_horizontal = 3
@@ -48,20 +48,20 @@ size_flags_vertical = 3
 text = "Play"
 script = ExtResource("4_1vg3r")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="LevelWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
 layout_direction = 1
 layout_mode = 2
 
-[node name="Options" type="Button" parent="LevelWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Options" type="Button" parent="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Options"
 
-[node name="Quit" type="Button" parent="LevelWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Quit" type="Button" parent="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Quit"
 
-[connection signal="pressed" from="LevelWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/Play" to="LevelWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/Play" method="_on_pressed"]
-[connection signal="pressed" from="LevelWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="LevelWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/Play" to="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/Play" method="_on_pressed"]
+[connection signal="pressed" from="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Quit" to="." method="_on_quit_pressed"]

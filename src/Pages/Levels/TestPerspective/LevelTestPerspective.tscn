@@ -1,6 +1,7 @@
-[gd_scene load_steps=32 format=3 uid="uid://q4eorvddjc1b"]
+[gd_scene load_steps=33 format=3 uid="uid://q4eorvddjc1b"]
 
-[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_73o0g"]
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="1_73o0g"]
+[ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_881kw"]
 [ext_resource type="PackedScene" uid="uid://rnc3kww1v7jc" path="res://ObjectLibrary/Biggie3D.tscn" id="1_j2tbm"]
 [ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="2_04ftg"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="4_vombc"]
@@ -85,7 +86,7 @@ script = ExtResource("5_gngot")
 meshes = Array[ArrayMesh]([SubResource("ArrayMesh_ccisv"), SubResource("ArrayMesh_sgq76"), SubResource("ArrayMesh_hmhov"), SubResource("ArrayMesh_fv1ie")])
 material = SubResource("StandardMaterial3D_wq3cx")
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_g5njt"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_qtmgn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8b4e"]
 
@@ -152,15 +153,18 @@ size = Vector3(1, 1, 0.806701)
 
 [node name="LevelTestPerspective" type="Node3D"]
 
-[node name="LevelWrapper" parent="." instance=ExtResource("1_73o0g")]
+[node name="LevelWrapper" parent="." instance=ExtResource("1_881kw")]
+
+[node name="TextBoxWrapper" parent="LevelWrapper" instance=ExtResource("1_73o0g")]
 position = Vector2(0, -50)
 
-[node name="Biggie3D" parent="LevelWrapper" instance=ExtResource("1_j2tbm")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.4, 0)
+[node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("1_j2tbm")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.4, 0.884547)
 
-[node name="Floor" type="StaticBody3D" parent="LevelWrapper"]
+[node name="Floor" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.884547)
 
-[node name="SpriteMeshInstance" type="MeshInstance3D" parent="LevelWrapper/Floor"]
+[node name="SpriteMeshInstance" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Floor"]
 transform = Transform3D(10, 0, 0, 0, -8.74228e-08, -1, 0, 2, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("ArrayMesh_u8n0a")
 surface_material_override/0 = SubResource("StandardMaterial3D_pj52w")
@@ -168,14 +172,14 @@ script = ExtResource("4_vombc")
 texture = ExtResource("2_04ftg")
 generated_sprite_mesh = SubResource("Resource_bjn3o")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/Floor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/Floor"]
 transform = Transform3D(10, 0, 0, 0, 0.08, 0, 0, 0, 2, 0, 0, 0)
 shape = SubResource("BoxShape3D_ktvlo")
 
-[node name="Mushroom3D" type="CharacterBody3D" parent="LevelWrapper"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 1)
+[node name="Mushroom3D" type="CharacterBody3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 1.88455)
 
-[node name="SpriteMeshInstance" type="MeshInstance3D" parent="LevelWrapper/Mushroom3D"]
+[node name="SpriteMeshInstance" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Mushroom3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.02671)
 mesh = SubResource("ArrayMesh_ccisv")
 surface_material_override/0 = SubResource("StandardMaterial3D_wq3cx")
@@ -185,22 +189,23 @@ hframes = 2
 vframes = 2
 generated_sprite_mesh = SubResource("Resource_w132s")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="LevelWrapper"]
+[node name="StaticBody3D" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.884547)
 
-[node name="SpriteMeshInstance" type="MeshInstance3D" parent="LevelWrapper/StaticBody3D"]
-mesh = SubResource("ArrayMesh_g5njt")
+[node name="SpriteMeshInstance" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/StaticBody3D"]
+mesh = SubResource("ArrayMesh_qtmgn")
 script = ExtResource("4_vombc")
 generated_sprite_mesh = SubResource("Resource_hx40a")
 
-[node name="Therapist3D" parent="LevelWrapper" instance=ExtResource("7_mlwkh")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 2.23712, 0.8, -0.709077)
+[node name="Therapist3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("7_mlwkh")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 2.23712, 0.8, 0.17547)
 
-[node name="Lion3D" type="Node3D" parent="LevelWrapper"]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -2.26841, 0.678843, -0.292691)
+[node name="Lion3D" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -2.26841, 0.678843, 0.591856)
 
-[node name="CharacterBody3D" type="StaticBody3D" parent="LevelWrapper/Lion3D"]
+[node name="CharacterBody3D" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/Lion3D"]
 
-[node name="SpriteMeshInstance" type="MeshInstance3D" parent="LevelWrapper/Lion3D/CharacterBody3D"]
+[node name="SpriteMeshInstance" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Lion3D/CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.05)
 mesh = SubResource("ArrayMesh_ptihc")
 skeleton = NodePath("")
@@ -212,20 +217,19 @@ vframes = 2
 region_rect = Rect2i(0, 0, 1, 1)
 generated_sprite_mesh = SubResource("Resource_ccnk7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/Lion3D/CharacterBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/Lion3D/CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0191042, -0.251556, -0.0235181)
 shape = SubResource("BoxShape3D_vh7pe")
 
-[node name="InteractableArea3D" type="Area3D" parent="LevelWrapper/Lion3D"]
+[node name="InteractableArea3D" type="Area3D" parent="LevelWrapper/TextBoxWrapper/Lion3D"]
 transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/Lion3D/InteractableArea3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/Lion3D/InteractableArea3D"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.0126461, -0.0386519, 0.0346525)
 shape = SubResource("BoxShape3D_02bme")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 2.68679, 3.40958)
-fov = 74.9911
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 2.68679, 4.29412)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Camera3D"]
 light_energy = 4.0
@@ -236,12 +240,12 @@ spot_range = 36.6322
 script = ExtResource("8_550qk")
 
 [node name="PhantomCamera3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 2.68679, 3.40958)
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 2.68679, 4.29412)
 script = ExtResource("9_sq6gl")
 priority_override = false
 priority = 0
 follow_mode = 5
-follow_target = NodePath("../LevelWrapper/Biggie3D")
+follow_target = NodePath("../LevelWrapper/TextBoxWrapper/Biggie3D")
 follow_parameters/distance = 0.5
 follow_parameters/target_offset = Vector3(0, 2, 3)
 follow_parameters/damping = false

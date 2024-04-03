@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://b6wvrdhnmhehm"]
 
 [ext_resource type="PackedScene" uid="uid://m1wkjfbwccuc" path="res://ObjectLibrary/NPCs/2D/TaxiCar.tscn" id="1_w8fx2"]
-[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="2_t3brk"]
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_t3brk"]
 [ext_resource type="Texture2D" uid="uid://dg2wkes4nxv4u" path="res://Assets/Levels/Entrance_Level.png" id="2_wlbg8"]
 [ext_resource type="PackedScene" uid="uid://1c1rtqkwpgud" path="res://ObjectLibrary/Biggie.tscn" id="4_d81tg"]
 [ext_resource type="Script" path="res://Pages/Levels/OutsideStation/LevelOutsideStation.cs" id="6_ujhji"]
@@ -19,20 +19,20 @@ position = Vector2(256, 147.125)
 scale = Vector2(0.031189, 0.0357971)
 texture = ExtResource("2_wlbg8")
 
-[node name="LevelWrapper" parent="." instance=ExtResource("2_t3brk")]
+[node name="TextBoxWrapper" parent="." instance=ExtResource("2_t3brk")]
 
-[node name="TaxiCarContainer" type="BoxContainer" parent="LevelWrapper"]
+[node name="TaxiCarContainer" type="BoxContainer" parent="TextBoxWrapper"]
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TaxiCar" parent="LevelWrapper/TaxiCarContainer" instance=ExtResource("1_w8fx2")]
+[node name="TaxiCar" parent="TextBoxWrapper/TaxiCarContainer" instance=ExtResource("1_w8fx2")]
 position = Vector2(-21, 152.75)
 
-[node name="BiggieContainer" type="BoxContainer" parent="LevelWrapper"]
+[node name="BiggieContainer" type="BoxContainer" parent="TextBoxWrapper"]
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Biggie" parent="LevelWrapper/BiggieContainer" instance=ExtResource("4_d81tg")]
+[node name="Biggie" parent="TextBoxWrapper/BiggieContainer" instance=ExtResource("4_d81tg")]
 position = Vector2(255.75, 133.25)
 scale = Vector2(0.75, 0.75)
 

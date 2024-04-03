@@ -21,9 +21,9 @@ public partial class LevelOutsideStation : Node2D
 	public override void _Ready()
 	{
 		_level = GetNode<Node2D>("/root/LevelOutsideStation");
-		_taxi = GetNode<TaxiCar>("/root/LevelOutsideStation/LevelWrapper/TaxiCarContainer/TaxiCar");
-		_textbox = GetNode<TextBox>("/root/LevelOutsideStation/LevelWrapper/TextBox");
-		_biggie = GetNode<Biggie>("/root/LevelOutsideStation/LevelWrapper/BiggieContainer/Biggie");
+		_taxi = GetNode<TaxiCar>("/root/LevelOutsideStation/TextBoxWrapper/TaxiCarContainer/TaxiCar");
+		_textbox = GetNode<TextBox>("/root/LevelOutsideStation/TextBoxWrapper/TextBox");
+		_biggie = GetNode<Biggie>("/root/LevelOutsideStation/TextBoxWrapper/BiggieContainer/Biggie");
 		UpdateTaxiPosition(_taxi.Position.X, _taxi.Position.Y);
 
 		// ASSUME STATIC VIEWPORT
