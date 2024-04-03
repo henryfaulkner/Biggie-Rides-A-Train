@@ -55,7 +55,8 @@ public partial class BiggieAttackContainer : MarginContainer
 		if (ZoneSpriteIndex == _SPRITESHEET_LENGTH) ZoneSpriteIndex = 0;
 		_nodeFightZoneSprite2D.Frame = ZoneSpriteIndex;
 
-		if (Input.IsActionJustPressed(_SPACE_INPUT))
+		if (IsActive &&
+			Input.IsActionJustPressed(_SPACE_INPUT))
 		{
 			DealDamage(ZoneSpriteIndex);
 		}
@@ -114,13 +115,13 @@ public partial class BiggieAttackContainer : MarginContainer
 				result = 0.0;
 				break;
 			case DamageZones.Bad:
-				result = 33.4;
+				result = .334;
 				break;
 			case DamageZones.Good:
-				result = 66.7;
+				result = .667;
 				break;
 			case DamageZones.Perfect:
-				result = 100.0;
+				result = 1.0;
 				break;
 			default:
 				break;

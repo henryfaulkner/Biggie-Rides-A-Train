@@ -116,7 +116,6 @@ public partial class Biggie3D : CharacterBody3D
 
 	public void Collide(KinematicCollision3D collision)
 	{
-		GD.Print("Collide");
 		if (collision.GetCollider().HasMethod("Hit"))
 		{
 			GD.Print("Call Hit");

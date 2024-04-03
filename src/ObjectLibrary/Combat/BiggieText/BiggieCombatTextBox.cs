@@ -26,10 +26,17 @@ public partial class BiggieCombatTextBox : CanvasLayer
 		_nodeBasePagePanel.IsOpen = false;
 		_nodeChatPagePanel.IsOpen = false;
 		_nodeFightPagePanel.IsOpen = false;
+		HideActionInfoFunc();
 
 		_nodeBasePagePanel.SelectBase += HandleBaseSelection;
+		_nodeBasePagePanel.ShowActionInfo += ShowActionInfoFunc;
+		_nodeBasePagePanel.HideActionInfo += HideActionInfoFunc;
 		_nodeChatPagePanel.SelectChat += HandleChatSelection;
+		_nodeChatPagePanel.ShowActionInfo += ShowActionInfoFunc;
+		_nodeChatPagePanel.HideActionInfo += HideActionInfoFunc;
 		_nodeFightPagePanel.SelectFight += HandleFightSelection;
+		_nodeFightPagePanel.ShowActionInfo += ShowActionInfoFunc;
+		_nodeFightPagePanel.HideActionInfo += HideActionInfoFunc;
 	}
 
 	public override void _Process(double delta)
@@ -146,11 +153,19 @@ public partial class BiggieCombatTextBox : CanvasLayer
 		_nodeBasePagePanel.IsOpen = false;
 		_nodeChatPagePanel.IsOpen = false;
 		_nodeFightPagePanel.IsOpen = false;
-		EmitSignal(SignalName.HideActionInfo);
+
 	}
 
 	[Signal]
 	public delegate void ShowActionInfoEventHandler();
 	[Signal]
 	public delegate void HideActionInfoEventHandler();
+	private void ShowActionInfoFunc()
+	{
+		EmitSignal(SignalName.ShowActionInfo);
+	}
+	private void HideActionInfoFunc()
+	{
+		EmitSignal(SignalName.HideActionInfo);
+	}
 }

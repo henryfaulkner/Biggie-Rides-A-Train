@@ -271,4 +271,10 @@ public class PanelAnimationHelper
 	{
 		return controlOne.Size.Y == controlTwo.Size.Y;
 	}
+
+	public void SkipAnimation(Control controlOne, Control controlTwo)
+	{
+		controlOne.Position = new Vector2(controlTwo.Position.X, controlTwo.Position.Y);
+		controlOne.Size = new Vector2(controlTwo.Size.X, controlTwo.Size.Y);
+	}
 }
