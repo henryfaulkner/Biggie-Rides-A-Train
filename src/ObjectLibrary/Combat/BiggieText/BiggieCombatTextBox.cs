@@ -23,7 +23,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 
-		_nodeBasePagePanel.IsOpen = true;
+		_nodeBasePagePanel.IsOpen = false;
 		_nodeChatPagePanel.IsOpen = false;
 		_nodeFightPagePanel.IsOpen = false;
 
@@ -43,7 +43,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 
 	public void StartTurn()
 	{
-		//GD.Print("BiggieCombatTextBox StartTurn");
+		_nodeBasePagePanel.IsOpen = true;
 	}
 
 	[Signal]
@@ -143,10 +143,14 @@ public partial class BiggieCombatTextBox : CanvasLayer
 		_nodeBasePagePanel.ResetPointerOffset();
 		_nodeChatPagePanel.ResetPointerOffset();
 		_nodeFightPagePanel.ResetPointerOffset();
-		_nodeBasePagePanel.IsOpen = true;
+		_nodeBasePagePanel.IsOpen = false;
 		_nodeChatPagePanel.IsOpen = false;
 		_nodeFightPagePanel.IsOpen = false;
+		EmitSignal(SignalName.HideActionInfo);
 	}
 
-
+	[Signal]
+	public delegate void ShowActionInfoEventHandler();
+	[Signal]
+	public delegate void HideActionInfoEventHandler();
 }

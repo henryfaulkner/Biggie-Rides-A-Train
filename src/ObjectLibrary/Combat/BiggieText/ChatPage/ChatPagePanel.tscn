@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://kvnvsvcpssdn"]
 
-[ext_resource type="Script" path="res://ObjectLibrary/TextBoxes/BiggieCombat/ChatPage/ChatPageBasePanel.cs" id="1_7ie8e"]
-[ext_resource type="StyleBox" uid="uid://njyu2ifs8go1" path="res://ObjectLibrary/TextBoxes/BiggieCombat/Helpers/SelectionPanelStyleBox.tres" id="2_lk6ek"]
-[ext_resource type="LabelSettings" uid="uid://dx8shuq0qo22" path="res://ObjectLibrary/TextBoxes/BiggieCombat/Helpers/OptionLabelSettings.tres" id="3_46ge2"]
+[ext_resource type="Script" path="res://ObjectLibrary/Combat/BiggieText/ChatPage/ChatPageBasePanel.cs" id="1_7ie8e"]
+[ext_resource type="StyleBox" uid="uid://njyu2ifs8go1" path="res://ObjectLibrary/Combat/BiggieText/Helpers/SelectionPanelStyleBox.tres" id="2_lk6ek"]
+[ext_resource type="LabelSettings" uid="uid://dx8shuq0qo22" path="res://ObjectLibrary/Combat/BiggieText/Helpers/OptionLabelSettings.tres" id="3_46ge2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qsdk"]
 bg_color = Color(0, 0, 0, 1)

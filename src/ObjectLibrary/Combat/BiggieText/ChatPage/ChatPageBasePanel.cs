@@ -97,7 +97,9 @@ public partial class ChatPageBasePanel : Panel
 				{
 					SelectionHelperInstance.AddWhiteFont(option.OptionLabel);
 					SelectionHelperInstance.AddSelectBorder(option.SelectionPanel);
-					SelectionHelperInstance.HandleSelectedOptionDescription(option.Id, _nodeActionDescriptionMainPanel, _nodeActionTitleLabel, _nodeActionEffectLabel, _nodeActionDescriptionLabel);
+					var shouldShowActionInfo = SelectionHelperInstance.HandleSelectedOptionDescription(option.Id, _nodeActionTitleLabel, _nodeActionEffectLabel, _nodeActionDescriptionLabel);
+					if (shouldShowActionInfo) EmitSignal(SignalName.ShowActionInfo);
+					else EmitSignal(SignalName.HideActionInfo);
 				}
 				else
 				{
@@ -116,4 +118,9 @@ public partial class ChatPageBasePanel : Panel
 	{
 		SelectionHelperInstance.Reset();
 	}
+
+	[Signal]
+	public delegate void ShowActionInfoEventHandler();
+	[Signal]
+	public delegate void HideActionInfoEventHandler();
 }

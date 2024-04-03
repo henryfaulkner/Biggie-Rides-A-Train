@@ -128,16 +128,17 @@ public class SelectionHelper
 		}
 	}
 
-	public void HandleSelectedOptionDescription(int combatOptionId, Panel mainPanel, Label titleLabel, Label subtitleLabel, Label desciptionLabel)
+	public bool HandleSelectedOptionDescription(int combatOptionId, Label titleLabel, Label subtitleLabel, Label desciptionLabel)
 	{
 		CombatOption combatOption = new CombatOption(combatOptionId);
-		mainPanel.Visible = !string.IsNullOrEmpty(combatOption.Name) || !string.IsNullOrEmpty(combatOption.Effect) || !string.IsNullOrEmpty(combatOption.Description);
-		//GD.Print($"combatOption.Name {combatOption.Name}");
-		//GD.Print($"combatOption.Effect {combatOption.Effect}");
-		//GD.Print($"combatOption.Description {combatOption.Description}");
-		titleLabel.Text = combatOption.Name;
-		subtitleLabel.Text = combatOption.Effect;
-		desciptionLabel.Text = combatOption.Description;
+		if (!string.IsNullOrEmpty(combatOption.Name) || !string.IsNullOrEmpty(combatOption.Effect) || !string.IsNullOrEmpty(combatOption.Description))
+		{
+			titleLabel.Text = combatOption.Name;
+			subtitleLabel.Text = combatOption.Effect;
+			desciptionLabel.Text = combatOption.Description;
+			return true;
+		}
+		return false;
 	}
 
 	public void Reset()

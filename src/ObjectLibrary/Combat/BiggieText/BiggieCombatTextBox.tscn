@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://xbdh31b8gpcu"]
 
-[ext_resource type="Script" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BiggieCombatTextBox.cs" id="1_cjp8v"]
-[ext_resource type="PackedScene" uid="uid://clph2g6ck8ex3" path="res://ObjectLibrary/TextBoxes/BiggieCombat/BasePage/BasePagePanel.tscn" id="2_n6akt"]
-[ext_resource type="PackedScene" uid="uid://kvnvsvcpssdn" path="res://ObjectLibrary/TextBoxes/BiggieCombat/ChatPage/ChatPagePanel.tscn" id="3_x1bsp"]
+[ext_resource type="Script" path="res://ObjectLibrary/Combat/BiggieText/BiggieCombatTextBox.cs" id="1_cjp8v"]
+[ext_resource type="PackedScene" uid="uid://clph2g6ck8ex3" path="res://ObjectLibrary/Combat/BiggieText/BasePage/BasePagePanel.tscn" id="2_n6akt"]
+[ext_resource type="PackedScene" uid="uid://kvnvsvcpssdn" path="res://ObjectLibrary/Combat/BiggieText/ChatPage/ChatPagePanel.tscn" id="3_x1bsp"]
 [ext_resource type="StyleBox" uid="uid://csvwoicreew7r" path="res://Assets/LabelSettings/TextBoxPanelStyles.tres" id="4_1j34p"]
-[ext_resource type="PackedScene" uid="uid://btd1wre3iy1fx" path="res://ObjectLibrary/TextBoxes/BiggieCombat/FightPage/FightPagePanel.tscn" id="4_x0l5s"]
+[ext_resource type="PackedScene" uid="uid://btd1wre3iy1fx" path="res://ObjectLibrary/Combat/BiggieText/FightPage/FightPagePanel.tscn" id="4_x0l5s"]
 
 [node name="BiggieCombatTextBox" type="CanvasLayer"]
 script = ExtResource("1_cjp8v")

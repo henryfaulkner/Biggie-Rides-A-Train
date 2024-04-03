@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://d3mnt3xkdh0fn"]
 
-[ext_resource type="Script" path="res://Pages/CombatScenes/DjBattle/DjAttackContainer.cs" id="1_m34bw"]
-[ext_resource type="Script" path="res://Pages/CombatScenes/DjBattle/BiggieDjCombat.cs" id="2_p2ut2"]
+[ext_resource type="Script" path="res://ObjectLibrary/Combat/EnemyAttack/DDR/DjAttackContainer.cs" id="1_m34bw"]
+[ext_resource type="Script" path="res://ObjectLibrary/Combat/EnemyAttack/DDR/BiggieDjCombat.cs" id="2_p2ut2"]
 [ext_resource type="Texture2D" uid="uid://df0xe1tnk46cf" path="res://Assets/Objects/Biggie.png" id="3_5ada5"]
-[ext_resource type="PackedScene" uid="uid://buh5m7wlv85cl" path="res://Pages/CombatScenes/DjBattle/BaseArrows/BaseArrowUp.tscn" id="4_dmx3y"]
-[ext_resource type="PackedScene" uid="uid://841ckydqawjr" path="res://Pages/CombatScenes/DjBattle/BaseArrows/BaseArrowRight.tscn" id="5_1lhgl"]
-[ext_resource type="PackedScene" uid="uid://btg4ir18g3vbg" path="res://Pages/CombatScenes/DjBattle/BaseArrows/BaseArrowDown.tscn" id="6_st00x"]
-[ext_resource type="PackedScene" uid="uid://dct7ljxh0mq3o" path="res://Pages/CombatScenes/DjBattle/BaseArrows/BaseArrowLeft.tscn" id="7_2s226"]
+[ext_resource type="PackedScene" uid="uid://buh5m7wlv85cl" path="res://ObjectLibrary/Combat/EnemyAttack/DDR/BaseArrows/BaseArrowUp.tscn" id="4_dmx3y"]
+[ext_resource type="PackedScene" uid="uid://841ckydqawjr" path="res://ObjectLibrary/Combat/EnemyAttack/DDR/BaseArrows/BaseArrowRight.tscn" id="5_1lhgl"]
+[ext_resource type="PackedScene" uid="uid://btg4ir18g3vbg" path="res://ObjectLibrary/Combat/EnemyAttack/DDR/BaseArrows/BaseArrowDown.tscn" id="6_st00x"]
+[ext_resource type="PackedScene" uid="uid://dct7ljxh0mq3o" path="res://ObjectLibrary/Combat/EnemyAttack/DDR/BaseArrows/BaseArrowLeft.tscn" id="7_2s226"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5awgj"]
 radius = 12.0416

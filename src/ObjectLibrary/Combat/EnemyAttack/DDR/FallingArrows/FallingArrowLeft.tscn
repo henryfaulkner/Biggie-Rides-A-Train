@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://mhu3kr7w7sqb"]
 
 [ext_resource type="Texture2D" uid="uid://b2v42afe1omda" path="res://Assets/Objects/DDRarrows/blue-arrows.png" id="1_el5u7"]
-[ext_resource type="Script" path="res://Pages/CombatScenes/DjBattle/FallingArrows/FallingArrowLeft.cs" id="1_hocd2"]
+[ext_resource type="Script" path="res://ObjectLibrary/Combat/EnemyAttack/DDR/FallingArrows/FallingArrowLeft.cs" id="1_hocd2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jj20t"]
 size = Vector2(0.25, 4.5)

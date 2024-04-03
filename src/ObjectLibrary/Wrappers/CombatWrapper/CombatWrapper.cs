@@ -62,6 +62,7 @@ public partial class CombatWrapper : Node2D
 		_nodeFightPageBasePanel.SelectFight += HandleFightSelection;
 		_nodeChatPageBasePanel.SelectChat += HandleChatSelection;
 		_nodeBiggieCombatTextBox.EndBiggieTextTurn += HandleEndBiggieTextTurn;
+		_nodeBiggieCombatTextBox.HideActionInfo += HideActionInfo;
 
 		HideEnemyAttackContainer();
 		HideBiggieAttackContainer();
@@ -109,7 +110,6 @@ public partial class CombatWrapper : Node2D
 					FirstFramePass = true;
 					_nodeSubjectPanel.Hide();
 					EmitSignal(SignalName.StartBiggieTextTurn);
-					ShowActionInfo();
 					ShowBiggieTextContainer();
 					_globalCombatSingleton.CombatState = Enumerations.CombatStates.Text;
 				}
@@ -309,6 +309,7 @@ public partial class CombatWrapper : Node2D
 	public void ShowBiggieTextContainer()
 	{
 		_nodeTextContainer.Show();
+		_nodeBiggieCombatTextBox.StartTurn();
 	}
 
 	public void HideBiggieTextContainer()

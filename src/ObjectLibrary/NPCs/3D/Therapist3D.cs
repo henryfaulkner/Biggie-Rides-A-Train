@@ -3,20 +3,20 @@ using System;
 
 public partial class Therapist3D : Node3D
 {
-	private static readonly StringName _COMBAT_SCENE_TEST_BATTLE = new StringName("res://Pages/CombatScenes/TestBattle/CombatSceneTestBattle.tscn");
+	private static readonly StringName _COMBAT_SCENE_TEST_BATTLE = new StringName("res://Pages/CombatScenes/DjBattle/CombatSceneDjBattle.tscn");
 
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
 	private static readonly int _SPRITE_FRAME_MUSHROOM = 0;
 	private static readonly int _SPRITE_FRAME_GOAT_IDLE = 1;
 	private static readonly int _SPRITE_FRAME_GOAT_SPEAKING = 2;
 	private static readonly int _SPRITE_FRAME_CHAIR = 3;
-	
+
 	private Node3D _nodeSelf = null;
 	private Area3D _nodeInteractableArea = null;
 	private Node _nodeGoatBodySprites = null;
 	private TextBox _nodeTextBox = null;
 	private InteractionTextBox _nodeInteractionTextBox = null;
-	
+
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Node3D>(".");
@@ -26,7 +26,7 @@ public partial class Therapist3D : Node3D
 		_nodeInteractionTextBox = GetNode<InteractionTextBox>("../InteractionTextBox");
 		_nodeInteractionTextBox.SelectedOptionId += HandleInteraction;
 	}
-	
+
 	public override void _Process(double delta)
 	{
 		if (_nodeInteractableArea.GetOverlappingBodies().Count > 1
@@ -44,7 +44,7 @@ public partial class Therapist3D : Node3D
 			_nodeGoatBodySprites.Call("set_frame", _SPRITE_FRAME_GOAT_IDLE);
 		}
 	}
-	
+
 	private void DisplayDialogue()
 	{
 		if (!_nodeTextBox.CanCreateDialogue()) return;

@@ -85,7 +85,7 @@ script = ExtResource("5_gngot")
 meshes = Array[ArrayMesh]([SubResource("ArrayMesh_ccisv"), SubResource("ArrayMesh_sgq76"), SubResource("ArrayMesh_hmhov"), SubResource("ArrayMesh_fv1ie")])
 material = SubResource("StandardMaterial3D_wq3cx")
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_dto4x"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_g5njt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8b4e"]
 
@@ -188,7 +188,7 @@ generated_sprite_mesh = SubResource("Resource_w132s")
 [node name="StaticBody3D" type="StaticBody3D" parent="LevelWrapper"]
 
 [node name="SpriteMeshInstance" type="MeshInstance3D" parent="LevelWrapper/StaticBody3D"]
-mesh = SubResource("ArrayMesh_dto4x")
+mesh = SubResource("ArrayMesh_g5njt")
 script = ExtResource("4_vombc")
 generated_sprite_mesh = SubResource("Resource_hx40a")
 
