@@ -36,9 +36,9 @@ public partial class CombatWrapper : Node2D
 		// note the containers wrapping the panels must have the same position and size
 		// the containers can use margin to change panel size for animation
 		_nodeSubjectPanel = GetNode<Panel>("./TransformContainer/TransformPanel");
-		_nodeBasePagePanel = GetNode<Panel>("./BiggieCombatTextBox/TextBoxContainer/BasePagePanel");
-		_nodeFightPageBasePanel = GetNode<FightPageBasePanel>("./BiggieCombatTextBox/TextBoxContainer/FightPagePanel");
-		_nodeChatPageBasePanel = GetNode<ChatPageBasePanel>("./BiggieCombatTextBox/TextBoxContainer/ChatPagePanel");
+		_nodeBasePagePanel = GetNode<Panel>("./BiggieCombatTextBox/TextBoxContainer/MarginContainer/BasePagePanel");
+		_nodeFightPageBasePanel = GetNode<FightPageBasePanel>("./BiggieCombatTextBox/TextBoxContainer/MarginContainer/FightPagePanel");
+		_nodeChatPageBasePanel = GetNode<ChatPageBasePanel>("./BiggieCombatTextBox/TextBoxContainer/MarginContainer/ChatPagePanel");
 		_nodeHudContainerSubject = GetNode<HBoxContainer>("./HudContainer");
 		// Need to Queue Free this at some point
 		_nodeHudContainerTargetEnemyAttack = CreateHudContainerTarget(_nodeHudContainerSubject, 0, 250);

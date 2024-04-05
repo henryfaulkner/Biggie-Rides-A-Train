@@ -1,23 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://kvnvsvcpssdn"]
 
-[ext_resource type="Script" path="res://ObjectLibrary/Combat/BiggieText/ChatPage/ChatPageBasePanel.cs" id="1_7ie8e"]
-[ext_resource type="StyleBox" uid="uid://njyu2ifs8go1" path="res://ObjectLibrary/Combat/BiggieText/Helpers/SelectionPanelStyleBox.tres" id="2_lk6ek"]
-[ext_resource type="LabelSettings" uid="uid://dx8shuq0qo22" path="res://ObjectLibrary/Combat/BiggieText/Helpers/OptionLabelSettings.tres" id="3_46ge2"]
+[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieText/ChatPage/ChatPageBasePanel.cs" id="1_7ie8e"]
+[ext_resource type="StyleBox" uid="uid://b4n45wnqi4q4w" path="res://ObjectLibrary/CombatSubjects/BiggieText/BasePage/New_PagePanelOption.tres" id="2_udbq7"]
+[ext_resource type="LabelSettings" uid="uid://dvfcsx453vpjn" path="res://ObjectLibrary/CombatSubjects/BiggieText/BasePage/New_PageLabelSettingOption.tres" id="3_l0joh"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qsdk"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80dtx"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="BasePanel" type="Panel"]
-theme_override_styles/panel = SubResource("StyleBoxFlat_3qsdk")
+theme_override_styles/panel = SubResource("StyleBoxFlat_80dtx")
 script = ExtResource("1_7ie8e")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -51,14 +42,24 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
 [node name="Button" type="Button" parent="MarginContainer/OptionContainer/AskOptionContainer/MarginContainer"]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/AskOptionContainer/MarginContainer/Button"]
-layout_mode = 2
-offset_right = 248.0
-offset_bottom = 168.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -145.0
+offset_top = -75.0
+offset_right = 145.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("2_lk6ek")
+theme_override_styles/panel = ExtResource("2_udbq7")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/AskOptionContainer/MarginContainer"]
 layout_mode = 2
@@ -75,7 +76,7 @@ theme_override_constants/margin_bottom = 6
 layout_mode = 2
 text = "ASK
 "
-label_settings = ExtResource("3_46ge2")
+label_settings = ExtResource("3_l0joh")
 
 [node name="CharmOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
 layout_mode = 2
@@ -83,20 +84,30 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/CharmOptionContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 20
+theme_override_constants/margin_left = 55
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
 [node name="Button" type="Button" parent="MarginContainer/OptionContainer/CharmOptionContainer/MarginContainer"]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/CharmOptionContainer/MarginContainer/Button"]
-layout_mode = 2
-offset_right = 399.0
-offset_bottom = 168.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -75.0
+offset_right = 175.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("2_lk6ek")
+theme_override_styles/panel = ExtResource("2_udbq7")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/CharmOptionContainer/MarginContainer"]
 layout_mode = 2
@@ -113,7 +124,7 @@ theme_override_constants/margin_bottom = 6
 layout_mode = 2
 text = "CHARM
 "
-label_settings = ExtResource("3_46ge2")
+label_settings = ExtResource("3_l0joh")
 
 [node name="Divider" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
 layout_mode = 2
@@ -131,14 +142,24 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
 [node name="Button" type="Button" parent="MarginContainer/OptionContainer/BackOptionContainer/MarginContainer"]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/BackOptionContainer/MarginContainer/Button"]
-layout_mode = 2
-offset_right = 312.0
-offset_bottom = 168.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -145.0
+offset_top = -75.0
+offset_right = 145.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("2_lk6ek")
+theme_override_styles/panel = ExtResource("2_udbq7")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/BackOptionContainer/MarginContainer"]
 layout_mode = 2
@@ -155,4 +176,4 @@ theme_override_constants/margin_bottom = 6
 layout_mode = 2
 text = "BACK
 "
-label_settings = ExtResource("3_46ge2")
+label_settings = ExtResource("3_l0joh")

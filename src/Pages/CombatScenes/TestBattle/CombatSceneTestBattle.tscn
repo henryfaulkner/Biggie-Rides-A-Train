@@ -2,13 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.tscn" id="1_iugt0"]
 [ext_resource type="Script" path="res://Pages/CombatScenes/TestBattle/CombatSceneTestBattle.cs" id="1_utk73"]
-[ext_resource type="Script" path="res://ObjectLibrary/Combat/EnemyAttack/DDR/DjAttackContainer.cs" id="4_pimsq"]
-[ext_resource type="Script" path="res://ObjectLibrary/Combat/EnemyAttack/DDR/BiggieDjCombat.cs" id="5_fryc6"]
+[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/DjAttackContainer.cs" id="4_pimsq"]
+[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/BiggieDjCombat.cs" id="5_fryc6"]
 [ext_resource type="Texture2D" uid="uid://df0xe1tnk46cf" path="res://Assets/Objects/Biggie.png" id="6_b344g"]
-[ext_resource type="PackedScene" uid="uid://buh5m7wlv85cl" path="res://ObjectLibrary/Combat/EnemyAttack/DDR/BaseArrows/BaseArrowUp.tscn" id="7_xo17u"]
-[ext_resource type="PackedScene" uid="uid://841ckydqawjr" path="res://ObjectLibrary/Combat/EnemyAttack/DDR/BaseArrows/BaseArrowRight.tscn" id="8_f08mb"]
-[ext_resource type="PackedScene" uid="uid://btg4ir18g3vbg" path="res://ObjectLibrary/Combat/EnemyAttack/DDR/BaseArrows/BaseArrowDown.tscn" id="9_qjftb"]
-[ext_resource type="PackedScene" uid="uid://dct7ljxh0mq3o" path="res://ObjectLibrary/Combat/EnemyAttack/DDR/BaseArrows/BaseArrowLeft.tscn" id="10_aueu0"]
+[ext_resource type="PackedScene" uid="uid://buh5m7wlv85cl" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/BaseArrows/BaseArrowUp.tscn" id="7_xo17u"]
+[ext_resource type="PackedScene" uid="uid://841ckydqawjr" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/BaseArrows/BaseArrowRight.tscn" id="8_f08mb"]
+[ext_resource type="PackedScene" uid="uid://btg4ir18g3vbg" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/BaseArrows/BaseArrowDown.tscn" id="9_qjftb"]
+[ext_resource type="PackedScene" uid="uid://dct7ljxh0mq3o" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/BaseArrows/BaseArrowLeft.tscn" id="10_aueu0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a05xm"]
 radius = 12.0416

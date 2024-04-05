@@ -17,9 +17,9 @@ public partial class BiggieCombatTextBox : CanvasLayer
 	{
 		_nodeSelf = GetNode<CanvasLayer>(".");
 		_nodeTextBoxContainer = GetNode<MarginContainer>("./TextBoxContainer");
-		_nodeBasePagePanel = GetNode<BasePageBasePanel>("./TextBoxContainer/BasePagePanel");
-		_nodeChatPagePanel = GetNode<ChatPageBasePanel>("./TextBoxContainer/ChatPagePanel");
-		_nodeFightPagePanel = GetNode<FightPageBasePanel>("./TextBoxContainer/FightPagePanel");
+		_nodeBasePagePanel = GetNode<BasePageBasePanel>("./TextBoxContainer/MarginContainer/BasePagePanel");
+		_nodeChatPagePanel = GetNode<ChatPageBasePanel>("./TextBoxContainer/MarginContainer/ChatPagePanel");
+		_nodeFightPagePanel = GetNode<FightPageBasePanel>("./TextBoxContainer/MarginContainer/FightPagePanel");
 
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 

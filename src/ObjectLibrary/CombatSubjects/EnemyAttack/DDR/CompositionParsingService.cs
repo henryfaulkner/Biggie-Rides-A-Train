@@ -11,7 +11,7 @@ public class CompositionParsingService
 
 	public void SetNewComposition(string fileName)
 	{
-		Reader = GetCharacterArray($"res://ObjectLibrary/Combat/EnemyAttack/DDR/Composition/Compositions/{fileName}");
+		Reader = GetCharacterArray($"res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/Composition/Compositions/{fileName}");
 		Offset = 0;
 	}
 
