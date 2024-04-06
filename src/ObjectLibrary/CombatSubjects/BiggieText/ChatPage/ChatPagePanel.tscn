@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://kvnvsvcpssdn"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieText/ChatPage/ChatPageBasePanel.cs" id="1_7ie8e"]
-[ext_resource type="StyleBox" uid="uid://b4n45wnqi4q4w" path="res://ObjectLibrary/CombatSubjects/BiggieText/BasePage/New_PagePanelOption.tres" id="2_udbq7"]
-[ext_resource type="LabelSettings" uid="uid://dvfcsx453vpjn" path="res://ObjectLibrary/CombatSubjects/BiggieText/BasePage/New_PageLabelSettingOption.tres" id="3_l0joh"]
+[ext_resource type="StyleBox" uid="uid://b4n45wnqi4q4w" path="res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Active_PagePanelOption.tres" id="2_vvdm8"]
+[ext_resource type="LabelSettings" uid="uid://dvfcsx453vpjn" path="res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Active_PageLabelSettingOption.tres" id="3_5pmio"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80dtx"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -18,7 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 32
+theme_override_constants/margin_left = 64
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
@@ -59,7 +59,7 @@ offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("2_udbq7")
+theme_override_styles/panel = ExtResource("2_vvdm8")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/AskOptionContainer/MarginContainer"]
 layout_mode = 2
@@ -76,7 +76,7 @@ theme_override_constants/margin_bottom = 6
 layout_mode = 2
 text = "ASK
 "
-label_settings = ExtResource("3_l0joh")
+label_settings = ExtResource("3_5pmio")
 
 [node name="CharmOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
 layout_mode = 2
@@ -84,7 +84,7 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/CharmOptionContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 55
+theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
@@ -107,7 +107,7 @@ offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("2_udbq7")
+theme_override_styles/panel = ExtResource("2_vvdm8")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/CharmOptionContainer/MarginContainer"]
 layout_mode = 2
@@ -124,7 +124,7 @@ theme_override_constants/margin_bottom = 6
 layout_mode = 2
 text = "CHARM
 "
-label_settings = ExtResource("3_l0joh")
+label_settings = ExtResource("3_5pmio")
 
 [node name="Divider" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
 layout_mode = 2
@@ -159,7 +159,7 @@ offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("2_udbq7")
+theme_override_styles/panel = ExtResource("2_vvdm8")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/BackOptionContainer/MarginContainer"]
 layout_mode = 2
@@ -176,4 +176,4 @@ theme_override_constants/margin_bottom = 6
 layout_mode = 2
 text = "BACK
 "
-label_settings = ExtResource("3_l0joh")
+label_settings = ExtResource("3_5pmio")

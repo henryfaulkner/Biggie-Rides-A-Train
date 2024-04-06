@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://q4eorvddjc1b"]
+[gd_scene load_steps=35 format=3 uid="uid://q4eorvddjc1b"]
 
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="1_73o0g"]
 [ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_881kw"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://vmloap456m3d" path="res://Assets/Objects/Lion.png" id="8_43oo4"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_550qk"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="9_sq6gl"]
+[ext_resource type="PackedScene" uid="uid://c5looe35bo0d0" path="res://ObjectLibrary/DoorCollision3D.tscn" id="10_8l2jw"]
+[ext_resource type="Script" path="res://Pages/Levels/TestPerspective/SampleDoor.gd" id="11_4jsae"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_u8n0a"]
 _surfaces = [{
@@ -86,7 +88,7 @@ script = ExtResource("5_gngot")
 meshes = Array[ArrayMesh]([SubResource("ArrayMesh_ccisv"), SubResource("ArrayMesh_sgq76"), SubResource("ArrayMesh_hmhov"), SubResource("ArrayMesh_fv1ie")])
 material = SubResource("StandardMaterial3D_wq3cx")
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_qtmgn"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_ey7gl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8b4e"]
 
@@ -193,7 +195,7 @@ generated_sprite_mesh = SubResource("Resource_w132s")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.884547)
 
 [node name="SpriteMeshInstance" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/StaticBody3D"]
-mesh = SubResource("ArrayMesh_qtmgn")
+mesh = SubResource("ArrayMesh_ey7gl")
 script = ExtResource("4_vombc")
 generated_sprite_mesh = SubResource("Resource_hx40a")
 
@@ -228,8 +230,13 @@ transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.0126461, -0.0386519, 0.0346525)
 shape = SubResource("BoxShape3D_02bme")
 
+[node name="SampleDoor" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("10_8l2jw")]
+transform = Transform3D(-0.2, 0, -1.74846e-08, 0, 0.2, 0, 1.74846e-08, 0, -0.2, -0.0750141, 0.643792, 0)
+script = ExtResource("11_4jsae")
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 2.68679, 4.29412)
+fov = 74.3839
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Camera3D"]
 light_energy = 4.0

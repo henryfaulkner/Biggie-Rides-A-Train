@@ -95,16 +95,16 @@ public partial class ChatPageBasePanel : Panel
 			{
 				if (option.IsSelected)
 				{
-					SelectionHelperInstance.AddWhiteFont(option.OptionLabel);
-					SelectionHelperInstance.AddSelectBorder(option.SelectionPanel);
+					SelectionHelperInstance.ApplyActivePageLabelSettingOption(option.OptionLabel);
+					SelectionHelperInstance.ApplyActivePagePanelOption(option.SelectionPanel);
 					var shouldShowActionInfo = SelectionHelperInstance.HandleSelectedOptionDescription(option.Id, _nodeActionTitleLabel, _nodeActionEffectLabel, _nodeActionDescriptionLabel);
 					if (shouldShowActionInfo) EmitSignal(SignalName.ShowActionInfo);
 					else EmitSignal(SignalName.HideActionInfo);
 				}
 				else
 				{
-					SelectionHelperInstance.AddGreyFont(option.OptionLabel);
-					SelectionHelperInstance.RemoveSelectBorder(option.SelectionPanel);
+					SelectionHelperInstance.ApplyInactivePageLabelSettingOption(option.OptionLabel);
+					SelectionHelperInstance.ApplyInactivePagePanelOption(option.SelectionPanel);
 				}
 			}
 			catch (Exception exception)

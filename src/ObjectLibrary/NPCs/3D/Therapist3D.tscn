@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b0lmn34h5m7w7"]
+[gd_scene load_steps=14 format=3 uid="uid://b0lmn34h5m7w7"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/NPCs/3D/Therapist3D.cs" id="1_pwk7o"]
 [ext_resource type="Texture2D" uid="uid://co7aoj6hlth3i" path="res://Assets/Objects/Therapist.png" id="1_s6p0p"]
@@ -19,6 +19,10 @@ _surfaces = [{
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yohw4"]
+albedo_texture = ExtResource("1_s6p0p")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t8ff0"]
 albedo_texture = ExtResource("1_s6p0p")
 texture_filter = 0
 
@@ -53,7 +57,7 @@ _surfaces = [{
 [sub_resource type="Resource" id="Resource_wengr"]
 script = ExtResource("3_37bs5")
 meshes = Array[ArrayMesh]([SubResource("ArrayMesh_cdiej"), SubResource("ArrayMesh_bibdh"), SubResource("ArrayMesh_e1nkw"), SubResource("ArrayMesh_chjmx")])
-material = SubResource("StandardMaterial3D_yohw4")
+material = SubResource("StandardMaterial3D_t8ff0")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2d6t2"]
 size = Vector3(4.5, 5, 2)
@@ -65,9 +69,9 @@ size = Vector3(1, 1, 0.990843)
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -3, 0.8, 0.7)
 script = ExtResource("1_pwk7o")
 
-[node name="CharacterBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
 
-[node name="BodySpriteMeshInstance" type="MeshInstance3D" parent="CharacterBody3D"]
+[node name="BodySpriteMeshInstance" type="MeshInstance3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.05)
 mesh = SubResource("ArrayMesh_bibdh")
 skeleton = NodePath("../MushroomSpriteMeshInstance")
@@ -81,7 +85,7 @@ frame_coords = Vector2i(1, 0)
 region_rect = Rect2i(0, 0, 1, 1)
 generated_sprite_mesh = SubResource("Resource_wengr")
 
-[node name="MushroomSpriteMeshInstance" type="MeshInstance3D" parent="CharacterBody3D"]
+[node name="MushroomSpriteMeshInstance" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("ArrayMesh_cdiej")
 surface_material_override/0 = SubResource("StandardMaterial3D_yohw4")
 script = ExtResource("2_mdppt")
@@ -91,7 +95,7 @@ vframes = 2
 region_rect = Rect2i(0, 0, 1, 1)
 generated_sprite_mesh = SubResource("Resource_wengr")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 shape = SubResource("BoxShape3D_2d6t2")
 

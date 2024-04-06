@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://clph2g6ck8ex3"]
+[gd_scene load_steps=7 format=3 uid="uid://clph2g6ck8ex3"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieText/BasePage/BasePageBasePanel.cs" id="1_ihyp2"]
-[ext_resource type="StyleBox" uid="uid://b4n45wnqi4q4w" path="res://ObjectLibrary/CombatSubjects/BiggieText/BasePage/New_PagePanelOption.tres" id="2_2chd4"]
-[ext_resource type="LabelSettings" uid="uid://dvfcsx453vpjn" path="res://ObjectLibrary/CombatSubjects/BiggieText/BasePage/New_PageLabelSettingOption.tres" id="3_mhmwm"]
+[ext_resource type="LabelSettings" uid="uid://c3r6y2vafo346" path="res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Inactive_PageLabelSettingOption.tres" id="2_5xanl"]
+[ext_resource type="StyleBox" uid="uid://b4n45wnqi4q4w" path="res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Active_PagePanelOption.tres" id="2_31qim"]
+[ext_resource type="StyleBox" uid="uid://b4x4mlujs27nj" path="res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Inactive_PagePanelOption.tres" id="2_v4e0j"]
+[ext_resource type="LabelSettings" uid="uid://dvfcsx453vpjn" path="res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Active_PageLabelSettingOption.tres" id="3_qubk2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80eq3"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -59,7 +61,7 @@ offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("2_2chd4")
+theme_override_styles/panel = ExtResource("2_v4e0j")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/FightOptionContainer/MarginContainer"]
 layout_mode = 2
@@ -76,7 +78,7 @@ theme_override_constants/margin_bottom = 6
 layout_mode = 2
 text = "FIGHT
 "
-label_settings = ExtResource("3_mhmwm")
+label_settings = ExtResource("2_5xanl")
 
 [node name="ChatOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
 layout_mode = 2
@@ -107,7 +109,7 @@ offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("2_2chd4")
+theme_override_styles/panel = ExtResource("2_31qim")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer"]
 layout_mode = 2
@@ -124,7 +126,7 @@ theme_override_constants/margin_bottom = 6
 layout_mode = 2
 text = "CHAT
 "
-label_settings = ExtResource("3_mhmwm")
+label_settings = ExtResource("3_qubk2")
 
 [node name="Divider" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
 layout_mode = 2
@@ -159,7 +161,7 @@ offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("2_2chd4")
+theme_override_styles/panel = ExtResource("2_v4e0j")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer"]
 layout_mode = 2
@@ -176,4 +178,4 @@ theme_override_constants/margin_bottom = 6
 layout_mode = 2
 text = "EXIT
 "
-label_settings = ExtResource("3_mhmwm")
+label_settings = ExtResource("2_5xanl")

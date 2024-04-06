@@ -6,11 +6,29 @@ public class SelectionHelper
 {
 
 	private static readonly StringName _STYLEBOX_NAME = new StringName("panel");
+	private static readonly StringName _ACTIVE_PAGE_LABEL_SETTING_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Active_PageLabelSettingOption.tres");
+	private static readonly StringName _INACTIVE_PAGE_LABEL_SETTING_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Inactive_PageLabelSettingOption.tres");
+	private static readonly StringName _ACTIVE_PAGE_PANEL_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Active_PagePanelOption.tres");
+	private static readonly StringName _INACTIVE_PAGE_PANEL_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Inactive_PagePanelOption.tres");
+
+	private LabelSettings _styleActivePageLabelSettingOption = null;
+	private LabelSettings _styleInactivePageLabelSettingOption = null;
+	private StyleBoxFlat _styleActivePagePanelOption = null;
+	private StyleBoxFlat _styleInactivePagePanelOption = null;
 
 	public SelectionHelper()
 	{
 		OptionList = new List<OptionModel>();
 		CurrentSelectedOptionIndex = 0;
+		InstantiateSelectionStyles();
+	}
+
+	public void InstantiateSelectionStyles()
+	{
+		_styleActivePageLabelSettingOption = GD.Load<LabelSettings>(_ACTIVE_PAGE_LABEL_SETTING_OPTION);
+		_styleInactivePageLabelSettingOption = GD.Load<LabelSettings>(_INACTIVE_PAGE_LABEL_SETTING_OPTION);
+		_styleActivePagePanelOption = GD.Load<StyleBoxFlat>(_ACTIVE_PAGE_PANEL_OPTION);
+		_styleInactivePagePanelOption = GD.Load<StyleBoxFlat>(_INACTIVE_PAGE_PANEL_OPTION);
 	}
 
 	public List<OptionModel> OptionList { get; set; }
@@ -126,6 +144,27 @@ public class SelectionHelper
 		{
 			////GD.Print("LabelSettings are null. Grey FontColor was not applied");
 		}
+	}
+
+	public void ApplyActivePagePanelOption(Panel panel)
+	{
+		panel.AddThemeStyleboxOverride(_STYLEBOX_NAME, _styleActivePagePanelOption);
+	}
+
+	public void ApplyInactivePagePanelOption(Panel panel)
+	{
+		panel.AddThemeStyleboxOverride(_STYLEBOX_NAME, _styleInactivePagePanelOption);
+	}
+
+	public void ApplyActivePageLabelSettingOption(Label label)
+	{
+		label.LabelSettings = _styleActivePageLabelSettingOption;
+	}
+
+	public void ApplyInactivePageLabelSettingOption(Label label)
+	{
+		GD.Print("ApplyInactivePageLabelSettingOption");
+		label.LabelSettings = _styleInactivePageLabelSettingOption;
 	}
 
 	public bool HandleSelectedOptionDescription(int combatOptionId, Label titleLabel, Label subtitleLabel, Label desciptionLabel)

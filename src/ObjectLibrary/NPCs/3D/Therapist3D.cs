@@ -21,7 +21,7 @@ public partial class Therapist3D : Node3D
 	{
 		_nodeSelf = GetNode<Node3D>(".");
 		_nodeInteractableArea = GetNode<Area3D>("./InteractableArea3D");
-		_nodeGoatBodySprites = GetNode("./CharacterBody3D/BodySpriteMeshInstance");
+		_nodeGoatBodySprites = GetNode("./StaticBody3D/BodySpriteMeshInstance");
 		_nodeTextBox = GetNode<TextBox>("../TextBox");
 		_nodeInteractionTextBox = GetNode<InteractionTextBox>("../InteractionTextBox");
 		_nodeInteractionTextBox.SelectedOptionId += HandleInteraction;

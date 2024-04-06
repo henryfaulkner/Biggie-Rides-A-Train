@@ -3,10 +3,10 @@ using System;
 
 public class FallingArrowFactory
 {
-	private static readonly StringName _FALLING_ARROW_UP_SCENE = new StringName("res://ObjectLibrary/Combat/EnemyAttack/DDR/FallingArrows/FallingArrowUp.tscn");
-	private static readonly StringName _FALLING_ARROW_RIGHT_SCENE = new StringName("res://ObjectLibrary/Combat/EnemyAttack/DDR/FallingArrows/FallingArrowRight.tscn");
-	private static readonly StringName _FALLING_ARROW_DOWN_SCENE = new StringName("res://ObjectLibrary/Combat/EnemyAttack/DDR/FallingArrows/FallingArrowDown.tscn");
-	private static readonly StringName _FALLING_ARROW_LEFT_SCENE = new StringName("res://ObjectLibrary/Combat/EnemyAttack/DDR/FallingArrows/FallingArrowLeft.tscn");
+	private static readonly StringName _FALLING_ARROW_UP_SCENE = new StringName("res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/FallingArrows/FallingArrowUp.tscn");
+	private static readonly StringName _FALLING_ARROW_RIGHT_SCENE = new StringName("res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/FallingArrows/FallingArrowRight.tscn");
+	private static readonly StringName _FALLING_ARROW_DOWN_SCENE = new StringName("res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/FallingArrows/FallingArrowDown.tscn");
+	private static readonly StringName _FALLING_ARROW_LEFT_SCENE = new StringName("res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/FallingArrows/FallingArrowLeft.tscn");
 
 	private Vector2 BaseArrowUpPosition { get; set; }
 	private Vector2 BaseArrowRightPosition { get; set; }
