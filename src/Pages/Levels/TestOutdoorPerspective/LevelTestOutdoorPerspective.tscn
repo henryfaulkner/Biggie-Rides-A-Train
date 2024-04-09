@@ -1,42 +1,18 @@
-[gd_scene load_steps=27 format=3 uid="uid://q4eorvddjc1b"]
+[gd_scene load_steps=30 format=3 uid="uid://q4eorvddjc1b"]
 
-[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="1_73o0g"]
-[ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_881kw"]
-[ext_resource type="PackedScene" uid="uid://rnc3kww1v7jc" path="res://ObjectLibrary/Biggie/Biggie3D.tscn" id="1_j2tbm"]
-[ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="2_04ftg"]
-[ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="4_vombc"]
-[ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="5_gngot"]
-[ext_resource type="Texture2D" uid="uid://co7aoj6hlth3i" path="res://Assets/Objects/Therapist.png" id="6_ilyh3"]
-[ext_resource type="PackedScene" uid="uid://b0lmn34h5m7w7" path="res://ObjectLibrary/NPCs/3D/Therapist3D/Therapist3D.tscn" id="7_mlwkh"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_550qk"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="9_sq6gl"]
-[ext_resource type="PackedScene" uid="uid://uuyhg1mhqlj" path="res://ObjectLibrary/NPCs/3D/Lion3D/Lion3D.tscn" id="9_vvcpp"]
-[ext_resource type="PackedScene" uid="uid://c5looe35bo0d0" path="res://ObjectLibrary/Decor/DoorCollision3D.tscn" id="10_8l2jw"]
-[ext_resource type="Script" path="res://Pages/Levels/TestPerspective/SampleDoor.gd" id="11_4jsae"]
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_u8n0a"]
-_surfaces = [{
-"aabb": AABB(-0.56, -0.44, -0.005, 1.12, 0.88001, 0.01001),
-"attribute_data": PackedByteArray(0, 0, 128, 61, 0, 0, 32, 62, 0, 0, 112, 63, 0, 0, 32, 62, 0, 0, 112, 63, 0, 0, 88, 63, 0, 0, 128, 61, 0, 0, 32, 62, 0, 0, 112, 63, 0, 0, 88, 63, 0, 0, 128, 61, 0, 0, 88, 63, 0, 0, 112, 63, 0, 0, 32, 62, 0, 0, 128, 61, 0, 0, 32, 62, 0, 0, 128, 61, 0, 0, 88, 63, 0, 0, 112, 63, 0, 0, 88, 63, 0, 0, 136, 61, 0, 0, 32, 62, 0, 0, 136, 61, 0, 0, 32, 62, 0, 0, 136, 61, 0, 0, 88, 63, 0, 0, 136, 61, 0, 0, 88, 63, 0, 0, 111, 63, 0, 0, 32, 62, 0, 0, 111, 63, 0, 0, 32, 62, 0, 0, 111, 63, 0, 0, 88, 63, 0, 0, 111, 63, 0, 0, 88, 63, 0, 0, 128, 61, 0, 0, 36, 62, 0, 0, 112, 63, 0, 0, 36, 62, 0, 0, 112, 63, 0, 0, 36, 62, 0, 0, 128, 61, 0, 0, 36, 62, 0, 0, 128, 61, 0, 0, 87, 63, 0, 0, 112, 63, 0, 0, 87, 63, 0, 0, 112, 63, 0, 0, 87, 63, 0, 0, 128, 61, 0, 0, 87, 63),
-"format": 34359742487,
-"index_count": 36,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 6, 0, 8, 0, 9, 0, 10, 0, 11, 0, 12, 0, 10, 0, 12, 0, 13, 0, 14, 0, 15, 0, 16, 0, 14, 0, 16, 0, 17, 0, 18, 0, 19, 0, 20, 0, 18, 0, 20, 0, 21, 0, 22, 0, 23, 0, 24, 0, 22, 0, 24, 0, 25, 0),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 26,
-"vertex_data": PackedByteArray(41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 187, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 187, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 187, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191)
-}]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pj52w"]
-albedo_texture = ExtResource("2_04ftg")
-texture_filter = 0
-
-[sub_resource type="Resource" id="Resource_bjn3o"]
-script = ExtResource("5_gngot")
-meshes = Array[ArrayMesh]([SubResource("ArrayMesh_u8n0a")])
-material = SubResource("StandardMaterial3D_pj52w")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ktvlo"]
+[ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_pd1as"]
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_bjago"]
+[ext_resource type="PackedScene" uid="uid://rnc3kww1v7jc" path="res://ObjectLibrary/Biggie/Biggie3D.tscn" id="3_emrnh"]
+[ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="4_xta70"]
+[ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="5_agjb0"]
+[ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="6_rk58j"]
+[ext_resource type="Texture2D" uid="uid://co7aoj6hlth3i" path="res://Assets/Objects/Therapist.png" id="7_i7aqb"]
+[ext_resource type="PackedScene" uid="uid://b0lmn34h5m7w7" path="res://ObjectLibrary/NPCs/3D/Therapist3D/Therapist3D.tscn" id="8_x82a3"]
+[ext_resource type="PackedScene" uid="uid://uuyhg1mhqlj" path="res://ObjectLibrary/NPCs/3D/Lion3D/Lion3D.tscn" id="9_pu2md"]
+[ext_resource type="PackedScene" uid="uid://c5looe35bo0d0" path="res://ObjectLibrary/Decor/DoorCollision3D.tscn" id="10_aj22v"]
+[ext_resource type="Script" path="res://Pages/Levels/TestOutdoorPerspective/SampleDoor.gd" id="11_mteni"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="12_648rj"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="13_aa6yu"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ccisv"]
 _surfaces = [{
@@ -52,7 +28,7 @@ _surfaces = [{
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wq3cx"]
-albedo_texture = ExtResource("6_ilyh3")
+albedo_texture = ExtResource("7_i7aqb")
 texture_filter = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_sgq76"]
@@ -84,43 +60,62 @@ _surfaces = [{
 [sub_resource type="ArrayMesh" id="ArrayMesh_fv1ie"]
 
 [sub_resource type="Resource" id="Resource_w132s"]
-script = ExtResource("5_gngot")
+script = ExtResource("6_rk58j")
 meshes = Array[ArrayMesh]([SubResource("ArrayMesh_ccisv"), SubResource("ArrayMesh_sgq76"), SubResource("ArrayMesh_hmhov"), SubResource("ArrayMesh_fv1ie")])
 material = SubResource("StandardMaterial3D_wq3cx")
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_dvkvk"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_h0go8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8b4e"]
 
 [sub_resource type="Resource" id="Resource_hx40a"]
-script = ExtResource("5_gngot")
+script = ExtResource("6_rk58j")
 meshes = Array[ArrayMesh]([])
 material = SubResource("StandardMaterial3D_n8b4e")
 
-[node name="LevelTestPerspective" type="Node3D"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_u8n0a"]
+_surfaces = [{
+"aabb": AABB(-0.56, -0.44, -0.005, 1.12, 0.88001, 0.01001),
+"attribute_data": PackedByteArray(0, 0, 128, 61, 0, 0, 32, 62, 0, 0, 112, 63, 0, 0, 32, 62, 0, 0, 112, 63, 0, 0, 88, 63, 0, 0, 128, 61, 0, 0, 32, 62, 0, 0, 112, 63, 0, 0, 88, 63, 0, 0, 128, 61, 0, 0, 88, 63, 0, 0, 112, 63, 0, 0, 32, 62, 0, 0, 128, 61, 0, 0, 32, 62, 0, 0, 128, 61, 0, 0, 88, 63, 0, 0, 112, 63, 0, 0, 88, 63, 0, 0, 136, 61, 0, 0, 32, 62, 0, 0, 136, 61, 0, 0, 32, 62, 0, 0, 136, 61, 0, 0, 88, 63, 0, 0, 136, 61, 0, 0, 88, 63, 0, 0, 111, 63, 0, 0, 32, 62, 0, 0, 111, 63, 0, 0, 32, 62, 0, 0, 111, 63, 0, 0, 88, 63, 0, 0, 111, 63, 0, 0, 88, 63, 0, 0, 128, 61, 0, 0, 36, 62, 0, 0, 112, 63, 0, 0, 36, 62, 0, 0, 112, 63, 0, 0, 36, 62, 0, 0, 128, 61, 0, 0, 36, 62, 0, 0, 128, 61, 0, 0, 87, 63, 0, 0, 112, 63, 0, 0, 87, 63, 0, 0, 112, 63, 0, 0, 87, 63, 0, 0, 128, 61, 0, 0, 87, 63),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 6, 0, 8, 0, 9, 0, 10, 0, 11, 0, 12, 0, 10, 0, 12, 0, 13, 0, 14, 0, 15, 0, 16, 0, 14, 0, 16, 0, 17, 0, 18, 0, 19, 0, 20, 0, 18, 0, 20, 0, 21, 0, 22, 0, 23, 0, 24, 0, 22, 0, 24, 0, 25, 0),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 26,
+"vertex_data": PackedByteArray(41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 187, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 187, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 187, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191)
+}]
 
-[node name="LevelWrapper" parent="." instance=ExtResource("1_881kw")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pj52w"]
+albedo_texture = ExtResource("4_xta70")
+texture_filter = 0
 
-[node name="TextBoxWrapper" parent="LevelWrapper" instance=ExtResource("1_73o0g")]
+[sub_resource type="Resource" id="Resource_bjn3o"]
+script = ExtResource("6_rk58j")
+meshes = Array[ArrayMesh]([SubResource("ArrayMesh_u8n0a")])
+material = SubResource("StandardMaterial3D_pj52w")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ktvlo"]
+size = Vector3(10, 0.1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yslcn"]
+size = Vector3(1, 1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rst81"]
+size = Vector3(10, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v5072"]
+size = Vector3(10, 1, 1)
+
+[node name="LevelTestOutdoorPerspective" type="Node3D"]
+
+[node name="LevelWrapper" parent="." instance=ExtResource("1_pd1as")]
+
+[node name="TextBoxWrapper" parent="LevelWrapper" instance=ExtResource("2_bjago")]
 position = Vector2(0, -50)
 
-[node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("1_j2tbm")]
+[node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("3_emrnh")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.4, 0.884547)
-
-[node name="Floor" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.884547)
-
-[node name="SpriteMeshInstance" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Floor"]
-transform = Transform3D(10, 0, 0, 0, -8.74228e-08, -1, 0, 2, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("ArrayMesh_u8n0a")
-surface_material_override/0 = SubResource("StandardMaterial3D_pj52w")
-script = ExtResource("4_vombc")
-texture = ExtResource("2_04ftg")
-generated_sprite_mesh = SubResource("Resource_bjn3o")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/Floor"]
-transform = Transform3D(10, 0, 0, 0, 0.08, 0, 0, 0, 2, 0, 0, 0)
-shape = SubResource("BoxShape3D_ktvlo")
 
 [node name="Mushroom3D" type="CharacterBody3D" parent="LevelWrapper/TextBoxWrapper"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 1.88455)
@@ -129,8 +124,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 1.88455)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.02671)
 mesh = SubResource("ArrayMesh_ccisv")
 surface_material_override/0 = SubResource("StandardMaterial3D_wq3cx")
-script = ExtResource("4_vombc")
-texture = ExtResource("6_ilyh3")
+script = ExtResource("5_agjb0")
+texture = ExtResource("7_i7aqb")
 hframes = 2
 vframes = 2
 generated_sprite_mesh = SubResource("Resource_w132s")
@@ -139,22 +134,64 @@ generated_sprite_mesh = SubResource("Resource_w132s")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.884547)
 
 [node name="SpriteMeshInstance" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/StaticBody3D"]
-mesh = SubResource("ArrayMesh_dvkvk")
-script = ExtResource("4_vombc")
+mesh = SubResource("ArrayMesh_h0go8")
+script = ExtResource("5_agjb0")
 generated_sprite_mesh = SubResource("Resource_hx40a")
 
-[node name="Therapist3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("7_mlwkh")]
+[node name="Therapist3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("8_x82a3")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 2.23712, 0.8, 0.17547)
 
-[node name="Lion3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("9_vvcpp")]
+[node name="Lion3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("9_pu2md")]
 
-[node name="SampleDoor" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("10_8l2jw")]
+[node name="SampleDoor" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("10_aj22v")]
 transform = Transform3D(-0.2, 0, -1.74846e-08, 0, 0.2, 0, 1.74846e-08, 0, -0.2, -0.0750141, 0.643792, 0)
-script = ExtResource("11_4jsae")
+script = ExtResource("11_mteni")
+
+[node name="Scenery" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+
+[node name="Floor" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/Scenery"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 1.885)
+
+[node name="SpriteMeshInstance" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Scenery/Floor"]
+transform = Transform3D(10, 0, 0, 0, -8.74228e-08, -1, 0, 2, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("ArrayMesh_u8n0a")
+surface_material_override/0 = SubResource("StandardMaterial3D_pj52w")
+script = ExtResource("5_agjb0")
+texture = ExtResource("4_xta70")
+generated_sprite_mesh = SubResource("Resource_bjn3o")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/Scenery/Floor"]
+shape = SubResource("BoxShape3D_ktvlo")
+
+[node name="SceneBorders" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+
+[node name="LeftMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, 1.811)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/LeftMostBarrier"]
+shape = SubResource("BoxShape3D_yslcn")
+
+[node name="RightMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.355, 0, 1.81101)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/RightMostBarrier"]
+shape = SubResource("BoxShape3D_yslcn")
+
+[node name="TopMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.439884)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/TopMostBarrier"]
+shape = SubResource("BoxShape3D_rst81")
+
+[node name="BottomMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/BottomMostBarrier"]
+shape = SubResource("BoxShape3D_v5072")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 2.68679, 4.29412)
-fov = 73.8394
+fov = 74.7466
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Camera3D"]
 light_energy = 4.0
@@ -162,11 +199,11 @@ light_indirect_energy = 16.0
 spot_range = 36.6322
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
-script = ExtResource("8_550qk")
+script = ExtResource("12_648rj")
 
 [node name="PhantomCamera3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 2.68679, 4.29412)
-script = ExtResource("9_sq6gl")
+script = ExtResource("13_aa6yu")
 priority_override = false
 priority = 0
 follow_mode = 5
@@ -175,7 +212,7 @@ follow_parameters/distance = 0.5
 follow_parameters/target_offset = Vector3(0, 2, 3)
 follow_parameters/damping = false
 follow_parameters/dead_zone_horizontal = 0.367
-follow_parameters/dead_zone_vertical = 0.5
+follow_parameters/dead_zone_vertical = 1.0
 follow_parameters/viewfinder_in_play = false
 look_at_mode = 0
 tween_parameters = null
