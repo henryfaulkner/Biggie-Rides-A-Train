@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://rnc3kww1v7jc"]
 
-[ext_resource type="Script" path="res://ObjectLibrary/Biggie3D.cs" id="1_frxkc"]
+[ext_resource type="Script" path="res://ObjectLibrary/Biggie/Biggie3D.cs" id="1_frxkc"]
 [ext_resource type="Texture2D" uid="uid://df0xe1tnk46cf" path="res://Assets/Objects/Biggie.png" id="2_xelug"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="3_dc12r"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="4_2le65"]

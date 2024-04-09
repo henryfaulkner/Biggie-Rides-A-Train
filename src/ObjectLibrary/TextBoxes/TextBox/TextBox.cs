@@ -25,7 +25,7 @@ public partial class TextBox : CanvasLayer
 
 	private float CharReadRate { get; set; }
 
-	private LoggingService _globalLogger = null;
+	private LoggingService _globalLoggerSingleton = null;
 
 	public override void _Ready()
 	{

@@ -1,5 +1,9 @@
 {
-  "StoredLocation": null,
+  "StoredLocation": {
+    "SceneId": 2,
+    "X": 0,
+    "Y": 0
+  },
   "HasItemTicketPieceOne": false,
   "HasItemTicketPieceTwo": false,
   "HasItemTicketPieceThree": false,

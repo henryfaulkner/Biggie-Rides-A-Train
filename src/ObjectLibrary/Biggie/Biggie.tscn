@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://1c1rtqkwpgud"]
 
 [ext_resource type="Texture2D" uid="uid://df0xe1tnk46cf" path="res://Assets/Objects/Biggie.png" id="1_pwtfd"]
-[ext_resource type="Script" path="res://ObjectLibrary/Biggie.cs" id="2_8x8xi"]
+[ext_resource type="Script" path="res://ObjectLibrary/Biggie/Biggie.cs" id="2_8x8xi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ntknf"]
 size = Vector2(22, 25)

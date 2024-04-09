@@ -9,7 +9,7 @@ var _nodeInteractableArea = null
 
 func _ready():
 	_nodeSelf = get_node(".")
-	_nodeInteractableArea = get_node("./InteractableArea3D")
+	_nodeInteractableArea = get_node("..")
 
 func _process(delta):
 	if _nodeInteractableArea.get_overlapping_bodies().size() > 1 and Input.is_action_just_pressed(_INTERACT_INPUT):

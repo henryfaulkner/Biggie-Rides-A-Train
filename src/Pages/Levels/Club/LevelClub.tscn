@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="1_6lyjk"]
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="1_lkq0q"]
 [ext_resource type="PackedScene" uid="uid://b38tu1iwidkvx" path="res://ObjectLibrary/NPCs/2D/DJ.tscn" id="3_ducl5"]
-[ext_resource type="PackedScene" uid="uid://1c1rtqkwpgud" path="res://ObjectLibrary/Biggie.tscn" id="3_f0u5u"]
+[ext_resource type="PackedScene" uid="uid://1c1rtqkwpgud" path="res://ObjectLibrary/Biggie/Biggie.tscn" id="3_f0u5u"]
 [ext_resource type="Script" path="res://Pages/Levels/Club/Doors/MainStationDoor.gd" id="4_x3fec"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0qekg"]

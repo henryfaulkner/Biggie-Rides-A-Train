@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://boqxoenfgd3b" path="res://Assets/Objects/SimpleDoor.png" id="1_114c4"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="2_ros5i"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="3_ews0x"]
-[ext_resource type="Script" path="res://ObjectLibrary/DoorCollisionObservable.gd" id="4_ih8qb"]
+[ext_resource type="Script" path="res://ObjectLibrary/Decor/DoorCollisionObservable.gd" id="4_ih8qb"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_uhblr"]
 _surfaces = [{

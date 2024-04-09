@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dtn0oo3t2ldqa" path="res://Assets/Levels/Main_Station_Level.png" id="2_0i66i"]
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_kt736"]
-[ext_resource type="PackedScene" uid="uid://1c1rtqkwpgud" path="res://ObjectLibrary/Biggie.tscn" id="3_ikhmg"]
+[ext_resource type="PackedScene" uid="uid://1c1rtqkwpgud" path="res://ObjectLibrary/Biggie/Biggie.tscn" id="3_ikhmg"]
 [ext_resource type="PackedScene" uid="uid://d4kexhj5vcdog" path="res://ObjectLibrary/NPCs/2D/Teller.tscn" id="4_a4fkh"]
 [ext_resource type="PackedScene" uid="uid://dw30v70y17poe" path="res://ObjectLibrary/NPCs/2D/Chess.tscn" id="5_l1jc6"]
 [ext_resource type="PackedScene" uid="uid://c2bct32b8umwg" path="res://ObjectLibrary/NPCs/2D/Therapist.tscn" id="6_e726k"]
