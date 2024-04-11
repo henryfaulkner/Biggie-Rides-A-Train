@@ -1,8 +1,8 @@
 extends Area2D
 
 var _INTERACT_INPUT := "interact"
-const _SCENE = preload ("res://Pages/Levels/MainStation/LevelMainStation.tscn")
-const _SCENE_DOOR_NODE_PATH = "./ClubDoor"
+const _SCENE = preload ("res://Pages/Levels/2D/MainStation/LevelMainStation.tscn")
+const _SCENE_DOOR_NODE_PATH = "./OutsideStationDoor"
 const _RELOCATION_SERVICE_SCRIPT = preload ("res://Core/RelocationService/RelocationService.cs")
 
 var _nodeSelf: Area2D = null
@@ -28,3 +28,20 @@ func redirect() -> void:
 	print("Hit")
 	_relocation_service.SetState_MainStation(_nodeDoor.position.x, _nodeDoor.position.y)
 	get_tree().change_scene_to_packed(_SCENE)
+
+# https://gamedev.stackexchange.com/questions/199165/how-to-print-out-the-properties-and-methods-of-a-class-in-gdscript
+func dir(class_instance):
+	var output = {}
+	var methods = []
+	for method in class_instance.get_method_list():
+		methods.append(method.name)
+	
+	output["METHODS"] = methods
+	
+	var properties = []
+	for prop in class_instance.get_property_list():
+		if prop.type == 3:
+			properties.append(prop.name)
+	output["PROPERTIES"] = properties
+
+	return output

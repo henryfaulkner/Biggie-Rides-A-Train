@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_t3brk"]
 [ext_resource type="Texture2D" uid="uid://dg2wkes4nxv4u" path="res://Assets/Levels/Entrance_Level.png" id="2_wlbg8"]
 [ext_resource type="PackedScene" uid="uid://1c1rtqkwpgud" path="res://ObjectLibrary/Biggie/Biggie.tscn" id="4_d81tg"]
-[ext_resource type="Script" path="res://Pages/Levels/OutsideStation/LevelOutsideStation.cs" id="6_ujhji"]
-[ext_resource type="Script" path="res://Pages/Levels/OutsideStation/Doors/MainStationDoor.gd" id="6_yxxdu"]
+[ext_resource type="Script" path="res://Pages/Levels/2D/OutsideStation/LevelOutsideStation.cs" id="6_ujhji"]
+[ext_resource type="Script" path="res://Pages/Levels/2D/OutsideStation/Doors/MainStationDoor.gd" id="6_yxxdu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nxgoo"]
 size = Vector2(66.5, 12.25)

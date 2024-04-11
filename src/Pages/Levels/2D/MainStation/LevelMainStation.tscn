@@ -6,12 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://d4kexhj5vcdog" path="res://ObjectLibrary/NPCs/2D/Teller.tscn" id="4_a4fkh"]
 [ext_resource type="PackedScene" uid="uid://dw30v70y17poe" path="res://ObjectLibrary/NPCs/2D/Chess.tscn" id="5_l1jc6"]
 [ext_resource type="PackedScene" uid="uid://c2bct32b8umwg" path="res://ObjectLibrary/NPCs/2D/Therapist.tscn" id="6_e726k"]
-[ext_resource type="Script" path="res://Pages/Levels/MainStation/InteractionTest.cs" id="6_yb2wm"]
-[ext_resource type="Script" path="res://Pages/Levels/MainStation/Doors/TherapistOfficeDoor.gd" id="8_xnh7u"]
-[ext_resource type="Script" path="res://Pages/Levels/MainStation/Doors/ClubDoor.gd" id="9_d2mmd"]
+[ext_resource type="Script" path="res://Pages/Levels/2D/MainStation/InteractionTest.cs" id="6_yb2wm"]
+[ext_resource type="Script" path="res://Pages/Levels/2D/MainStation/Doors/TherapistOfficeDoor.gd" id="8_xnh7u"]
+[ext_resource type="Script" path="res://Pages/Levels/2D/MainStation/Doors/ClubDoor.gd" id="9_d2mmd"]
 [ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="9_vandh"]
-[ext_resource type="Script" path="res://Pages/Levels/MainStation/HiddenWall.cs" id="9_vh3ts"]
-[ext_resource type="Script" path="res://Pages/Levels/MainStation/Doors/OutsideStationDoor.gd" id="12_esd1o"]
+[ext_resource type="Script" path="res://Pages/Levels/2D/MainStation/HiddenWall.cs" id="9_vh3ts"]
+[ext_resource type="Script" path="res://Pages/Levels/2D/MainStation/Doors/OutsideStationDoor.gd" id="12_esd1o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wgxvf"]
 size = Vector2(815, 302.5)

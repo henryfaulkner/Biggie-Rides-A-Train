@@ -1,10 +1,10 @@
 extends Button
 
-const _OUTSIDE_STATION_SCENE = preload ("res://Pages/Levels/OutsideStation/LevelOutsideStation.tscn")
-const _MAIN_STATION_SCENE = preload ("res://Pages/Levels/MainStation/LevelMainStation.tscn")
-const _THERAPIST_OFFICE_SCENE = preload ("res://Pages/Levels/TherapistOffice/LevelTherapistOffice.tscn")
-const _CLUB_SCENE = preload ("res://Pages/Levels/Club/LevelClub.tscn")
-const _TEST_PERSPECTIVE_SCENE = preload ("res://Pages/Levels/TestOutdoorPerspective/LevelTestOutdoorPerspective.tscn")
+const _OUTSIDE_STATION_SCENE = preload ("res://Pages/Levels/2D/OutsideStation/LevelOutsideStation.tscn")
+const _MAIN_STATION_SCENE = preload ("res://Pages/Levels/2D/MainStation/LevelMainStation.tscn")
+const _THERAPIST_OFFICE_SCENE = preload ("res://Pages/Levels/2D/TherapistOffice/LevelTherapistOffice.tscn")
+const _CLUB_SCENE = preload ("res://Pages/Levels/2D/Club/LevelClub.tscn")
+const _TEST_PERSPECTIVE_SCENE = preload ("res://Pages/Levels/3D/TestOutdoorPerspective/LevelTestOutdoorPerspective.tscn")
 
 const _RELOCATION_SERVICE_SCRIPT = preload ("res://Core/RelocationService/RelocationService.cs")
 var _relocation_service = null

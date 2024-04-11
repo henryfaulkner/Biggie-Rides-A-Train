@@ -1,7 +1,7 @@
 extends Area2D
 
 var _INTERACT_INPUT := "interact"
-const _SCENE = preload ("res://Pages/Levels/OutsideStation/LevelOutsideStation.tscn")
+const _SCENE = preload ("res://Pages/Levels/2D/Club/LevelClub.tscn")
 const _SCENE_DOOR_NODE_PATH = "./MainStationDoor"
 const _RELOCATION_SERVICE_SCRIPT = preload ("res://Core/RelocationService/RelocationService.cs")
 
@@ -22,13 +22,9 @@ func _process(delta: float) -> void:
 		redirect()
 
 func should_redirect() -> bool:
-	return _nodeSelf.get_overlapping_bodies().size() > 0 and Input.is_action_just_pressed(_INTERACT_INPUT)
+	return _nodeSelf.get_overlapping_bodies().size() > 1 and Input.is_action_just_pressed(_INTERACT_INPUT)
 
 func redirect() -> void:
-	_relocation_service.SetState_OutsideStation(_nodeDoor.position.x, _nodeDoor.position.y)
-	get_tree().change_scene_to_packed(_SCENE)
-
-func Hit():
-	print('Hit')
-	_relocation_service.SetState_OutsideStation(_nodeDoor.position.x, _nodeDoor.position.y)
+	print("Hit")
+	_relocation_service.SetState_Club(_nodeDoor.position.x, _nodeDoor.position.y)
 	get_tree().change_scene_to_packed(_SCENE)

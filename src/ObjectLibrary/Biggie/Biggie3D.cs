@@ -16,6 +16,8 @@ public partial class Biggie3D : CharacterBody3D
 	public static readonly int _SPRITE_FRAME_CHANGE_INTERVAL = 45;
 	public static readonly int _SPRITE_WALK_FRAME_LENGTH = 2;
 	public static readonly float _BIGGIE_SPEED = 2400f;
+	public static readonly float _BIGGIE_SPEED_X_RATIO = 1.0f;
+	public static readonly float _BIGGIE_SPEED_Z_RATIO = 0.7f;
 
 	private Biggie3D _nodeSelf = null;
 	private Node _nodeBiggieSpriteMeshInstance = null;
@@ -68,7 +70,7 @@ public partial class Biggie3D : CharacterBody3D
 
 		if (Input.IsActionPressed(_MOVE_LEFT_INPUT))
 		{
-			inputDirection.X -= 1.0f;
+			inputDirection.X = -_BIGGIE_SPEED_X_RATIO;
 			_isMoving = true;
 			_frameIncrement += 1;
 			_currentFrameDirection = Enumerations.Movement.Directions.Right;
@@ -76,7 +78,7 @@ public partial class Biggie3D : CharacterBody3D
 		}
 		else if (Input.IsActionPressed(_MOVE_RIGHT_INPUT))
 		{
-			inputDirection.X += 1.0f;
+			inputDirection.X = _BIGGIE_SPEED_X_RATIO;
 			_isMoving = true;
 			_frameIncrement += 1;
 			_currentFrameDirection = Enumerations.Movement.Directions.Left;
@@ -85,14 +87,14 @@ public partial class Biggie3D : CharacterBody3D
 
 		if (Input.IsActionPressed(_MOVE_DOWN_INPUT))
 		{
-			inputDirection.Z += .7f;
+			inputDirection.Z += _BIGGIE_SPEED_Z_RATIO;
 			_isMoving = true;
-			_frameIncrement += 1;
+			_frameIncrement = 1;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
 		else if (Input.IsActionPressed(_MOVE_UP_INPUT))
 		{
-			inputDirection.Z -= .7f;
+			inputDirection.Z = -_BIGGIE_SPEED_Z_RATIO;
 			_isMoving = true;
 			_frameIncrement += 1;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
@@ -107,6 +109,23 @@ public partial class Biggie3D : CharacterBody3D
 
 		if (inputDirection != Vector3.Zero)
 		{
+			bool hittingWorldBorderX = HittingWorldBorderX(_nodeSelf, inputDirection);
+			bool hittingWorldBorderZ = HittingWorldBorderZ(_nodeSelf, inputDirection);
+			if (hittingWorldBorderX && hittingWorldBorderZ)
+			{
+				GD.Print("Biggie is running into World Border. Position X and Z is zero.");
+				inputDirection = Vector3.Zero;
+			}
+			else if (hittingWorldBorderX)
+			{
+				GD.Print("Biggie is running into World Border. Position X is zero.");
+				inputDirection = Vector3.Zero;
+			}
+			else if (hittingWorldBorderZ)
+			{
+				GD.Print("Biggie is running into World Border. Position Z is zero.");
+				inputDirection = Vector3.Zero;
+			}
 			inputDirection = inputDirection.Normalized();
 		}
 
@@ -163,5 +182,15 @@ public partial class Biggie3D : CharacterBody3D
 			&& !Input.IsActionPressed(_MOVE_RIGHT_INPUT)
 			&& !Input.IsActionPressed(_MOVE_DOWN_INPUT)
 			&& !Input.IsActionPressed(_MOVE_LEFT_INPUT);
+	}
+
+	private bool HittingWorldBorderX(Biggie3D biggie, Vector3 inputDirection)
+	{
+		return _nodeSelf.Position.X <= 0 && inputDirection.X == -_BIGGIE_SPEED_X_RATIO;
+	}
+
+	private bool HittingWorldBorderZ(Biggie3D biggie, Vector3 inputDirection)
+	{
+		return biggie.Position.Z <= 0 && inputDirection.Z == -_BIGGIE_SPEED_Z_RATIO;
 	}
 }

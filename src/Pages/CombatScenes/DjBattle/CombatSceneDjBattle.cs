@@ -4,7 +4,7 @@ using System;
 public partial class CombatSceneDjBattle : Node2D
 {
 	public static readonly StringName _SCENE_BIGGIE_DEFEAT = new StringName("res://Pages/DefeatScenes/DjBattle/DefeatSceneDjBattle.tscn");
-	public static readonly StringName _SCENE_CLUB = new StringName("res://Pages/Levels/Club/LevelClub.tscn");
+	public static readonly StringName _SCENE_CLUB = new StringName("res://Pages/Levels/2D/Club/LevelClub.tscn");
 
 	private static readonly int _MAX_HEALTH_PHYSICAL_BIGGIE = 9;
 	private static readonly int _MAX_HEALTH_PHYSICAL_DJ = 9;

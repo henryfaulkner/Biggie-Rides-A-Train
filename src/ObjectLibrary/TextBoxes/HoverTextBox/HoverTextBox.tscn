@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="2_7cq3b"]
 [ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="3_x4veo"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irs8x"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edyd3"]
 bg_color = Color(0, 0, 0, 1)
 border_width_left = 2
 border_width_top = 2
@@ -16,7 +16,7 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="Theme" id="Theme_xxyrj"]
+[sub_resource type="Theme" id="Theme_a7d6v"]
 default_font = ExtResource("2_7cq3b")
 default_font_size = 52
 
@@ -24,18 +24,21 @@ default_font_size = 52
 script = ExtResource("1_cnbvs")
 
 [node name="TextBoxContainer" type="MarginContainer" parent="."]
-anchors_preset = 10
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
-offset_bottom = 379.0
+anchor_bottom = 1.0
+offset_top = -338.0
 grow_horizontal = 2
-theme_override_constants/margin_left = 192
-theme_override_constants/margin_top = 96
-theme_override_constants/margin_right = 192
-theme_override_constants/margin_bottom = 128
+grow_vertical = 0
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 64
 
 [node name="Panel" type="Panel" parent="TextBoxContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_irs8x")
+theme_override_styles/panel = SubResource("StyleBoxFlat_edyd3")
 
 [node name="MarginContainer" type="MarginContainer" parent="TextBoxContainer/Panel"]
 layout_mode = 1
@@ -59,7 +62,7 @@ layout_mode = 2
 [node name="Start" type="Label" parent="TextBoxContainer/Panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
-theme = SubResource("Theme_xxyrj")
+theme = SubResource("Theme_a7d6v")
 theme_override_fonts/font = ExtResource("3_x4veo")
 theme_override_font_sizes/font_size = 64
 text = "* "
@@ -68,7 +71,7 @@ text = "* "
 custom_minimum_size = Vector2(1652, 178)
 layout_mode = 2
 size_flags_horizontal = 3
-theme = SubResource("Theme_xxyrj")
+theme = SubResource("Theme_a7d6v")
 bbcode_enabled = true
 text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum. recusandae alias error harum maxime adipisci amet laborum. Perspiciatis minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit  quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur 
 fugiat, temporibus enim commodi iusto libero magni deleniti quod quam 
@@ -92,7 +95,7 @@ sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam"
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 size_flags_vertical = 8
-theme = SubResource("Theme_xxyrj")
+theme = SubResource("Theme_a7d6v")
 theme_override_fonts/font = ExtResource("3_x4veo")
 theme_override_font_sizes/font_size = 64
 text = "  "
