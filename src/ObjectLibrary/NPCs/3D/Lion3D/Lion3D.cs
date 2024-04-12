@@ -14,9 +14,9 @@ public partial class Lion3D : Node3D
 		_nodeHoverTextBox = GetNode<HoverTextBox>("../HoverTextBox");
 	}
 
-	public override void _Process(double delta)
+	public override void _Process(double _delta)
 	{
-		if (_nodeInteractableArea.GetOverlappingBodies().Count > 1)
+		if (HelperFunctions.ContainsBiggie(_nodeInteractableArea.GetOverlappingBodies()))
 		{
 			HandleInteractableAreaHover();
 		}

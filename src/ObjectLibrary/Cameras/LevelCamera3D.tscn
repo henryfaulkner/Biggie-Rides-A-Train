@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cce6058tanenu"]
+
+[ext_resource type="Script" path="res://ObjectLibrary/Cameras/FramedLevelCamera.cs" id="1_k5nf1"]
+
+[node name="Camera3D" type="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 5.5, 1.75, 4.45)
+fov = 74.7466
+script = ExtResource("1_k5nf1")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+light_energy = 4.0
+light_indirect_energy = 16.0
+spot_range = 36.6322

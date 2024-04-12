@@ -5,6 +5,7 @@ const _MAIN_STATION_SCENE = preload ("res://Pages/Levels/2D/MainStation/LevelMai
 const _THERAPIST_OFFICE_SCENE = preload ("res://Pages/Levels/2D/TherapistOffice/LevelTherapistOffice.tscn")
 const _CLUB_SCENE = preload ("res://Pages/Levels/2D/Club/LevelClub.tscn")
 const _TEST_PERSPECTIVE_SCENE = preload ("res://Pages/Levels/3D/TestOutdoorPerspective/LevelTestOutdoorPerspective.tscn")
+const _INTRO_SCENE = preload ("res://Pages/Levels/3D/Tutorial/Intro/Scene_Taxi_Approaching_Train.tscn")
 
 const _RELOCATION_SERVICE_SCRIPT = preload ("res://Core/RelocationService/RelocationService.cs")
 var _relocation_service = null
@@ -19,13 +20,13 @@ func _process(delta):
 
 func _on_pressed():
 	var scenePlay = decide_scene()
-	scenePlay = _TEST_PERSPECTIVE_SCENE
+	scenePlay = _INTRO_SCENE
 	get_tree().change_scene_to_packed(scenePlay);
 	pass ;
 
 func decide_scene():
 	var storedLocationSceneId = _relocation_service.GetStoredLocationSceneId()
-	var result = _OUTSIDE_STATION_SCENE;
+	var result = _OUTSIDE_STATION_SCENE
 	match storedLocationSceneId:
 		0:
 			result = _OUTSIDE_STATION_SCENE

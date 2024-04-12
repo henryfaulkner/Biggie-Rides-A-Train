@@ -31,7 +31,7 @@ public partial class Therapist3D : Node3D
 	public override void _Process(double delta)
 	{
 		var overlappingBodies = _nodeInteractableArea.GetOverlappingBodies();
-		if (ContainsBiggie(overlappingBodies)
+		if (HelperFunctions.ContainsBiggie(overlappingBodies)
 			&& Input.IsActionJustPressed(_INTERACT_INPUT))
 		{
 			DisplayDialogue();
@@ -94,13 +94,5 @@ public partial class Therapist3D : Node3D
 				////GD.Print("DJ.HandleInteraction option id did not map.");
 				break;
 		}
-	}
-	
-	private bool ContainsBiggie(Array<Node3D> nodes)
-	{
-		foreach (var node in nodes){
-			if (node.Name == "Biggie3D") return true;
-		}
-		return false;
 	}
 }

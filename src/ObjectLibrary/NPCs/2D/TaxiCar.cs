@@ -15,7 +15,7 @@ public partial class TaxiCar : Sprite2D
 		_isMoving = true;
 	}
 
-	public override void _Process(double delta)
+	public override void _Process(double _delta)
 	{
 		if (_isMoving)
 		{

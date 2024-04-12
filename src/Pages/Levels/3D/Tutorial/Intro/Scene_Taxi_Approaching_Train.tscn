@@ -1,0 +1,72 @@
+[gd_scene load_steps=12 format=3 uid="uid://bc54jg6exsllk"]
+
+[ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_al72k"]
+[ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/Intro/Scene_Taxi_Approaching_Train.cs" id="1_pwosc"]
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_2i4cc"]
+[ext_resource type="Texture2D" uid="uid://xfhqclbajlps" path="res://Assets/Intro/Road.png" id="3_ukljh"]
+[ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="4_nyxka"]
+[ext_resource type="PackedScene" uid="uid://jcu3xw86ar0s" path="res://ObjectLibrary/NPCs/3D/Taxi3D/Taxi3D.tscn" id="4_q0q76"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sd32n"]
+albedo_texture = ExtResource("3_ukljh")
+uv1_scale = Vector3(2, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wauwq"]
+material = SubResource("StandardMaterial3D_sd32n")
+size = Vector2(2, 4)
+center_offset = Vector3(0, 0.01, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n3pb8"]
+size = Vector3(10, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qegu4"]
+size = Vector3(1, 1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_knioe"]
+size = Vector3(10, 1, 1)
+
+[node name="SceneTaxiApproachingTrain" type="Node3D"]
+script = ExtResource("1_pwosc")
+
+[node name="LevelWrapper" parent="." instance=ExtResource("1_al72k")]
+
+[node name="TextBoxWrapper" parent="LevelWrapper" instance=ExtResource("2_2i4cc")]
+
+[node name="Facade" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+
+[node name="Floor" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(10, 0, 0, 0, 4, 0, 0, 0, 1, 2.909, 0, 1.67287)
+mesh = SubResource("PlaneMesh_wauwq")
+skeleton = NodePath("")
+
+[node name="SceneBorders" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+
+[node name="TopMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -0.44)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/TopMostBarrier"]
+shape = SubResource("BoxShape3D_n3pb8")
+
+[node name="RightMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6255, 0, 1.811)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/RightMostBarrier"]
+shape = SubResource("BoxShape3D_qegu4")
+
+[node name="BottomMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/BottomMostBarrier"]
+shape = SubResource("BoxShape3D_knioe")
+
+[node name="LeftMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.811)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/LeftMostBarrier"]
+shape = SubResource("BoxShape3D_qegu4")
+
+[node name="Taxi3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("4_q0q76")]
+
+[node name="Camera3D" parent="LevelWrapper" instance=ExtResource("4_nyxka")]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 2.909, 2.75, 6.45)
+script = null

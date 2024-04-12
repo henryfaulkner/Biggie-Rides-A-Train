@@ -1,0 +1,109 @@
+[gd_scene load_steps=20 format=3 uid="uid://cx8i0p6frh84a"]
+
+[ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_8hsvg"]
+[ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/DreamRoom1/Scene_Dream_Room1.cs" id="1_nx7r8"]
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_vlmr0"]
+[ext_resource type="PackedScene" uid="uid://rnc3kww1v7jc" path="res://ObjectLibrary/Biggie/Biggie3D.tscn" id="3_iirlj"]
+[ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="4_6mkbf"]
+[ext_resource type="Texture2D" uid="uid://duun5cslc1hp8" path="res://Assets/PrototypeTextures/Orange/texture_05.png" id="5_lppo5"]
+[ext_resource type="PackedScene" uid="uid://b7h13j4n2ygyc" path="res://ObjectLibrary/Decor/WoodSign3D.tscn" id="6_dkw0h"]
+[ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/DreamRoom1/WoodSign.cs" id="7_1ypxd"]
+[ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="7_tnbnb"]
+[ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/DreamRoom1/WoodSign2.cs" id="8_etu42"]
+[ext_resource type="PackedScene" uid="uid://c5looe35bo0d0" path="res://ObjectLibrary/Decor/DoorCollision3D.tscn" id="9_n4k8p"]
+[ext_resource type="PackedScene" uid="uid://cfvt4pku54wba" path="res://ObjectLibrary/NPCs/3D/Mushroom3D/Mushroom3D.tscn" id="11_ctdgq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t6b5w"]
+albedo_texture = ExtResource("4_6mkbf")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3yghv"]
+material = SubResource("StandardMaterial3D_t6b5w")
+size = Vector2(2, 4)
+center_offset = Vector3(0, 0.01, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_015wn"]
+albedo_texture = ExtResource("5_lppo5")
+uv1_scale = Vector3(10, 10, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0msv2"]
+material = SubResource("StandardMaterial3D_015wn")
+size = Vector3(10, 5, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g2t2f"]
+size = Vector3(10, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_woyeo"]
+size = Vector3(1, 1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ro23f"]
+size = Vector3(10, 1, 1)
+
+[node name="SceneDreamRoom1" type="Node3D"]
+script = ExtResource("1_nx7r8")
+
+[node name="LevelWrapper" parent="." instance=ExtResource("1_8hsvg")]
+
+[node name="TextBoxWrapper" parent="LevelWrapper" instance=ExtResource("2_vlmr0")]
+
+[node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("3_iirlj")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 2.10677, 0.5, 0.885)
+
+[node name="Facade" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+
+[node name="Floor" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(10, 0, 0, 0, 4, 0, 0, 0, 1, 9.75025, 0, 1.67287)
+mesh = SubResource("PlaneMesh_3yghv")
+skeleton = NodePath("")
+
+[node name="LeftWall" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(-0.00251324, 0.499994, -2.18554e-08, 0, -2.18557e-08, -0.5, -0.499994, -0.00251324, 1.09857e-10, -0.900512, 1.83798, 1.1025)
+mesh = SubResource("BoxMesh_0msv2")
+skeleton = NodePath("")
+
+[node name="BackWall" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(-0.00010053, 5.99992, -2.62265e-07, 0, -2.18557e-08, -0.5, -0.0199997, -0.0301589, 1.31829e-09, 14.5238, 1.83798, 0.0806475)
+mesh = SubResource("BoxMesh_0msv2")
+skeleton = NodePath("")
+
+[node name="SceneBorders" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+
+[node name="TopMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -0.44)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/TopMostBarrier"]
+shape = SubResource("BoxShape3D_g2t2f")
+
+[node name="RightMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6255, 0, 1.811)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/RightMostBarrier"]
+shape = SubResource("BoxShape3D_woyeo")
+
+[node name="BottomMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/BottomMostBarrier"]
+shape = SubResource("BoxShape3D_ro23f")
+
+[node name="LeftMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.811)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/LeftMostBarrier"]
+shape = SubResource("BoxShape3D_woyeo")
+
+[node name="WoodSign" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("6_dkw0h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.18506, 0.345055, 0.35213)
+script = ExtResource("7_1ypxd")
+
+[node name="WoodSign2" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("6_dkw0h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.746, 0.416, 0.35)
+script = ExtResource("8_etu42")
+
+[node name="DoorCollision3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("9_n4k8p")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.1, 14.7443, 0.758061, 0.483449)
+
+[node name="Mushroom3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("11_ctdgq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.702, 0, 0.75)
+
+[node name="Camera3D" parent="LevelWrapper" instance=ExtResource("7_tnbnb")]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 14.007, 1.75, 4.45)

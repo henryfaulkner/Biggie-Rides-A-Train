@@ -3,7 +3,7 @@ extends Node3D
 var _INTERACT_INPUT := "interact"
 const _CALLING_DOOR_NODE_PATH = "./InteractableArea3D"
 const _CALLING_DOOR_COLLISION_NODE_PATH = "./InteractableArea3D/CollisionShape3D"
-const _TARGET_SCENE = preload ("res://Pages/Levels/2D/MainStation/LevelMainStation.tscn")
+const _TARGET_SCENE = preload ("res://Pages/Levels/3D/Tutorial/DreamState/DreamRoom1/Scene_Dream_Room1.tscn")
 const _TARGET_SCENE_DOOR_NODE_PATH = "."
 const _RELOCATION_SERVICE_SCRIPT = preload ("res://Core/RelocationService/RelocationService.cs")
 

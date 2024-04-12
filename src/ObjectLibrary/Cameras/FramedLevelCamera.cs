@@ -24,30 +24,30 @@ public partial class FramedLevelCamera : Camera3D
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Camera3D>(".");
-		_nodeBiggie = GetNode<CharacterBody3D>("../LevelWrapper/TextBoxWrapper/Biggie3D");
-		_nodeRightMostBarrier = GetNode<StaticBody3D>("../LevelWrapper/TextBoxWrapper/SceneBorders/RightMostBarrier");
-		_nodeBottomMostBarrier = GetNode<StaticBody3D>("../LevelWrapper/TextBoxWrapper/SceneBorders/BottomMostBarrier");
-		_nodeLeftMostBarrier = GetNode<StaticBody3D>("../LevelWrapper/TextBoxWrapper/SceneBorders/LeftMostBarrier");
+		_nodeBiggie = GetNode<CharacterBody3D>("../TextBoxWrapper/Biggie3D");
+		_nodeRightMostBarrier = GetNode<StaticBody3D>("../TextBoxWrapper/SceneBorders/RightMostBarrier");
+		_nodeBottomMostBarrier = GetNode<StaticBody3D>("../TextBoxWrapper/SceneBorders/BottomMostBarrier");
+		_nodeLeftMostBarrier = GetNode<StaticBody3D>("../TextBoxWrapper/SceneBorders/LeftMostBarrier");
 
 		RightLimit = _nodeRightMostBarrier.Position.X + _CAMERA_BARRIER_TOLERANCE_RIGHT;
 		LeftLimit = _nodeLeftMostBarrier.Position.X + _CAMERA_BARRIER_TOLERANCE_LEFT;
-		Overshoot = new Vector3(0.25f, 0.0f, 0.0f);
+		Overshoot = new Vector3(1f, 0.0f, 0.0f);
+		Movement = new FramedLevelCameraMovement();
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (DeltaIndex % 30 == 0)
+		// this logic resets Movement object
+		// allowing early stops and disabling overshoot attempt
+		if (DeltaIndex % 60 == 0)
 		{
-			var cameraX = _nodeSelf.Position.X;
-			//GD.Print($"cameraX {cameraX}");
-			var touchingBarrierRight = CheckBarrierCollision(cameraX, RightLimit);
-			GD.Print($"touchingBarrierRight {touchingBarrierRight}");
-			var touchingBarrierLeft = CheckBarrierCollision(cameraX, LeftLimit);
-			GD.Print($"touchingBarrierLeft {touchingBarrierLeft}");
+			var camera = _nodeSelf.Position;
+			var touchingBarrierRight = CheckBarrierCollision(camera.X, RightLimit);
+			var touchingBarrierLeft = CheckBarrierCollision(camera.X, LeftLimit);
 			if (!touchingBarrierLeft && !touchingBarrierRight)
 			{
 				// Target is Biggie, Biggie is Target
-				Movement = CheckTargetTolerances(cameraX, _nodeBiggie.Position.X, _CAMERA_BIGGIE_TOLERANCE);
+				Movement = CheckTargetTolerances(camera, _nodeBiggie.Position, _CAMERA_BIGGIE_TOLERANCE);
 			}
 		}
 		if (Movement.ShouldMove)
@@ -58,7 +58,7 @@ public partial class FramedLevelCamera : Camera3D
 				_nodeSelf.Position.Z + (Movement.DirectionZ * _CAMERA_SPEED)
 			);
 			_nodeSelf.Position = LerpOvershootV(_nodeSelf.Position, targetVector, 0.2f, Overshoot);
-		}
+		} 
 		DeltaIndex += 1;
 		if (DeltaIndex == 1000) DeltaIndex = 0;
 	}
@@ -66,30 +66,26 @@ public partial class FramedLevelCamera : Camera3D
 	private bool CheckBarrierCollision(float cameraX, float barrierLimit)
 	{
 		float cameraBarrierLimitSum = cameraX + barrierLimit;
-		//GD.Print($"CheckBarrierTolerance, cameraBarrierDiff {cameraBarrierLimitSum}");
 		return -_CAMERA_SPEED <= cameraBarrierLimitSum
 			&& cameraBarrierLimitSum <= _CAMERA_SPEED;
 	}
 
-	public FramedLevelCameraMovement CheckTargetTolerances(float cameraX, float targetX, float tolerance)
+	public FramedLevelCameraMovement CheckTargetTolerances(Vector3 camera, Vector3 target, float tolerance)
 	{
-		float targetRightLimit = targetX - tolerance;
-		float targetLeftLimit = targetX + tolerance;
-		bool moveRight = cameraX < targetRightLimit;
-		bool moveLeft = cameraX > targetLeftLimit;
+		float targetRightLimit = target.X - tolerance;
+		float targetLeftLimit = target.X + tolerance;
+		bool moveRight = camera.X < targetRightLimit;
+		bool moveLeft = camera.X > targetLeftLimit;
 		if (moveRight)
 		{
-			GD.Print("Move right");
-			return new FramedLevelCameraMovement(true, FramedLevelCameraMovement.Direction.Right);
+			return new FramedLevelCameraMovement(true, target, FramedLevelCameraMovement.Direction.Right);
 		}
 		else if (moveLeft)
 		{
-			GD.Print("Move left");
-			return new FramedLevelCameraMovement(true, FramedLevelCameraMovement.Direction.Left);
+			return new FramedLevelCameraMovement(true, target, FramedLevelCameraMovement.Direction.Left);
 		}
 		else
 		{
-			GD.Print("Did not map cameraTargetDifference");
 			return new FramedLevelCameraMovement();
 		}
 	}
@@ -134,10 +130,12 @@ public partial class FramedLevelCamera : Camera3D
 		public FramedLevelCameraMovement()
 		{
 			ShouldMove = false;
+			Target = Vector3.Zero;
 		}
-		public FramedLevelCameraMovement(bool shouldMove, Direction movementDirection)
+		public FramedLevelCameraMovement(bool shouldMove, Vector3 target, Direction movementDirection)
 		{
 			ShouldMove = shouldMove;
+			Target = target;
 			switch (movementDirection)
 			{
 				case Direction.Up:
@@ -164,6 +162,7 @@ public partial class FramedLevelCamera : Camera3D
 		}
 
 		public bool ShouldMove { get; set; }
+		public Vector3 Target { get; set; }
 		public int DirectionX { get; set; }
 		public int DirectionZ { get; set; }
 		public enum Direction

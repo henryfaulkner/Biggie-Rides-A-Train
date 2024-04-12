@@ -33,7 +33,7 @@ public partial class Biggie : CharacterBody2D
 		_nodeTextBox = GetNode<TextBox>("../TextBox");
 		_nodeInteractionTextBox = GetNode<InteractionTextBox>("../InteractionTextBox");
 
-		AttemptStoredLocationApplication();
+		//AttemptStoredLocationApplication();
 	}
 
 	public override void _Process(double delta)

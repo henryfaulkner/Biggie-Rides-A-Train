@@ -1,0 +1,69 @@
+using Godot;
+using System;
+
+public partial class Scene_Taxi_Approaching_Train : Node3D
+{
+	private static readonly StringName _SCENE_INTRO_SLEEP = new StringName("res://Pages/Levels/2D/Tutorial/Intro/Scene_Intro_Sleep.tscn");
+	private static readonly int _OPEN_TEXTBOX_AT_THIS_INCREMENT = 200;
+	private static readonly int _REDIRECT_AT_THIS_INCREMENT = 300;
+
+	private Node3D _nodeSelf = null;
+	private TextBox _nodeTextBox = null;
+	private Taxi3D _nodeTaxi = null;
+
+	private int FrameIncrement { get; set; }
+	private bool PauseIncrement { get; set; }
+
+	public override void _Ready()
+	{
+		_nodeSelf = GetNode<Node3D>(".");
+		_nodeTextBox = GetNode<TextBox>("./LevelWrapper/TextBoxWrapper/TextBox");
+		_nodeTaxi = GetNode<Taxi3D>("./LevelWrapper/TextBoxWrapper/Taxi3D");
+
+		_nodeTextBox.HidingTextBox += ContinuePlay;
+		_nodeTaxi.IsMoving = true;
+	}
+
+	public override void _PhysicsProcess(double _delta)
+	{
+		if (FrameIncrement == _OPEN_TEXTBOX_AT_THIS_INCREMENT)
+		{
+			CreateDialogue1(_nodeTextBox);
+
+			PauseIncrement = true;
+			FrameIncrement += 1;
+		}
+
+		if (FrameIncrement == _REDIRECT_AT_THIS_INCREMENT)
+		{
+			RedirectToIntroSleep();
+			return;
+		}
+
+		if (!PauseIncrement)
+		{
+			FrameIncrement += 1;
+		}
+	}
+
+	private void CreateDialogue1(TextBox textBox)
+	{
+		textBox.AddDialogue("In a land, not unlike our own, one cat is in a taxicar. He appears to be slimbering peacefully. Biggie, the cat in sleep, is approaching his destination.\n\nPress spacebar to advance text forward.");
+		textBox.AddDialogue("The boy has yet to consider his fate. The date, he may soon realize, is closer than it may seem.");
+		textBox.AddDialogue("You can hear the train whistle, muffled by the space between Biggie and the station. You drift closer to our traveler, who is gathering his thoughts.");
+		textBox.ExecuteDialogueQueue();
+	}
+
+
+	private void RedirectToIntroSleep()
+	{
+		var nextScene = (PackedScene)ResourceLoader.Load(_SCENE_INTRO_SLEEP);
+		GetTree().ChangeSceneToPacked(nextScene);
+	}
+
+	private void ContinuePlay()
+	{
+		GD.Print("ContinuePlay");
+		PauseIncrement = false;
+	}
+}

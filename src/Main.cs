@@ -3,7 +3,7 @@ using System;
 
 public partial class Main : Node2D
 {
-	private static readonly StringName _LEVEL_OUTSIDE_STATION = new StringName("res://Pages/Levels/2D/OutsideStation/LevelOutsideStation.tscn");
+	private static readonly StringName _SCENE_INTRO = new StringName("res://Pages/Levels/3D/Tutorial/Intro/Scene_Taxi_Approaching_Train.tscn");
 
 	private static readonly StringName _TAB_INPUT = new StringName("tab");
 	private static readonly StringName _ENTER_INPUT = new StringName("enter");

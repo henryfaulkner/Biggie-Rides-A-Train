@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public partial class TextBox : CanvasLayer
 {
-	private static readonly int _DEFAULT_PAGE_LENGTH = 175;
+	private static readonly int _DEFAULT_PAGE_LENGTH = 225;
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
 	private static readonly StringName _RIGHT_INPUT = new StringName("move_right");
 
@@ -123,6 +123,7 @@ public partial class TextBox : CanvasLayer
 			else
 			{
 				HideTextBox();
+				EmitSignal(SignalName.HidingTextBox);
 			}
 		}
 		else
@@ -130,6 +131,9 @@ public partial class TextBox : CanvasLayer
 			ReadDialogue(_dialogueList[_dialogueListPointer]);
 		}
 	}
+
+	[Signal]
+	public delegate void HidingTextBoxEventHandler();
 
 	public void HideTextBox()
 	{

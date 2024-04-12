@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6l35dhj7k3w6"]
+
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="1_2lrwo"]
+[ext_resource type="Script" path="res://Pages/Levels/2D/Tutorial/Intro/Scene_Intro_Sleep.cs" id="1_40cq3"]
+[ext_resource type="PackedScene" uid="uid://1c1rtqkwpgud" path="res://ObjectLibrary/Biggie/Biggie.tscn" id="2_1opti"]
+[ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="3_30f5f"]
+
+[sub_resource type="Theme" id="Theme_jb4dr"]
+default_font = ExtResource("3_30f5f")
+default_font_size = 48
+
+[node name="SceneIntroSleep" type="Node2D"]
+script = ExtResource("1_40cq3")
+
+[node name="TextBoxWrapper" parent="." instance=ExtResource("1_2lrwo")]
+
+[node name="Biggie" parent="TextBoxWrapper" instance=ExtResource("2_1opti")]
+position = Vector2(1024, 484)
+scale = Vector2(6, 6)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TextBoxWrapper"]
+clip_contents = false
+offset_left = 962.0
+offset_top = 375.0
+offset_right = 1204.0
+offset_bottom = 457.0
+theme = SubResource("Theme_jb4dr")
+theme_override_colors/default_color = Color(0.905882, 0.815686, 0.67451, 1)
+bbcode_enabled = true
+text = "[tornado radius=6][fade start=2]Zzzzzzzz.......[/tornado]"
+fit_content = true
