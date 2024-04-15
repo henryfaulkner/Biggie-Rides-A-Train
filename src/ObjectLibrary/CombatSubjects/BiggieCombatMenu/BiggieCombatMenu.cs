@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class BiggieCombatTextBox : CanvasLayer
+public partial class BiggieCombatMenu : CanvasLayer
 {
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
 
@@ -54,7 +54,7 @@ public partial class BiggieCombatTextBox : CanvasLayer
 	}
 
 	[Signal]
-	public delegate void EndBiggieTextTurnEventHandler(int combatOption);
+	public delegate void EndBiggieCombatMenuTurnEventHandler(int combatOption);
 
 	public void EndTurn()
 	{
@@ -66,17 +66,17 @@ public partial class BiggieCombatTextBox : CanvasLayer
 		////GD.Print("HandleBaseSelection");
 		switch (selection)
 		{
-			case (int)Enumerations.BasePagePanelOptions.Fight:
+			case (int)Enumerations.Combat.BasePagePanelOptions.Fight:
 				_nodeBasePagePanel.IsOpen = false;
 				_nodeFightPagePanel.IsOpen = true;
 				_nodeFightPagePanel.ProcessSelection();
 				break;
-			case (int)Enumerations.BasePagePanelOptions.Chat:
+			case (int)Enumerations.Combat.BasePagePanelOptions.Chat:
 				_nodeBasePagePanel.IsOpen = false;
 				_nodeChatPagePanel.IsOpen = true;
 				_nodeChatPagePanel.ProcessSelection();
 				break;
-			case (int)Enumerations.BasePagePanelOptions.Exit:
+			case (int)Enumerations.Combat.BasePagePanelOptions.Exit:
 				break;
 			default:
 				////GD.Print("_nodeBasePagePanel.IsOpen but not mapped");
@@ -93,15 +93,15 @@ public partial class BiggieCombatTextBox : CanvasLayer
 		{
 			switch (selection)
 			{
-				case (int)Enumerations.FightPagePanelOptions.Scratch:
+				case (int)Enumerations.Combat.FightPagePanelOptions.Scratch:
 					//GD.Print("Scratch");
-					EmitSignal(SignalName.EndBiggieTextTurn, (int)Enumerations.CombatOptions.Scratch);
+					EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Scratch);
 					break;
-				case (int)Enumerations.FightPagePanelOptions.Bite:
+				case (int)Enumerations.Combat.FightPagePanelOptions.Bite:
 					//GD.Print("Bite");
-					EmitSignal(SignalName.EndBiggieTextTurn, (int)Enumerations.CombatOptions.Bite);
+					EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Bite);
 					break;
-				case (int)Enumerations.FightPagePanelOptions.Back:
+				case (int)Enumerations.Combat.FightPagePanelOptions.Back:
 					_nodeBasePagePanel.IsOpen = true;
 					_nodeFightPagePanel.IsOpen = false;
 					_nodeBasePagePanel.ProcessSelection();
@@ -124,15 +124,15 @@ public partial class BiggieCombatTextBox : CanvasLayer
 		////GD.Print("HandleChatSelection");
 		switch (selection)
 		{
-			case (int)Enumerations.ChatPagePanelOptions.Ask:
+			case (int)Enumerations.Combat.ChatPagePanelOptions.Ask:
 				//GD.Print("Ask");
-				EmitSignal(SignalName.EndBiggieTextTurn, (int)Enumerations.CombatOptions.Ask);
+				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Ask);
 				break;
-			case (int)Enumerations.ChatPagePanelOptions.Charm:
+			case (int)Enumerations.Combat.ChatPagePanelOptions.Charm:
 				//GD.Print("Charm");
-				EmitSignal(SignalName.EndBiggieTextTurn, (int)Enumerations.CombatOptions.Charm);
+				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Charm);
 				break;
-			case (int)Enumerations.ChatPagePanelOptions.Back:
+			case (int)Enumerations.Combat.ChatPagePanelOptions.Back:
 				_nodeBasePagePanel.IsOpen = true;
 				_nodeChatPagePanel.IsOpen = false;
 				_nodeBasePagePanel.ProcessSelection();

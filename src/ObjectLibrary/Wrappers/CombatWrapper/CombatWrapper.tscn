@@ -1,15 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://dcdbd272fdx4j"]
+[gd_scene load_steps=19 format=3 uid="uid://dcdbd272fdx4j"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.cs" id="1_c2u0m"]
 [ext_resource type="PackedScene" uid="uid://cbnxk7w87v22a" path="res://ObjectLibrary/Wrappers/CombatWrapper/EnemyPhysicalHealth.tscn" id="1_cep38"]
 [ext_resource type="LabelSettings" uid="uid://dhr4jjrifryn4" path="res://Assets/LabelSettings/HealthLabelSettings.tres" id="2_jvtxu"]
-[ext_resource type="PackedScene" uid="uid://xbdh31b8gpcu" path="res://ObjectLibrary/CombatSubjects/BiggieText/BiggieCombatTextBox.tscn" id="2_qk0o6"]
+[ext_resource type="PackedScene" uid="uid://xbdh31b8gpcu" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/BiggieCombatMenu.tscn" id="2_qk0o6"]
 [ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="3_srhic"]
 [ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieAttack/BiggieAttackContainer.cs" id="4_8a2r2"]
 [ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="4_qbxj4"]
 [ext_resource type="Texture2D" uid="uid://dilofe1ockehf" path="res://Assets/CombatScenes/FightCombatZone.png" id="5_g7ds0"]
 [ext_resource type="PackedScene" uid="uid://d3mnt3xkdh0fn" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/DjAttackContainer.tscn" id="5_ln7p2"]
-[ext_resource type="StyleBox" uid="uid://6ncfjc3ywwad" path="res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/BiggieCombatStyleBox.tres" id="7_mfgg8"]
+[ext_resource type="StyleBox" uid="uid://6ncfjc3ywwad" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/BiggieCombatStyleBox.tres" id="7_mfgg8"]
+[ext_resource type="Script" path="res://ObjectLibrary/TextBoxes/TextBox/TextBox.cs" id="11_as6yc"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_hbdiu"]
 script/source = "using Godot;
@@ -64,13 +65,17 @@ default_font_size = 30
 default_font = ExtResource("4_qbxj4")
 default_font_size = 30
 
+[sub_resource type="Theme" id="Theme_m1ln7"]
+default_font = ExtResource("4_qbxj4")
+default_font_size = 52
+
 [node name="CombatWrapper" type="Node2D"]
 script = ExtResource("1_c2u0m")
 
 [node name="EnemyPhysicalHealth" parent="." instance=ExtResource("1_cep38")]
 visible = false
 
-[node name="BiggieCombatTextBox" parent="." instance=ExtResource("2_qk0o6")]
+[node name="BiggieCombatMenu" parent="." instance=ExtResource("2_qk0o6")]
 
 [node name="BiggieAttackContainer" type="MarginContainer" parent="."]
 offset_top = 424.0
@@ -233,3 +238,86 @@ layout_mode = 2
 theme = SubResource("Theme_c6mv2")
 text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae weid. Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae."
 autowrap_mode = 3
+
+[node name="ChatterTextBox" type="CanvasLayer" parent="."]
+script = ExtResource("11_as6yc")
+
+[node name="TextBoxContainer" type="MarginContainer" parent="ChatterTextBox"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -338.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 64
+
+[node name="Panel" type="Panel" parent="ChatterTextBox/TextBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("7_mfgg8")
+
+[node name="MarginContainer" type="MarginContainer" parent="ChatterTextBox/TextBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_right = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Panel" type="Panel" parent="ChatterTextBox/TextBoxContainer/Panel/MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ChatterTextBox/TextBoxContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Start" type="Label" parent="ChatterTextBox/TextBoxContainer/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_m1ln7")
+theme_override_colors/font_color = Color(0.921569, 0.815686, 0.654902, 1)
+theme_override_fonts/font = ExtResource("3_srhic")
+theme_override_font_sizes/font_size = 64
+text = "* "
+
+[node name="Dialogue" type="RichTextLabel" parent="ChatterTextBox/TextBoxContainer/Panel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(1652, 178)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_m1ln7")
+bbcode_enabled = true
+text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum. recusandae alias error harum maxime adipisci amet laborum. Perspiciatis minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit  quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur 
+fugiat, temporibus enim commodi iusto libero magni deleniti quod quam 
+consequuntur! Commodi minima excepturi repudiandae velit hic maxime
+doloremque. Quaerat provident commodi consectetur veniam similique ad 
+earum omnis ipsum saepe, voluptas, hic voluptates pariatur est explicabo 
+fugiat, dolorum eligendi quam cupiditate excepturi mollitia maiores labore 
+suscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium
+modi minima sunt esse temporibus sint culpa, recusandae aliquam numquam 
+totam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam 
+quasi aliquam eligendi, placeat qui corporis!
+numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
+obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
+nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
+tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
+quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos 
+sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam"
+
+[node name="End" type="Label" parent="ChatterTextBox/TextBoxContainer/Panel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_vertical = 8
+theme = SubResource("Theme_m1ln7")
+theme_override_fonts/font = ExtResource("3_srhic")
+theme_override_font_sizes/font_size = 64
+text = "  "

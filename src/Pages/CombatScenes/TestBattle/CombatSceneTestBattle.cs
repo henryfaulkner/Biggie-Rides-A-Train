@@ -21,7 +21,7 @@ public partial class CombatSceneTestBattle : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (_globalCombatSingleton.CombatState == Enumerations.CombatStates.EnemyAttack)
+		if (_globalCombatSingleton.CombatState == Enumerations.Combat.StateMachine.States.EnemyAttack)
 		{
 			_nodeDjAttackContainer.Show();
 		}

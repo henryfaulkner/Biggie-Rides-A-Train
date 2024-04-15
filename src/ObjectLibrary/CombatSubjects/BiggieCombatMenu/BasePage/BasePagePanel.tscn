@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://clph2g6ck8ex3"]
 
-[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieText/BasePage/BasePageBasePanel.cs" id="1_ihyp2"]
-[ext_resource type="LabelSettings" uid="uid://c3r6y2vafo346" path="res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Inactive_PageLabelSettingOption.tres" id="2_5xanl"]
-[ext_resource type="StyleBox" uid="uid://b4n45wnqi4q4w" path="res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Active_PagePanelOption.tres" id="2_31qim"]
-[ext_resource type="StyleBox" uid="uid://b4x4mlujs27nj" path="res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Inactive_PagePanelOption.tres" id="2_v4e0j"]
-[ext_resource type="LabelSettings" uid="uid://dvfcsx453vpjn" path="res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Active_PageLabelSettingOption.tres" id="3_qubk2"]
+[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/BasePage/BasePageBasePanel.cs" id="1_ihyp2"]
+[ext_resource type="LabelSettings" uid="uid://c3r6y2vafo346" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Inactive_PageLabelSettingOption.tres" id="2_5xanl"]
+[ext_resource type="StyleBox" uid="uid://b4n45wnqi4q4w" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Active_PagePanelOption.tres" id="2_31qim"]
+[ext_resource type="StyleBox" uid="uid://b4x4mlujs27nj" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Inactive_PagePanelOption.tres" id="2_v4e0j"]
+[ext_resource type="LabelSettings" uid="uid://dvfcsx453vpjn" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Active_PageLabelSettingOption.tres" id="3_qubk2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80eq3"]
 bg_color = Color(0.6, 0.6, 0.6, 0)

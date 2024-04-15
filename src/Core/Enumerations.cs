@@ -1,50 +1,82 @@
 public partial class Enumerations
 {
-	public enum CombatStates
+	public static class Combat
 	{
-		Text = 0,
-		TransitionToEnemyAttack = 1,
-		EnemyAttack = 2,
-		TransitionToText = 3,
-		BiggieFight = 4,
-		TransitionToBiggieFight = 5,
-		BiggieChat = 6,
-		TransitionToBiggieChat = 7,
-	}
+		public static class StateMachine
+		{
+			public enum States
+			{
+				BiggieCombatMenu,
+				TransitionToBiggieChatAsk,
+				TransitionToBiggieChatCharm,
+				TransitionToBiggieFightScratch,
+				TransitionToBiggieFightBite,
+				BiggieChatAsk,
+				BiggieChatCharm,
+				BiggieFightScratch,
+				BiggieFightBite,
+				TransitionToEnemyAttackFromBiggieChatAsk,
+				TransitionToEnemyAttackFromBiggieChatCharm,
+				TransitionToEnemyAttackFromBiggieFightScratch,
+				TransitionToEnemyAttackFromBiggieFightBite,
+				EnemyAttack,
+				TransitionToCombatMenu,
+				BiggieDefeat,
+				EnemyDefeatPhysical,
+				EnemyDefeatEmotional,
+				ChatterTextBox,
+			}
 
-	public enum CombatOptions
-	{
-		Ask = 0,
-		Charm = 1,
-		Bite = 2,
-		Scratch = 3,
-	}
+			public enum Events
+			{
+				ShowChatterTextBox,
+				SelectChatAsk,
+				SelectChatCharm,
+				SelectFightScratch,
+				SelectFightBite,
+				FinishTransition,
+				FinishBiggieAttack,
+				FinishEnemyAttack,
+				BiggieDefeat,
+				EnemyDefeatPhysical,
+				EnemyDefeatEmotional,
+			}
+		}
 
-	public enum BasePagePanelOptions
-	{
-		Fight = 0,
-		Chat = 1,
-		Exit = 2,
-	}
+		public enum CombatOptions
+		{
+			Ask = 0,
+			Charm = 1,
+			Bite = 2,
+			Scratch = 3,
+		}
 
-	public enum FightPagePanelOptions
-	{
-		Scratch = 0,
-		Bite = 1,
-		Back = 2,
-	}
+		public enum BasePagePanelOptions
+		{
+			Fight = 0,
+			Chat = 1,
+			Exit = 2,
+		}
 
-	public enum ChatPagePanelOptions
-	{
-		Ask = 0,
-		Charm = 1,
-		Back = 2,
-	}
+		public enum FightPagePanelOptions
+		{
+			Scratch = 0,
+			Bite = 1,
+			Back = 2,
+		}
 
-	public enum CombatOptionTypes
-	{
-		Emotional = 0,
-		Physical = 1,
+		public enum ChatPagePanelOptions
+		{
+			Ask = 0,
+			Charm = 1,
+			Back = 2,
+		}
+
+		public enum CombatOptionTypes
+		{
+			Emotional = 0,
+			Physical = 1,
+		}
 	}
 
 	public enum LogLevels
@@ -101,16 +133,16 @@ public partial class Enumerations
 			ClubMix = 3,
 		}
 	}
-	
+
 	public static class Movement
 	{
-		public enum Directions 
+		public enum Directions
 		{
 			Up = 0,
 			Right = 1,
 			Down = 2,
 			Left = 3,
 			Idle = 4,
-		}	
+		}
 	}
 }

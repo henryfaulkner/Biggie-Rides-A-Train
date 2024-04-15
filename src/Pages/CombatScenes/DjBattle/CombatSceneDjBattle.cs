@@ -12,7 +12,7 @@ public partial class CombatSceneDjBattle : Node2D
 
 	private Node2D _nodeSelf = null;
 	private CombatWrapper _nodeCombatWrapper = null;
-	private BiggieCombatTextBox _nodeBiggieCombatTextBox = null;
+	private BiggieCombatMenu _nodeBiggieCombatMenu = null;
 	private DjAttackContainer _nodeDjAttackContainer = null;
 	private CanvasLayer _nodeHitCallout = null;
 	private ProgressBar _nodeBiggieHealthBar = null;
@@ -27,7 +27,7 @@ public partial class CombatSceneDjBattle : Node2D
 	{
 		_nodeSelf = GetNode<Node2D>(".");
 		_nodeCombatWrapper = GetNode<CombatWrapper>("./CombatWrapper");
-		_nodeBiggieCombatTextBox = GetNode<BiggieCombatTextBox>("./CombatWrapper/BiggieCombatTextBox");
+		_nodeBiggieCombatMenu = GetNode<BiggieCombatMenu>("./CombatWrapper/BiggieCombatMenu");
 		_nodeDjAttackContainer = GetNode<DjAttackContainer>("./CombatWrapper/EnemyAttackContainer/EnemyAttackPanel/DjAttackContainer");
 		_nodeHitCallout = GetNode<CanvasLayer>("./CombatWrapper/HitCallout");
 		_nodeBiggieHealthBar = GetNode<ProgressBar>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
@@ -43,11 +43,11 @@ public partial class CombatSceneDjBattle : Node2D
 		_nodeCombatWrapper.StartBiggieTextTurn += StartBiggieTextTurn;
 		_nodeCombatWrapper.StartEnemyAttackTurn += StartEnemyAttackTurn;
 		_nodeCombatWrapper.ProjectPhysicalDamage += ChangeDjHealthBar;
-		_nodeBiggieCombatTextBox.EndBiggieTextTurn += EndBiggieTextTurn;
+		_nodeBiggieCombatMenu.EndBiggieCombatMenuTurn += EndBiggieCombatMenuTurn;
 		_nodeDjAttackContainer.ProjectPhysicalDamage += ChangeBiggieHealthBar;
 		_nodeDjAttackContainer.EndEnemyAttackTurn += EndEnemyAttackTurn;
 
-		_globalCombatSingleton.CombatState = Enumerations.CombatStates.Text;
+		_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.States.BiggieCombatMenu;
 		_nodeDjAttackContainer.Hide();
 		_nodeHitCallout.Hide();
 		_nodeDjAttackContainer.IsAttacking = false;
@@ -61,15 +61,15 @@ public partial class CombatSceneDjBattle : Node2D
 
 	public void StartBiggieTextTurn()
 	{
-		_nodeBiggieCombatTextBox.StartTurn();
-		_nodeBiggieCombatTextBox.Show();
+		_nodeBiggieCombatMenu.StartTurn();
+		_nodeBiggieCombatMenu.Show();
 	}
 
-	public void EndBiggieTextTurn(int CombatOptions)
+	public void EndBiggieCombatMenuTurn(int CombatOptions)
 	{
 		//GD.Print("EndBiggieTurn");
-		_nodeBiggieCombatTextBox.Visible = false;
-		_nodeBiggieCombatTextBox.EndTurn();
+		_nodeBiggieCombatMenu.Visible = false;
+		_nodeBiggieCombatMenu.EndTurn();
 		ChangeDjHealthBar();
 
 		if (_globalCombatSingleton.BiggiePhysicalAttackProxy.IsTargetDefeated())
@@ -85,7 +85,7 @@ public partial class CombatSceneDjBattle : Node2D
 			return;
 		}
 
-		_globalCombatSingleton.CombatState = Enumerations.CombatStates.TransitionToEnemyAttack;
+		_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.TransitionToEnemyAttack;
 		return;
 	}
 
@@ -110,7 +110,7 @@ public partial class CombatSceneDjBattle : Node2D
 			return;
 		}
 
-		_globalCombatSingleton.CombatState = Enumerations.CombatStates.TransitionToText;
+		_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.TransitionToText;
 		return;
 	}
 

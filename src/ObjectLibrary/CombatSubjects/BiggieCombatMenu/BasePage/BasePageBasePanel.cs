@@ -1,19 +1,20 @@
 using Godot;
 using System;
 
-public partial class ChatPageBasePanel : Panel
+public partial class BasePageBasePanel : Panel
 {
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
 	private static readonly StringName _LEFT_INPUT = new StringName("move_left");
 	private static readonly StringName _RIGHT_INPUT = new StringName("move_right");
 
 	private Panel _nodeSelf = null;
-	private Panel _nodeAskSelectionPanel = null;
-	private Label _nodeAskOptionLabel = null;
-	private Panel _nodeCharmSelectionPanel = null;
-	private Label _nodeCharmOptionLabel = null;
-	private Panel _nodeBackSelectionPanel = null;
-	private Label _nodeBackOptionLabel = null;
+	private Panel _nodeDescriptionPanel = null;
+	private Panel _nodeFightSelectionPanel = null;
+	private Label _nodeFightOptionLabel = null;
+	private Panel _nodeChatSelectionPanel = null;
+	private Label _nodeChatOptionLabel = null;
+	private Panel _nodeExitSelectionPanel = null;
+	private Label _nodeExitOptionLabel = null;
 
 	private Panel _nodeActionDescriptionMainPanel = null;
 	private Label _nodeActionTitleLabel = null;
@@ -28,13 +29,13 @@ public partial class ChatPageBasePanel : Panel
 		// Combat Scene Nodes
 		_nodeSelf = GetNode<Panel>(".");
 
-		// Chat Panel Nodes
-		_nodeAskSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/AskOptionContainer/MarginContainer/Button/Panel");
-		_nodeAskOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/AskOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
-		_nodeCharmSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/CharmOptionContainer/MarginContainer/Button/Panel");
-		_nodeCharmOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/CharmOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
-		_nodeBackSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/BackOptionContainer/MarginContainer/Button/Panel");
-		_nodeBackOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/BackOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
+		// Base Panel Nodes
+		_nodeFightSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/FightOptionContainer/MarginContainer/Button/Panel");
+		_nodeFightOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/FightOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
+		_nodeChatSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer/Button/Panel");
+		_nodeChatOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
+		_nodeExitSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/Button/Panel");
+		_nodeExitOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
 
 		_nodeActionDescriptionMainPanel = GetNode<Panel>("../../../HudContainer/ActionInfo/Panel");
 		_nodeActionTitleLabel = GetNode<Label>("../../../HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionName");
@@ -42,10 +43,10 @@ public partial class ChatPageBasePanel : Panel
 		_nodeActionDescriptionLabel = GetNode<Label>("../../../HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/ActionDescription");
 
 		SelectionHelperInstance = new SelectionHelper();
-		SelectionHelperInstance.AddOption((int)Enumerations.CombatOptions.Ask, (int)Enumerations.ChatPagePanelOptions.Ask, true, _nodeAskSelectionPanel, _nodeAskOptionLabel);
-		SelectionHelperInstance.AddOption((int)Enumerations.CombatOptions.Charm, (int)Enumerations.ChatPagePanelOptions.Charm, false, _nodeCharmSelectionPanel, _nodeCharmOptionLabel);
-		SelectionHelperInstance.AddOption(-1, (int)Enumerations.ChatPagePanelOptions.Back, false, _nodeBackSelectionPanel, _nodeBackOptionLabel);
-
+		SelectionHelperInstance.AddOption(-1, (int)Enumerations.Combat.BasePagePanelOptions.Fight, true, _nodeFightSelectionPanel, _nodeFightOptionLabel);
+		SelectionHelperInstance.AddOption(-2, (int)Enumerations.Combat.BasePagePanelOptions.Chat, false, _nodeChatSelectionPanel, _nodeChatOptionLabel);
+		SelectionHelperInstance.AddOption(-3, (int)Enumerations.Combat.BasePagePanelOptions.Exit, false, _nodeExitSelectionPanel, _nodeExitOptionLabel);
+		ProcessSelection();
 	}
 
 	public override void _Process(double delta)
@@ -67,8 +68,9 @@ public partial class ChatPageBasePanel : Panel
 		{
 			if (Input.IsActionJustPressed(_INTERACT_INPUT))
 			{
-				EmitSignal(SignalName.SelectChat, SelectionHelperInstance.GetSelectedOptionId());
+				EmitSignal(SignalName.SelectBase, SelectionHelperInstance.GetSelectedOptionId());
 			}
+
 			if (Input.IsActionJustPressed(_LEFT_INPUT))
 			{
 				//GD.Print("Left Input");
@@ -85,7 +87,7 @@ public partial class ChatPageBasePanel : Panel
 	}
 
 	[Signal]
-	public delegate void SelectChatEventHandler(int index);
+	public delegate void SelectBaseEventHandler(int index);
 
 	public void ProcessSelection()
 	{

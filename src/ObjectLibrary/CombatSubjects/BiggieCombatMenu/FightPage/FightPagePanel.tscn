@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://btd1wre3iy1fx"]
 
-[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieText/FightPage/FightPageBasePanel.cs" id="1_53bd7"]
-[ext_resource type="StyleBox" uid="uid://b4n45wnqi4q4w" path="res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Active_PagePanelOption.tres" id="2_71gt2"]
-[ext_resource type="LabelSettings" uid="uid://dvfcsx453vpjn" path="res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Active_PageLabelSettingOption.tres" id="3_slebl"]
+[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/FightPage/FightPageBasePanel.cs" id="1_53bd7"]
+[ext_resource type="StyleBox" uid="uid://b4n45wnqi4q4w" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Active_PagePanelOption.tres" id="2_71gt2"]
+[ext_resource type="LabelSettings" uid="uid://dvfcsx453vpjn" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Active_PageLabelSettingOption.tres" id="3_slebl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_up88k"]
 bg_color = Color(0.6, 0.6, 0.6, 0)

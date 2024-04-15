@@ -12,11 +12,11 @@ public partial class CombatWrapper : Node2D
 	private HBoxContainer _nodeHudContainerSubject = null;
 	private HBoxContainer _nodeHudContainerTargetEnemyAttack = null;
 	private HBoxContainer _nodeHudContainerTargetBiggieAttack = null;
-	private HBoxContainer _nodeHudContainerTargetText = null;
+	private HBoxContainer _nodeHudContainerTargetBiggieCombatMenu = null;
 
 	private MarginContainer _nodeActionInfo = null;
-	private BiggieCombatTextBox _nodeBiggieCombatTextBox = null;
-	private MarginContainer _nodeTextContainer = null;
+	private BiggieCombatMenu _nodeBiggieCombatMenu = null;
+	private MarginContainer _nodeBiggieCombatMenuTextContainer = null;
 	private MarginContainer _nodeEnemyAttackContainer = null;
 	private Panel _nodeEnemyAttackPanel = null;
 	private BiggieAttackContainer _nodeBiggieAttackContainer = null;
@@ -29,29 +29,29 @@ public partial class CombatWrapper : Node2D
 	private static readonly float _MAIN_SPEED = 20f;
 
 	private CombatSingleton _globalCombatSingleton = null;
-	private Enumerations.CombatOptions LastCombatOptionUsed { get; set; }
+	private Enumerations.Combat.CombatOptions LastCombatOptionUsed { get; set; }
 
 	public override void _Ready()
 	{
 		// note the containers wrapping the panels must have the same position and size
 		// the containers can use margin to change panel size for animation
 		_nodeSubjectPanel = GetNode<Panel>("./TransformContainer/TransformPanel");
-		_nodeBasePagePanel = GetNode<Panel>("./BiggieCombatTextBox/TextBoxContainer/BasePagePanel");
-		_nodeFightPageBasePanel = GetNode<FightPageBasePanel>("./BiggieCombatTextBox/TextBoxContainer/FightPagePanel");
-		_nodeChatPageBasePanel = GetNode<ChatPageBasePanel>("./BiggieCombatTextBox/TextBoxContainer/ChatPagePanel");
+		_nodeBasePagePanel = GetNode<Panel>("./BiggieCombatMenu/TextBoxContainer/BasePagePanel");
+		_nodeFightPageBasePanel = GetNode<FightPageBasePanel>("./BiggieCombatMenu/TextBoxContainer/FightPagePanel");
+		_nodeChatPageBasePanel = GetNode<ChatPageBasePanel>("./BiggieCombatMenu/TextBoxContainer/ChatPagePanel");
 		_nodeHudContainerSubject = GetNode<HBoxContainer>("./HudContainer");
 		// Need to Queue Free this at some point
 		_nodeHudContainerTargetEnemyAttack = CreateHudContainerTarget(_nodeHudContainerSubject, 0, 250);
 		// Need to Queue Free this at some point
 		_nodeHudContainerTargetBiggieAttack = CreateHudContainerTarget(_nodeHudContainerSubject, 0, -160);
 		// Need to Queue Free this at some point
-		_nodeHudContainerTargetText = CreateHudContainerTarget(_nodeHudContainerSubject, 0, 0);
+		_nodeHudContainerTargetBiggieCombatMenu = CreateHudContainerTarget(_nodeHudContainerSubject, 0, 0);
 		HudAnimationHelper = new PanelAnimationHelper(_HUD_SPEED_SLOW);
 		MainAnimationHelper = new PanelAnimationHelper(_MAIN_SPEED);
 
 		_nodeActionInfo = GetNode<MarginContainer>("HudContainer/ActionInfo");
-		_nodeBiggieCombatTextBox = GetNode<BiggieCombatTextBox>("./BiggieCombatTextBox");
-		_nodeTextContainer = GetNode<MarginContainer>("./BiggieCombatTextBox/TextBoxContainer");
+		_nodeBiggieCombatMenu = GetNode<BiggieCombatMenu>("./BiggieCombatMenu");
+		_nodeBiggieCombatMenuTextContainer = GetNode<MarginContainer>("./BiggieCombatMenu/TextBoxContainer");
 		_nodeEnemyAttackContainer = GetNode<MarginContainer>("./EnemyAttackContainer");
 		_nodeEnemyAttackPanel = GetNode<Panel>("./EnemyAttackContainer/EnemyAttackPanel");
 		_nodeBiggieAttackContainer = GetNode<BiggieAttackContainer>("./BiggieAttackContainer");
@@ -61,9 +61,9 @@ public partial class CombatWrapper : Node2D
 
 		_nodeFightPageBasePanel.SelectFight += HandleFightSelection;
 		_nodeChatPageBasePanel.SelectChat += HandleChatSelection;
-		_nodeBiggieCombatTextBox.EndBiggieTextTurn += HandleEndBiggieTextTurn;
-		_nodeBiggieCombatTextBox.ShowActionInfo += ShowActionInfo;
-		_nodeBiggieCombatTextBox.HideActionInfo += HideActionInfo;
+		_nodeBiggieCombatMenu.EndBiggieCombatMenuTurn += HandleEndBiggieCombatMenuTurn;
+		_nodeBiggieCombatMenu.ShowActionInfo += ShowActionInfo;
+		_nodeBiggieCombatMenu.HideActionInfo += HideActionInfo;
 		_nodeBiggieAttackContainer.EndBiggieAttackTurn += HandleEndBiggieAttackTurn;
 
 		HideEnemyAttackContainer();
@@ -88,7 +88,7 @@ public partial class CombatWrapper : Node2D
 	{
 		bool skipTransition = Input.IsActionJustPressed(_INTERACT_INPUT);
 
-		if (_globalCombatSingleton.CombatState == Enumerations.CombatStates.TransitionToEnemyAttack)
+		if (_globalCombatSingleton.CombatState == Enumerations.Combat.StateMachine.Events.TransitionToEnemyAttack)
 		{
 			if (!ProcessFirstPass())
 			{
@@ -100,31 +100,31 @@ public partial class CombatWrapper : Node2D
 					HideSubjectPanel();
 					EmitSignal(SignalName.StartEnemyAttackTurn);
 					ShowEnemyAttackContainer();
-					_globalCombatSingleton.CombatState = Enumerations.CombatStates.EnemyAttack;
+					_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.EnemyAttack;
 					//GD.Print("EmitSignal(SignalName.StartOpponentTurn);");
 				}
 			}
 		}
-		else if (_globalCombatSingleton.CombatState == Enumerations.CombatStates.TransitionToText)
+		else if (_globalCombatSingleton.CombatState == Enumerations.Combat.StateMachine.Events.TransitionToBiggieCombatMenu)
 		{
 			if (!ProcessFirstPass())
 			{
 				HideEnemyAttackContainer();
-				if (TransitionToText(skipTransition))
+				if (TransitionToBiggieCombatMenu(skipTransition))
 				{
 					FirstFramePass = true;
 					HideSubjectPanel();
 					EmitSignal(SignalName.StartBiggieTextTurn);
-					ShowBiggieTextContainer();
-					_globalCombatSingleton.CombatState = Enumerations.CombatStates.Text;
+					ShowBiggieCombatMenuTextContainer();
+					_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.Text;
 				}
 			}
 		}
-		else if (_globalCombatSingleton.CombatState == Enumerations.CombatStates.TransitionToBiggieFight)
+		else if (_globalCombatSingleton.CombatState == Enumerations.Combat.StateMachine.Events.TransitionToBiggieFight)
 		{
 			if (!ProcessFirstPass())
 			{
-				HideBiggieTextContainer();
+				HideBiggieCombatMenuTextContainer();
 				HideActionInfo();
 				if (TransitionToBiggieAttack(skipTransition))
 				{
@@ -133,15 +133,15 @@ public partial class CombatWrapper : Node2D
 					EmitSignal(SignalName.StartBiggieAttackTurn);
 					ShowBiggieAttackContainer();
 					_nodeBiggieAttackContainer.IsActive = true;
-					_globalCombatSingleton.CombatState = Enumerations.CombatStates.BiggieFight;
+					_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.BiggieFight;
 				}
 			}
 		}
-		else if (_globalCombatSingleton.CombatState == Enumerations.CombatStates.TransitionToBiggieChat)
+		else if (_globalCombatSingleton.CombatState == Enumerations.Combat.StateMachine.Events.TransitionToBiggieChat)
 		{
 			if (!ProcessFirstPass())
 			{
-				HideBiggieTextContainer();
+				HideBiggieCombatMenuTextContainer();
 				HideActionInfo();
 				if (TransitionToBiggieAttack(skipTransition))
 				{
@@ -150,16 +150,16 @@ public partial class CombatWrapper : Node2D
 					EmitSignal(SignalName.StartBiggieAttackTurn);
 					ShowBiggieAttackContainer();
 					_nodeBiggieAttackContainer.IsActive = true;
-					_globalCombatSingleton.CombatState = Enumerations.CombatStates.BiggieChat;
+					_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.BiggieChat;
 				}
 			}
 		}
 
-		if ((_globalCombatSingleton.CombatState == Enumerations.CombatStates.BiggieChat
-			|| _globalCombatSingleton.CombatState == Enumerations.CombatStates.BiggieFight)
+		if ((_globalCombatSingleton.CombatState == Enumerations.Combat.StateMachine.States.BiggieChat
+			|| _globalCombatSingleton.CombatState == Enumerations.Combat.StateMachine.States.BiggieFight)
 			&& Input.IsActionJustPressed(_INTERACT_INPUT))
 		{
-			_globalCombatSingleton.CombatState = Enumerations.CombatStates.TransitionToEnemyAttack;
+			_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.TransitionToEnemyAttack;
 		}
 	}
 
@@ -202,19 +202,19 @@ public partial class CombatWrapper : Node2D
 		return false;
 	}
 
-	public bool TranslateHudText(bool skip)
+	public bool TranslateHudBiggieCombatMenu(bool skip)
 	{
 		if (skip)
 		{
-			HudAnimationHelper.SkipAnimation(_nodeHudContainerSubject, _nodeHudContainerTargetText);
+			HudAnimationHelper.SkipAnimation(_nodeHudContainerSubject, _nodeHudContainerTargetBiggieCombatMenu);
 		}
 
-		if (HudAnimationHelper.CheckPosition(_nodeHudContainerSubject, _nodeHudContainerTargetText))
+		if (HudAnimationHelper.CheckPosition(_nodeHudContainerSubject, _nodeHudContainerTargetBiggieCombatMenu))
 		{
 			return true;
 		}
 		HudAnimationHelper.AnimationSpeed = _HUD_SPEED_FAST;
-		HudAnimationHelper.TranslateOverTime(_nodeHudContainerSubject, _nodeHudContainerTargetText);
+		HudAnimationHelper.TranslateOverTime(_nodeHudContainerSubject, _nodeHudContainerTargetBiggieCombatMenu);
 		return false;
 	}
 
@@ -280,7 +280,7 @@ public partial class CombatWrapper : Node2D
 		return false;
 	}
 
-	public bool TransformToText(bool skip)
+	public bool TransformToBiggieCombatMenu(bool skip)
 	{
 		if (skip)
 		{
@@ -290,7 +290,7 @@ public partial class CombatWrapper : Node2D
 		if (MainAnimationHelper.CheckPosition(_nodeSubjectPanel, _nodeBasePagePanel)
 			&& MainAnimationHelper.CheckSize(_nodeSubjectPanel, _nodeBasePagePanel))
 		{
-			_nodeTextContainer.Show();
+			_nodeBiggieCombatMenuTextContainer.Show();
 			return true;
 		}
 
@@ -340,15 +340,15 @@ public partial class CombatWrapper : Node2D
 		_nodeBiggieAttackContainer.Hide();
 	}
 
-	public void ShowBiggieTextContainer()
+	public void ShowBiggieCombatMenuTextContainer()
 	{
-		_nodeTextContainer.Show();
-		_nodeBiggieCombatTextBox.StartTurn();
+		_nodeBiggieCombatMenuTextContainer.Show();
+		_nodeBiggieCombatMenu.StartTurn();
 	}
 
-	public void HideBiggieTextContainer()
+	public void HideBiggieCombatMenuTextContainer()
 	{
-		_nodeTextContainer.Hide();
+		_nodeBiggieCombatMenuTextContainer.Hide();
 	}
 
 	public void ShowActionInfo()
@@ -373,17 +373,17 @@ public partial class CombatWrapper : Node2D
 
 	public void HandleFightSelection(int selectedIndex)
 	{
-		if (selectedIndex != (int)Enumerations.FightPagePanelOptions.Back)
+		if (selectedIndex != (int)Enumerations.Combat.FightPagePanelOptions.Back)
 		{
-			_globalCombatSingleton.CombatState = Enumerations.CombatStates.TransitionToBiggieFight;
+			_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.TransitionToBiggieFight;
 		}
 	}
 
 	public void HandleChatSelection(int selectedIndex)
 	{
-		if (selectedIndex != (int)Enumerations.ChatPagePanelOptions.Back)
+		if (selectedIndex != (int)Enumerations.Combat.ChatPagePanelOptions.Back)
 		{
-			_globalCombatSingleton.CombatState = Enumerations.CombatStates.TransitionToBiggieChat;
+			_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.TransitionToBiggieChat;
 		}
 	}
 
@@ -403,11 +403,11 @@ public partial class CombatWrapper : Node2D
 		return finished;
 	}
 
-	private bool TransitionToText(bool skip)
+	private bool TransitionToBiggieCombatMenu(bool skip)
 	{
 		bool finished = false;
-		finished = TranslateHudText(skip);
-		finished = TransformToText(skip) && finished;
+		finished = TranslateHudBiggieCombatMenu(skip);
+		finished = TransformToBiggieCombatMenu(skip) && finished;
 		return finished;
 	}
 
@@ -415,16 +415,16 @@ public partial class CombatWrapper : Node2D
 	{
 		switch (LastCombatOptionUsed)
 		{
-			case Enumerations.CombatOptions.Scratch:
+			case Enumerations.Combat.CombatOptions.Scratch:
 				DealPhysicalDamage(1 * damagePercentage);
 				break;
-			case Enumerations.CombatOptions.Bite:
+			case Enumerations.Combat.CombatOptions.Bite:
 				DealPhysicalDamage(2 * damagePercentage);
 				break;
-			case Enumerations.CombatOptions.Ask:
+			case Enumerations.Combat.CombatOptions.Ask:
 				DealEmotionalDamage(1 * damagePercentage);
 				break;
-			case Enumerations.CombatOptions.Charm:
+			case Enumerations.Combat.CombatOptions.Charm:
 				DealEmotionalDamage(2 * damagePercentage);
 				break;
 			default:
@@ -433,9 +433,9 @@ public partial class CombatWrapper : Node2D
 		}
 	}
 
-	private void HandleEndBiggieTextTurn(int combatOption)
+	private void HandleEndBiggieCombatMenuTurn(int combatOption)
 	{
-		LastCombatOptionUsed = (Enumerations.CombatOptions)combatOption;
+		LastCombatOptionUsed = (Enumerations.Combat.CombatOptions)combatOption;
 	}
 
 	[Signal]

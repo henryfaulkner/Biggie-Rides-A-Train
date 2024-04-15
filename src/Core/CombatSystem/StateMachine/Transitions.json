@@ -1,0 +1,128 @@
+[
+    {
+        
+        "StateId": 0,
+        "EventId": 1,
+        "NextStateId": 1
+    },
+    {
+        
+        "StateId": 0,
+        "EventId": 2,
+        "NextStateId": 2
+    },
+    {
+        
+        "StateId": 0,
+        "EventId": 3,
+        "NextStateId": 3
+    },
+    {
+        
+        "StateId": 0,
+        "EventId": 4,
+        "NextStateId": 4
+    },
+    {
+        
+        "StateId": 1,
+        "EventId": 5,
+        "NextStateId": 5
+    },
+    {
+        
+        "StateId": 2,
+        "EventId": 5,
+        "NextStateId": 6
+    },
+    {
+        
+        "StateId": 3,
+        "EventId": 5,
+        "NextStateId": 7
+    },
+    {
+        
+        "StateId": 4,
+        "EventId": 5,
+        "NextStateId": 8
+    },
+    {
+        
+        "StateId": 5,
+        "EventId": 6,
+        "NextStateId": 9
+    },
+    {
+        
+        "StateId": 6,
+        "EventId": 6,
+        "NextStateId": 10
+    },
+    {
+        
+        "StateId": 7,
+        "EventId": 6,
+        "NextStateId": 11
+    },
+    {
+        
+        "StateId": 8,
+        "EventId": 6,
+        "NextStateId": 12
+    },
+    {
+        
+        "StateId": 9,
+        "EventId": 5,
+        "NextStateId": 13
+    },
+    {
+        
+        "StateId": 10,
+        "EventId": 5,
+        "NextStateId": 13
+    },
+    {
+        
+        "StateId": 11,
+        "EventId": 5,
+        "NextStateId": 13
+    },
+    {
+        
+        "StateId": 12,
+        "EventId": 5,
+        "NextStateId": 13
+    },
+    {
+        
+        "StateId": 13,
+        "EventId": 7,
+        "NextStateId": 14
+    },
+    {
+        
+        "StateId": 13,
+        "EventId": 8,
+        "NextStateId": 15
+    },
+    {
+        
+        "StateId": 13,
+        "EventId": 9,
+        "NextStateId": 16
+    },
+    {
+        
+        "StateId": 13,
+        "EventId": 10,
+        "NextStateId": 17
+    },
+    {
+        
+        "StateId": 14,
+        "EventId": 5,
+        "NextStateId": 0
+    }   
+]
