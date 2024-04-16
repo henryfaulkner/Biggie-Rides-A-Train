@@ -6,10 +6,10 @@ public class SelectionHelper
 {
 
 	private static readonly StringName _STYLEBOX_NAME = new StringName("panel");
-	private static readonly StringName _ACTIVE_PAGE_LABEL_SETTING_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Active_PageLabelSettingOption.tres");
-	private static readonly StringName _INACTIVE_PAGE_LABEL_SETTING_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Inactive_PageLabelSettingOption.tres");
-	private static readonly StringName _ACTIVE_PAGE_PANEL_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Active_PagePanelOption.tres");
-	private static readonly StringName _INACTIVE_PAGE_PANEL_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieText/PageStyles/Inactive_PagePanelOption.tres");
+	private static readonly StringName _ACTIVE_PAGE_LABEL_SETTING_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Active_PageLabelSettingOption.tres");
+	private static readonly StringName _INACTIVE_PAGE_LABEL_SETTING_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Inactive_PageLabelSettingOption.tres");
+	private static readonly StringName _ACTIVE_PAGE_PANEL_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Active_PagePanelOption.tres");
+	private static readonly StringName _INACTIVE_PAGE_PANEL_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Inactive_PagePanelOption.tres");
 
 	private LabelSettings _styleActivePageLabelSettingOption = null;
 	private LabelSettings _styleInactivePageLabelSettingOption = null;

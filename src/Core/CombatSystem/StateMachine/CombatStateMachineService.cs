@@ -2,29 +2,77 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Linq;
 
-public class StateMachineService
+public partial class CombatStateMachineService : Node
 {
 	private static readonly StringName _TRANSITIONS_FILE = new StringName("res://Core/CombatSystem/StateMachine/Transitions.json");
 
-	public StateMachineService()
+	public CombatStateMachineService()
 	{
 		CombatTransitions = ConstructAllTransitions();
 		CombatStates = ConstructAllStates();
+		CombatEvent += HandleCombatEvent;
 	}
 
-	public CombatStateModel CurrentCombatState { get; set; }
+	[Signal]
+	public delegate void CombatEventEventHandler(int eventIdIndex);
+
+	public CombatStateModel CurrentCombatState { get; private set; }
 	private List<CombatTransitionModel> CombatTransitions { get; set; }
 	private List<CombatStateModel> CombatStates { get; set; }
 
-	public List<CombatTransitionModel> GetAllCombatTransitions()
+	public void Reset()
+	{
+		CurrentCombatState = new CombatStateModel(Enumerations.Combat.StateMachine.States.BiggieCombatMenu);
+	}
+
+	public List<CombatTransitionModel> GetAllTransitions()
 	{
 		return CombatTransitions;
 	}
 
-	public List<CombatStateModel> GetAllCombatStates()
+	public List<CombatStateModel> GetAllStates()
 	{
 		return CombatStates;
+	}
+
+	public CombatStateModel GetStateById(Enumerations.Combat.StateMachine.States stateId)
+	{
+		return CombatStates.Where(x => x.Id == stateId).FirstOrDefault();
+	}
+
+	// If I could memotize these indexes, this could be much faster 
+	public List<CombatTransitionModel> GetTransitionsByStateId(Enumerations.Combat.StateMachine.States stateId)
+	{
+		return CombatTransitions.Where(x => x.State.Id == stateId).ToList();
+	}
+
+	public CombatStateModel GetStateByEventAndTransitions(Enumerations.Combat.StateMachine.Events eventId,
+														  List<CombatTransitionModel> transitions)
+	{
+		var transition = CombatTransitions.Where(x => x.Event.Id == eventId).FirstOrDefault();
+		if (transition == null)
+		{
+			GD.PrintErr("GetStateByEventAndTransitions Transition was not found.");
+			return new CombatStateModel();
+		}
+		var nextStateId = transition.NextState.Id;
+		if (transition == null)
+		{
+			GD.PrintErr("GetStateByEventAndTransitions NextStateId was not found.");
+			return new CombatStateModel();
+		}
+
+		return CombatStates.Where(x => x.Id == nextStateId).FirstOrDefault();
+	}
+
+	private void HandleCombatEvent(int eventIdIndex)
+	{
+		var eventId = (Enumerations.Combat.StateMachine.Events)eventIdIndex;
+		var transitions = GetTransitionsByStateId(CurrentCombatState.Id);
+		var nextState = GetStateByEventAndTransitions(eventId, transitions);
+		CurrentCombatState = nextState;
 	}
 
 	private List<CombatTransitionModel> ConstructAllTransitions()
@@ -52,7 +100,7 @@ public class StateMachineService
 			new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieFightScratch),
 			new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieFightBite),
 			new CombatStateModel(Enumerations.Combat.StateMachine.States.EnemyAttack),
-			new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToCombatMenu),
+			new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToBiggieCombatMenu),
 			new CombatStateModel(Enumerations.Combat.StateMachine.States.BiggieDefeat),
 			new CombatStateModel(Enumerations.Combat.StateMachine.States.EnemyDefeatPhysical),
 			new CombatStateModel(Enumerations.Combat.StateMachine.States.EnemyDefeatEmotional),

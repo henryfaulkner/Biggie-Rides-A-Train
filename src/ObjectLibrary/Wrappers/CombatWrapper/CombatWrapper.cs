@@ -66,6 +66,8 @@ public partial class CombatWrapper : Node2D
 		_nodeBiggieCombatMenu.HideActionInfo += HideActionInfo;
 		_nodeBiggieAttackContainer.EndBiggieAttackTurn += HandleEndBiggieAttackTurn;
 
+		//ApplyCombatStateMachineEvents();
+
 		HideEnemyAttackContainer();
 		HideBiggieAttackContainer();
 		HideActionInfo();
@@ -84,11 +86,17 @@ public partial class CombatWrapper : Node2D
 		}
 		return false;
 	}
+
 	public override void _Process(double delta)
 	{
 		bool skipTransition = Input.IsActionJustPressed(_INTERACT_INPUT);
+		var currStateId = _globalCombatSingleton.CombatStateMachineService.CurrentCombatState.Id;
 
-		if (_globalCombatSingleton.CombatState == Enumerations.Combat.StateMachine.Events.TransitionToEnemyAttack)
+		if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieChatAsk
+			|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieChatCharm
+			|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieFightBite
+			|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieFightScratch
+		)
 		{
 			if (!ProcessFirstPass())
 			{
@@ -100,12 +108,12 @@ public partial class CombatWrapper : Node2D
 					HideSubjectPanel();
 					EmitSignal(SignalName.StartEnemyAttackTurn);
 					ShowEnemyAttackContainer();
-					_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.EnemyAttack;
+					EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
 					//GD.Print("EmitSignal(SignalName.StartOpponentTurn);");
 				}
 			}
 		}
-		else if (_globalCombatSingleton.CombatState == Enumerations.Combat.StateMachine.Events.TransitionToBiggieCombatMenu)
+		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieCombatMenu)
 		{
 			if (!ProcessFirstPass())
 			{
@@ -116,11 +124,12 @@ public partial class CombatWrapper : Node2D
 					HideSubjectPanel();
 					EmitSignal(SignalName.StartBiggieTextTurn);
 					ShowBiggieCombatMenuTextContainer();
-					_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.Text;
+					EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
 				}
 			}
 		}
-		else if (_globalCombatSingleton.CombatState == Enumerations.Combat.StateMachine.Events.TransitionToBiggieFight)
+		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightScratch
+				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightBite)
 		{
 			if (!ProcessFirstPass())
 			{
@@ -133,11 +142,12 @@ public partial class CombatWrapper : Node2D
 					EmitSignal(SignalName.StartBiggieAttackTurn);
 					ShowBiggieAttackContainer();
 					_nodeBiggieAttackContainer.IsActive = true;
-					_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.BiggieFight;
+					EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
 				}
 			}
 		}
-		else if (_globalCombatSingleton.CombatState == Enumerations.Combat.StateMachine.Events.TransitionToBiggieChat)
+		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatAsk
+				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatCharm)
 		{
 			if (!ProcessFirstPass())
 			{
@@ -150,16 +160,19 @@ public partial class CombatWrapper : Node2D
 					EmitSignal(SignalName.StartBiggieAttackTurn);
 					ShowBiggieAttackContainer();
 					_nodeBiggieAttackContainer.IsActive = true;
-					_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.BiggieChat;
+					EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
 				}
 			}
 		}
 
-		if ((_globalCombatSingleton.CombatState == Enumerations.Combat.StateMachine.States.BiggieChat
-			|| _globalCombatSingleton.CombatState == Enumerations.Combat.StateMachine.States.BiggieFight)
-			&& Input.IsActionJustPressed(_INTERACT_INPUT))
+		if ((currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatAsk
+				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatCharm
+				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightScratch
+				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightBite
+			) && Input.IsActionJustPressed(_INTERACT_INPUT)
+		)
 		{
-			_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.TransitionToEnemyAttack;
+			EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
 		}
 	}
 
@@ -375,7 +388,7 @@ public partial class CombatWrapper : Node2D
 	{
 		if (selectedIndex != (int)Enumerations.Combat.FightPagePanelOptions.Back)
 		{
-			_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.TransitionToBiggieFight;
+			EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
 		}
 	}
 
@@ -383,7 +396,7 @@ public partial class CombatWrapper : Node2D
 	{
 		if (selectedIndex != (int)Enumerations.Combat.ChatPagePanelOptions.Back)
 		{
-			_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.TransitionToBiggieChat;
+			EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
 		}
 	}
 
@@ -452,4 +465,97 @@ public partial class CombatWrapper : Node2D
 	{
 		_globalCombatSingleton.BiggieEmotionalAttackProxy.DealDamage(damage);
 	}
+
+	private static readonly StringName _COMBAT_EVENT = new StringName("CombatEvent");
+	private void EmitCombatEvent(Enumerations.Combat.StateMachine.Events eventId)
+	{
+		_globalCombatSingleton.CombatStateMachineService.EmitSignal(_COMBAT_EVENT, (int)eventId);
+	}
+
+	// private void ApplyCombatStateMachineEvents()
+	// {
+	// 	_globalCombatSingleton.CombatStateMachineService.GetStateById(Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieChatAsk)
+	// 		.AddEventHandler(TransitionToEnemyAttackEvent);
+	// 	_globalCombatSingleton.CombatStateMachineService.GetStateById(Enumerations.Combat.StateMachine.States.TransitionToBiggieChatCharm)
+	// 		.AddEventHandler(TransitionToEnemyAttackEvent);
+	// 	_globalCombatSingleton.CombatStateMachineService.GetStateById(Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieFightBite)
+	// 		.AddEventHandler(TransitionToEnemyAttackEvent);
+	// 	_globalCombatSingleton.CombatStateMachineService.GetStateById(Enumerations.Combat.StateMachine.States.TransitionToBiggieFightScratch)
+	// 		.AddEventHandler(TransitionToEnemyAttackEvent);
+	// 	_globalCombatSingleton.CombatStateMachineService.GetStateById(Enumerations.Combat.StateMachine.States.TransitionToCombatMenu)
+	// 		.AddEventHandler(TransitionToBiggieCombatMenuEvent);
+	// }
+
+	// private bool TransitionToEnemyAttackEvent()
+	// {
+	// 	bool skipTransition = Input.IsActionJustPressed(_INTERACT_INPUT);
+	// 	if (!ProcessFirstPass())
+	// 	{
+	// 		HideBiggieAttackContainer();
+	// 		_nodeBiggieAttackContainer.IsActive = false;
+	// 		if (TransitionToEnemyAttack(skipTransition))
+	// 		{
+	// 			FirstFramePass = true;
+	// 			HideSubjectPanel();
+	// 			EmitSignal(SignalName.StartEnemyAttackTurn);
+	// 			ShowEnemyAttackContainer();
+	// 			return true;
+	// 		}
+	// 	}
+	// 	return false;
+	// }
+
+	// private bool TransitionToBiggieCombatMenuEvent()
+	// {
+	// 	bool skipTransition = Input.IsActionJustPressed(_INTERACT_INPUT);
+	// 	if (!ProcessFirstPass())
+	// 	{
+	// 		HideEnemyAttackContainer();
+	// 		if (TransitionToBiggieCombatMenu(skipTransition))
+	// 		{
+	// 			FirstFramePass = true;
+	// 			HideSubjectPanel();
+	// 			EmitSignal(SignalName.StartBiggieTextTurn);
+	// 			ShowBiggieCombatMenuTextContainer();
+	// 			return true;
+	// 		}
+	// 	}
+	// 	return false;
+	// }
+
+	// private void TransitionToBiggieFightEvent()
+	// {
+	// 	bool skipTransition = Input.IsActionJustPressed(_INTERACT_INPUT);
+	// 	if (!ProcessFirstPass())
+	// 	{
+	// 		HideBiggieCombatMenuTextContainer();
+	// 		HideActionInfo();
+	// 		if (TransitionToBiggieAttack(skipTransition))
+	// 		{
+	// 			FirstFramePass = true;
+	// 			HideSubjectPanel();
+	// 			EmitSignal(SignalName.StartBiggieAttackTurn);
+	// 			ShowBiggieAttackContainer();
+	// 			_nodeBiggieAttackContainer.IsActive = true;
+	// 		}
+	// 	}
+	// }
+
+	// private void TransitionToBiggieChatEvent()
+	// {
+	// 	bool skipTransition = Input.IsActionJustPressed(_INTERACT_INPUT);
+	// 	if (!ProcessFirstPass())
+	// 	{
+	// 		HideBiggieCombatMenuTextContainer();
+	// 		HideActionInfo();
+	// 		if (TransitionToBiggieAttack(skipTransition))
+	// 		{
+	// 			FirstFramePass = true;
+	// 			HideSubjectPanel();
+	// 			EmitSignal(SignalName.StartBiggieAttackTurn);
+	// 			ShowBiggieAttackContainer();
+	// 			_nodeBiggieAttackContainer.IsActive = true;
+	// 		}
+	// 	}
+	// }
 }

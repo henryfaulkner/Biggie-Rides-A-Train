@@ -3,8 +3,7 @@ using System;
 
 public partial class CombatSingleton : Node
 {
-	public StateMachineService StateMachineService { get; set; }
-	public Enumerations.Combat.StateMachine.States CombatState { get; set; }
+	public CombatStateMachineService CombatStateMachineService { get; set; }
 
 	public BiggieAttackProxy BiggiePhysicalAttackProxy { get; set; }
 	public BiggieAttackProxy BiggieEmotionalAttackProxy { get; set; }
@@ -16,6 +15,7 @@ public partial class CombatSingleton : Node
 
 	public CombatSingleton()
 	{
+		CombatStateMachineService = new CombatStateMachineService();
 		BiggiePhysical = null;
 		EnemyEmotional = null;
 		EnemyPhysical = null;
@@ -27,6 +27,7 @@ public partial class CombatSingleton : Node
 	public void NewBattle(double totalBiggiePhysicalHealth, double totalEnemyPhysicalHealth, double totalEnemyEmotionalHealth)
 	{
 		//GD.Print("Start NewBattle");
+		CombatStateMachineService.Reset();
 		BiggiePhysical = new CombatBiggieModel(totalBiggiePhysicalHealth);
 		EnemyPhysical = new CombatParticipantModel(totalEnemyPhysicalHealth);
 		EnemyEmotional = new CombatParticipantModel(totalEnemyEmotionalHealth);

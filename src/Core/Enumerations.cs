@@ -20,7 +20,7 @@ public partial class Enumerations
 				TransitionToEnemyAttackFromBiggieFightScratch,
 				TransitionToEnemyAttackFromBiggieFightBite,
 				EnemyAttack,
-				TransitionToCombatMenu,
+				TransitionToBiggieCombatMenu,
 				BiggieDefeat,
 				EnemyDefeatPhysical,
 				EnemyDefeatEmotional,

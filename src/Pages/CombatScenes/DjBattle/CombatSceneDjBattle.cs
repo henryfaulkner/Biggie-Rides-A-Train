@@ -47,7 +47,6 @@ public partial class CombatSceneDjBattle : Node2D
 		_nodeDjAttackContainer.ProjectPhysicalDamage += ChangeBiggieHealthBar;
 		_nodeDjAttackContainer.EndEnemyAttackTurn += EndEnemyAttackTurn;
 
-		_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.States.BiggieCombatMenu;
 		_nodeDjAttackContainer.Hide();
 		_nodeHitCallout.Hide();
 		_nodeDjAttackContainer.IsAttacking = false;
@@ -65,9 +64,10 @@ public partial class CombatSceneDjBattle : Node2D
 		_nodeBiggieCombatMenu.Show();
 	}
 
-	public void EndBiggieCombatMenuTurn(int CombatOptions)
+	public void EndBiggieCombatMenuTurn(int combatOptionIndex)
 	{
 		//GD.Print("EndBiggieTurn");
+		var combatOption = (Enumerations.Combat.CombatOptions)combatOptionIndex;
 		_nodeBiggieCombatMenu.Visible = false;
 		_nodeBiggieCombatMenu.EndTurn();
 		ChangeDjHealthBar();
@@ -85,7 +85,25 @@ public partial class CombatSceneDjBattle : Node2D
 			return;
 		}
 
-		_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.TransitionToEnemyAttack;
+		switch (combatOption)
+		{
+			case Enumerations.Combat.CombatOptions.Ask:
+				EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatAsk);
+				break;
+			case Enumerations.Combat.CombatOptions.Charm:
+				EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatCharm);
+				break;
+			case Enumerations.Combat.CombatOptions.Scratch:
+				EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightScratch);
+				break;
+			case Enumerations.Combat.CombatOptions.Bite:
+				EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightBite);
+				break;
+			default:
+				GD.Print("CombatSceneDjBattle.EndBiggieCombatMenuTurn: Could not map combat options");
+				break;
+		}
+
 		return;
 	}
 
@@ -110,7 +128,7 @@ public partial class CombatSceneDjBattle : Node2D
 			return;
 		}
 
-		_globalCombatSingleton.CombatState = Enumerations.Combat.StateMachine.Events.TransitionToText;
+		EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishEnemyAttack);
 		return;
 	}
 
@@ -161,5 +179,11 @@ public partial class CombatSceneDjBattle : Node2D
 	public void HandleBiggieAttackDealDamage(double damagePercentage)
 	{
 
+	}
+
+	private static readonly StringName _COMBAT_EVENT = new StringName("CombatEvent");
+	private void EmitCombatEvent(Enumerations.Combat.StateMachine.Events eventId)
+	{
+		_globalCombatSingleton.CombatStateMachineService.EmitSignal(_COMBAT_EVENT, (int)eventId);
 	}
 }

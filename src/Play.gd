@@ -20,7 +20,7 @@ func _process(delta):
 
 func _on_pressed():
 	var scenePlay = decide_scene()
-	scenePlay = _INTRO_SCENE
+	scenePlay = _TEST_PERSPECTIVE_SCENE
 	get_tree().change_scene_to_packed(scenePlay);
 	pass ;
 

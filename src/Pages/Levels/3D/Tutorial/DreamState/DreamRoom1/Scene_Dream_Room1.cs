@@ -3,7 +3,7 @@ using System;
 
 public partial class Scene_Dream_Room1 : Node3D
 {
-	private static readonly StringName _COMBAT_SCENE_MUSHROOM = new StringName("");
+	private static readonly StringName _COMBAT_SCENE_MUSHROOM = new StringName("res://Pages/CombatScenes/DjBattle/CombatSceneDjBattle.tscn");
 
 	private Node3D _nodeSelf = null;
 	private Mushroom3D _nodeMushroom = null;
@@ -36,7 +36,7 @@ public partial class Scene_Dream_Room1 : Node3D
 			case MushroomDialogueStates.Discovery:
 				_nodeTextBox.AddDialogue("This mushroom seems content with resting in front of the door.");
 				_nodeTextBox.ExecuteDialogueQueue();
-				MushroomDialogueState = MushroomDialogueStates.Combat; 
+				MushroomDialogueState = MushroomDialogueStates.Combat;
 				break;
 			case MushroomDialogueStates.Combat:
 				_nodeInteractionTextBox.StartInteraction("Would you like to remove the mushroom in front of the door?", "Yes", (int)MushroomSelectionOptions.CombatYes);
