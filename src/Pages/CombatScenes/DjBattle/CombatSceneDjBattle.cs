@@ -39,13 +39,14 @@ public partial class CombatSceneDjBattle : Node2D
 
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 		_globalCombatSingleton.NewBattle(_MAX_HEALTH_PHYSICAL_BIGGIE, _MAX_HEALTH_PHYSICAL_DJ, _MAX_HEALTH_EMOTIONAL_DJ);
+		_globalCombatSingleton.CombatStateMachineService.SetCheckChatterConditions(CheckChatterConditions);
 		ChangeBiggieHealthBar();
 		ChangeDjHealthBar();
 
 		_nodeCombatWrapper.StartBiggieTextTurn += StartBiggieTextTurn;
 		_nodeCombatWrapper.StartEnemyAttackTurn += StartEnemyAttackTurn;
 		_nodeCombatWrapper.ProjectPhysicalDamage += ChangeDjHealthBar;
-		_nodeCombatWrapper.ProjectPhysicalDamage += () => EmitCombatEvent(Enumerations.Combat.StateMachine.Events.ShowChatterTextBox);
+		_nodeCombatWrapper.ProjectPhysicalDamage += () => _globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.ShowChatterTextBox);
 		_nodeBiggieCombatMenu.EndBiggieCombatMenuTurn += EndBiggieCombatMenuTurn;
 		_nodeDjAttackContainer.ProjectPhysicalDamage += ChangeBiggieHealthBar;
 		_nodeDjAttackContainer.EndEnemyAttackTurn += EndEnemyAttackTurn;
@@ -90,16 +91,16 @@ public partial class CombatSceneDjBattle : Node2D
 		switch (combatOption)
 		{
 			case Enumerations.Combat.CombatOptions.Ask:
-				EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatAsk);
+				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatAsk);
 				break;
 			case Enumerations.Combat.CombatOptions.Charm:
-				EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatCharm);
+				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatCharm);
 				break;
 			case Enumerations.Combat.CombatOptions.Scratch:
-				EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightScratch);
+				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightScratch);
 				break;
 			case Enumerations.Combat.CombatOptions.Bite:
-				EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightBite);
+				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightBite);
 				break;
 			default:
 				GD.Print("CombatSceneDjBattle.EndBiggieCombatMenuTurn: Could not map combat options");
@@ -130,7 +131,7 @@ public partial class CombatSceneDjBattle : Node2D
 			return;
 		}
 
-		EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishEnemyAttack);
+		_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishEnemyAttack);
 		return;
 	}
 
@@ -182,16 +183,8 @@ public partial class CombatSceneDjBattle : Node2D
 
 	}
 
-	private static readonly StringName _COMBAT_EVENT = new StringName("CombatEvent");
-	private void EmitCombatEvent(Enumerations.Combat.StateMachine.Events eventId)
-	{
-		GD.Print("CombatSceneDjBattle kill me");
-		if (CheckChatterConditions()) return;
-		_globalCombatSingleton.CombatStateMachineService.EmitSignal(_COMBAT_EVENT, (int)eventId);
-	}
-
-	private bool firstDialogueDone = false;
-	private bool CheckChatterConditions()
+	public bool firstDialogueDone = false;
+	public bool CheckChatterConditions()
 	{
 		GD.Print("CombatSceneDjBattle CheckChatterConditions");
 		if (_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage() < 100 && !firstDialogueDone)
@@ -199,7 +192,6 @@ public partial class CombatSceneDjBattle : Node2D
 			_nodeChatterTextBox.AddDialogue("Pizza Pizza.");
 			_nodeChatterTextBox.AddDialogue("Please.");
 			_nodeChatterTextBox.ExecuteDialogueQueue();
-			_globalCombatSingleton.CombatStateMachineService.EmitSignal(_COMBAT_EVENT, (int)Enumerations.Combat.StateMachine.Events.ShowChatterTextBox);
 			firstDialogueDone = true;
 			return true;
 		}

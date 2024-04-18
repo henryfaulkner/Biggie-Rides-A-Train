@@ -24,8 +24,24 @@ public partial class Enumerations
 				BiggieDefeat = 15,
 				EnemyDefeatPhysical = 16,
 				EnemyDefeatEmotional = 17,
-				TransitionToChatterTextBox = 18,
-				ChatterTextBox = 19,
+				TransitionToChatterTextBox_FromCombatMenu_SelectChatAsk = 18,
+				ChatterTextBox_FromCombatMenu_SelectChatAsk = 19,
+				TransitionToChatterTextBox_FromCombatMenu_SelectChatCharm = 20,
+				ChatterTextBox_FromCombatMenu_SelectChatCharm = 21,
+				TransitionToChatterTextBox_FromCombatMenu_SelectFightScratch = 22,
+				ChatterTextBox_FromCombatMenu_SelectFightScratch = 23,
+				TransitionToChatterTextBox_FromCombatMenu_SelectFightBite = 24,
+				ChatterTextBox_FromCombatMenu_SelectFightBite = 25,
+				TransitionToChatterTextBox_FromBiggieChatAsk = 26,
+				ChatterTextBox_FromBiggieChatAsk = 27,
+				TransitionToChatterTextBox_FromBiggieChatCharm = 28,
+				ChatterTextBox_FromBiggieChatCharm = 29,
+				TransitionToChatterTextBox_FromBiggieFightScratch = 30,
+				ChatterTextBox_FromBiggieFightScratch = 31,
+				TransitionToChatterTextBox_FromBiggieFightBite = 32,
+				ChatterTextBox_FromBiggieFightBite = 33,
+				TransitionToChatterTextBox_FromEnemyAttack = 34,
+				ChatterTextBox_FromEnemyAttack = 35,
 			}
 
 			public enum Events
@@ -42,6 +58,10 @@ public partial class Enumerations
 				EnemyDefeatPhysical = 9,
 				EnemyDefeatEmotional = 10,
 				FinishChatterTextBox = 11,
+				ShowChatterTextBox_SelectChatAsk = 12,
+				ShowChatterTextBox_SelectChatCharm = 13,
+				ShowChatterTextBox_SelectFightScratch = 14,
+				ShowChatterTextBox_SelectFightBite = 15,
 			}
 		}
 

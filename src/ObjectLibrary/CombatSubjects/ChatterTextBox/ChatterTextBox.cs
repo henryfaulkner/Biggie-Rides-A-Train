@@ -126,7 +126,7 @@ public partial class ChatterTextBox : CanvasLayer
 			{
 				HideTextBox();
 				EmitSignal(SignalName.HidingTextBox);
-				EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishChatterTextBox);
+				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishChatterTextBox);
 			}
 		}
 		else
@@ -213,29 +213,5 @@ public partial class ChatterTextBox : CanvasLayer
 	public void IsReading(bool isReading)
 	{
 		_isReading = isReading;
-	}
-
-	private static readonly StringName _COMBAT_EVENT = new StringName("CombatEvent");
-	private void EmitCombatEvent(Enumerations.Combat.StateMachine.Events eventId)
-	{
-		GD.Print("CombatWrapper kill me");
-		if (CheckChatterConditions()) return;
-		_globalCombatSingleton.CombatStateMachineService.EmitSignal(_COMBAT_EVENT, (int)eventId);
-	}
-
-	private bool firstDialogueDone = false;
-	private bool CheckChatterConditions()
-	{
-		GD.Print("ChatterTextBox CheckChatterConditions");
-		if (_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage() < 100 && !firstDialogueDone)
-		{
-			AddDialogue("Pizza Pizza.");
-			AddDialogue("Please.");
-			ExecuteDialogueQueue();
-			_globalCombatSingleton.CombatStateMachineService.EmitSignal(_COMBAT_EVENT, (int)Enumerations.Combat.StateMachine.Events.ShowChatterTextBox);
-			firstDialogueDone = true;
-			return true;
-		}
-		return false;
 	}
 }

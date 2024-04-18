@@ -119,7 +119,7 @@ public partial class CombatWrapper : Node2D
 					HideSubjectPanel();
 					EmitSignal(SignalName.StartEnemyAttackTurn);
 					ShowEnemyAttackContainer();
-					EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
+					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
 					//GD.Print("EmitSignal(SignalName.StartOpponentTurn);");
 				}
 			}
@@ -137,7 +137,7 @@ public partial class CombatWrapper : Node2D
 					HideSubjectPanel();
 					EmitSignal(SignalName.StartBiggieTextTurn);
 					ShowBiggieCombatMenuTextContainer();
-					EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
+					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
 				}
 			}
 		}
@@ -157,7 +157,7 @@ public partial class CombatWrapper : Node2D
 					EmitSignal(SignalName.StartBiggieAttackTurn);
 					ShowBiggieAttackContainer();
 					_nodeBiggieAttackContainer.IsActive = true;
-					EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
+					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
 				}
 			}
 		}
@@ -177,11 +177,11 @@ public partial class CombatWrapper : Node2D
 					EmitSignal(SignalName.StartBiggieAttackTurn);
 					ShowBiggieAttackContainer();
 					_nodeBiggieAttackContainer.IsActive = true;
-					EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
+					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
 				}
 			}
 		}
-		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox)
+		else if (_globalCombatSingleton.CombatStateMachineService.IsATransitionToChatterBox(currStateId))
 		{
 			//GD.Print("Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox...");
 			if (!ProcessFirstPass())
@@ -197,7 +197,7 @@ public partial class CombatWrapper : Node2D
 					HideSubjectPanel();
 					EmitSignal(SignalName.StartChatterTextBoxTurn);
 					ShowChatterTextBoxTextContainer();
-					EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
+					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
 				}
 			}
 		}
@@ -475,7 +475,7 @@ public partial class CombatWrapper : Node2D
 	{
 		if (selectedIndex != (int)Enumerations.Combat.FightPagePanelOptions.Back)
 		{
-			//EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
+			//_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
 		}
 	}
 
@@ -483,7 +483,7 @@ public partial class CombatWrapper : Node2D
 	{
 		if (selectedIndex != (int)Enumerations.Combat.ChatPagePanelOptions.Back)
 		{
-			//EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
+			//_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
 		}
 	}
 
@@ -542,7 +542,7 @@ public partial class CombatWrapper : Node2D
 
 		Action action = () =>
 		{
-			//EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
+			//_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
 		};
 		HelperFunctions.SetTimeout(action);
 
@@ -566,30 +566,6 @@ public partial class CombatWrapper : Node2D
 	public void DealEmotionalDamage(double damage)
 	{
 		_globalCombatSingleton.BiggieEmotionalAttackProxy.DealDamage(damage);
-	}
-
-	private static readonly StringName _COMBAT_EVENT = new StringName("CombatEvent");
-	private void EmitCombatEvent(Enumerations.Combat.StateMachine.Events eventId)
-	{
-		GD.Print("CombatWrapper killme");
-		if (CheckChatterConditions()) return;
-		_globalCombatSingleton.CombatStateMachineService.EmitSignal(_COMBAT_EVENT, (int)eventId);
-	}
-
-	private bool firstDialogueDone = false;
-	private bool CheckChatterConditions()
-	{
-		GD.Print("CombatWrapper CheckChatterConditions");
-		if (_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage() < 100 && !firstDialogueDone)
-		{
-			_nodeChatterTextBox.AddDialogue("Pizza Pizza.");
-			_nodeChatterTextBox.AddDialogue("Please.");
-			_nodeChatterTextBox.ExecuteDialogueQueue();
-			_globalCombatSingleton.CombatStateMachineService.EmitSignal(_COMBAT_EVENT, (int)Enumerations.Combat.StateMachine.Events.ShowChatterTextBox);
-			firstDialogueDone = true;
-			return true;
-		}
-		return false;
 	}
 
 	// private void ApplyCombatStateMachineEvents()
