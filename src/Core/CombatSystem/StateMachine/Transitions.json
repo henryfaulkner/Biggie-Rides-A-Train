@@ -124,5 +124,88 @@
         "StateId": 14,
         "EventId": 5,
         "NextStateId": 0
-    }   
+    },
+    
+    {
+        "StateId": 18,
+        "EventId": 5,
+        "NextStateId": 19
+    },
+
+    {
+        "StateId": 0,
+        "EventId": 0,
+        "NextStateId": 18
+    },
+    {
+        "StateId": 5,
+        "EventId": 0,
+        "NextStateId": 18
+    },
+    {
+        "StateId": 6,
+        "EventId": 0,
+        "NextStateId": 18
+    },
+    {
+        "StateId": 7,
+        "EventId": 0,
+        "NextStateId": 18
+    },
+    {
+        "StateId": 8,
+        "EventId": 0,
+        "NextStateId": 18
+    },
+    {
+        "StateId": 13,
+        "EventId": 0,
+        "NextStateId": 18
+    },
+
+    {
+        "StateId": 19,
+        "EventId": 11,
+        "NextStateId": 1
+    },
+    {
+        "StateId": 19,
+        "EventId": 11,
+        "NextStateId": 2
+    },
+    {
+        "StateId": 19,
+        "EventId": 11,
+        "NextStateId": 3
+    },
+    {
+        "StateId": 19,
+        "EventId": 11,
+        "NextStateId": 4
+    },
+    {
+        "StateId": 19,
+        "EventId": 11,
+        "NextStateId": 9
+    },
+    {
+        "StateId": 19,
+        "EventId": 11,
+        "NextStateId": 10
+    },
+    {
+        "StateId": 19,
+        "EventId": 11,
+        "NextStateId": 11
+    },
+    {
+        "StateId": 19,
+        "EventId": 11,
+        "NextStateId": 12
+    },
+    {
+        "StateId": 19,
+        "EventId": 11,
+        "NextStateId": 14
+    }
 ]

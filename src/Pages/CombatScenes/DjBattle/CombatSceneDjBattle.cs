@@ -14,6 +14,7 @@ public partial class CombatSceneDjBattle : Node2D
 	private CombatWrapper _nodeCombatWrapper = null;
 	private BiggieCombatMenu _nodeBiggieCombatMenu = null;
 	private DjAttackContainer _nodeDjAttackContainer = null;
+	private ChatterTextBox _nodeChatterTextBox = null;
 	private CanvasLayer _nodeHitCallout = null;
 	private ProgressBar _nodeBiggieHealthBar = null;
 	private Label _nodeBiggieHpValueLabel = null;
@@ -29,6 +30,7 @@ public partial class CombatSceneDjBattle : Node2D
 		_nodeCombatWrapper = GetNode<CombatWrapper>("./CombatWrapper");
 		_nodeBiggieCombatMenu = GetNode<BiggieCombatMenu>("./CombatWrapper/BiggieCombatMenu");
 		_nodeDjAttackContainer = GetNode<DjAttackContainer>("./CombatWrapper/EnemyAttackContainer/EnemyAttackPanel/DjAttackContainer");
+		_nodeChatterTextBox = GetNode<ChatterTextBox>("./CombatWrapper/ChatterTextBox");
 		_nodeHitCallout = GetNode<CanvasLayer>("./CombatWrapper/HitCallout");
 		_nodeBiggieHealthBar = GetNode<ProgressBar>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
 		_nodeBiggieHpValueLabel = GetNode<Label>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/HpValueLabel");
@@ -43,6 +45,7 @@ public partial class CombatSceneDjBattle : Node2D
 		_nodeCombatWrapper.StartBiggieTextTurn += StartBiggieTextTurn;
 		_nodeCombatWrapper.StartEnemyAttackTurn += StartEnemyAttackTurn;
 		_nodeCombatWrapper.ProjectPhysicalDamage += ChangeDjHealthBar;
+		_nodeCombatWrapper.ProjectPhysicalDamage += () => EmitCombatEvent(Enumerations.Combat.StateMachine.Events.ShowChatterTextBox);
 		_nodeBiggieCombatMenu.EndBiggieCombatMenuTurn += EndBiggieCombatMenuTurn;
 		_nodeDjAttackContainer.ProjectPhysicalDamage += ChangeBiggieHealthBar;
 		_nodeDjAttackContainer.EndEnemyAttackTurn += EndEnemyAttackTurn;
@@ -70,7 +73,6 @@ public partial class CombatSceneDjBattle : Node2D
 		var combatOption = (Enumerations.Combat.CombatOptions)combatOptionIndex;
 		_nodeBiggieCombatMenu.Visible = false;
 		_nodeBiggieCombatMenu.EndTurn();
-		ChangeDjHealthBar();
 
 		if (_globalCombatSingleton.BiggiePhysicalAttackProxy.IsTargetDefeated())
 		{
@@ -138,9 +140,8 @@ public partial class CombatSceneDjBattle : Node2D
 		_nodeBiggieHealthBar.Value = _globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetHealthPercentage();
 		_nodeBiggieHpValueLabel.Text = $"{_globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetCurrentHealth()}/{_globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetMaxHealth()}";
 		//GD.Print($"End ChangeBiggieHealthBar {_nodeBiggieHealthBar.Value}");
-
-
 	}
+
 
 	public void ChangeDjHealthBar()
 	{
@@ -184,6 +185,24 @@ public partial class CombatSceneDjBattle : Node2D
 	private static readonly StringName _COMBAT_EVENT = new StringName("CombatEvent");
 	private void EmitCombatEvent(Enumerations.Combat.StateMachine.Events eventId)
 	{
+		GD.Print("CombatSceneDjBattle kill me");
+		if (CheckChatterConditions()) return;
 		_globalCombatSingleton.CombatStateMachineService.EmitSignal(_COMBAT_EVENT, (int)eventId);
+	}
+
+	private bool firstDialogueDone = false;
+	private bool CheckChatterConditions()
+	{
+		GD.Print("CombatSceneDjBattle CheckChatterConditions");
+		if (_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage() < 100 && !firstDialogueDone)
+		{
+			_nodeChatterTextBox.AddDialogue("Pizza Pizza.");
+			_nodeChatterTextBox.AddDialogue("Please.");
+			_nodeChatterTextBox.ExecuteDialogueQueue();
+			_globalCombatSingleton.CombatStateMachineService.EmitSignal(_COMBAT_EVENT, (int)Enumerations.Combat.StateMachine.Events.ShowChatterTextBox);
+			firstDialogueDone = true;
+			return true;
+		}
+		return false;
 	}
 }

@@ -9,14 +9,18 @@ public partial class CombatWrapper : Node2D
 	private Panel _nodeBasePagePanel = null;
 	private FightPageBasePanel _nodeFightPageBasePanel = null;
 	private ChatPageBasePanel _nodeChatPageBasePanel = null;
+	private Panel _nodeChatterTextBoxPanel = null;
 	private HBoxContainer _nodeHudContainerSubject = null;
 	private HBoxContainer _nodeHudContainerTargetEnemyAttack = null;
 	private HBoxContainer _nodeHudContainerTargetBiggieAttack = null;
 	private HBoxContainer _nodeHudContainerTargetBiggieCombatMenu = null;
+	private HBoxContainer _nodeHudContainerTargetChatterTextBox = null;
 
 	private MarginContainer _nodeActionInfo = null;
 	private BiggieCombatMenu _nodeBiggieCombatMenu = null;
 	private MarginContainer _nodeBiggieCombatMenuTextContainer = null;
+	private ChatterTextBox _nodeChatterTextBox = null;
+	private MarginContainer _nodeChatterTextBoxTextContainer = null;
 	private MarginContainer _nodeEnemyAttackContainer = null;
 	private Panel _nodeEnemyAttackPanel = null;
 	private BiggieAttackContainer _nodeBiggieAttackContainer = null;
@@ -39,6 +43,7 @@ public partial class CombatWrapper : Node2D
 		_nodeBasePagePanel = GetNode<Panel>("./BiggieCombatMenu/TextBoxContainer/BasePagePanel");
 		_nodeFightPageBasePanel = GetNode<FightPageBasePanel>("./BiggieCombatMenu/TextBoxContainer/FightPagePanel");
 		_nodeChatPageBasePanel = GetNode<ChatPageBasePanel>("./BiggieCombatMenu/TextBoxContainer/ChatPagePanel");
+		_nodeChatterTextBoxPanel = GetNode<Panel>("./ChatterTextBox/TextBoxContainer/Panel");
 		_nodeHudContainerSubject = GetNode<HBoxContainer>("./HudContainer");
 		// Need to Queue Free this at some point
 		_nodeHudContainerTargetEnemyAttack = CreateHudContainerTarget(_nodeHudContainerSubject, 0, 250);
@@ -46,12 +51,16 @@ public partial class CombatWrapper : Node2D
 		_nodeHudContainerTargetBiggieAttack = CreateHudContainerTarget(_nodeHudContainerSubject, 0, -160);
 		// Need to Queue Free this at some point
 		_nodeHudContainerTargetBiggieCombatMenu = CreateHudContainerTarget(_nodeHudContainerSubject, 0, 0);
+		// Need to Queue Free this at some point
+		_nodeHudContainerTargetChatterTextBox = CreateHudContainerTarget(_nodeHudContainerSubject, 0, 0);
 		HudAnimationHelper = new PanelAnimationHelper(_HUD_SPEED_SLOW);
 		MainAnimationHelper = new PanelAnimationHelper(_MAIN_SPEED);
 
 		_nodeActionInfo = GetNode<MarginContainer>("HudContainer/ActionInfo");
 		_nodeBiggieCombatMenu = GetNode<BiggieCombatMenu>("./BiggieCombatMenu");
 		_nodeBiggieCombatMenuTextContainer = GetNode<MarginContainer>("./BiggieCombatMenu/TextBoxContainer");
+		_nodeChatterTextBox = GetNode<ChatterTextBox>("./ChatterTextBox");
+		_nodeChatterTextBoxTextContainer = GetNode<MarginContainer>("./ChatterTextBox/TextBoxContainer");
 		_nodeEnemyAttackContainer = GetNode<MarginContainer>("./EnemyAttackContainer");
 		_nodeEnemyAttackPanel = GetNode<Panel>("./EnemyAttackContainer/EnemyAttackPanel");
 		_nodeBiggieAttackContainer = GetNode<BiggieAttackContainer>("./BiggieAttackContainer");
@@ -98,10 +107,12 @@ public partial class CombatWrapper : Node2D
 			|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieFightScratch
 		)
 		{
+			//GD.Print("Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFrom...");
 			if (!ProcessFirstPass())
 			{
 				HideBiggieAttackContainer();
 				_nodeBiggieAttackContainer.IsActive = false;
+				HideChatterTextBoxTextContainer();
 				if (TransitionToEnemyAttack(skipTransition))
 				{
 					FirstFramePass = true;
@@ -115,9 +126,11 @@ public partial class CombatWrapper : Node2D
 		}
 		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieCombatMenu)
 		{
+			//GD.Print("Enumerations.Combat.StateMachine.States.TransitionToBiggieCombatMenu");
 			if (!ProcessFirstPass())
 			{
 				HideEnemyAttackContainer();
+				HideChatterTextBoxTextContainer();
 				if (TransitionToBiggieCombatMenu(skipTransition))
 				{
 					FirstFramePass = true;
@@ -131,10 +144,12 @@ public partial class CombatWrapper : Node2D
 		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightScratch
 				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightBite)
 		{
+			//GD.Print("Enumerations.Combat.StateMachine.States.TransitionToBiggieFight...");
 			if (!ProcessFirstPass())
 			{
 				HideBiggieCombatMenuTextContainer();
 				HideActionInfo();
+				HideChatterTextBoxTextContainer();
 				if (TransitionToBiggieAttack(skipTransition))
 				{
 					FirstFramePass = true;
@@ -149,10 +164,12 @@ public partial class CombatWrapper : Node2D
 		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatAsk
 				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatCharm)
 		{
+			//GD.Print("Enumerations.Combat.StateMachine.States.TransitionToBiggieChat...");
 			if (!ProcessFirstPass())
 			{
 				HideBiggieCombatMenuTextContainer();
 				HideActionInfo();
+				HideChatterTextBoxTextContainer();
 				if (TransitionToBiggieAttack(skipTransition))
 				{
 					FirstFramePass = true;
@@ -164,15 +181,25 @@ public partial class CombatWrapper : Node2D
 				}
 			}
 		}
-
-		if ((currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatAsk
-				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatCharm
-				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightScratch
-				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightBite
-			) && Input.IsActionJustPressed(_INTERACT_INPUT)
-		)
+		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox)
 		{
-			EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
+			//GD.Print("Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox...");
+			if (!ProcessFirstPass())
+			{
+				HideBiggieAttackContainer();
+				_nodeBiggieAttackContainer.IsActive = false;
+				HideEnemyAttackContainer();
+				HideBiggieCombatMenuTextContainer();
+				HideActionInfo();
+				if (TransitionToChatterTextBox(skipTransition))
+				{
+					FirstFramePass = true;
+					HideSubjectPanel();
+					EmitSignal(SignalName.StartChatterTextBoxTurn);
+					ShowChatterTextBoxTextContainer();
+					EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
+				}
+			}
 		}
 	}
 
@@ -182,8 +209,10 @@ public partial class CombatWrapper : Node2D
 	public delegate void StartBiggieTextTurnEventHandler();
 	[Signal]
 	public delegate void StartBiggieAttackTurnEventHandler();
+	[Signal]
+	public delegate void StartChatterTextBoxTurnEventHandler();
 
-	public bool TranslateHudEnemyAttack(bool skip)
+	public bool TranslateHudToEnemyAttack(bool skip)
 	{
 		if (skip)
 		{
@@ -199,7 +228,7 @@ public partial class CombatWrapper : Node2D
 		return false;
 	}
 
-	public bool TranslateHudBiggieAttack(bool skip)
+	public bool TranslateHudToBiggieAttack(bool skip)
 	{
 		if (skip)
 		{
@@ -215,7 +244,7 @@ public partial class CombatWrapper : Node2D
 		return false;
 	}
 
-	public bool TranslateHudBiggieCombatMenu(bool skip)
+	public bool TranslateHudToBiggieCombatMenu(bool skip)
 	{
 		if (skip)
 		{
@@ -228,6 +257,22 @@ public partial class CombatWrapper : Node2D
 		}
 		HudAnimationHelper.AnimationSpeed = _HUD_SPEED_FAST;
 		HudAnimationHelper.TranslateOverTime(_nodeHudContainerSubject, _nodeHudContainerTargetBiggieCombatMenu);
+		return false;
+	}
+
+	public bool TranslateHudToChatterTextBox(bool skip)
+	{
+		if (skip)
+		{
+			HudAnimationHelper.SkipAnimation(_nodeHudContainerSubject, _nodeHudContainerTargetChatterTextBox);
+		}
+
+		if (HudAnimationHelper.CheckPosition(_nodeHudContainerSubject, _nodeHudContainerTargetChatterTextBox))
+		{
+			return true;
+		}
+		HudAnimationHelper.AnimationSpeed = _HUD_SPEED_FAST;
+		HudAnimationHelper.TranslateOverTime(_nodeHudContainerSubject, _nodeHudContainerTargetChatterTextBox);
 		return false;
 	}
 
@@ -324,6 +369,37 @@ public partial class CombatWrapper : Node2D
 		return false;
 	}
 
+	public bool TransformToChatterTextBox(bool skip)
+	{
+		if (skip)
+		{
+			HudAnimationHelper.SkipAnimation(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer);
+		}
+
+		if (MainAnimationHelper.CheckPosition(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer)
+			&& MainAnimationHelper.CheckSize(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer))
+		{
+			_nodeChatterTextBox.Show();
+			return true;
+		}
+
+		if (!MainAnimationHelper.CheckPositionY(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer)
+			|| !MainAnimationHelper.CheckSizeY(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer))
+		{
+			MainAnimationHelper.MonoScaleY(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer);
+		}
+		else if (!MainAnimationHelper.CheckPositionX(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer)
+			|| !MainAnimationHelper.CheckSizeX(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer))
+		{
+			MainAnimationHelper.CenterScaleX(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer);
+		}
+		else
+		{
+			////GD.Print($"SizeY {MainAnimationHelper.CheckSizeY(_nodeSubjectPanel, _nodeBiggieAttackPanel)}");
+		}
+		return false;
+	}
+
 	private HBoxContainer CreateHudContainerTarget(HBoxContainer subject, float diffX, float diffY)
 	{
 		var result = _nodeHudContainerSubject.Duplicate() as HBoxContainer;
@@ -364,6 +440,16 @@ public partial class CombatWrapper : Node2D
 		_nodeBiggieCombatMenuTextContainer.Hide();
 	}
 
+	public void ShowChatterTextBoxTextContainer()
+	{
+		_nodeChatterTextBoxTextContainer.Show();
+	}
+
+	public void HideChatterTextBoxTextContainer()
+	{
+		_nodeChatterTextBoxTextContainer.Hide();
+	}
+
 	public void ShowActionInfo()
 	{
 		_nodeActionInfo.Modulate = new Color(1, 1, 1, 1);
@@ -371,6 +457,7 @@ public partial class CombatWrapper : Node2D
 
 	public void HideActionInfo()
 	{
+		//GD.Print("CombatWrapper.HideActionInfo");
 		_nodeActionInfo.Modulate = new Color(1, 1, 1, 0);
 	}
 
@@ -388,7 +475,7 @@ public partial class CombatWrapper : Node2D
 	{
 		if (selectedIndex != (int)Enumerations.Combat.FightPagePanelOptions.Back)
 		{
-			EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
+			//EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
 		}
 	}
 
@@ -396,14 +483,14 @@ public partial class CombatWrapper : Node2D
 	{
 		if (selectedIndex != (int)Enumerations.Combat.ChatPagePanelOptions.Back)
 		{
-			EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
+			//EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
 		}
 	}
 
 	private bool TransitionToBiggieAttack(bool skip)
 	{
 		bool finished = false;
-		finished = TranslateHudBiggieAttack(skip);
+		finished = TranslateHudToBiggieAttack(skip);
 		finished = TransformToBiggieAttack(skip) && finished;
 		return finished;
 	}
@@ -411,7 +498,7 @@ public partial class CombatWrapper : Node2D
 	private bool TransitionToEnemyAttack(bool skip)
 	{
 		bool finished = false;
-		finished = TranslateHudEnemyAttack(skip);
+		finished = TranslateHudToEnemyAttack(skip);
 		finished = TransformToEnemyAttack(skip) && finished;
 		return finished;
 	}
@@ -419,8 +506,16 @@ public partial class CombatWrapper : Node2D
 	private bool TransitionToBiggieCombatMenu(bool skip)
 	{
 		bool finished = false;
-		finished = TranslateHudBiggieCombatMenu(skip);
+		finished = TranslateHudToBiggieCombatMenu(skip);
 		finished = TransformToBiggieCombatMenu(skip) && finished;
+		return finished;
+	}
+
+	private bool TransitionToChatterTextBox(bool skip)
+	{
+		bool finished = false;
+		finished = TranslateHudToChatterTextBox(skip);
+		finished = TransformToChatterTextBox(skip) && finished;
 		return finished;
 	}
 
@@ -444,6 +539,13 @@ public partial class CombatWrapper : Node2D
 				GD.Print("CombatWrapper HandleEndBiggieAttackTurn LastCombatOptionUsed did not map.");
 				break;
 		}
+
+		Action action = () =>
+		{
+			//EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
+		};
+		HelperFunctions.SetTimeout(action);
+
 	}
 
 	private void HandleEndBiggieCombatMenuTurn(int combatOption)
@@ -469,7 +571,25 @@ public partial class CombatWrapper : Node2D
 	private static readonly StringName _COMBAT_EVENT = new StringName("CombatEvent");
 	private void EmitCombatEvent(Enumerations.Combat.StateMachine.Events eventId)
 	{
+		GD.Print("CombatWrapper killme");
+		if (CheckChatterConditions()) return;
 		_globalCombatSingleton.CombatStateMachineService.EmitSignal(_COMBAT_EVENT, (int)eventId);
+	}
+
+	private bool firstDialogueDone = false;
+	private bool CheckChatterConditions()
+	{
+		GD.Print("CombatWrapper CheckChatterConditions");
+		if (_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage() < 100 && !firstDialogueDone)
+		{
+			_nodeChatterTextBox.AddDialogue("Pizza Pizza.");
+			_nodeChatterTextBox.AddDialogue("Please.");
+			_nodeChatterTextBox.ExecuteDialogueQueue();
+			_globalCombatSingleton.CombatStateMachineService.EmitSignal(_COMBAT_EVENT, (int)Enumerations.Combat.StateMachine.Events.ShowChatterTextBox);
+			firstDialogueDone = true;
+			return true;
+		}
+		return false;
 	}
 
 	// private void ApplyCombatStateMachineEvents()

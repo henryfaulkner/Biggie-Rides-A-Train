@@ -163,7 +163,6 @@ public class SelectionHelper
 
 	public void ApplyInactivePageLabelSettingOption(Label label)
 	{
-		GD.Print("ApplyInactivePageLabelSettingOption");
 		label.LabelSettings = _styleInactivePageLabelSettingOption;
 	}
 

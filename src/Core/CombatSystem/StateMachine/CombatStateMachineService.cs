@@ -39,7 +39,7 @@ public partial class CombatStateMachineService : Node
 
 	public CombatStateModel GetStateById(Enumerations.Combat.StateMachine.States stateId)
 	{
-		return CombatStates.Where(x => x.Id == stateId).FirstOrDefault();
+		return CombatStates.Where(x => x.Id == stateId).First();
 	}
 
 	// If I could memotize these indexes, this could be much faster 
@@ -51,35 +51,59 @@ public partial class CombatStateMachineService : Node
 	public CombatStateModel GetStateByEventAndTransitions(Enumerations.Combat.StateMachine.Events eventId,
 														  List<CombatTransitionModel> transitions)
 	{
-		var transition = CombatTransitions.Where(x => x.Event.Id == eventId).FirstOrDefault();
+		var transition = transitions.Where(x => x.Event.Id == eventId).First();
 		if (transition == null)
 		{
+			GD.Print("GetStateByEventAndTransitions Transition was not found.");
 			GD.PrintErr("GetStateByEventAndTransitions Transition was not found.");
 			return new CombatStateModel();
 		}
 		var nextStateId = transition.NextState.Id;
 		if (transition == null)
 		{
+			GD.Print("GetStateByEventAndTransitions NextStateId was not found.");
 			GD.PrintErr("GetStateByEventAndTransitions NextStateId was not found.");
 			return new CombatStateModel();
 		}
 
-		return CombatStates.Where(x => x.Id == nextStateId).FirstOrDefault();
+		var result = CombatStates.Where(x => x.Id == nextStateId).First();
+		return result;
 	}
 
 	private void HandleCombatEvent(int eventIdIndex)
 	{
 		var eventId = (Enumerations.Combat.StateMachine.Events)eventIdIndex;
 		var transitions = GetTransitionsByStateId(CurrentCombatState.Id);
+
+		GD.Print($"BEFORE CombatStateMachineService HandleCombatEvent: {CurrentCombatState.Id} {CurrentCombatState.Name}");
+		GD.Print($"EventId: {eventId}");
+		GD.Print(JsonConvert.SerializeObject(transitions));
 		var nextState = GetStateByEventAndTransitions(eventId, transitions);
+		GD.Print($"AFTER CombatStateMachineService HandleCombatEvent: {nextState.Id} {nextState.Name}");
 		CurrentCombatState = nextState;
 	}
 
 	private List<CombatTransitionModel> ConstructAllTransitions()
 	{
-		using var file = FileAccess.Open(_TRANSITIONS_FILE, FileAccess.ModeFlags.Read);
-		string content = file.GetAsText();
-		return JsonConvert.DeserializeObject<List<CombatTransitionModel>>(content);
+		var result = new List<CombatTransitionModel>();
+		try
+		{
+			using var file = FileAccess.Open(_TRANSITIONS_FILE, FileAccess.ModeFlags.Read);
+			string content = file.GetAsText();
+			JsonConvert.DeserializeObject<List<CombatTransitionEntity>>(content)
+				.ForEach(x =>
+				{
+					result.Add(new CombatTransitionModel(
+						(Enumerations.Combat.StateMachine.States)x.StateId,
+						(Enumerations.Combat.StateMachine.Events)x.EventId,
+						(Enumerations.Combat.StateMachine.States)x.NextStateId));
+				});
+		}
+		catch (Exception exception)
+		{
+			GD.PrintErr($"Issue parsing _TRANSITIONS_FILE: {exception.Message}");
+		}
+		return result;
 	}
 
 	private List<CombatStateModel> ConstructAllStates()
@@ -104,9 +128,17 @@ public partial class CombatStateMachineService : Node
 			new CombatStateModel(Enumerations.Combat.StateMachine.States.BiggieDefeat),
 			new CombatStateModel(Enumerations.Combat.StateMachine.States.EnemyDefeatPhysical),
 			new CombatStateModel(Enumerations.Combat.StateMachine.States.EnemyDefeatEmotional),
+			new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox),
 			new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox)
 		};
 		return result;
+	}
+
+	private class CombatTransitionEntity
+	{
+		public int StateId { get; set; }
+		public int EventId { get; set; }
+		public int NextStateId { get; set; }
 	}
 }
 
