@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbe22sj2cy0ic"]
+
+[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/Mushroom/SporeFall.cs" id="1_qxhjh"]
+[ext_resource type="Texture2D" uid="uid://cvegqxpxkm8ie" path="res://Assets/CombatScenes/BiggieCombat.png" id="2_b8336"]
+[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/Mushroom/BiggieMushroomCombat.cs" id="2_xmgik"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pweft"]
+radius = 12.0416
+
+[node name="Node2D2" type="Node2D"]
+
+[node name="MushroomAttackContainer" type="MarginContainer" parent="."]
+offset_left = 724.0
+offset_top = 456.0
+offset_right = 1324.0
+offset_bottom = 960.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BiggieMushroomCombat" type="CharacterBody2D" parent="MushroomAttackContainer"]
+position = Vector2(296, 247)
+script = ExtResource("2_xmgik")
+
+[node name="Sprite2D" type="Sprite2D" parent="MushroomAttackContainer/BiggieMushroomCombat"]
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("2_b8336")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MushroomAttackContainer/BiggieMushroomCombat"]
+position = Vector2(3, 8)
+shape = SubResource("CircleShape2D_pweft")
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("1_qxhjh")
