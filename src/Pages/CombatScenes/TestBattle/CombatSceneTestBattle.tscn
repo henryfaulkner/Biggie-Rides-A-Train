@@ -1,54 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://1h2lgc5062ur"]
+[gd_scene load_steps=5 format=3 uid="uid://1h2lgc5062ur"]
 
 [ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.tscn" id="1_iugt0"]
 [ext_resource type="Script" path="res://Pages/CombatScenes/TestBattle/CombatSceneTestBattle.cs" id="1_utk73"]
-[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/DjAttackContainer.cs" id="4_pimsq"]
-[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/BiggieDjCombat.cs" id="5_fryc6"]
-[ext_resource type="Texture2D" uid="uid://df0xe1tnk46cf" path="res://Assets/Objects/Biggie.png" id="6_b344g"]
-[ext_resource type="PackedScene" uid="uid://buh5m7wlv85cl" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/BaseArrows/BaseArrowUp.tscn" id="7_xo17u"]
-[ext_resource type="PackedScene" uid="uid://841ckydqawjr" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/BaseArrows/BaseArrowRight.tscn" id="8_f08mb"]
-[ext_resource type="PackedScene" uid="uid://btg4ir18g3vbg" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/BaseArrows/BaseArrowDown.tscn" id="9_qjftb"]
-[ext_resource type="PackedScene" uid="uid://dct7ljxh0mq3o" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/BaseArrows/BaseArrowLeft.tscn" id="10_aueu0"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_a05xm"]
-radius = 12.0416
+[ext_resource type="PackedScene" uid="uid://2mh1lln1nml3" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/EnemyAttackContainer/EnemyAttackContainer.tscn" id="3_b38d1"]
+[ext_resource type="PackedScene" uid="uid://d3mnt3xkdh0fn" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/DjAttackContainer.tscn" id="4_h56qv"]
 
 [node name="CombatSceneTestBattle" type="Node2D"]
 script = ExtResource("1_utk73")
 
 [node name="CombatWrapper" parent="." instance=ExtResource("1_iugt0")]
 
-[node name="DjAttackContainer" type="MarginContainer" parent="CombatWrapper"]
-offset_left = 724.0
-offset_top = 456.0
-offset_right = 1324.0
-offset_bottom = 960.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource("4_pimsq")
+[node name="EnemyAttackContainer2" parent="CombatWrapper" instance=ExtResource("3_b38d1")]
 
-[node name="BiggieDjCombat" type="CharacterBody2D" parent="CombatWrapper/DjAttackContainer"]
-position = Vector2(296, 247)
-script = ExtResource("5_fryc6")
-
-[node name="Sprite2D" type="Sprite2D" parent="CombatWrapper/DjAttackContainer/BiggieDjCombat"]
-scale = Vector2(4, 4)
-texture = ExtResource("6_b344g")
-hframes = 2
-vframes = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatWrapper/DjAttackContainer/BiggieDjCombat"]
-position = Vector2(3, 8)
-shape = SubResource("CircleShape2D_a05xm")
-
-[node name="BaseArrowUp" parent="CombatWrapper/DjAttackContainer" instance=ExtResource("7_xo17u")]
-position = Vector2(300, 147)
-
-[node name="BaseArrowRight" parent="CombatWrapper/DjAttackContainer" instance=ExtResource("8_f08mb")]
-position = Vector2(421, 246)
-
-[node name="BaseArrowDown" parent="CombatWrapper/DjAttackContainer" instance=ExtResource("9_qjftb")]
-position = Vector2(295, 347)
-
-[node name="BaseArrowLeft" parent="CombatWrapper/DjAttackContainer" instance=ExtResource("10_aueu0")]
-position = Vector2(171, 246)
+[node name="DjAttackContainer" parent="CombatWrapper/EnemyAttackContainer2" instance=ExtResource("4_h56qv")]
+layout_mode = 2

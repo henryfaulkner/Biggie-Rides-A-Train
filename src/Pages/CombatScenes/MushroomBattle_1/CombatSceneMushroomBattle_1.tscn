@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://ci62f51xm0q63"]
+
+[ext_resource type="Script" path="res://Pages/CombatScenes/MushroomBattle_1/CombatSceneMushroomBattle_1.cs" id="1_g2ggb"]
+[ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.tscn" id="1_ovtpk"]
+[ext_resource type="PackedScene" uid="uid://cbe22sj2cy0ic" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/Mushroom/MushroomAttackContainer.tscn" id="2_et7vv"]
+
+[node name="CombatSceneMushroomBattle1" type="Node2D"]
+script = ExtResource("1_g2ggb")
+
+[node name="CombatWrapper" parent="." instance=ExtResource("1_ovtpk")]
+
+[node name="MushroomAttackContainer" parent="CombatWrapper" instance=ExtResource("2_et7vv")]

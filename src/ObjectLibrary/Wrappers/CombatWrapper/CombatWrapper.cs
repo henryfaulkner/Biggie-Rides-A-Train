@@ -67,6 +67,7 @@ public partial class CombatWrapper : Node2D
 		_nodeBiggieAttackPanel = GetNode<Panel>("./BiggieAttackContainer/BiggieAttackPanel");
 
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
+		SetEnemyAttackContainerService(_nodeEnemyAttackContainer);
 
 		_nodeFightPageBasePanel.SelectFight += HandleFightSelection;
 		_nodeChatPageBasePanel.SelectChat += HandleChatSelection;
@@ -99,7 +100,8 @@ public partial class CombatWrapper : Node2D
 	public override void _Process(double delta)
 	{
 		bool skipTransition = Input.IsActionJustPressed(_INTERACT_INPUT);
-		var currStateId = _globalCombatSingleton.CombatStateMachineService.CurrentCombatState.Id;
+		var currStateId = _globalCombatSingleton.CombatStateMachineService.CurrentCombatState?.Id
+			?? Enumerations.Combat.StateMachine.States.BiggieCombatMenu;
 
 		if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieChatAsk
 			|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieChatCharm
@@ -411,43 +413,43 @@ public partial class CombatWrapper : Node2D
 
 	public void ShowEnemyAttackContainer()
 	{
-		_nodeEnemyAttackContainer.Show();
+		_nodeEnemyAttackContainer.Modulate = new Color(1, 1, 1, 1);
 	}
 
 	public void HideEnemyAttackContainer()
 	{
-		_nodeEnemyAttackContainer.Hide();
+		_nodeEnemyAttackContainer.Modulate = new Color(1, 1, 1, 0);
 	}
 
 	public void ShowBiggieAttackContainer()
 	{
-		_nodeBiggieAttackContainer.Show();
+		_nodeBiggieAttackContainer.Modulate = new Color(1, 1, 1, 1);
 	}
 
 	public void HideBiggieAttackContainer()
 	{
-		_nodeBiggieAttackContainer.Hide();
+		_nodeBiggieAttackContainer.Modulate = new Color(1, 1, 1, 0);
 	}
 
 	public void ShowBiggieCombatMenuTextContainer()
 	{
-		_nodeBiggieCombatMenuTextContainer.Show();
+		_nodeBiggieCombatMenuTextContainer.Modulate = new Color(1, 1, 1, 1);
 		_nodeBiggieCombatMenu.StartTurn();
 	}
 
 	public void HideBiggieCombatMenuTextContainer()
 	{
-		_nodeBiggieCombatMenuTextContainer.Hide();
+		_nodeBiggieCombatMenuTextContainer.Modulate = new Color(1, 1, 1, 0);
 	}
 
 	public void ShowChatterTextBoxTextContainer()
 	{
-		_nodeChatterTextBoxTextContainer.Show();
+		_nodeChatterTextBoxTextContainer.Modulate = new Color(1, 1, 1, 1);
 	}
 
 	public void HideChatterTextBoxTextContainer()
 	{
-		_nodeChatterTextBoxTextContainer.Hide();
+		_nodeChatterTextBoxTextContainer.Modulate = new Color(1, 1, 1, 0);
 	}
 
 	public void ShowActionInfo()
@@ -557,7 +559,6 @@ public partial class CombatWrapper : Node2D
 	public delegate void ProjectPhysicalDamageEventHandler();
 	public void DealPhysicalDamage(double damage)
 	{
-		;
 		_globalCombatSingleton.BiggiePhysicalAttackProxy.DealDamage(damage);
 		GD.Print($"enemy health: {_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage()}");
 		EmitSignal(SignalName.ProjectPhysicalDamage);
@@ -566,6 +567,20 @@ public partial class CombatWrapper : Node2D
 	public void DealEmotionalDamage(double damage)
 	{
 		_globalCombatSingleton.BiggieEmotionalAttackProxy.DealDamage(damage);
+	}
+
+	public void SetEnemyAttackContainerService(MarginContainer enemyAttackContainer)
+	{
+		var enemyAttackPanelSize = new Vector2(enemyAttackContainer.GetRect().Size.X - enemyAttackContainer.GetThemeConstant("margin_left") - enemyAttackContainer.GetThemeConstant("margin_right"),
+			enemyAttackContainer.GetRect().Size.Y - enemyAttackContainer.GetThemeConstant("margin_top") - enemyAttackContainer.GetThemeConstant("margin_bottom"));
+		var enemyAttackPanelPosition = new Vector2(enemyAttackContainer.GetRect().Position.X + enemyAttackContainer.GetThemeConstant("margin_left"),
+			enemyAttackContainer.GetRect().Position.Y + enemyAttackContainer.GetThemeConstant("margin_top"));
+
+		GD.Print("CombatWrapper SetEnemyAttackContainerService");
+		_globalCombatSingleton.EnemyAttackPanelService.Size = enemyAttackPanelSize;
+		GD.Print($"CombatWrapper _globalCombatSingleton.EnemyAttackPanelService.Size {_globalCombatSingleton.EnemyAttackPanelService.Size.X} {_globalCombatSingleton.EnemyAttackPanelService.Size.Y}");
+		_globalCombatSingleton.EnemyAttackPanelService.Position = enemyAttackPanelPosition;
+		GD.Print($"CombatWrapper _globalCombatSingleton.EnemyAttackPanelService.Position {_globalCombatSingleton.EnemyAttackPanelService.Position.X} {_globalCombatSingleton.EnemyAttackPanelService.Position.Y}");
 	}
 
 	// private void ApplyCombatStateMachineEvents()

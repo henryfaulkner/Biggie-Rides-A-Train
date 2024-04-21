@@ -4,6 +4,7 @@ using System;
 public partial class CombatSingleton : Node
 {
 	public CombatStateMachineService CombatStateMachineService { get; set; }
+	public EnemyAttackPanelService EnemyAttackPanelService { get; set; }
 
 	public BiggieAttackProxy BiggiePhysicalAttackProxy { get; set; }
 	public BiggieAttackProxy BiggieEmotionalAttackProxy { get; set; }
@@ -16,6 +17,7 @@ public partial class CombatSingleton : Node
 	public CombatSingleton()
 	{
 		CombatStateMachineService = new CombatStateMachineService();
+		EnemyAttackPanelService = new EnemyAttackPanelService();
 		BiggiePhysical = null;
 		EnemyEmotional = null;
 		EnemyPhysical = null;
@@ -28,6 +30,7 @@ public partial class CombatSingleton : Node
 	{
 		//GD.Print("Start NewBattle");
 		CombatStateMachineService.Reset();
+		//EnemyAttackPanelService = new EnemyAttackPanelService();
 		BiggiePhysical = new CombatBiggieModel(totalBiggiePhysicalHealth);
 		EnemyPhysical = new CombatParticipantModel(totalEnemyPhysicalHealth);
 		EnemyEmotional = new CombatParticipantModel(totalEnemyEmotionalHealth);

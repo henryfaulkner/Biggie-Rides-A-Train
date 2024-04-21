@@ -1,33 +1,37 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbe22sj2cy0ic"]
+[gd_scene load_steps=7 format=3 uid="uid://cbe22sj2cy0ic"]
 
-[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/Mushroom/SporeFall.cs" id="1_qxhjh"]
+[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/Mushroom/MushroomAttackContainer.cs" id="1_133kl"]
 [ext_resource type="Texture2D" uid="uid://cvegqxpxkm8ie" path="res://Assets/CombatScenes/BiggieCombat.png" id="2_b8336"]
 [ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/Mushroom/BiggieMushroomCombat.cs" id="2_xmgik"]
+[ext_resource type="Texture2D" uid="uid://co7aoj6hlth3i" path="res://Assets/Objects/Therapist.png" id="4_qpfh0"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_pweft"]
-radius = 12.0416
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8g802"]
+size = Vector2(64, 64.25)
 
-[node name="Node2D2" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lhx6f"]
 
-[node name="MushroomAttackContainer" type="MarginContainer" parent="."]
-offset_left = 724.0
-offset_top = 456.0
-offset_right = 1324.0
-offset_bottom = 960.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="MushroomAttackContainer" type="Node2D"]
+script = ExtResource("1_133kl")
 
-[node name="BiggieMushroomCombat" type="CharacterBody2D" parent="MushroomAttackContainer"]
-position = Vector2(296, 247)
+[node name="BiggieMushroomCombat" type="CharacterBody2D" parent="."]
+position = Vector2(1020, 703)
 script = ExtResource("2_xmgik")
 
-[node name="Sprite2D" type="Sprite2D" parent="MushroomAttackContainer/BiggieMushroomCombat"]
+[node name="Sprite2D" type="Sprite2D" parent="BiggieMushroomCombat"]
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("2_b8336")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MushroomAttackContainer/BiggieMushroomCombat"]
-position = Vector2(3, 8)
-shape = SubResource("CircleShape2D_pweft")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BiggieMushroomCombat"]
+shape = SubResource("RectangleShape2D_8g802")
 
-[node name="Node2D" type="Node2D" parent="."]
-script = ExtResource("1_qxhjh")
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(1022, 113)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_qpfh0")
+hframes = 2
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_lhx6f")

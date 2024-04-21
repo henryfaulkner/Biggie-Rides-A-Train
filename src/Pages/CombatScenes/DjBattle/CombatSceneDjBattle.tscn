@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6w17s4raeiau"]
+[gd_scene load_steps=5 format=3 uid="uid://b6w17s4raeiau"]
 
 [ext_resource type="Script" path="res://Pages/CombatScenes/DjBattle/CombatSceneDjBattle.cs" id="1_6t7d8"]
 [ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.tscn" id="1_y68ny"]
+[ext_resource type="PackedScene" uid="uid://d3mnt3xkdh0fn" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/DjAttackContainer.tscn" id="5_ou5ha"]
 [ext_resource type="PackedScene" uid="uid://b81vlgqa3npjo" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/HitCallout.tscn" id="9_njxru"]
 
 [node name="CombatSceneDjBattle" type="Node2D"]
@@ -10,3 +11,5 @@ script = ExtResource("1_6t7d8")
 [node name="CombatWrapper" parent="." instance=ExtResource("1_y68ny")]
 
 [node name="HitCallout" parent="CombatWrapper" instance=ExtResource("9_njxru")]
+
+[node name="DjAttackContainer" parent="CombatWrapper" instance=ExtResource("5_ou5ha")]

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbxe4ywsrbc2y"]
+
+[ext_resource type="StyleBox" uid="uid://6ncfjc3ywwad" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/BiggieCombatStyleBox.tres" id="1_h83d0"]
+
+[node name="EnemyAttackPanel" type="Panel"]
+clip_contents = true
+theme_override_styles/panel = ExtResource("1_h83d0")

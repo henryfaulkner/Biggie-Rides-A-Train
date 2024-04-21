@@ -12,9 +12,21 @@ public partial class Spore : RigidBody2D
 	private float xOff;
 	private float r;
 
+	private Random Rand { get; set; }
+
+	private float ManifestGravity { get; set; }
+	private Vector2 ManifestWind { get; set; }
+	private CombatSingleton _globalCombatSingleton = null;
+
 	public override void _Ready()
 	{
-		float x = Mathf.Lerp(0f, _windowSize.X, (float)GD.Randf());
+		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
+		GD.Print($"Position {_globalCombatSingleton.EnemyAttackPanelService.Position.X} {_globalCombatSingleton.EnemyAttackPanelService.Position.Y}");
+		GD.Print($"Size {_globalCombatSingleton.EnemyAttackPanelService.Size.X} {_globalCombatSingleton.EnemyAttackPanelService.Size.Y}");
+		Rand = new Random();
+		float x = Mathf.Lerp(_globalCombatSingleton.EnemyAttackPanelService.Position.X,
+			_globalCombatSingleton.EnemyAttackPanelService.Position.X + _globalCombatSingleton.EnemyAttackPanelService.Size.X,
+			(float)GD.Randf());
 		float y = Mathf.Lerp(-100f, -10f, (float)GD.Randf());
 		this.pos = new Vector2(x, y);
 		this.vel = Vector2.Zero;
@@ -23,6 +35,9 @@ public partial class Spore : RigidBody2D
 		this.dir = GD.Randf() < 0.5 ? -1 : 1;
 		this.xOff = 0;
 		this.r = getRandomSize();
+
+		ManifestGravity = GetRandomGravity();
+		ManifestWind = GetRandomWind();
 	}
 
 	private float GravityScaleValue { get; set; }
@@ -41,28 +56,44 @@ public partial class Spore : RigidBody2D
 		return Mathf.Clamp(r * 32f, 2f, 32f);
 	}
 
-	public void ApplyForce(Vector2 force, int forceType)
+	private float GetRandomGravity()
+	{
+		return GD.Randf();
+	}
+
+	private Vector2 GetRandomWind()
+	{
+		return new Vector2(HelperFunctions.RandfRange(Rand, -10f, 10f), 0);
+	}
+
+	public void ApplyForceWrapper(Vector2 force)
 	{
 		Vector2 f = force * this.r;
 		this.acc += f;
 		ApplyForce(f);
+
+		//GD.Print($"ApplyForce this.acc {this.acc.X} {this.acc.Y}");
 	}
 
 	public void ApplyGravity(float gravityScale)
 	{
-		GravityScaleValue = gravityScale;
+		GravityScaleValue = gravityScale + this.ManifestGravity;
 	}
 
 	public void ApplyWind(float damp, float velocityMultiplier)
 	{
 		LinearDampValue = damp;
-		LinearVelocityValue = new Vector2(this.vel.X * velocityMultiplier, this.vel.Y * velocityMultiplier);
+		var vectorX = (this.vel.X * velocityMultiplier) + this.ManifestWind.X;
+		var vectorY = this.vel.Y + this.ManifestWind.Y;
+		LinearVelocityValue = new Vector2(vectorX, vectorY);
 	}
 
 	public void Randomize()
 	{
-		GD.Print("Spore: Call Randomize");
-		float x = Mathf.Lerp(0f, _windowSize.X, (float)GD.Randf());
+		//GD.Print("Spore: Call Randomize");
+		float x = Mathf.Lerp(_globalCombatSingleton.EnemyAttackPanelService.Position.X,
+			_globalCombatSingleton.EnemyAttackPanelService.Position.X + _globalCombatSingleton.EnemyAttackPanelService.Size.X,
+			(float)GD.Randf());
 		float y = Mathf.Lerp(-100f, -10f, (float)GD.Randf());
 		this.pos = new Vector2(x, y);
 		this.vel = Vector2.Zero;
@@ -73,9 +104,12 @@ public partial class Spore : RigidBody2D
 	public override void _Process(double _delta)
 	{
 		this.xOff = Mathf.Sin(this.angle * 2) * 2 * this.r;
+		//GD.Print($"xOff: {this.xOff}");
 
+		//GD.Print($"this.acc {this.acc.X} {this.acc.Y}");
 		this.vel += this.acc;
-		this.vel = this.vel.LimitLength(this.r * 0.2f);
+		//this.vel = this.vel.LimitLength(this.r * 0.2f);
+		//GD.Print($"this.vel {this.vel.X} {this.vel.Y}");
 
 		if (this.vel.Length() < 1)
 		{
@@ -84,22 +118,27 @@ public partial class Spore : RigidBody2D
 
 		this.pos += this.vel;
 
-		if (this.pos.Y > _windowSize.Y + this.r)
+		if (this.pos.Y > _globalCombatSingleton.EnemyAttackPanelService.Position.Y + _globalCombatSingleton.EnemyAttackPanelService.Size.Y + this.r)
 		{
 			Randomize();
 		}
 
 		// Wrapping Left and Right
-		if (this.pos.X < -this.r)
-		{
-			this.pos.X = _windowSize.X + this.r;
-		}
-		if (this.pos.X > _windowSize.X + this.r)
-		{
-			this.pos.X = -this.r;
-		}
+		// if (this.pos.X < -this.r)
+		// {
+		// 	this.pos.X = _windowSize.X + this.r;
+		// 	Position = this.pos;
+		// }
+		// if (this.pos.X > _windowSize.X + this.r)
+		// {
+		// 	this.pos.X = -this.r;
+		// 	Position = this.pos;
+		// }
 
 		this.angle += this.dir * this.vel.Length() / 200;
+
+		//GD.Print($"this.pos {this.pos.X} {this.pos.Y}");
+		//GD.Print($"this.angle {this.angle}");
 	}
 
 	public override void _Draw()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dcdbd272fdx4j"]
+[gd_scene load_steps=20 format=3 uid="uid://dcdbd272fdx4j"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.cs" id="1_c2u0m"]
 [ext_resource type="PackedScene" uid="uid://cbnxk7w87v22a" path="res://ObjectLibrary/Wrappers/CombatWrapper/EnemyPhysicalHealth.tscn" id="1_cep38"]
@@ -8,10 +8,11 @@
 [ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieAttack/BiggieAttackContainer.cs" id="4_8a2r2"]
 [ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="4_qbxj4"]
 [ext_resource type="Texture2D" uid="uid://dilofe1ockehf" path="res://Assets/CombatScenes/FightCombatZone.png" id="5_g7ds0"]
-[ext_resource type="PackedScene" uid="uid://d3mnt3xkdh0fn" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/DjAttackContainer.tscn" id="5_ln7p2"]
 [ext_resource type="StyleBox" uid="uid://6ncfjc3ywwad" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/BiggieCombatStyleBox.tres" id="7_mfgg8"]
 [ext_resource type="PackedScene" uid="uid://dfqa61mbuuw6m" path="res://ObjectLibrary/CombatSubjects/ChatterTextBox/ChatterTextBox.tscn" id="11_cx26k"]
 [ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/ChatterTextBox/ChatterTextBox.cs" id="12_bhne2"]
+[ext_resource type="PackedScene" uid="uid://2mh1lln1nml3" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/EnemyAttackContainer/EnemyAttackContainer.tscn" id="12_iprx0"]
+[ext_resource type="PackedScene" uid="uid://cbxe4ywsrbc2y" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/EnemyAttackContainer/EnemyAttackPanel.tscn" id="13_j18s4"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_hbdiu"]
 script/source = "using Godot;
@@ -96,33 +97,6 @@ scale = Vector2(1.74805, 1.57812)
 texture = ExtResource("5_g7ds0")
 hframes = 5
 vframes = 24
-
-[node name="EnemyAttackContainer" type="MarginContainer" parent="."]
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 424.0
-offset_right = 2048.0
-offset_bottom = 1024.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/margin_left = 724
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 724
-theme_override_constants/margin_bottom = 64
-
-[node name="EnemyAttackPanel" type="Panel" parent="EnemyAttackContainer"]
-clip_contents = true
-layout_mode = 2
-theme_override_styles/panel = ExtResource("7_mfgg8")
-
-[node name="DjAttackContainer" parent="EnemyAttackContainer/EnemyAttackPanel" instance=ExtResource("5_ln7p2")]
-layout_mode = 0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
 
 [node name="TransformContainer" type="MarginContainer" parent="."]
 offset_top = 424.0
@@ -238,3 +212,8 @@ autowrap_mode = 3
 
 [node name="ChatterTextBox" parent="." instance=ExtResource("11_cx26k")]
 script = ExtResource("12_bhne2")
+
+[node name="EnemyAttackContainer" parent="." instance=ExtResource("12_iprx0")]
+
+[node name="EnemyAttackPanel" parent="EnemyAttackContainer" instance=ExtResource("13_j18s4")]
+layout_mode = 2
