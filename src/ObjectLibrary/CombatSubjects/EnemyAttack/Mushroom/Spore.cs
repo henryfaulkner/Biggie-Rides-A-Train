@@ -3,7 +3,7 @@ using System;
 
 public partial class Spore : RigidBody2D
 {
-	public static readonly Vector2I _windowSize = new Vector2I(2048, 1024);
+	//public static readonly Vector2I _windowSize = new Vector2I(2048, 1024);
 	private Vector2 pos;
 	private Vector2 vel;
 	private Vector2 acc;
@@ -13,6 +13,7 @@ public partial class Spore : RigidBody2D
 	private float r;
 
 	private Random Rand { get; set; }
+	private CollisionShape2D CollisionShape { get; set; }
 
 	private float ManifestGravity { get; set; }
 	private Vector2 ManifestWind { get; set; }
@@ -24,11 +25,6 @@ public partial class Spore : RigidBody2D
 		GD.Print($"Position {_globalCombatSingleton.EnemyAttackPanelService.Position.X} {_globalCombatSingleton.EnemyAttackPanelService.Position.Y}");
 		GD.Print($"Size {_globalCombatSingleton.EnemyAttackPanelService.Size.X} {_globalCombatSingleton.EnemyAttackPanelService.Size.Y}");
 		Rand = new Random();
-		float x = Mathf.Lerp(_globalCombatSingleton.EnemyAttackPanelService.Position.X,
-			_globalCombatSingleton.EnemyAttackPanelService.Position.X + _globalCombatSingleton.EnemyAttackPanelService.Size.X,
-			(float)GD.Randf());
-		float y = Mathf.Lerp(-100f, -10f, (float)GD.Randf());
-		this.pos = new Vector2(x, y);
 		this.vel = Vector2.Zero;
 		this.acc = Vector2.Zero;
 		this.angle = Mathf.Lerp(0f, Mathf.Pi * 2, (float)GD.Randf());
@@ -101,15 +97,20 @@ public partial class Spore : RigidBody2D
 		this.r = getRandomSize();
 	}
 
+	[Signal]
+	public delegate void SporeHitBiggieEventHandler(Spore spore);
 	public override void _Process(double _delta)
 	{
-		this.xOff = Mathf.Sin(this.angle * 2) * 2 * this.r;
-		//GD.Print($"xOff: {this.xOff}");
+		if (GetContactCount() > 0 &&
+			HelperFunctions.Contains("BiggieMushroomCombat", GetCollidingBodies()))
+		{
+			GD.Print("Emit Spore Interact");
+			EmitSignal(SignalName.SporeHitBiggie, this);
+			return;
+		}
 
-		//GD.Print($"this.acc {this.acc.X} {this.acc.Y}");
+		this.xOff = Mathf.Sin(this.angle * 2) * 2 * this.r;
 		this.vel += this.acc;
-		//this.vel = this.vel.LimitLength(this.r * 0.2f);
-		//GD.Print($"this.vel {this.vel.X} {this.vel.Y}");
 
 		if (this.vel.Length() < 1)
 		{
@@ -123,22 +124,7 @@ public partial class Spore : RigidBody2D
 			Randomize();
 		}
 
-		// Wrapping Left and Right
-		// if (this.pos.X < -this.r)
-		// {
-		// 	this.pos.X = _windowSize.X + this.r;
-		// 	Position = this.pos;
-		// }
-		// if (this.pos.X > _windowSize.X + this.r)
-		// {
-		// 	this.pos.X = -this.r;
-		// 	Position = this.pos;
-		// }
-
 		this.angle += this.dir * this.vel.Length() / 200;
-
-		//GD.Print($"this.pos {this.pos.X} {this.pos.Y}");
-		//GD.Print($"this.angle {this.angle}");
 	}
 
 	public override void _Draw()
@@ -151,6 +137,7 @@ public partial class Spore : RigidBody2D
 				false,
 				new Color(1, 0, 0, 1)
 			);
+			ApplyCollision(this.r);
 		}
 		else
 		{
@@ -158,8 +145,21 @@ public partial class Spore : RigidBody2D
 				GD.Load<Texture2D>("res://Assets/CombatScenes/BiggieCombat.png"),
 				new Rect2(this.pos.X, this.pos.Y, this.r, this.r),
 				false,
-				new Color(0, 0, 1, 1)
+				new Color(1, 1, 1, 1)
 			);
+			ContactMonitor = false;
+			MaxContactsReported = 0;
 		}
+	}
+
+	private void ApplyCollision(float radius)
+	{
+		ContactMonitor = true;
+		MaxContactsReported = 5;
+		CollisionShape = new CollisionShape2D();
+		CircleShape2D shape = new CircleShape2D();
+		shape.Radius = radius;
+		CollisionShape.Shape = shape;
+		AddChild(CollisionShape);
 	}
 }

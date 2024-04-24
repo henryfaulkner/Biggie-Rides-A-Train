@@ -1,12 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://ci62f51xm0q63"]
+[gd_scene load_steps=6 format=3 uid="uid://ci62f51xm0q63"]
 
 [ext_resource type="Script" path="res://Pages/CombatScenes/MushroomBattle_1/CombatSceneMushroomBattle_1.cs" id="1_g2ggb"]
 [ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.tscn" id="1_ovtpk"]
 [ext_resource type="PackedScene" uid="uid://cbe22sj2cy0ic" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/Mushroom/MushroomAttackContainer.tscn" id="2_et7vv"]
+[ext_resource type="PackedScene" uid="uid://2mh1lln1nml3" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/EnemyAttackContainer/EnemyAttackContainer.tscn" id="3_kdd11"]
+[ext_resource type="PackedScene" uid="uid://cbxe4ywsrbc2y" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/EnemyAttackContainer/EnemyAttackPanel.tscn" id="4_6v26q"]
 
 [node name="CombatSceneMushroomBattle1" type="Node2D"]
 script = ExtResource("1_g2ggb")
 
 [node name="CombatWrapper" parent="." instance=ExtResource("1_ovtpk")]
 
-[node name="MushroomAttackContainer" parent="CombatWrapper" instance=ExtResource("2_et7vv")]
+[node name="EnemyAttackContainer" parent="CombatWrapper" instance=ExtResource("3_kdd11")]
+
+[node name="EnemyAttackPanel" parent="CombatWrapper/EnemyAttackContainer" instance=ExtResource("4_6v26q")]
+layout_mode = 2
+
+[node name="MushroomAttackContainer" parent="CombatWrapper/EnemyAttackContainer/EnemyAttackPanel" instance=ExtResource("2_et7vv")]
+position = Vector2(-724, -456)

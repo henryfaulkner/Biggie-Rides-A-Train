@@ -10,6 +10,7 @@ public partial class BiggieMushroomCombat : CharacterBody2D
 	private static readonly StringName _MOVE_RIGHT_INPUT = new StringName("move_right");
 	private static readonly StringName _MOVE_DOWN_INPUT = new StringName("move_down");
 
+	private MushroomAttackContainer _nodeMushroomAttackContainer = null;
 	private CollisionShape2D _nodeBiggieCollisionShape = null;
 
 	private CombatSingleton _globalCombatSingleton = null;
@@ -18,6 +19,7 @@ public partial class BiggieMushroomCombat : CharacterBody2D
 
 	public override void _Ready()
 	{
+		_nodeMushroomAttackContainer = GetNode<MushroomAttackContainer>("..");
 		_nodeBiggieCollisionShape = GetNode<CollisionShape2D>("./CollisionShape2D");
 
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
@@ -25,11 +27,11 @@ public partial class BiggieMushroomCombat : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (!_nodeMushroomAttackContainer.IsAttacking) return;
+		
 		Vector2 inputDirection = GetInput();
-		//if (IsHittingCombatBorders()) return;
 		Velocity = inputDirection * _SPEED;
 		MoveAndSlide();
-		//GD.Print($"biggiePos {Position.X} {Position.Y}");
 	}
 
 	private Vector2 GetInput()

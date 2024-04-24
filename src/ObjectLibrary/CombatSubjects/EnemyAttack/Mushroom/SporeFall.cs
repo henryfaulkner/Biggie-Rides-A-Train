@@ -25,17 +25,19 @@ public partial class SporeFall : Node2D
 		gravity = new Vector2(0, 0.3f * _GRAVITY_MULTIPLIER);
 		FrameIndex = 0;
 
-		for (int i = 0; i < 400; i++)
+		for (int i = 0; i < 50; i++)
 		{
-			float x = (float)GD.RandRange(_globalCombatSingleton.EnemyAttackPanelService.Position.X,
-				_globalCombatSingleton.EnemyAttackPanelService.Position.X + _globalCombatSingleton.EnemyAttackPanelService.Size.X);
-			float y = (float)GD.RandRange(0, GetViewportRect().Size.Y);
+			float x = (float)GD.RandRange(0, _globalCombatSingleton.EnemyAttackPanelService.Size.X);
+			float y = (float)GD.RandRange(-_globalCombatSingleton.EnemyAttackPanelService.Size.Y, 0);
+			GD.Print($"SporeFall spore x: {x}");
+			GD.Print($"SporeFall spore y: {y}");
 			Spore spore = new Spore()
 			{
 				Position = new Vector2(x, y)
 			};
 			AddChild(spore);
 			_nodeSporeList.Add(spore);
+			spore.SporeHitBiggie += SporeHitBiggie;
 		}
 	}
 
@@ -77,5 +79,14 @@ public partial class SporeFall : Node2D
 		{
 			NoiseType = FastNoiseLite.NoiseTypeEnum.Simplex,
 		};
+	}
+
+	private void SporeHitBiggie(Spore spore)
+	{
+		GD.Print("SporeHitBiggie");
+		_nodeSporeList.Remove(spore);
+		spore.QueueFree();
+
+		_globalCombatSingleton.EnemyPhysicalAttackProxy.DealDamage(1);
 	}
 }

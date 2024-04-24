@@ -375,29 +375,29 @@ public partial class CombatWrapper : Node2D
 	{
 		if (skip)
 		{
-			HudAnimationHelper.SkipAnimation(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer);
+			HudAnimationHelper.SkipAnimation(_nodeSubjectPanel, _nodeChatterTextBoxPanel);
 		}
 
-		if (MainAnimationHelper.CheckPosition(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer)
-			&& MainAnimationHelper.CheckSize(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer))
+		if (MainAnimationHelper.CheckPosition(_nodeSubjectPanel, _nodeChatterTextBoxPanel)
+			&& MainAnimationHelper.CheckSize(_nodeSubjectPanel, _nodeChatterTextBoxPanel))
 		{
-			_nodeChatterTextBox.Show();
+			_nodeEnemyAttackContainer.Show();
 			return true;
 		}
 
-		if (!MainAnimationHelper.CheckPositionY(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer)
-			|| !MainAnimationHelper.CheckSizeY(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer))
+		if (!MainAnimationHelper.CheckPositionX(_nodeSubjectPanel, _nodeChatterTextBoxPanel)
+			|| !MainAnimationHelper.CheckSizeX(_nodeSubjectPanel, _nodeChatterTextBoxPanel))
 		{
-			MainAnimationHelper.MonoScaleY(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer);
+			MainAnimationHelper.CenterScaleX(_nodeSubjectPanel, _nodeChatterTextBoxPanel);
 		}
-		else if (!MainAnimationHelper.CheckPositionX(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer)
-			|| !MainAnimationHelper.CheckSizeX(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer))
+		else if (!MainAnimationHelper.CheckPositionY(_nodeSubjectPanel, _nodeChatterTextBoxPanel)
+			|| !MainAnimationHelper.CheckSizeY(_nodeSubjectPanel, _nodeChatterTextBoxPanel))
 		{
-			MainAnimationHelper.CenterScaleX(_nodeSubjectPanel, _nodeChatterTextBoxTextContainer);
+			MainAnimationHelper.MonoScaleY(_nodeSubjectPanel, _nodeChatterTextBoxPanel);
 		}
 		else
 		{
-			////GD.Print($"SizeY {MainAnimationHelper.CheckSizeY(_nodeSubjectPanel, _nodeBiggieAttackPanel)}");
+			////GD.Print($"SizeY {MainAnimationHelper.CheckSizeY(_nodeSubjectPanel, _nodeEnemyAttackPanel)}");
 		}
 		return false;
 	}
@@ -526,16 +526,16 @@ public partial class CombatWrapper : Node2D
 		switch (LastCombatOptionUsed)
 		{
 			case Enumerations.Combat.CombatOptions.Scratch:
-				DealPhysicalDamage(1 * damagePercentage);
-				break;
-			case Enumerations.Combat.CombatOptions.Bite:
 				DealPhysicalDamage(2 * damagePercentage);
 				break;
+			case Enumerations.Combat.CombatOptions.Bite:
+				DealPhysicalDamage(3 * damagePercentage);
+				break;
 			case Enumerations.Combat.CombatOptions.Ask:
-				DealEmotionalDamage(1 * damagePercentage);
+				DealEmotionalDamage(2 * damagePercentage);
 				break;
 			case Enumerations.Combat.CombatOptions.Charm:
-				DealEmotionalDamage(2 * damagePercentage);
+				DealEmotionalDamage(3 * damagePercentage);
 				break;
 			default:
 				GD.Print("CombatWrapper HandleEndBiggieAttackTurn LastCombatOptionUsed did not map.");

@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6w17s4raeiau"]
+[gd_scene load_steps=7 format=3 uid="uid://b6w17s4raeiau"]
 
 [ext_resource type="Script" path="res://Pages/CombatScenes/DjBattle/CombatSceneDjBattle.cs" id="1_6t7d8"]
 [ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.tscn" id="1_y68ny"]
+[ext_resource type="PackedScene" uid="uid://2mh1lln1nml3" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/EnemyAttackContainer/EnemyAttackContainer.tscn" id="4_xpxj6"]
+[ext_resource type="PackedScene" uid="uid://cbxe4ywsrbc2y" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/EnemyAttackContainer/EnemyAttackPanel.tscn" id="5_abi4g"]
 [ext_resource type="PackedScene" uid="uid://d3mnt3xkdh0fn" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/DjAttackContainer.tscn" id="5_ou5ha"]
 [ext_resource type="PackedScene" uid="uid://b81vlgqa3npjo" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/HitCallout.tscn" id="9_njxru"]
 
@@ -12,4 +14,21 @@ script = ExtResource("1_6t7d8")
 
 [node name="HitCallout" parent="CombatWrapper" instance=ExtResource("9_njxru")]
 
-[node name="DjAttackContainer" parent="CombatWrapper" instance=ExtResource("5_ou5ha")]
+[node name="EnemyAttackContainer" parent="CombatWrapper" instance=ExtResource("4_xpxj6")]
+anchors_preset = 0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 724.0
+offset_top = 456.0
+offset_right = 2172.0
+offset_bottom = 960.0
+
+[node name="EnemyAttackPanel" parent="CombatWrapper/EnemyAttackContainer" instance=ExtResource("5_abi4g")]
+layout_mode = 2
+
+[node name="DjAttackContainer" parent="CombatWrapper/EnemyAttackContainer/EnemyAttackPanel" instance=ExtResource("5_ou5ha")]
+offset_left = -724.0
+offset_top = -32.0
+offset_right = -124.0
+offset_bottom = 472.0

@@ -6,11 +6,29 @@ using System.Threading;
 
 public static class HelperFunctions
 {
+	public static bool Contains(string name, Array<Node2D> nodes)
+	{
+		foreach (var node in nodes)
+		{
+			if (node.Name == name) return true;
+		}
+		return false;
+	}
+	
 	public static bool ContainsBiggie(Array<Node3D> nodes)
 	{
 		foreach (var node in nodes)
 		{
 			if (node.Name == "Biggie3D") return true;
+		}
+		return false;
+	}
+
+	public static bool ContainsSpore(Array<Node3D> nodes)
+	{
+		foreach (var node in nodes)
+		{
+			if (node.Name == "Spore") return true;
 		}
 		return false;
 	}

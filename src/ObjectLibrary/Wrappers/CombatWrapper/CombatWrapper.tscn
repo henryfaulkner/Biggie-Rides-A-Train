@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dcdbd272fdx4j"]
+[gd_scene load_steps=18 format=3 uid="uid://dcdbd272fdx4j"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.cs" id="1_c2u0m"]
 [ext_resource type="PackedScene" uid="uid://cbnxk7w87v22a" path="res://ObjectLibrary/Wrappers/CombatWrapper/EnemyPhysicalHealth.tscn" id="1_cep38"]
@@ -11,8 +11,6 @@
 [ext_resource type="StyleBox" uid="uid://6ncfjc3ywwad" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/BiggieCombatStyleBox.tres" id="7_mfgg8"]
 [ext_resource type="PackedScene" uid="uid://dfqa61mbuuw6m" path="res://ObjectLibrary/CombatSubjects/ChatterTextBox/ChatterTextBox.tscn" id="11_cx26k"]
 [ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/ChatterTextBox/ChatterTextBox.cs" id="12_bhne2"]
-[ext_resource type="PackedScene" uid="uid://2mh1lln1nml3" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/EnemyAttackContainer/EnemyAttackContainer.tscn" id="12_iprx0"]
-[ext_resource type="PackedScene" uid="uid://cbxe4ywsrbc2y" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/EnemyAttackContainer/EnemyAttackPanel.tscn" id="13_j18s4"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_hbdiu"]
 script/source = "using Godot;
@@ -212,8 +210,3 @@ autowrap_mode = 3
 
 [node name="ChatterTextBox" parent="." instance=ExtResource("11_cx26k")]
 script = ExtResource("12_bhne2")
-
-[node name="EnemyAttackContainer" parent="." instance=ExtResource("12_iprx0")]
-
-[node name="EnemyAttackPanel" parent="EnemyAttackContainer" instance=ExtResource("13_j18s4")]
-layout_mode = 2

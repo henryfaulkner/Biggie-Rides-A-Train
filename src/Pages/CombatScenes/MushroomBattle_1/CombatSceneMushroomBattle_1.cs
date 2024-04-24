@@ -26,7 +26,7 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 		_nodeSelf = GetNode<Node2D>(".");
 		_nodeCombatWrapper = GetNode<CombatWrapper>("./CombatWrapper");
 		_nodeBiggieCombatMenu = GetNode<BiggieCombatMenu>("./CombatWrapper/BiggieCombatMenu");
-		_nodeMushroomAttackContainer = GetNode<MushroomAttackContainer>("./CombatWrapper/MushroomAttackContainer");
+		_nodeMushroomAttackContainer = GetNode<MushroomAttackContainer>("./CombatWrapper/EnemyAttackContainer/EnemyAttackPanel/MushroomAttackContainer");
 		_nodeChatterTextBox = GetNode<ChatterTextBox>("./CombatWrapper/ChatterTextBox");
 		_nodeBiggieHealthBar = GetNode<ProgressBar>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
 		_nodeBiggieHpValueLabel = GetNode<Label>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/HpValueLabel");
@@ -131,19 +131,118 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 		//GD.Print($"End ChangeBiggieHealthBar {_nodeBiggieHealthBar.Value}");
 	}
 
-	public bool firstDialogueDone = false;
+	private bool explainSpore = false;
+	private bool ask1 = false;
+	private bool ask2 = false;
+	private bool charm1 = false;
+	private bool charm2 = false;
+	private bool scratch1 = false;
+	private bool scratch2 = false;
+	private bool bite1 = false;
+	private bool bite2 = false;
 	public bool CheckChatterConditions()
 	{
 		GD.Print("CombatSceneMushroomBattle_1 CheckChatterConditions is false");
-		// GD.Print("CombatSceneDjBattle CheckChatterConditions");
-		// if (_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage() < 100 && !firstDialogueDone)
-		// {
-		// 	_nodeChatterTextBox.AddDialogue("Pizza Pizza.");
-		// 	_nodeChatterTextBox.AddDialogue("Please.");
-		// 	_nodeChatterTextBox.ExecuteDialogueQueue();
-		// 	firstDialogueDone = true;
-		// 	return true;
-		// }
+		var currState = _globalCombatSingleton.CombatStateMachineService.CurrentCombatState;
+
+		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieChatAsk)
+		{
+			var enemyEmotionalHealthPercentage = _globalCombatSingleton.BiggieEmotionalAttackProxy.GetTargetHealthPercentage();
+			if (enemyEmotionalHealthPercentage > 50 && !ask1)
+			{
+				_nodeChatterTextBox.AddDialogue("You ask whether the mushroom would prefer a spot away from the door.");
+				_nodeChatterTextBox.AddDialogue("You get no response.");
+				if (!explainSpore)
+				{
+					_nodeChatterTextBox.AddDialogue("The mushroom starts to expel some [color=red]damaging[/color] spores.");
+					explainSpore = true;
+				}
+				_nodeChatterTextBox.ExecuteDialogueQueue();
+				ask1 = true;
+				return true;
+			}
+			else if (enemyEmotionalHealthPercentage > 0 && !ask2)
+			{
+				_nodeChatterTextBox.AddDialogue("You suggest that 2 feet to the right is more damp.");
+				_nodeChatterTextBox.AddDialogue("The mushroom appears to shuffle its feet.”");
+				_nodeChatterTextBox.ExecuteDialogueQueue();
+				ask2 = true;
+				return true;
+			}
+		}
+
+		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieChatCharm)
+		{
+			var enemyEmotionalHealthPercentage = _globalCombatSingleton.BiggieEmotionalAttackProxy.GetTargetHealthPercentage();
+			if (enemyEmotionalHealthPercentage > 50 && !charm1)
+			{
+				_nodeChatterTextBox.AddDialogue("The mushroom does not respond to your romantic gestures.");
+				if (!explainSpore)
+				{
+					_nodeChatterTextBox.AddDialogue("The mushroom starts to expel some [color=red]damaging[/color] spores.");
+					explainSpore = true;
+				}
+				_nodeChatterTextBox.ExecuteDialogueQueue();
+				charm1 = true;
+				return true;
+			}
+			else if (enemyEmotionalHealthPercentage > 0 && !charm2)
+			{
+				_nodeChatterTextBox.AddDialogue("The mushroom appears to be blushing.");
+				_nodeChatterTextBox.ExecuteDialogueQueue();
+				charm2 = true;
+				return true;
+			}
+		}
+
+		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieFightScratch)
+		{
+			var enemyPhysicalHealthPercentage = _globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage();
+			if (enemyPhysicalHealthPercentage > 50 & !scratch1)
+			{
+				_nodeChatterTextBox.AddDialogue("The scratches irritate the mushroom. She seems a little more red than before.");
+				if (!explainSpore)
+				{
+					_nodeChatterTextBox.AddDialogue("The mushroom starts to expel some [color=red]damaging[/color] spores.");
+					explainSpore = true;
+				}
+				_nodeChatterTextBox.ExecuteDialogueQueue();
+				scratch1 = true;
+				return true;
+			}
+			else if (enemyPhysicalHealthPercentage > 0 && !scratch2)
+			{
+				_nodeChatterTextBox.AddDialogue("The mushroom is not looking so good.");
+				_nodeChatterTextBox.ExecuteDialogueQueue();
+				scratch2 = true;
+				return true;
+			}
+		}
+
+		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieFightBite)
+		{
+			var enemyPhysicalHealthPercentage = _globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage();
+			if (enemyPhysicalHealthPercentage > 50 && !bite1)
+			{
+				_nodeChatterTextBox.AddDialogue("The mushroom does not taste very good.");
+				_nodeChatterTextBox.AddDialogue("But maybe with some butter…");
+				if (!explainSpore)
+				{
+					_nodeChatterTextBox.AddDialogue("The mushroom starts to expel some [color=red]damaging[/color] spores.");
+					explainSpore = true;
+				}
+				_nodeChatterTextBox.ExecuteDialogueQueue();
+				bite1 = true;
+				return true;
+			}
+			else if (enemyPhysicalHealthPercentage > 0 && !bite2)
+			{
+				_nodeChatterTextBox.AddDialogue("Less and less mushroom stands between you and the door.");
+				_nodeChatterTextBox.ExecuteDialogueQueue();
+				bite2 = true;
+				return true;
+			}
+		}
 		return false;
 	}
 

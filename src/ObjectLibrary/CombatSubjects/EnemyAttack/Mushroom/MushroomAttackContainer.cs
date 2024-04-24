@@ -14,7 +14,7 @@ public partial class MushroomAttackContainer : Node2D
 
 	public override void _PhysicsProcess(double _delta)
 	{
-		if (FrameIndex == 360)
+		if (FrameIndex == 600)
 		{
 			EndTurn();
 			FrameIndex = 0;
