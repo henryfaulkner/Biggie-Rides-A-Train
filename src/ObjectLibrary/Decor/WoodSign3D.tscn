@@ -30,7 +30,7 @@ meshes = Array[ArrayMesh]([SubResource("ArrayMesh_hlncd")])
 material = SubResource("StandardMaterial3D_ts6c7")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_auv33"]
-size = Vector3(1, 1, 0.806701)
+size = Vector3(1, 1, 5.35159)
 
 [node name="WoodSign" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7732, 0.345055, 0.35213)
@@ -54,5 +54,5 @@ generated_sprite_mesh = SubResource("Resource_xrbf7")
 transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableArea3D"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.0126461, -0.0386519, 0.0346525)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.0126461, -0.0386519, 0.489142)
 shape = SubResource("BoxShape3D_auv33")

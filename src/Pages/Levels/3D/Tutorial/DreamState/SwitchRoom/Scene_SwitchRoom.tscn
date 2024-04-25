@@ -1,0 +1,151 @@
+[gd_scene load_steps=24 format=3 uid="uid://dj6f4nmr6ukqg"]
+
+[ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_q1f0j"]
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_qi8k8"]
+[ext_resource type="PackedScene" uid="uid://rnc3kww1v7jc" path="res://ObjectLibrary/Biggie/Biggie3D.tscn" id="3_dhwqs"]
+[ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="4_ubo8c"]
+[ext_resource type="Texture2D" uid="uid://duun5cslc1hp8" path="res://Assets/PrototypeTextures/Orange/texture_05.png" id="5_qhiad"]
+[ext_resource type="PackedScene" uid="uid://c5looe35bo0d0" path="res://ObjectLibrary/Decor/Door3D.tscn" id="6_dtwt0"]
+[ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/SwitchRoom/Door3D.gd" id="7_6hk5s"]
+[ext_resource type="Script" path="res://ObjectLibrary/Decor/Barrier.gd" id="8_6n0oe"]
+[ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="9_y4kq2"]
+[ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="10_smv5v"]
+[ext_resource type="Texture2D" uid="uid://c10c55eer036y" path="res://Assets/Objects/WallSwitch.png" id="11_1g64v"]
+[ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="11_csmfq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cpq2k"]
+albedo_texture = ExtResource("4_ubo8c")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vqbjs"]
+material = SubResource("StandardMaterial3D_cpq2k")
+size = Vector2(2, 4)
+center_offset = Vector3(0, 0.01, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qagrp"]
+albedo_texture = ExtResource("5_qhiad")
+uv1_scale = Vector3(10, 10, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ydtl6"]
+material = SubResource("StandardMaterial3D_qagrp")
+size = Vector3(10, 5, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pn1bv"]
+size = Vector3(10, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_47t7k"]
+size = Vector3(1, 1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trhwx"]
+size = Vector3(10, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oab3u"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ol777"]
+_surfaces = [{
+"aabb": AABB(-0.56, -0.44, -0.005, 1.12, 0.88001, 0.01001),
+"attribute_data": PackedByteArray(0, 0, 128, 61, 0, 0, 32, 62, 0, 0, 112, 63, 0, 0, 32, 62, 0, 0, 112, 63, 0, 0, 88, 63, 0, 0, 128, 61, 0, 0, 32, 62, 0, 0, 112, 63, 0, 0, 88, 63, 0, 0, 128, 61, 0, 0, 88, 63, 0, 0, 112, 63, 0, 0, 32, 62, 0, 0, 128, 61, 0, 0, 32, 62, 0, 0, 128, 61, 0, 0, 88, 63, 0, 0, 112, 63, 0, 0, 88, 63, 0, 0, 136, 61, 0, 0, 32, 62, 0, 0, 136, 61, 0, 0, 32, 62, 0, 0, 136, 61, 0, 0, 88, 63, 0, 0, 136, 61, 0, 0, 88, 63, 0, 0, 111, 63, 0, 0, 32, 62, 0, 0, 111, 63, 0, 0, 32, 62, 0, 0, 111, 63, 0, 0, 88, 63, 0, 0, 111, 63, 0, 0, 88, 63, 0, 0, 128, 61, 0, 0, 36, 62, 0, 0, 112, 63, 0, 0, 36, 62, 0, 0, 112, 63, 0, 0, 36, 62, 0, 0, 128, 61, 0, 0, 36, 62, 0, 0, 128, 61, 0, 0, 87, 63, 0, 0, 112, 63, 0, 0, 87, 63, 0, 0, 112, 63, 0, 0, 87, 63, 0, 0, 128, 61, 0, 0, 87, 63),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 6, 0, 8, 0, 9, 0, 10, 0, 11, 0, 12, 0, 10, 0, 12, 0, 13, 0, 14, 0, 15, 0, 16, 0, 14, 0, 16, 0, 17, 0, 18, 0, 19, 0, 20, 0, 18, 0, 20, 0, 21, 0, 22, 0, 23, 0, 24, 0, 22, 0, 24, 0, 25, 0),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 26,
+"vertex_data": PackedByteArray(41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 187, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 187, 41, 92, 15, 63, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 62, 10, 215, 163, 59, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 59, 41, 92, 15, 63, 174, 71, 225, 190, 10, 215, 163, 187, 41, 92, 15, 191, 174, 71, 225, 190, 10, 215, 163, 187, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191)
+}]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ccjwa"]
+albedo_texture = ExtResource("4_ubo8c")
+texture_filter = 0
+
+[sub_resource type="Resource" id="Resource_oscui"]
+script = ExtResource("10_smv5v")
+meshes = Array[ArrayMesh]([SubResource("ArrayMesh_ol777")])
+material = SubResource("StandardMaterial3D_ccjwa")
+
+[node name="SceneSwitchRoom" type="Node3D"]
+
+[node name="LevelWrapper" parent="." instance=ExtResource("1_q1f0j")]
+
+[node name="TextBoxWrapper" parent="LevelWrapper" instance=ExtResource("2_qi8k8")]
+
+[node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("3_dhwqs")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 2.10677, 0.5, 0.885)
+
+[node name="Facade" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+
+[node name="Floor" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(10, 0, 0, 0, 4, 0, 0, 0, 1, 9.75025, 0, 1.67287)
+mesh = SubResource("PlaneMesh_vqbjs")
+skeleton = NodePath("")
+
+[node name="LeftWall" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(-0.00251324, 0.499994, -2.18554e-08, 0, -2.18557e-08, -0.5, -0.499994, -0.00251324, 1.09857e-10, -0.900512, 1.83798, 1.1025)
+mesh = SubResource("BoxMesh_ydtl6")
+skeleton = NodePath("")
+
+[node name="BackWall" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(-0.00010053, 5.99992, -2.62265e-07, 0, -2.18557e-08, -0.5, -0.0199997, -0.0301589, 1.31829e-09, 14.5238, 1.83798, 0.0806475)
+mesh = SubResource("BoxMesh_ydtl6")
+skeleton = NodePath("")
+
+[node name="SceneBorders" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+
+[node name="TopMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -0.44)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/TopMostBarrier"]
+shape = SubResource("BoxShape3D_pn1bv")
+
+[node name="RightMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6255, 0, 1.811)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/RightMostBarrier"]
+shape = SubResource("BoxShape3D_47t7k")
+
+[node name="BottomMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/BottomMostBarrier"]
+shape = SubResource("BoxShape3D_trhwx")
+
+[node name="LeftMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.811)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/LeftMostBarrier"]
+shape = SubResource("BoxShape3D_47t7k")
+
+[node name="Door3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("6_dtwt0")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.1, 10.4299, 0.758061, 0.483449)
+script = ExtResource("7_6hk5s")
+
+[node name="Barrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(4, 0, 0, 0, 10, 0, 0, 0, 10, 9.78878, 3.17072, 0.783602)
+script = ExtResource("8_6n0oe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/Barrier"]
+shape = SubResource("BoxShape3D_oab3u")
+
+[node name="SpriteMeshInstance" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Barrier"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.129498, 0)
+mesh = SubResource("ArrayMesh_ol777")
+surface_material_override/0 = SubResource("StandardMaterial3D_ccjwa")
+script = ExtResource("9_y4kq2")
+texture = ExtResource("4_ubo8c")
+region_rect = Rect2i(0, 0, 1, 1)
+generated_sprite_mesh = SubResource("Resource_oscui")
+
+[node name="Switch3D" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, 4.95817, 0.716593, 0.373809)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/Switch3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/Switch3D/StaticBody3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="LevelWrapper/TextBoxWrapper/Switch3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.218655)
+texture = ExtResource("11_1g64v")
+hframes = 2
+vframes = 2
+
+[node name="Camera3D" parent="LevelWrapper" instance=ExtResource("11_csmfq")]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 3.28546, 1.75, 4.45)

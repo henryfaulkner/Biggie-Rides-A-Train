@@ -2,7 +2,6 @@ extends CollisionShape3D
 
 signal openDoor
 
-var _COMBAT_SCENE_TEST_BATTLE = "res://Pages/CombatScenes/DjBattle/CombatSceneDjBattle.tscn"
 var _INTERACT_INPUT = "interact"
 var _nodeSelf = null
 var _nodeInteractableArea = null

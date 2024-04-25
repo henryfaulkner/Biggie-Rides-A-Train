@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://c5looe35bo0d0"]
 
-[ext_resource type="Texture2D" uid="uid://boqxoenfgd3b" path="res://Assets/Objects/SimpleDoor.png" id="1_114c4"]
-[ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="2_ros5i"]
-[ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="3_ews0x"]
-[ext_resource type="Script" path="res://ObjectLibrary/Decor/DoorCollisionObservable.gd" id="4_ih8qb"]
+[ext_resource type="Texture2D" uid="uid://boqxoenfgd3b" path="res://Assets/Objects/SimpleDoor.png" id="1_yfs3h"]
+[ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="2_3fi3n"]
+[ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="3_51ppq"]
+[ext_resource type="Script" path="res://ObjectLibrary/Decor/DoorCollisionObservable.gd" id="4_1mius"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_uhblr"]
 _surfaces = [{
@@ -18,8 +18,8 @@ _surfaces = [{
 "vertex_data": PackedByteArray(10, 215, 163, 191, 204, 204, 76, 64, 10, 215, 163, 59, 10, 215, 163, 63, 204, 204, 76, 64, 10, 215, 163, 59, 10, 215, 163, 63, 204, 204, 76, 192, 10, 215, 163, 59, 10, 215, 163, 191, 204, 204, 76, 64, 10, 215, 163, 59, 10, 215, 163, 63, 204, 204, 76, 192, 10, 215, 163, 59, 10, 215, 163, 191, 204, 204, 76, 192, 10, 215, 163, 59, 10, 215, 163, 63, 204, 204, 76, 64, 10, 215, 163, 187, 10, 215, 163, 191, 204, 204, 76, 64, 10, 215, 163, 187, 10, 215, 163, 191, 204, 204, 76, 192, 10, 215, 163, 187, 10, 215, 163, 63, 204, 204, 76, 192, 10, 215, 163, 187, 10, 215, 163, 191, 204, 204, 76, 64, 10, 215, 163, 187, 10, 215, 163, 191, 204, 204, 76, 64, 10, 215, 163, 59, 10, 215, 163, 191, 204, 204, 76, 192, 10, 215, 163, 59, 10, 215, 163, 191, 204, 204, 76, 192, 10, 215, 163, 187, 10, 215, 163, 63, 204, 204, 76, 64, 10, 215, 163, 59, 10, 215, 163, 63, 204, 204, 76, 64, 10, 215, 163, 187, 10, 215, 163, 63, 204, 204, 76, 192, 10, 215, 163, 187, 10, 215, 163, 63, 204, 204, 76, 192, 10, 215, 163, 59, 10, 215, 163, 191, 204, 204, 76, 64, 10, 215, 163, 187, 10, 215, 163, 63, 204, 204, 76, 64, 10, 215, 163, 187, 10, 215, 163, 63, 204, 204, 76, 64, 10, 215, 163, 59, 10, 215, 163, 191, 204, 204, 76, 64, 10, 215, 163, 59, 10, 215, 163, 191, 204, 204, 76, 192, 10, 215, 163, 59, 10, 215, 163, 63, 204, 204, 76, 192, 10, 215, 163, 59, 10, 215, 163, 63, 204, 204, 76, 192, 10, 215, 163, 187, 10, 215, 163, 191, 204, 204, 76, 192, 10, 215, 163, 187, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191)
 }]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jauh5"]
-albedo_texture = ExtResource("1_114c4")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_il1my"]
+albedo_texture = ExtResource("1_yfs3h")
 texture_filter = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_oaih2"]
@@ -36,9 +36,9 @@ _surfaces = [{
 }]
 
 [sub_resource type="Resource" id="Resource_klmja"]
-script = ExtResource("3_ews0x")
+script = ExtResource("3_51ppq")
 meshes = Array[ArrayMesh]([SubResource("ArrayMesh_uhblr"), SubResource("ArrayMesh_oaih2")])
-material = SubResource("StandardMaterial3D_jauh5")
+material = SubResource("StandardMaterial3D_il1my")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jl276"]
 size = Vector3(2.55634, 5.76355, 2)
@@ -46,7 +46,7 @@ size = Vector3(2.55634, 5.76355, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_d3bev"]
 size = Vector3(0.498169, 1, 0.990843)
 
-[node name="DoorCollision3D" type="Node3D"]
+[node name="Door3D" type="Node3D"]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -54,9 +54,9 @@ size = Vector3(0.498169, 1, 0.990843)
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_uhblr")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_jauh5")
-script = ExtResource("2_ros5i")
-texture = ExtResource("1_114c4")
+surface_material_override/0 = SubResource("StandardMaterial3D_il1my")
+script = ExtResource("2_3fi3n")
+texture = ExtResource("1_yfs3h")
 hframes = 2
 region_rect = Rect2i(0, 0, 1, 1)
 generated_sprite_mesh = SubResource("Resource_klmja")
@@ -70,4 +70,4 @@ transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableArea3D"]
 shape = SubResource("BoxShape3D_d3bev")
-script = ExtResource("4_ih8qb")
+script = ExtResource("4_1mius")

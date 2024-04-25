@@ -21,7 +21,7 @@ func _process(delta):
 
 func _on_pressed():
 	var scenePlay = decide_scene()
-	scenePlay = _MUSHROOM_BATTLE_1_COMBAT_SCENE
+	scenePlay = _INTRO_SCENE
 	get_tree().change_scene_to_packed(scenePlay);
 	pass ;
 

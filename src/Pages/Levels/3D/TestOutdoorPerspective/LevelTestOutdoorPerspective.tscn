@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="6_dua4o"]
 [ext_resource type="PackedScene" uid="uid://b0lmn34h5m7w7" path="res://ObjectLibrary/NPCs/3D/Therapist3D/Therapist3D.tscn" id="7_a2hwi"]
 [ext_resource type="PackedScene" uid="uid://uuyhg1mhqlj" path="res://ObjectLibrary/NPCs/3D/Lion3D/Lion3D.tscn" id="8_m5jtt"]
-[ext_resource type="PackedScene" uid="uid://c5looe35bo0d0" path="res://ObjectLibrary/Decor/DoorCollision3D.tscn" id="9_nobqg"]
+[ext_resource type="PackedScene" uid="uid://c5looe35bo0d0" path="res://ObjectLibrary/Decor/Door3D.tscn" id="9_nobqg"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/TestOutdoorPerspective/SampleDoor.gd" id="10_an34e"]
 [ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="11_ij804"]
 [ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="12_x8c2x"]

@@ -1,0 +1,98 @@
+[gd_scene load_steps=17 format=3 uid="uid://dovoy7y5yxgol"]
+
+[ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_qrbr8"]
+[ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/MushroomFight/Scene_MushroomFight.cs" id="1_v53qj"]
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_j2yq4"]
+[ext_resource type="PackedScene" uid="uid://rnc3kww1v7jc" path="res://ObjectLibrary/Biggie/Biggie3D.tscn" id="3_dh3xl"]
+[ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="4_3yw7h"]
+[ext_resource type="Texture2D" uid="uid://duun5cslc1hp8" path="res://Assets/PrototypeTextures/Orange/texture_05.png" id="5_f8nki"]
+[ext_resource type="PackedScene" uid="uid://c5looe35bo0d0" path="res://ObjectLibrary/Decor/Door3D.tscn" id="6_u1oi5"]
+[ext_resource type="PackedScene" uid="uid://cfvt4pku54wba" path="res://ObjectLibrary/NPCs/3D/Mushroom3D/Mushroom3D.tscn" id="7_w1tjq"]
+[ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="8_b5as2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvmyi"]
+albedo_texture = ExtResource("4_3yw7h")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sfl10"]
+material = SubResource("StandardMaterial3D_vvmyi")
+size = Vector2(2, 4)
+center_offset = Vector3(0, 0.01, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8la1"]
+albedo_texture = ExtResource("5_f8nki")
+uv1_scale = Vector3(10, 10, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vcqkl"]
+material = SubResource("StandardMaterial3D_n8la1")
+size = Vector3(10, 5, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ipr1e"]
+size = Vector3(10, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yirjk"]
+size = Vector3(1, 1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bjpgp"]
+size = Vector3(10, 1, 1)
+
+[node name="SceneMushroomFight" type="Node3D"]
+script = ExtResource("1_v53qj")
+
+[node name="LevelWrapper" parent="." instance=ExtResource("1_qrbr8")]
+
+[node name="TextBoxWrapper" parent="LevelWrapper" instance=ExtResource("2_j2yq4")]
+
+[node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("3_dh3xl")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 2.10677, 0.5, 2.96664)
+
+[node name="Facade" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+
+[node name="Floor" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(10, 0, 0, 0, 4, 0, 0, 0, 1, 9.75025, 0, 1.67287)
+mesh = SubResource("PlaneMesh_sfl10")
+skeleton = NodePath("")
+
+[node name="LeftWall" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(-0.00251324, 0.499994, -2.18554e-08, 0, -2.18557e-08, -0.5, -0.499994, -0.00251324, 1.09857e-10, -0.900512, 1.83798, 1.1025)
+mesh = SubResource("BoxMesh_vcqkl")
+skeleton = NodePath("")
+
+[node name="BackWall" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(-0.00010053, 5.99992, -2.62265e-07, 0, -2.18557e-08, -0.5, -0.0199997, -0.0301589, 1.31829e-09, 14.5238, 1.83798, 0.0806475)
+mesh = SubResource("BoxMesh_vcqkl")
+skeleton = NodePath("")
+
+[node name="SceneBorders" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+
+[node name="TopMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -0.44)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/TopMostBarrier"]
+shape = SubResource("BoxShape3D_ipr1e")
+
+[node name="RightMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.6255, 0, 1.811)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/RightMostBarrier"]
+shape = SubResource("BoxShape3D_yirjk")
+
+[node name="BottomMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/BottomMostBarrier"]
+shape = SubResource("BoxShape3D_bjpgp")
+
+[node name="LeftMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.811)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/LeftMostBarrier"]
+shape = SubResource("BoxShape3D_yirjk")
+
+[node name="Door3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("6_u1oi5")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.1, 4.29458, 0.758061, 0.483449)
+
+[node name="Mushroom3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("7_w1tjq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.25228, 0, 0.75)
+
+[node name="Camera3D" parent="LevelWrapper" instance=ExtResource("8_b5as2")]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 2.10428, 1.75, 4.45)
