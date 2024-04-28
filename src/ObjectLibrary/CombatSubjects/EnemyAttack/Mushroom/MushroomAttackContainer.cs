@@ -11,6 +11,8 @@ public partial class MushroomAttackContainer : Node2D
 	public bool IsAttacking { get; set; }
 	private SporeFall SporeFallInstance { get; set; }
 	private int FrameIndex { get; set; }
+	
+	
 
 	public override void _PhysicsProcess(double _delta)
 	{
@@ -32,6 +34,7 @@ public partial class MushroomAttackContainer : Node2D
 		IsAttacking = true;
 		SporeFallInstance = SpawnSporeFall();
 		AddChild(SporeFallInstance);
+		SporeFallInstance.SporeHitBiggie += () => EmitSignal(SignalName.ProjectPhysicalDamage);
 	}
 
 	public void EndTurn()

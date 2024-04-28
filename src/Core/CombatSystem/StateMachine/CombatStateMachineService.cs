@@ -167,7 +167,11 @@ public partial class CombatStateMachineService : Node
 			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectChatCharm
 			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectFightBite
 			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectFightScratch
-			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromEnemyAttack;
+			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromEnemyAttack
+			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromDefeatChatter_Ask
+			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromDefeatChatter_Charm
+			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromDefeatChatter_Scratch
+			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromDefeatChatter_Bite;
 	}
 
 	private static readonly StringName _COMBAT_EVENT = new StringName("CombatEvent");

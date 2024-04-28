@@ -37,7 +37,7 @@ public partial class SporeFall : Node2D
 			};
 			AddChild(spore);
 			_nodeSporeList.Add(spore);
-			spore.SporeHitBiggie += SporeHitBiggie;
+			spore.SporeHitBiggie += SporeHitBiggieFunc;
 		}
 	}
 
@@ -81,12 +81,15 @@ public partial class SporeFall : Node2D
 		};
 	}
 
-	private void SporeHitBiggie(Spore spore)
+	[Signal]
+	public delegate void SporeHitBiggieEventHandler();
+	private void SporeHitBiggieFunc(Spore spore)
 	{
 		GD.Print("SporeHitBiggie");
 		_nodeSporeList.Remove(spore);
 		spore.QueueFree();
 
 		_globalCombatSingleton.EnemyPhysicalAttackProxy.DealDamage(1);
+		EmitSignal(SignalName.SporeHitBiggie);
 	}
 }

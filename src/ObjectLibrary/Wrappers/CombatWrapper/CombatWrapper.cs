@@ -517,7 +517,7 @@ public partial class CombatWrapper : Node2D
 	{
 		bool finished = false;
 		finished = TranslateHudToChatterTextBox(skip);
-		finished = TransformToChatterTextBox(skip) && finished;
+		//finished = TransformToChatterTextBox(skip) && finished;
 		return finished;
 	}
 
@@ -564,9 +564,12 @@ public partial class CombatWrapper : Node2D
 		EmitSignal(SignalName.ProjectPhysicalDamage);
 	}
 
+	[Signal]
+	public delegate void ProjectEmotionalDamageEventHandler();
 	public void DealEmotionalDamage(double damage)
 	{
 		_globalCombatSingleton.BiggieEmotionalAttackProxy.DealDamage(damage);
+		EmitSignal(SignalName.ProjectPhysicalDamage);
 	}
 
 	public void SetEnemyAttackContainerService(MarginContainer enemyAttackContainer)
@@ -582,91 +585,4 @@ public partial class CombatWrapper : Node2D
 		_globalCombatSingleton.EnemyAttackPanelService.Position = enemyAttackPanelPosition;
 		GD.Print($"CombatWrapper _globalCombatSingleton.EnemyAttackPanelService.Position {_globalCombatSingleton.EnemyAttackPanelService.Position.X} {_globalCombatSingleton.EnemyAttackPanelService.Position.Y}");
 	}
-
-	// private void ApplyCombatStateMachineEvents()
-	// {
-	// 	_globalCombatSingleton.CombatStateMachineService.GetStateById(Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieChatAsk)
-	// 		.AddEventHandler(TransitionToEnemyAttackEvent);
-	// 	_globalCombatSingleton.CombatStateMachineService.GetStateById(Enumerations.Combat.StateMachine.States.TransitionToBiggieChatCharm)
-	// 		.AddEventHandler(TransitionToEnemyAttackEvent);
-	// 	_globalCombatSingleton.CombatStateMachineService.GetStateById(Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieFightBite)
-	// 		.AddEventHandler(TransitionToEnemyAttackEvent);
-	// 	_globalCombatSingleton.CombatStateMachineService.GetStateById(Enumerations.Combat.StateMachine.States.TransitionToBiggieFightScratch)
-	// 		.AddEventHandler(TransitionToEnemyAttackEvent);
-	// 	_globalCombatSingleton.CombatStateMachineService.GetStateById(Enumerations.Combat.StateMachine.States.TransitionToCombatMenu)
-	// 		.AddEventHandler(TransitionToBiggieCombatMenuEvent);
-	// }
-
-	// private bool TransitionToEnemyAttackEvent()
-	// {
-	// 	bool skipTransition = Input.IsActionJustPressed(_INTERACT_INPUT);
-	// 	if (!ProcessFirstPass())
-	// 	{
-	// 		HideBiggieAttackContainer();
-	// 		_nodeBiggieAttackContainer.IsActive = false;
-	// 		if (TransitionToEnemyAttack(skipTransition))
-	// 		{
-	// 			FirstFramePass = true;
-	// 			HideSubjectPanel();
-	// 			EmitSignal(SignalName.StartEnemyAttackTurn);
-	// 			ShowEnemyAttackContainer();
-	// 			return true;
-	// 		}
-	// 	}
-	// 	return false;
-	// }
-
-	// private bool TransitionToBiggieCombatMenuEvent()
-	// {
-	// 	bool skipTransition = Input.IsActionJustPressed(_INTERACT_INPUT);
-	// 	if (!ProcessFirstPass())
-	// 	{
-	// 		HideEnemyAttackContainer();
-	// 		if (TransitionToBiggieCombatMenu(skipTransition))
-	// 		{
-	// 			FirstFramePass = true;
-	// 			HideSubjectPanel();
-	// 			EmitSignal(SignalName.StartBiggieTextTurn);
-	// 			ShowBiggieCombatMenuTextContainer();
-	// 			return true;
-	// 		}
-	// 	}
-	// 	return false;
-	// }
-
-	// private void TransitionToBiggieFightEvent()
-	// {
-	// 	bool skipTransition = Input.IsActionJustPressed(_INTERACT_INPUT);
-	// 	if (!ProcessFirstPass())
-	// 	{
-	// 		HideBiggieCombatMenuTextContainer();
-	// 		HideActionInfo();
-	// 		if (TransitionToBiggieAttack(skipTransition))
-	// 		{
-	// 			FirstFramePass = true;
-	// 			HideSubjectPanel();
-	// 			EmitSignal(SignalName.StartBiggieAttackTurn);
-	// 			ShowBiggieAttackContainer();
-	// 			_nodeBiggieAttackContainer.IsActive = true;
-	// 		}
-	// 	}
-	// }
-
-	// private void TransitionToBiggieChatEvent()
-	// {
-	// 	bool skipTransition = Input.IsActionJustPressed(_INTERACT_INPUT);
-	// 	if (!ProcessFirstPass())
-	// 	{
-	// 		HideBiggieCombatMenuTextContainer();
-	// 		HideActionInfo();
-	// 		if (TransitionToBiggieAttack(skipTransition))
-	// 		{
-	// 			FirstFramePass = true;
-	// 			HideSubjectPanel();
-	// 			EmitSignal(SignalName.StartBiggieAttackTurn);
-	// 			ShowBiggieAttackContainer();
-	// 			_nodeBiggieAttackContainer.IsActive = true;
-	// 		}
-	// 	}
-	// }
 }

@@ -1,5 +1,5 @@
 extends StaticBody3D
 
-class_name Barroer
+class_name Barrier
 
-var IsOpened: bool = true
+var IsOpen: bool = true

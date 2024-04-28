@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://ci62f51xm0q63"]
+[gd_scene load_steps=8 format=3 uid="uid://ci62f51xm0q63"]
 
 [ext_resource type="Script" path="res://Pages/CombatScenes/MushroomBattle_1/CombatSceneMushroomBattle_1.cs" id="1_g2ggb"]
 [ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.tscn" id="1_ovtpk"]
 [ext_resource type="PackedScene" uid="uid://cbe22sj2cy0ic" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/Mushroom/MushroomAttackContainer.tscn" id="2_et7vv"]
 [ext_resource type="PackedScene" uid="uid://2mh1lln1nml3" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/EnemyAttackContainer/EnemyAttackContainer.tscn" id="3_kdd11"]
 [ext_resource type="PackedScene" uid="uid://cbxe4ywsrbc2y" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/EnemyAttackContainer/EnemyAttackPanel.tscn" id="4_6v26q"]
+[ext_resource type="Texture2D" uid="uid://co7aoj6hlth3i" path="res://Assets/Objects/Therapist.png" id="6_oiufs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pmj34"]
 
 [node name="CombatSceneMushroomBattle1" type="Node2D"]
 script = ExtResource("1_g2ggb")
@@ -18,3 +21,15 @@ layout_mode = 2
 
 [node name="MushroomAttackContainer" parent="CombatWrapper/EnemyAttackContainer/EnemyAttackPanel" instance=ExtResource("2_et7vv")]
 position = Vector2(-724, -456)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CombatWrapper"]
+position = Vector2(1024, 56)
+
+[node name="Sprite2D" type="Sprite2D" parent="CombatWrapper/StaticBody2D"]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("6_oiufs")
+hframes = 2
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatWrapper/StaticBody2D"]
+shape = SubResource("RectangleShape2D_pmj34")

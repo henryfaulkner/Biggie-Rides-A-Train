@@ -1,5 +1,6 @@
-[gd_scene load_steps=24 format=3 uid="uid://dj6f4nmr6ukqg"]
+[gd_scene load_steps=27 format=3 uid="uid://dj6f4nmr6ukqg"]
 
+[ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/SwitchRoom/Scene_SwitchRoom.cs" id="1_csnfc"]
 [ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_q1f0j"]
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_qi8k8"]
 [ext_resource type="PackedScene" uid="uid://rnc3kww1v7jc" path="res://ObjectLibrary/Biggie/Biggie3D.tscn" id="3_dhwqs"]
@@ -12,6 +13,7 @@
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="10_smv5v"]
 [ext_resource type="Texture2D" uid="uid://c10c55eer036y" path="res://Assets/Objects/WallSwitch.png" id="11_1g64v"]
 [ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="11_csmfq"]
+[ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/SwitchRoom/Switch3D.cs" id="11_o1rxi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cpq2k"]
 albedo_texture = ExtResource("4_ubo8c")
@@ -62,7 +64,11 @@ script = ExtResource("10_smv5v")
 meshes = Array[ArrayMesh]([SubResource("ArrayMesh_ol777")])
 material = SubResource("StandardMaterial3D_ccjwa")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_tko17"]
+size = Vector3(2, 30, 6)
+
 [node name="SceneSwitchRoom" type="Node3D"]
+script = ExtResource("1_csnfc")
 
 [node name="LevelWrapper" parent="." instance=ExtResource("1_q1f0j")]
 
@@ -135,13 +141,15 @@ region_rect = Rect2i(0, 0, 1, 1)
 generated_sprite_mesh = SubResource("Resource_oscui")
 
 [node name="Switch3D" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
-transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, 4.95817, 0.716593, 0.373809)
+transform = Transform3D(0.13, 0, 0, 0, 0.13, 0, 0, 0, 0.13, 4.95817, 0.969846, 0.373809)
+script = ExtResource("11_o1rxi")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/Switch3D"]
+[node name="InteractableArea3D" type="Area3D" parent="LevelWrapper/TextBoxWrapper/Switch3D"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/Switch3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/Switch3D/InteractableArea3D"]
+shape = SubResource("BoxShape3D_tko17")
 
-[node name="Sprite3D" type="Sprite3D" parent="LevelWrapper/TextBoxWrapper/Switch3D/StaticBody3D"]
+[node name="Sprite3D" type="Sprite3D" parent="LevelWrapper/TextBoxWrapper/Switch3D/InteractableArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.218655)
 texture = ExtResource("11_1g64v")
 hframes = 2
