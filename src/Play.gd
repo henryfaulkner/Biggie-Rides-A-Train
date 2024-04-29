@@ -6,6 +6,7 @@ const _THERAPIST_OFFICE_SCENE = preload ("res://Pages/Levels/2D/TherapistOffice/
 const _CLUB_SCENE = preload ("res://Pages/Levels/2D/Club/LevelClub.tscn")
 const _TEST_PERSPECTIVE_SCENE = preload ("res://Pages/Levels/3D/TestOutdoorPerspective/LevelTestOutdoorPerspective.tscn")
 const _INTRO_SCENE = preload ("res://Pages/Levels/3D/Tutorial/Intro/Scene_Taxi_Approaching_Train.tscn")
+const _TEST_SCENE = preload ("res://Pages/Levels/3D/Tutorial/DreamState/MushroomFight/Scene_MushroomFight.tscn")
 const _MUSHROOM_BATTLE_1_COMBAT_SCENE = preload ("res://Pages/CombatScenes/MushroomBattle_1/CombatSceneMushroomBattle_1.tscn")
 
 const _RELOCATION_SERVICE_SCRIPT = preload ("res://Core/RelocationService/RelocationService.cs")
@@ -22,6 +23,7 @@ func _process(delta):
 func _on_pressed():
 	var scenePlay = decide_scene()
 	scenePlay = _INTRO_SCENE
+	scenePlay = _TEST_SCENE
 	get_tree().change_scene_to_packed(scenePlay);
 	pass ;
 

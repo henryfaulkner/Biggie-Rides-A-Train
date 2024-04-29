@@ -32,9 +32,21 @@ public partial class InteractionTextBox : CanvasLayer
 		HideTextBox();
 	}
 
+	private int DebounceFrames = 0;
 	public override void _Process(double delta)
 	{
 		if (!IsOpen) return;
+		if (IsReading)
+		{
+			DebounceFrames += 1;
+			if (DebounceFrames >= 10)
+			{
+				IsReading = false;
+				DebounceFrames = 0;
+			}
+			return;
+		}
+
 		if (Input.IsActionJustPressed(_INTERACT_INPUT))
 		{
 			HandleInteraction();
@@ -73,6 +85,7 @@ public partial class InteractionTextBox : CanvasLayer
 	// to the screen
 	public void Execute()
 	{
+		GD.Print("InteractionTextBox Execute and Show");
 		IsOpen = true;
 		IsReading = true;
 		OptionContainerList[0].IsSelected = true;

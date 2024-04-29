@@ -22,8 +22,6 @@ public partial class Scene_MushroomFight : Node3D
 		_nodeMushroom.Interact += ProcessMushroomDialogue;
 		MushroomDialogueState = MushroomDialogueStates.Discovery;
 		_nodeInteractionTextBox.SelectedOptionId += ReactToMushroomSelection;
-
-
 	}
 
 	public override void _PhysicsProcess(double _delta)
@@ -33,17 +31,18 @@ public partial class Scene_MushroomFight : Node3D
 	public void ProcessMushroomDialogue()
 	{
 		GD.Print("Scene_Dream_Room1 ProcessMushroomDialogue");
-		if (!_nodeTextBox.CanCreateDialogue()) return;
 		switch (MushroomDialogueState)
 		{
 			case MushroomDialogueStates.Discovery:
 				GD.Print("case MushroomDialogueStates.Discovery");
+				if (!_nodeTextBox.CanCreateDialogue()) return;
 				_nodeTextBox.AddDialogue("This mushroom seems content with resting in front of the door.");
 				_nodeTextBox.ExecuteDialogueQueue();
 				MushroomDialogueState = MushroomDialogueStates.Combat;
 				break;
 			case MushroomDialogueStates.Combat:
 				GD.Print("case MushroomDialogueStates.Combat");
+				if (!_nodeInteractionTextBox.CanCreateDialogue()) return;
 				_nodeInteractionTextBox.StartInteraction("Would you like to remove the mushroom in front of the door?", "Yes", (int)MushroomSelectionOptions.CombatYes);
 				_nodeInteractionTextBox.AddOption("No", (int)MushroomSelectionOptions.CombatNo);
 				_nodeInteractionTextBox.Execute();

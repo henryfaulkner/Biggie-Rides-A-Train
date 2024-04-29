@@ -84,6 +84,7 @@ public partial class BiggieCombatMenu : CanvasLayer
 		}
 
 		_nodeBasePagePanel.ResetPointerOffset();
+		_nodeBasePagePanel.ProcessSelection();
 	}
 
 	public void HandleFightSelection(int selection)
@@ -153,7 +154,6 @@ public partial class BiggieCombatMenu : CanvasLayer
 		_nodeBasePagePanel.IsOpen = false;
 		_nodeChatPagePanel.IsOpen = false;
 		_nodeFightPagePanel.IsOpen = false;
-
 	}
 
 	[Signal]

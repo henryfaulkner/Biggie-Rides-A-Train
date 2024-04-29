@@ -188,14 +188,14 @@ public class SelectionHelper
 			if (i == 0)
 			{
 				OptionList[i].IsSelected = true;
-				AddSelectBorder(OptionList[i].SelectionPanel);
-				AddWhiteFont(OptionList[i].OptionLabel);
+				ApplyActivePagePanelOption(OptionList[i].SelectionPanel);
+				ApplyActivePageLabelSettingOption(OptionList[i].OptionLabel);
 			}
 			else
 			{
 				OptionList[i].IsSelected = false;
-				RemoveSelectBorder(OptionList[i].SelectionPanel);
-				AddGreyFont(OptionList[i].OptionLabel);
+				ApplyInactivePagePanelOption(OptionList[i].SelectionPanel);
+				ApplyInactivePageLabelSettingOption(OptionList[i].OptionLabel);
 			}
 		}
 	}

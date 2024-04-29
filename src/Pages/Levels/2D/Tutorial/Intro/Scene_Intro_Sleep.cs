@@ -17,6 +17,8 @@ public partial class Scene_Intro_Sleep : Node2D
 	{
 		_nodeSelf = GetNode<Node2D>(".");
 		_nodeTextBox = GetNode<TextBox>("./TextBoxWrapper/TextBox");
+		var biggie = GetNode<Biggie>("TextBoxWrapper/Biggie");
+		biggie.CanMove(false);
 
 		_nodeTextBox.HidingTextBox += ContinuePlay;
 	}
