@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dj6f4nmr6ukqg"]
+[gd_scene load_steps=28 format=3 uid="uid://dj6f4nmr6ukqg"]
 
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/SwitchRoom/Scene_SwitchRoom.cs" id="1_csnfc"]
 [ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_q1f0j"]
@@ -59,10 +59,14 @@ _surfaces = [{
 albedo_texture = ExtResource("4_ubo8c")
 texture_filter = 0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gomsv"]
+albedo_texture = ExtResource("4_ubo8c")
+texture_filter = 0
+
 [sub_resource type="Resource" id="Resource_oscui"]
 script = ExtResource("10_smv5v")
 meshes = Array[ArrayMesh]([SubResource("ArrayMesh_ol777")])
-material = SubResource("StandardMaterial3D_ccjwa")
+material = SubResource("StandardMaterial3D_gomsv")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tko17"]
 size = Vector3(2, 30, 6)

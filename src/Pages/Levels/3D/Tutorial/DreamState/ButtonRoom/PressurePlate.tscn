@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1k5uyt64buix"]
+
+[ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/ButtonRoom/PressurePlate.cs" id="1_1fnyh"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_e2641"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rhp3w"]
+
+[node name="PressurePlate" type="MeshInstance3D"]
+transform = Transform3D(0.4, 0, 0, 0, 0.0999996, 0.00111003, 0, -0.000277507, 0.399998, 5.36032, 0, 2.4792)
+mesh = SubResource("CylinderMesh_e2641")
+script = ExtResource("1_1fnyh")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_rhp3w")
