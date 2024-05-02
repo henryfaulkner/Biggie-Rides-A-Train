@@ -44,4 +44,16 @@ public class SaveStateModel
 
 	[JsonProperty("DialogueStateDJ")]
 	public Enumerations.DialogueStates.DJ DialogueStateDJ { get; set; }
+
+	// Intro
+
+	// Dream State
+	[JsonProperty("IsSwitchDoorOpen")]
+	public bool IsSwitchDoorOpen { get; set; }
+	[JsonProperty("IsButtonDoorOpen")]
+	public bool IsButtonDoorOpen { get; set; }
+	[JsonProperty("IsMushroomDead")]
+	public bool IsMushroomDead { get; set; }
+	[JsonProperty("IsMushroomMoved")]
+	public bool IsMushroomMoved { get; set; }
 }

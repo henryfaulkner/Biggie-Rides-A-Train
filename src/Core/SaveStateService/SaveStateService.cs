@@ -2,12 +2,12 @@ using Godot;
 using System;
 using Newtonsoft.Json;
 
-public partial class SaveStateContext : Node, IDisposable
+public partial class SaveStateService : Node, IDisposable
 {
-	private static readonly StringName _SAVE_STATE_FILE = new StringName("res://Core/SaveStateContext/SaveState.json");
+	private static readonly StringName _SAVE_STATE_FILE = new StringName("res://Core/SaveStateService/SaveState.json");
 	private LoggingService _globalLogger = null;
 
-	public SaveStateContext()
+	public SaveStateService()
 	{
 		//_globalLogger = GetNode<LoggingService>("/root/LoggingService");
 	}

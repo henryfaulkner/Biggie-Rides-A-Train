@@ -1,7 +1,7 @@
 {
   "StoredLocation": {
     "SceneId": 2,
-    "X": 10,
+    "X": 11,
     "Y": 0,
     "Z": 0
   },
@@ -17,5 +17,9 @@
   "DialogueStateTeller": 0,
   "DialogueStateChess": 0,
   "DialogueStateTherapist": 0,
-  "DialogueStateDJ": 0
+  "DialogueStateDJ": 0,
+  "IsSwitchDoorOpen": true,
+  "IsButtonDoorOpen": false,
+  "IsMushroomDead": false,
+  "IsMushroomMoved": false
 }

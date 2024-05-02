@@ -10,6 +10,8 @@ public partial class Scene_ButtonRoom : Node3D
 	private PressurePlate _nodePressurePlate5 = null;
 	private StaticBody3D _nodeBarrier = null;
 
+	private SaveStateService _serviceSaveState = null;
+
 	private bool bitPressurePlate1 = false;
 	private bool bitPressurePlate2 = false;
 	private bool bitPressurePlate3 = false;
@@ -23,21 +25,53 @@ public partial class Scene_ButtonRoom : Node3D
 		_nodePressurePlate3 = GetNode<PressurePlate>("LevelWrapper/TextBoxWrapper/PressurePlate3");
 		_nodePressurePlate4 = GetNode<PressurePlate>("LevelWrapper/TextBoxWrapper/PressurePlate4");
 		_nodePressurePlate5 = GetNode<PressurePlate>("LevelWrapper/TextBoxWrapper/PressurePlate5");
-		_nodePressurePlate1.Pressed += () => bitPressurePlate1 = true;
-		_nodePressurePlate2.Pressed += () => bitPressurePlate2 = true;
-		_nodePressurePlate3.Pressed += () => bitPressurePlate3 = true;
-		_nodePressurePlate4.Pressed += () => bitPressurePlate4 = true;
-		_nodePressurePlate5.Pressed += () => bitPressurePlate5 = true;
+		_nodePressurePlate1.Pressed += () =>
+		{
+			bitPressurePlate1 = true;
+			if (CheckAllPressurePlates()) ProcessAllPressed();
+		};
+		_nodePressurePlate2.Pressed += () =>
+		{
+			bitPressurePlate2 = true;
+			if (CheckAllPressurePlates()) ProcessAllPressed();
+		};
+		_nodePressurePlate3.Pressed += () =>
+		{
+			bitPressurePlate3 = true;
+			if (CheckAllPressurePlates()) ProcessAllPressed();
+		};
+		_nodePressurePlate4.Pressed += () =>
+		{
+			bitPressurePlate4 = true;
+			if (CheckAllPressurePlates()) ProcessAllPressed();
+		};
+		_nodePressurePlate5.Pressed += () =>
+		{
+			bitPressurePlate5 = true;
+			if (CheckAllPressurePlates()) ProcessAllPressed();
+		};
 
 		_nodeBarrier = GetNode<StaticBody3D>("LevelWrapper/TextBoxWrapper/Barrier");
+
+		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
+		var context = _serviceSaveState.Load();
+		if (context.IsButtonDoorOpen)
+		{
+			bitPressurePlate1 = true;
+			bitPressurePlate2 = true;
+			bitPressurePlate3 = true;
+			bitPressurePlate4 = true;
+			bitPressurePlate5 = true;
+			if (CheckAllPressurePlates()) ProcessAllPressed();
+		}
 	}
 
-	public override void _PhysicsProcess(double _delta)
+	private void ProcessAllPressed()
 	{
-		if (CheckAllPressurePlates())
-		{
-			MoveBarrier();
-		}
+		MoveBarrier();
+		var context = _serviceSaveState.Load();
+		context.IsButtonDoorOpen = true;
+		_serviceSaveState.Commit(context);
 	}
 
 	private bool CheckAllPressurePlates()

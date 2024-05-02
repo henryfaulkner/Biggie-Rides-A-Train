@@ -13,7 +13,7 @@ public partial class RelocationService : Node
 	public DoorEntrance GetStoredLocation()
 	{
 		DoorEntrance result = null;
-		using (var context = new SaveStateContext())
+		using (var context = new SaveStateService())
 		{
 			var contextState = context.Load();
 			result = contextState.StoredLocation;
@@ -24,7 +24,7 @@ public partial class RelocationService : Node
 	public bool IsStoredLocationEmpty()
 	{
 		DoorEntrance result = null;
-		using (var context = new SaveStateContext())
+		using (var context = new SaveStateService())
 		{
 			var contextState = context.Load();
 			result = contextState.StoredLocation;
@@ -39,7 +39,7 @@ public partial class RelocationService : Node
 
 	public void Clear()
 	{
-		using (var context = new SaveStateContext())
+		using (var context = new SaveStateService())
 		{
 			var contextState = context.Load();
 			contextState.StoredLocation = null;
@@ -63,9 +63,11 @@ public partial class RelocationService : Node
 		SetTargetDoorEntranceState(location);
 	}
 
-	public void SetLocation(Enumerations.Scenes fuckyou, int x, int y, int z = 0)
+	public void SetLocation(Enumerations.Scenes scene, int x, int y, int z = 0)
 	{
-		var location = new DoorEntrance(fuckyou, x, y, z);
+		GD.Print($"SetLocation x:{x} y:{y} z:{z}");
+		var location = new DoorEntrance(scene, x, y, z);
+		GD.Print($"SetLocation location.x:{location.X} location.y:{location.Y} location.z:{location.Z}");
 		SetTargetDoorEntranceState(location);
 	}
 
@@ -104,10 +106,11 @@ public partial class RelocationService : Node
 		////GD.Print("SetTargetDoorEntranceState");
 		try
 		{
-			using (var context = new SaveStateContext())
+			using (var context = new SaveStateService())
 			{
+				GD.Print($"SetTargetDoorEntranceState targetDoorEntrance.x:{targetDoorEntrance.X} targetDoorEntrance.y:{targetDoorEntrance.Y} targetDoorEntrance.z:{targetDoorEntrance.Z}");
 				var contextState = context.Load();
-				contextState.StoredLocation = (DoorEntrance)targetDoorEntrance;
+				contextState.StoredLocation = targetDoorEntrance;
 				context.Commit(contextState);
 			}
 		}

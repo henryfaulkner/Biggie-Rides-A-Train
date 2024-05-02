@@ -30,7 +30,7 @@ public partial class Teller : StaticBody2D
 	private void DisplayDialogue()
 	{
 		if (!_nodeTextBox.CanCreateDialogue()) return;
-		using (var context = new SaveStateContext())
+		using (var context = new SaveStateService())
 		{
 			var contextState = context.Load();
 			switch (contextState.DialogueStateTeller)

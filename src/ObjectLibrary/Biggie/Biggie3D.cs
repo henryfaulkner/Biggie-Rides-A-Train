@@ -15,7 +15,7 @@ public partial class Biggie3D : CharacterBody3D
 	private static readonly int _SPRITE_FRAME_WALK2_LEFT = 4;
 	public static readonly int _SPRITE_FRAME_CHANGE_INTERVAL = 45;
 	public static readonly int _SPRITE_WALK_FRAME_LENGTH = 2;
-	public static readonly float _BIGGIE_SPEED = 2400f;
+	public static readonly float _BIGGIE_SPEED = 4800f;
 	public static readonly float _BIGGIE_SPEED_X_RATIO = 1.0f;
 	public static readonly float _BIGGIE_SPEED_Z_RATIO = 0.7f;
 
@@ -179,7 +179,7 @@ public partial class Biggie3D : CharacterBody3D
 		////GD.Print("AttemptStoredLocationApplication");
 		try
 		{
-			using (var context = new SaveStateContext())
+			using (var context = new SaveStateService())
 			{
 				var contextState = context.Load();
 				var storedLocation = contextState.StoredLocation;

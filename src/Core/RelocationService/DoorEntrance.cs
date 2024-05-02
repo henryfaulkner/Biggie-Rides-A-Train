@@ -26,5 +26,6 @@ public class DoorEntrance
 		SceneId = (int)scene;
 		X = x;
 		Y = y;
+		Z = z;
 	}
 }

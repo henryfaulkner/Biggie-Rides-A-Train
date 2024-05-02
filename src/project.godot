@@ -23,6 +23,7 @@ CombatSingleton="*res://Core/CombatSystem/CombatSingleton.cs"
 LoggingService="*res://Core/LoggingService/LoggingService.cs"
 RelocationService="*res://Core/RelocationService/RelocationService.cs"
 LevelEnumService="*res://Core/LevelEnumService.gd"
+SaveStateService="*res://Core/SaveStateService/SaveStateService.cs"
 
 [display]
 

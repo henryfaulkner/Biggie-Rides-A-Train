@@ -13,11 +13,12 @@ func _ready():
 	LevelEnumService = get_node("/root/LevelEnumService")
 
 	var sceneInstance = _SCENE.instantiate()
-	var collision = get_node("./InteractableArea3D/CollisionShape3D")
+	_nodeDoor = sceneInstance.get_node(_SCENE_DOOR_NODE_PATH)
 	_nodeBarrier = get_node("../Barrier")
+	var collision = get_node("./InteractableArea3D/CollisionShape3D")
 	collision.openDoor.connect(navigate)
 
 func navigate():
-	RelocationService.SetLocation(LevelEnumService.GetLevelEnums().DreamRoomOne, _nodeDoor.position.x, _nodeDoor.position.y, _nodeDoor.position.z)
-	if (_nodeBarrier.IsOpen):
-		get_tree().change_scene_to_packed(_SCENE)
+	RelocationService.SetLocation(LevelEnumService.GetLevelEnums().ButtonRoom, _nodeDoor.position.x, _nodeDoor.position.y, _nodeDoor.position.z)
+	#if (_nodeBarrier.IsOpen):
+	get_tree().change_scene_to_packed(_SCENE)

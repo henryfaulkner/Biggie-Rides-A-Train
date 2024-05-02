@@ -128,7 +128,7 @@ public partial class Biggie : CharacterBody2D
 		////GD.Print("AttemptStoredLocationApplication");
 		try
 		{
-			using (var context = new SaveStateContext())
+			using (var context = new SaveStateService())
 			{
 				var contextState = context.Load();
 				var storedLocation = contextState.StoredLocation;

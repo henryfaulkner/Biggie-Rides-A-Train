@@ -8,11 +8,11 @@ public partial class DefeatSceneDjBattle : Node2D
 	private static readonly StringName _TAB_INPUT = new StringName("tab");
 	private static readonly StringName _ENTER_INPUT = new StringName("enter");
 	private static readonly StringName _SPACE_INPUT = new StringName("interact");
-	
+
 	private Button _nodeMainMenuButton = null;
-	
+
 	private Button[] Buttons { get; set; }
-	
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -25,16 +25,16 @@ public partial class DefeatSceneDjBattle : Node2D
 	public override void _Process(double delta)
 	{
 	}
-	
+
 	private void _on_main_menu_button_pressed()
 	{
-		using (var context = new SaveStateContext())
+		using (var context = new SaveStateService())
 		{
 			context.Clear();
 		}
 		RedirectToMainMenu();
 	}
-	
+
 	private void RedirectToMainMenu()
 	{
 		var root = GetTree().Root;

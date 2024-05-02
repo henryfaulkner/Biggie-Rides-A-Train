@@ -127,6 +127,7 @@ transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.1, 10.4299, 0.758061, 0.48
 script = ExtResource("7_6hk5s")
 
 [node name="NearDoor3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("9_g7bsd")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.1, 3.13178, 0.604337, 3.50169)
 script = ExtResource("10_426bl")
 
 [node name="Barrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper"]

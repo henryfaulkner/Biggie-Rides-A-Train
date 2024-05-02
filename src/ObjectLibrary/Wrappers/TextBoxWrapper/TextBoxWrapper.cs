@@ -36,7 +36,7 @@ public partial class TextBoxWrapper : Node2D
 		if (Input.IsActionJustPressed(_CLEAR_SAVE_STATE_INPUT))
 		{
 			////GD.Print("Clear Save State Input");
-			using (var context = new SaveStateContext())
+			using (var context = new SaveStateService())
 			{
 				context.Clear();
 			}
