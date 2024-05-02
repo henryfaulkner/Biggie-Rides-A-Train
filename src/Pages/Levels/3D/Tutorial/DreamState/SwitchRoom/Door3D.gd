@@ -1,16 +1,23 @@
 extends Node3D
 
 const _SCENE = preload ("res://Pages/Levels/3D/Tutorial/DreamState/ButtonRoom/Scene_ButtonRoom.tscn")
+const _SCENE_DOOR_NODE_PATH = "./LevelWrapper/TextBoxWrapper/NearDoor3D"
+var RelocationService = null
+var LevelEnumService = null
+var _nodeDoor: Node3D = null
 
 var _nodeBarrier = null
 
 func _ready():
-		var sceneInstance = _SCENE.instantiate()
-		var collision = get_node("./InteractableArea3D/CollisionShape3D")
-		_nodeBarrier = get_node("../Barrier") 
-		collision.openDoor.connect(navigate)
-		
+	RelocationService = get_node("/root/RelocationService")
+	LevelEnumService = get_node("/root/LevelEnumService")
+
+	var sceneInstance = _SCENE.instantiate()
+	var collision = get_node("./InteractableArea3D/CollisionShape3D")
+	_nodeBarrier = get_node("../Barrier")
+	collision.openDoor.connect(navigate)
 
 func navigate():
+	RelocationService.SetLocation(LevelEnumService.GetLevelEnums().DreamRoomOne, _nodeDoor.position.x, _nodeDoor.position.y, _nodeDoor.position.z)
 	if (_nodeBarrier.IsOpen):
 		get_tree().change_scene_to_packed(_SCENE)

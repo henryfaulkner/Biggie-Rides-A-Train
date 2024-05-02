@@ -29,6 +29,8 @@ public partial class Biggie3D : CharacterBody3D
 	private int _frameIncrement = 0;
 	private Enumerations.Movement.Directions _currentFrameDirection = Enumerations.Movement.Directions.Down;
 
+	private RelocationService _serviceRelocation = null;
+
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Biggie3D>(".");
@@ -36,7 +38,8 @@ public partial class Biggie3D : CharacterBody3D
 		_nodeTextBox = GetNode<TextBox>("../TextBox");
 		_nodeInteractionTextBox = GetNode<InteractionTextBox>("../InteractionTextBox");
 
-		//AttemptStoredLocationApplication();
+		_serviceRelocation = GetNode<RelocationService>("/root/RelocationService");
+		AttemptStoredLocationApplication();
 	}
 
 	public override void _Process(double delta)
@@ -152,29 +155,6 @@ public partial class Biggie3D : CharacterBody3D
 		_canMove = canMove;
 	}
 
-	private void AttemptStoredLocationApplication()
-	{
-		////GD.Print("AttemptStoredLocationApplication");
-		try
-		{
-			using (var context = new SaveStateContext())
-			{
-				var contextState = context.Load();
-				var storedLocation = contextState.StoredLocation;
-				var rs = new RelocationService();
-				if (storedLocation != null)
-				{
-					////GD.Print($"Biggie applied Position. X: {storedLocation.X}. Y: {storedLocation.Y}");
-					//_nodeSelf.Position = new Vector2(storedLocation.X, storedLocation.Y);
-				}
-			}
-		}
-		catch (Exception exception)
-		{
-			////GD.Print($"AttemptStoredLocationApplication exception: {exception}");
-		}
-	}
-
 	private bool IsIdle()
 	{
 		return
@@ -192,5 +172,28 @@ public partial class Biggie3D : CharacterBody3D
 	private bool HittingWorldBorderZ(Biggie3D biggie, Vector3 inputDirection)
 	{
 		return biggie.Position.Z <= 0 && inputDirection.Z == -_BIGGIE_SPEED_Z_RATIO;
+	}
+
+	private void AttemptStoredLocationApplication()
+	{
+		////GD.Print("AttemptStoredLocationApplication");
+		try
+		{
+			using (var context = new SaveStateContext())
+			{
+				var contextState = context.Load();
+				var storedLocation = contextState.StoredLocation;
+				var rs = new RelocationService();
+				if (storedLocation != null)
+				{
+					////GD.Print($"Biggie applied Position. X: {storedLocation.X}. Y: {storedLocation.Y}");
+					Position = new Vector3(storedLocation.X, Position.Y, storedLocation.Z);
+				}
+			}
+		}
+		catch (Exception exception)
+		{
+			////GD.Print($"AttemptStoredLocationApplication exception: {exception}");
+		}
 	}
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dovoy7y5yxgol"]
+[gd_scene load_steps=19 format=3 uid="uid://dovoy7y5yxgol"]
 
 [ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_qrbr8"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/MushroomFight/Scene_MushroomFight.cs" id="1_v53qj"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://c5looe35bo0d0" path="res://ObjectLibrary/Decor/Door3D.tscn" id="6_u1oi5"]
 [ext_resource type="PackedScene" uid="uid://cfvt4pku54wba" path="res://ObjectLibrary/NPCs/3D/Mushroom3D/Mushroom3D.tscn" id="7_w1tjq"]
 [ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="8_b5as2"]
+[ext_resource type="PackedScene" uid="uid://d2uv3klop1e83" path="res://ObjectLibrary/Decor/NearDoor3D.tscn" id="9_m7ahi"]
+[ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/MushroomFight/NearDoor3D.gd" id="10_40tyu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvmyi"]
 albedo_texture = ExtResource("4_3yw7h")
@@ -93,6 +95,10 @@ transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.1, 4.29458, 0.758061, 0.48
 
 [node name="Mushroom3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("7_w1tjq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.25228, 0, 0.75)
+
+[node name="NearDoor3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("9_m7ahi")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.1, 2.8648, 0.638779, 3.55491)
+script = ExtResource("10_40tyu")
 
 [node name="Camera3D" parent="LevelWrapper" instance=ExtResource("8_b5as2")]
 transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 2.10428, 1.75, 4.45)

@@ -1,3 +1,5 @@
+using Godot;
+
 public partial class Enumerations
 {
 	public static class Combat
@@ -129,7 +131,7 @@ public partial class Enumerations
 		OutsideStation = 1,
 		MainStation = 2,
 		TherapistOffice = 3,
-		Club = 4
+		Club = 4,
 	}
 
 	public struct DialogueStates

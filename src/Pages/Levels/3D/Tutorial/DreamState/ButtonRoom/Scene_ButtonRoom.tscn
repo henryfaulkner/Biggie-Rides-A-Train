@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://d1x1etb0wuxsc"]
+[gd_scene load_steps=27 format=3 uid="uid://d1x1etb0wuxsc"]
 
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/ButtonRoom/Scene_ButtonRoom.cs" id="1_2ugpi"]
 [ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_6mrti"]
@@ -10,7 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="7_kk02u"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/ButtonRoom/Door3D.gd" id="7_xjtq3"]
 [ext_resource type="Script" path="res://ObjectLibrary/Decor/Barrier.gd" id="9_exxx1"]
+[ext_resource type="PackedScene" uid="uid://d2uv3klop1e83" path="res://ObjectLibrary/Decor/NearDoor3D.tscn" id="9_olsh0"]
 [ext_resource type="PackedScene" uid="uid://d1k5uyt64buix" path="res://Pages/Levels/3D/Tutorial/DreamState/ButtonRoom/PressurePlate.tscn" id="9_tatfy"]
+[ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/ButtonRoom/NearDoor3D.gd" id="10_20n01"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="10_deoob"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="11_5okmm"]
 
@@ -119,6 +121,9 @@ shape = SubResource("BoxShape3D_cp4pk")
 [node name="Door3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("6_76rno")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.1, 10.4299, 0.758061, 0.483449)
 script = ExtResource("7_xjtq3")
+
+[node name="NearDoor3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("9_olsh0")]
+script = ExtResource("10_20n01")
 
 [node name="Barrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper"]
 transform = Transform3D(4, 0, 0, 0, 10, 0, 0, 0, 10, 10.8805, 3.17072, 0.783602)
