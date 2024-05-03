@@ -22,8 +22,8 @@ public partial class Spore : RigidBody2D
 	public override void _Ready()
 	{
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
-		GD.Print($"Position {_globalCombatSingleton.EnemyAttackPanelService.Position.X} {_globalCombatSingleton.EnemyAttackPanelService.Position.Y}");
-		GD.Print($"Size {_globalCombatSingleton.EnemyAttackPanelService.Size.X} {_globalCombatSingleton.EnemyAttackPanelService.Size.Y}");
+		// GD.Print($"Position {_globalCombatSingleton.EnemyAttackPanelService.Position.X} {_globalCombatSingleton.EnemyAttackPanelService.Position.Y}");
+		// GD.Print($"Size {_globalCombatSingleton.EnemyAttackPanelService.Size.X} {_globalCombatSingleton.EnemyAttackPanelService.Size.Y}");
 		Rand = new Random();
 		this.vel = Vector2.Zero;
 		this.acc = Vector2.Zero;

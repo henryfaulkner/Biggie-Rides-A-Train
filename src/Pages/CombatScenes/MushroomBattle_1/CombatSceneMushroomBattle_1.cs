@@ -19,6 +19,7 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 	private Label _nodeBiggieHpValueLabel = null;
 
 	private CombatSingleton _globalCombatSingleton = null;
+	private SaveStateService _serviceSaveState = null;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -31,6 +32,7 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 		_nodeBiggieHealthBar = GetNode<ProgressBar>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
 		_nodeBiggieHpValueLabel = GetNode<Label>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/HpValueLabel");
 
+		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 		_globalCombatSingleton.NewBattle(_MAX_HEALTH_PHYSICAL_BIGGIE, _MAX_HEALTH_PHYSICAL_MUSHROOM, _MAX_HEALTH_EMOTIONAL_MUSHROOM);
 		_globalCombatSingleton.CombatStateMachineService.SetCheckChatterConditions(CheckChatterConditions);
@@ -301,12 +303,20 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 
 	public void HandleMushroomPhysicalDefeat()
 	{
+		var context = _serviceSaveState.Load();
+		context.IsMushroomDead = true;
+		_serviceSaveState.Commit(context);
+
 		GetTree().ChangeSceneToFile(_SCENE_MUSHROOM_FIGHT);
 		return;
 	}
 
 	public void HandleMushroomEmotionalDefeat()
 	{
+		var context = _serviceSaveState.Load();
+		context.IsMushroomMoved = true;
+		_serviceSaveState.Commit(context);
+
 		GetTree().ChangeSceneToFile(_SCENE_MUSHROOM_FIGHT);
 		return;
 	}

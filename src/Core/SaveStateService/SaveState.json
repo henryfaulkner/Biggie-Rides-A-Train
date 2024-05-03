@@ -1,9 +1,9 @@
 {
   "StoredLocation": {
-    "SceneId": 2,
-    "X": 11,
+    "SceneId": 6,
+    "X": 2,
     "Y": 0,
-    "Z": 0
+    "Z": 3
   },
   "HasItemTicketPieceOne": false,
   "HasItemTicketPieceTwo": false,
@@ -19,7 +19,7 @@
   "DialogueStateTherapist": 0,
   "DialogueStateDJ": 0,
   "IsSwitchDoorOpen": true,
-  "IsButtonDoorOpen": false,
-  "IsMushroomDead": false,
+  "IsButtonDoorOpen": true,
+  "IsMushroomDead": true,
   "IsMushroomMoved": false
 }

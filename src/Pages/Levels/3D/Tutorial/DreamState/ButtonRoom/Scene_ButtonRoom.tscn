@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://d1x1etb0wuxsc"]
+[gd_scene load_steps=28 format=3 uid="uid://d1x1etb0wuxsc"]
 
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/ButtonRoom/Scene_ButtonRoom.cs" id="1_2ugpi"]
 [ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_6mrti"]
@@ -16,20 +16,20 @@
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="10_deoob"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="11_5okmm"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t6b5w"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sneph"]
 albedo_texture = ExtResource("4_7bn0r")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7dx1x"]
-material = SubResource("StandardMaterial3D_t6b5w")
+material = SubResource("StandardMaterial3D_sneph")
 size = Vector2(2, 4)
 center_offset = Vector3(0, 0.01, 0)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_015wn"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rsecl"]
 albedo_texture = ExtResource("5_tamra")
 uv1_scale = Vector3(10, 10, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ogvhs"]
-material = SubResource("StandardMaterial3D_015wn")
+material = SubResource("StandardMaterial3D_rsecl")
 size = Vector3(10, 5, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v5kss"]
@@ -60,10 +60,14 @@ _surfaces = [{
 albedo_texture = ExtResource("4_7bn0r")
 texture_filter = 0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_snaav"]
+albedo_texture = ExtResource("4_7bn0r")
+texture_filter = 0
+
 [sub_resource type="Resource" id="Resource_cdjme"]
 script = ExtResource("11_5okmm")
 meshes = Array[ArrayMesh]([SubResource("ArrayMesh_ol777")])
-material = SubResource("StandardMaterial3D_ccjwa")
+material = SubResource("StandardMaterial3D_snaav")
 
 [node name="SceneButtonRoom" type="Node3D"]
 script = ExtResource("1_2ugpi")
@@ -157,4 +161,4 @@ transform = Transform3D(0.4, 0, 0, 0, 0.0999996, 0.00111003, 0, -0.000277507, 0.
 transform = Transform3D(0.4, 0, 0, 0, 0.0999996, 0.00111003, 0, -0.000277507, 0.399998, 6.82323, 0, 1.51866)
 
 [node name="Camera3D" parent="LevelWrapper" instance=ExtResource("7_kk02u")]
-transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 5.41708, 1.75, 4.45)
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 2.90922, 1.75, 4.45)

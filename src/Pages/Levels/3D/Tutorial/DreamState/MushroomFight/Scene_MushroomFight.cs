@@ -10,6 +10,8 @@ public partial class Scene_MushroomFight : Node3D
 	private TextBox _nodeTextBox = null;
 	private InteractionTextBox _nodeInteractionTextBox = null;
 
+	private SaveStateService _serviceSaveState = null;
+
 	private MushroomDialogueStates MushroomDialogueState { get; set; }
 
 	public override void _Ready()
@@ -22,6 +24,17 @@ public partial class Scene_MushroomFight : Node3D
 		_nodeMushroom.Interact += ProcessMushroomDialogue;
 		MushroomDialogueState = MushroomDialogueStates.Discovery;
 		_nodeInteractionTextBox.SelectedOptionId += ReactToMushroomSelection;
+
+		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
+		var context = _serviceSaveState.Load();
+		if (context.IsMushroomDead)
+		{
+			_nodeMushroom.QueueFree();
+		}
+		else if (context.IsMushroomMoved)
+		{
+			_nodeMushroom.Position += new Vector3(3, 0, 0);
+		}
 	}
 
 	public override void _PhysicsProcess(double _delta)

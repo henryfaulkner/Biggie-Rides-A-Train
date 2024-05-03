@@ -8,4 +8,5 @@ enum LevelEnumerations {
 	ButtonRoom,
 	SwitchRoom,
 	MushroomFightRoom,
+	TherapistOffice1
 }

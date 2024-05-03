@@ -569,6 +569,7 @@ public partial class CombatWrapper : Node2D
 	public void DealEmotionalDamage(double damage)
 	{
 		_globalCombatSingleton.BiggieEmotionalAttackProxy.DealDamage(damage);
+		GD.Print($"enemy health: {_globalCombatSingleton.BiggieEmotionalAttackProxy.GetTargetHealthPercentage()}");
 		EmitSignal(SignalName.ProjectPhysicalDamage);
 	}
 
