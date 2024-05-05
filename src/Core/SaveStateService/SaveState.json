@@ -20,6 +20,6 @@
   "DialogueStateDJ": 0,
   "IsSwitchDoorOpen": true,
   "IsButtonDoorOpen": true,
-  "IsMushroomDead": true,
-  "IsMushroomMoved": false
+  "IsMushroomDead": false,
+  "IsMushroomMoved": true
 }

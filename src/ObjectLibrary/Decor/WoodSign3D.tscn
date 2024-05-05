@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7h13j4n2ygyc"]
+[gd_scene load_steps=10 format=3 uid="uid://b7h13j4n2ygyc"]
 
 [ext_resource type="Texture2D" uid="uid://cxijxhhpqnn6i" path="res://Assets/Objects/WoodSign.png" id="1_ipy1q"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="2_06obf"]
@@ -24,10 +24,14 @@ _surfaces = [{
 albedo_texture = ExtResource("1_ipy1q")
 texture_filter = 0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7683s"]
+albedo_texture = ExtResource("1_ipy1q")
+texture_filter = 0
+
 [sub_resource type="Resource" id="Resource_xrbf7"]
 script = ExtResource("3_ep1gj")
 meshes = Array[ArrayMesh]([SubResource("ArrayMesh_hlncd")])
-material = SubResource("StandardMaterial3D_ts6c7")
+material = SubResource("StandardMaterial3D_7683s")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_auv33"]
 size = Vector3(1, 1, 5.35159)

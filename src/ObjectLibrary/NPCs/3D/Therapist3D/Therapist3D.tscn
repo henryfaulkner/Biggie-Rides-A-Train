@@ -62,13 +62,13 @@ size = Vector3(4.5, 5, 2)
 size = Vector3(1, 1, 0.990843)
 
 [node name="Therapist3D" type="Node3D"]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -3, 0.8, 0.7)
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 script = ExtResource("1_pwk7o")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="BodySpriteMeshInstance" type="MeshInstance3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.05)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.220951)
 mesh = SubResource("ArrayMesh_bibdh")
 skeleton = NodePath("../MushroomSpriteMeshInstance")
 surface_material_override/0 = SubResource("StandardMaterial3D_t8ff0")

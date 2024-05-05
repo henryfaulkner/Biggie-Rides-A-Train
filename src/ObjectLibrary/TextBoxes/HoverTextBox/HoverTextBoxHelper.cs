@@ -7,7 +7,7 @@ public class HoverTextBoxHelper
 	private Node3D _nodeCaller = null;
 	private Area3D _nodeInteractableArea = null;
 	private HoverTextBox _nodeHoverTextBox = null;
-	private bool RecentlyOpen { get; set; }
+	public bool RecentlyOpen { get; set; }
 	private string Text { get; set; }
 
 	public HoverTextBoxHelper() { }
@@ -41,6 +41,11 @@ public class HoverTextBoxHelper
 			HandleInteractableAreaLeave();
 			RecentlyOpen = false;
 		}
+	}
+
+	public void ForceClose()
+	{
+		HandleInteractableAreaLeave();
 	}
 
 	private void HandleInteractableAreaHover()

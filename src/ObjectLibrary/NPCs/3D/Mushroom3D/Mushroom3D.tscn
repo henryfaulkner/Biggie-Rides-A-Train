@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cfvt4pku54wba"]
+[gd_scene load_steps=14 format=3 uid="uid://cfvt4pku54wba"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/NPCs/3D/Mushroom3D/Mushroom3D.cs" id="1_o0acv"]
 [ext_resource type="Texture2D" uid="uid://co7aoj6hlth3i" path="res://Assets/Objects/Therapist.png" id="1_yoe8m"]
@@ -22,6 +22,10 @@ _surfaces = [{
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c25q2"]
+albedo_texture = ExtResource("1_yoe8m")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j13mg"]
 albedo_texture = ExtResource("1_yoe8m")
 texture_filter = 0
 
@@ -56,7 +60,7 @@ _surfaces = [{
 [sub_resource type="Resource" id="Resource_gtn4p"]
 script = ExtResource("3_w0vqs")
 meshes = Array[ArrayMesh]([SubResource("ArrayMesh_ngla6"), SubResource("ArrayMesh_4ya1y"), SubResource("ArrayMesh_kbkmj"), SubResource("ArrayMesh_xgmxa")])
-material = SubResource("StandardMaterial3D_c25q2")
+material = SubResource("StandardMaterial3D_j13mg")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d3daj"]
 

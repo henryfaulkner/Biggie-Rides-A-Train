@@ -6,7 +6,7 @@ const _THERAPIST_OFFICE_SCENE = preload ("res://Pages/Levels/2D/TherapistOffice/
 const _CLUB_SCENE = preload ("res://Pages/Levels/2D/Club/LevelClub.tscn")
 const _TEST_PERSPECTIVE_SCENE = preload ("res://Pages/Levels/3D/TestOutdoorPerspective/LevelTestOutdoorPerspective.tscn")
 const _INTRO_SCENE = preload ("res://Pages/Levels/3D/Tutorial/Intro/Scene_Taxi_Approaching_Train.tscn")
-const _TEST_SCENE = preload ("res://Pages/Levels/3D/Tutorial/DreamState/ButtonRoom/Scene_ButtonRoom.tscn")
+const _TEST_SCENE = preload ("res://Pages/Levels/3D/Tutorial/DreamState/TherapistOffice1/Scene_TherapistOffice1.tscn")
 const _MUSHROOM_BATTLE_1_COMBAT_SCENE = preload ("res://Pages/CombatScenes/MushroomBattle_1/CombatSceneMushroomBattle_1.tscn")
 
 const _RELOCATION_SERVICE_SCRIPT = preload ("res://Core/RelocationService/RelocationService.cs")

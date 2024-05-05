@@ -1,13 +1,31 @@
-[gd_scene load_steps=16 format=3 uid="uid://vegoiqc6ex1j"]
+[gd_scene load_steps=25 format=3 uid="uid://vegoiqc6ex1j"]
 
+[ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/TherapistOffice1/Scene_TherapistOffice1.cs" id="1_4hb5t"]
 [ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_u2mbn"]
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_we0wj"]
 [ext_resource type="PackedScene" uid="uid://rnc3kww1v7jc" path="res://ObjectLibrary/Biggie/Biggie3D.tscn" id="3_46xpc"]
 [ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="4_8wa15"]
-[ext_resource type="Texture2D" uid="uid://duun5cslc1hp8" path="res://Assets/PrototypeTextures/Orange/texture_05.png" id="5_i4o8p"]
+[ext_resource type="PackedScene" uid="uid://b0lmn34h5m7w7" path="res://ObjectLibrary/NPCs/3D/Therapist3D/Therapist3D.tscn" id="5_ljn10"]
+[ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/TherapistOffice1/SceneBarrier.cs" id="6_gqv1u"]
+[ext_resource type="Texture2D" uid="uid://8hh2jmiiyhk1" path="res://Assets/PrototypeTextures/Light/texture_08.png" id="7_irdqv"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/TherapistOffice1/NearDoor3D.gd" id="7_qp45e"]
 [ext_resource type="PackedScene" uid="uid://d2uv3klop1e83" path="res://ObjectLibrary/Decor/NearDoor3D.tscn" id="8_gt74d"]
+[ext_resource type="PackedScene" uid="uid://cfvt4pku54wba" path="res://ObjectLibrary/NPCs/3D/Mushroom3D/Mushroom3D.tscn" id="11_op8ra"]
 [ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="14_04f2e"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4mgap"]
+size = Vector3(1, 0.0898438, 0.583679)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ntvi3"]
+albedo_texture = ExtResource("7_irdqv")
+uv1_scale = Vector3(20, 20, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_m4qre"]
+material = SubResource("StandardMaterial3D_ntvi3")
+size = Vector3(10, 5, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_grnx3"]
+size = Vector3(6.80981, 1, 5.35159)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8gr8y"]
 albedo_texture = ExtResource("4_8wa15")
@@ -17,8 +35,11 @@ material = SubResource("StandardMaterial3D_8gr8y")
 size = Vector2(2, 4)
 center_offset = Vector3(0, 0.01, 0)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kkvgc"]
+load_path = "res://.godot/imported/texture_05.png-afc142ed91779dc58cdcd70925362a6f.s3tc.ctex"
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_khijp"]
-albedo_texture = ExtResource("5_i4o8p")
+albedo_texture = SubResource("CompressedTexture2D_kkvgc")
 uv1_scale = Vector3(10, 10, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_tdwhv"]
@@ -35,6 +56,7 @@ size = Vector3(1, 1, 4)
 size = Vector3(10, 1, 1)
 
 [node name="SceneTherapistOffice1" type="Node3D"]
+script = ExtResource("1_4hb5t")
 
 [node name="LevelWrapper" parent="." instance=ExtResource("1_u2mbn")]
 
@@ -42,6 +64,29 @@ size = Vector3(10, 1, 1)
 
 [node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("3_46xpc")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 2.10677, 0.5, 0.885)
+
+[node name="Therapist3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("5_ljn10")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 3.77926, 0.816618, 0.565245)
+
+[node name="SceneBarrier" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(-0.00251324, 0.499994, -2.18554e-08, 0, -2.18557e-08, -0.5, -0.499994, -0.00251324, 1.09857e-10, 10.7767, 1.83798, 1.1025)
+script = ExtResource("6_gqv1u")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBarrier"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBarrier/StaticBody3D"]
+transform = Transform3D(10, 8.04663e-07, 3.77476e-15, -8.04663e-07, 10, 5.27035e-12, 3.04201e-14, -8.23032e-12, 10, -2.53615, -2.23352, 0.400016)
+shape = SubResource("BoxShape3D_4mgap")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/SceneBarrier/StaticBody3D"]
+mesh = SubResource("BoxMesh_m4qre")
+
+[node name="InteractableArea3D" type="Area3D" parent="LevelWrapper/TextBoxWrapper/SceneBarrier"]
+transform = Transform3D(6, 0, 9.99201e-16, 0, 6, 2.51744e-13, 0, -4.07573e-15, 6, -0.984373, -3.10856, 0.835038)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBarrier/InteractableArea3D"]
+transform = Transform3D(0.2, 0, 8.53484e-16, 0, 0.2, -6.04483e-16, -4.33681e-16, 2.78599e-16, 0.2, -0.178393, 2.38419e-07, 0)
+shape = SubResource("BoxShape3D_grnx3")
 
 [node name="Facade" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
 
@@ -90,5 +135,34 @@ shape = SubResource("BoxShape3D_a7uyo")
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.1, 2.77977, 0.79571, 3.60392)
 script = ExtResource("7_qp45e")
 
+[node name="MushroomForest" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+
+[node name="Mushroom3D2" parent="LevelWrapper/TextBoxWrapper/MushroomForest" instance=ExtResource("11_op8ra")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 2.96565, 0, 0.262044)
+
+[node name="Mushroom3D" parent="LevelWrapper/TextBoxWrapper/MushroomForest" instance=ExtResource("11_op8ra")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 6.26641, 0, 0.753475)
+
+[node name="Mushroom3D3" parent="LevelWrapper/TextBoxWrapper/MushroomForest" instance=ExtResource("11_op8ra")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 4.96979, 0, 0.565993)
+
+[node name="Mushroom3D4" parent="LevelWrapper/TextBoxWrapper/MushroomForest" instance=ExtResource("11_op8ra")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 5.32209, 0, 0.772188)
+
+[node name="Mushroom3D9" parent="LevelWrapper/TextBoxWrapper/MushroomForest" instance=ExtResource("11_op8ra")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 4.55712, 0, 0.714093)
+
+[node name="Mushroom3D5" parent="LevelWrapper/TextBoxWrapper/MushroomForest" instance=ExtResource("11_op8ra")]
+transform = Transform3D(0.44, 0, 0, 0, 0.44, 0, 0, 0, 0.44, 5.74111, 0, 0.581435)
+
+[node name="Mushroom3D6" parent="LevelWrapper/TextBoxWrapper/MushroomForest" instance=ExtResource("11_op8ra")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.79342, 0, 0.565993)
+
+[node name="Mushroom3D7" parent="LevelWrapper/TextBoxWrapper/MushroomForest" instance=ExtResource("11_op8ra")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 2.14571, 0, 0.772188)
+
+[node name="Mushroom3D8" parent="LevelWrapper/TextBoxWrapper/MushroomForest" instance=ExtResource("11_op8ra")]
+transform = Transform3D(0.44, 0, 0, 0, 0.44, 0, 0, 0, 0.44, 2.56473, 0, 0.581435)
+
 [node name="Camera3D" parent="LevelWrapper" instance=ExtResource("14_04f2e")]
-transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 2.90922, 1.75, 4.45)
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 2.88535, 1.75, 4.45)

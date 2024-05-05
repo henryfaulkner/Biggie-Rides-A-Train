@@ -46,7 +46,7 @@ script = ExtResource("1_nx7r8")
 [node name="TextBoxWrapper" parent="LevelWrapper" instance=ExtResource("2_vlmr0")]
 
 [node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("3_iirlj")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 2.10677, 0.5, 1.5664)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 2.10677, 0.5, 1.50645)
 
 [node name="Facade" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
 
@@ -92,15 +92,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.811)
 shape = SubResource("BoxShape3D_woyeo")
 
 [node name="WoodSign" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("6_dkw0h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.51188, 0.345055, 0.35213)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25929, 0.345055, 0.35213)
 script = ExtResource("7_1ypxd")
 
 [node name="WoodSign2" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("6_dkw0h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.8504, 0.416, 0.35)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.59781, 0.416, 0.35)
 script = ExtResource("8_etu42")
 
 [node name="Door3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("10_s6cg4")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.1, 11.2401, 0.758061, 0.483449)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.1, 8.98751, 0.758061, 0.483449)
 script = ExtResource("11_iy20t")
 
 [node name="Camera3D" parent="LevelWrapper" instance=ExtResource("7_tnbnb")]
