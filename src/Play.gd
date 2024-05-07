@@ -9,11 +9,14 @@ const _INTRO_SCENE = preload ("res://Pages/Levels/3D/Tutorial/Intro/Scene_Taxi_A
 const _TEST_SCENE = preload ("res://Pages/Levels/3D/Tutorial/DreamState/TherapistOffice1/Scene_TherapistOffice1.tscn")
 const _MUSHROOM_BATTLE_1_COMBAT_SCENE = preload ("res://Pages/CombatScenes/MushroomBattle_1/CombatSceneMushroomBattle_1.tscn")
 
+var _nodeSelectAudio = null
+
 const _RELOCATION_SERVICE_SCRIPT = preload ("res://Core/RelocationService/RelocationService.cs")
 var _relocation_service = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	_nodeSelectAudio = get_node("./Select_AudioStreamPlayer")
 	_relocation_service = _RELOCATION_SERVICE_SCRIPT.new()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,6 +24,7 @@ func _process(delta):
 	pass
 
 func _on_pressed():
+	_nodeSelectAudio.play()
 	var scenePlay = decide_scene()
 	scenePlay = _INTRO_SCENE
 	#scenePlay = _TEST_SCENE

@@ -28,6 +28,8 @@ public partial class BiggieAttackContainer : MarginContainer
 	private MarginContainer _nodeSelf = null;
 	private Panel _nodePanel = null;
 	private Sprite2D _nodeFightZoneSprite2D = null;
+	private AudioStreamPlayer _nodeGoodHitAudio = null;
+	private AudioStreamPlayer _nodeBadHitAudio = null;
 
 	private int ZoneSpriteIndex { get; set; }
 	public bool IsActive { get; set; }
@@ -46,7 +48,9 @@ public partial class BiggieAttackContainer : MarginContainer
 
 		_nodeSelf = GetNode<MarginContainer>(".");
 		_nodePanel = GetNode<Panel>("./BiggieAttackPanel");
-		_nodeFightZoneSprite2D = GetNode<Sprite2D>("FightZoneSprite2D");
+		_nodeFightZoneSprite2D = GetNode<Sprite2D>("./FightZoneSprite2D");
+		_nodeGoodHitAudio = GetNode<AudioStreamPlayer>("./GoodHit_AudioStreamPlayer");
+		_nodeBadHitAudio = GetNode<AudioStreamPlayer>("./BadHit_AudioStreamPlayer");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -84,25 +88,30 @@ public partial class BiggieAttackContainer : MarginContainer
 		if (isTrash)
 		{
 			GD.Print("DamageZones.Trash");
+			_nodeBadHitAudio.Play();
 			return DamageZones.Trash;
 		}
 		else if (isBad)
 		{
 			GD.Print("DamageZones.Bad");
+			_nodeGoodHitAudio.Play();
 			return DamageZones.Bad;
 		}
 		else if (isGood)
 		{
 			GD.Print("DamageZones.Good");
+			_nodeGoodHitAudio.Play();
 			return DamageZones.Good;
 		}
 		else if (isPerfect)
 		{
 			GD.Print("DamageZones.Perfect");
+			_nodeGoodHitAudio.Play();
 			return DamageZones.Perfect;
 		}
 
 		GD.Print("DamageZones fallback");
+		_nodeBadHitAudio.Play();
 		return DamageZones.Trash;
 	}
 

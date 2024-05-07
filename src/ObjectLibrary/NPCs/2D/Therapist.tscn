@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c2bct32b8umwg"]
 
-[ext_resource type="Texture2D" uid="uid://co7aoj6hlth3i" path="res://Assets/Objects/Therapist.png" id="1_ut3ho"]
+[ext_resource type="Texture2D" uid="uid://co7aoj6hlth3i" path="res://Assets/Images/Objects/Therapist.png" id="1_ut3ho"]
 [ext_resource type="Script" path="res://ObjectLibrary/NPCs/2D/Therapist.cs" id="1_yjugm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3yyj2"]

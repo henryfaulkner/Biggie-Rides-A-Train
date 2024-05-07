@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b38tu1iwidkvx"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/NPCs/2D/DJ.cs" id="1_n0nah"]
-[ext_resource type="Texture2D" uid="uid://co7aoj6hlth3i" path="res://Assets/Objects/Therapist.png" id="1_xyhya"]
+[ext_resource type="Texture2D" uid="uid://co7aoj6hlth3i" path="res://Assets/Images/Objects/Therapist.png" id="1_xyhya"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mv8u6"]
 size = Vector2(416, 284.5)

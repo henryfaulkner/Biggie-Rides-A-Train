@@ -12,6 +12,7 @@ public partial class Switch3D : Node3D
 	
 	private Sprite3D _nodeSprite = null;
 	private Area3D _nodeInteractableArea = null;
+	private AudioStreamPlayer3D _nodeAudio = null;
 	
 	public bool SwitchState {get;set;}
 	public bool IsAnimating {get;set;}
@@ -21,6 +22,7 @@ public partial class Switch3D : Node3D
 	{
 		_nodeSprite = GetNode<Sprite3D>("./InteractableArea3D/Sprite3D");
 		_nodeInteractableArea = GetNode<Area3D>("./InteractableArea3D");
+		_nodeAudio = GetNode<AudioStreamPlayer3D>("./AudioStreamPlayer3D");
 		_nodeSprite.Frame = _OFF_FRAME;
 		SwitchState = false;
 		IsAnimating = false;
@@ -36,6 +38,7 @@ public partial class Switch3D : Node3D
 			SwitchState = !SwitchState;
 			IsAnimating = true;
 			FrameIndex = 0;
+			_nodeAudio.Play();
 			
 			if (_nodeSprite.Frame == _OFF_FRAME || _nodeSprite.Frame == _OFF_ANIMATE_FRAME)
 			{

@@ -12,7 +12,12 @@ public partial class MushroomAttackContainer : Node2D
 	private SporeFall SporeFallInstance { get; set; }
 	private int FrameIndex { get; set; }
 	
+	private AudoiStreamPlayer _nodeHitAudio = null;
 	
+	public override void _Ready()
+	{
+		_nodeHitAudio = GetNode<AudoiStreamPlayer>("./Hit_AudioStreamPlayer");
+	}
 
 	public override void _PhysicsProcess(double _delta)
 	{
@@ -34,7 +39,7 @@ public partial class MushroomAttackContainer : Node2D
 		IsAttacking = true;
 		SporeFallInstance = SpawnSporeFall();
 		AddChild(SporeFallInstance);
-		SporeFallInstance.SporeHitBiggie += () => EmitSignal(SignalName.ProjectPhysicalDamage);
+		SporeFallInstance.SporeHitBiggie += HandleSporeHitBiggie;
 	}
 
 	public void EndTurn()
@@ -55,5 +60,11 @@ public partial class MushroomAttackContainer : Node2D
 		var scene = GD.Load<PackedScene>(_NODE_SPORE_FALL);
 		var instance = scene.Instantiate<SporeFall>();
 		return instance;
+	}
+	
+	private void HandleSporeHitBiggie()
+	{
+		_nodeHitAudio.Play();
+		EmitSignal(SignalName.ProjectPhysicalDamage);
 	}
 }

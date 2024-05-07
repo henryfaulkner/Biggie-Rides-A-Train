@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbe22sj2cy0ic"]
+[gd_scene load_steps=6 format=3 uid="uid://cbe22sj2cy0ic"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/Mushroom/MushroomAttackContainer.cs" id="1_133kl"]
-[ext_resource type="Texture2D" uid="uid://cvegqxpxkm8ie" path="res://Assets/CombatScenes/BiggieCombat.png" id="2_b8336"]
 [ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/Mushroom/BiggieMushroomCombat.cs" id="2_xmgik"]
+[ext_resource type="Texture2D" uid="uid://cvegqxpxkm8ie" path="res://Assets/Images/CombatScenes/BiggieCombat.png" id="3_4ekx5"]
+[ext_resource type="AudioStream" uid="uid://or6ojto661ha" path="res://Assets/Sounds/23. Biggie Takes A Hit copy.wav" id="4_m4pto"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8g802"]
 size = Vector2(64, 64.25)
@@ -16,7 +17,10 @@ script = ExtResource("2_xmgik")
 
 [node name="Sprite2D" type="Sprite2D" parent="BiggieMushroomCombat"]
 scale = Vector2(0.9, 0.9)
-texture = ExtResource("2_b8336")
+texture = ExtResource("3_4ekx5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BiggieMushroomCombat"]
 shape = SubResource("RectangleShape2D_8g802")
+
+[node name="Hit_AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_m4pto")

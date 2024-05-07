@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bnrmjtfaqyxy8"]
+[gd_scene load_steps=7 format=3 uid="uid://bnrmjtfaqyxy8"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_cnm6e"]
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_fkue4"]
-[ext_resource type="Texture2D" uid="uid://qqicdcuj2qyt" path="res://Assets/MainMenu/ascii_header_2048_480.png" id="3_s6wup"]
+[ext_resource type="Texture2D" uid="uid://qqicdcuj2qyt" path="res://Assets/Images/MainMenu/ascii_header_2048_480.png" id="3_s6wup"]
 [ext_resource type="Script" path="res://Play.gd" id="4_1vg3r"]
+[ext_resource type="AudioStream" uid="uid://bycft7j8ap3vv" path="res://Assets/Sounds/2. Menu Select copy.wav" id="5_c0n12"]
+[ext_resource type="AudioStream" uid="uid://dw48r7oe41tp6" path="res://Assets/Sounds/13. Menu Scroll copy.wav" id="6_h8r83"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_cnm6e")
@@ -48,6 +50,9 @@ size_flags_vertical = 3
 text = "Play"
 script = ExtResource("4_1vg3r")
 
+[node name="Select_AudioStreamPlayer" type="AudioStreamPlayer" parent="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/Play"]
+stream = ExtResource("5_c0n12")
+
 [node name="HBoxContainer" type="HBoxContainer" parent="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
 layout_direction = 1
 layout_mode = 2
@@ -61,6 +66,9 @@ text = "Options"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Quit"
+
+[node name="Switch_AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_h8r83")
 
 [connection signal="pressed" from="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/Play" to="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/Play" method="_on_pressed"]
 [connection signal="pressed" from="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Options" to="." method="_on_options_pressed"]

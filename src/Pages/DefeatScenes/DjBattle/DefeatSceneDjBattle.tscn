@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bvopssmjqq4tw"]
 
-[ext_resource type="Texture2D" uid="uid://bfgeql8c1jfmr" path="res://Assets/DefeatScenes/Biggie Vanquished.png" id="1_d5lfb"]
+[ext_resource type="Texture2D" uid="uid://bfgeql8c1jfmr" path="res://Assets/Images/DefeatScenes/Biggie Vanquished.png" id="1_d5lfb"]
 [ext_resource type="Script" path="res://Pages/DefeatScenes/DjBattle/DefeatSceneDjBattle.cs" id="1_fnqp6"]
 [ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="2_daww7"]
 

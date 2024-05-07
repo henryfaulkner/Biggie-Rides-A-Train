@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b81vlgqa3npjo"]
 
-[ext_resource type="Texture2D" uid="uid://bc7xku0su42l7" path="res://Assets/CombatScenes/DDR/perfect.svg" id="2_6tsn0"]
+[ext_resource type="Texture2D" uid="uid://bc7xku0su42l7" path="res://Assets/Images/CombatScenes/DDR/perfect.svg" id="2_6tsn0"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yqtyp"]
 texture = ExtResource("2_6tsn0")

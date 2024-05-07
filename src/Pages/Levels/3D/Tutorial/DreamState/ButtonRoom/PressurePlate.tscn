@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1k5uyt64buix"]
+[gd_scene load_steps=5 format=3 uid="uid://d1k5uyt64buix"]
 
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/ButtonRoom/PressurePlate.cs" id="1_1fnyh"]
+[ext_resource type="AudioStream" uid="uid://br5ov2yh737fn" path="res://Assets/Sounds/10. Light Switch.wav" id="2_4rykw"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_e2641"]
 
@@ -15,3 +16,6 @@ script = ExtResource("1_1fnyh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("CylinderShape3D_rhp3w")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_4rykw")

@@ -1,24 +1,25 @@
-[gd_scene load_steps=29 format=3 uid="uid://dj6f4nmr6ukqg"]
+[gd_scene load_steps=30 format=3 uid="uid://dj6f4nmr6ukqg"]
 
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/SwitchRoom/Scene_SwitchRoom.cs" id="1_csnfc"]
 [ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_q1f0j"]
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_qi8k8"]
 [ext_resource type="PackedScene" uid="uid://rnc3kww1v7jc" path="res://ObjectLibrary/Biggie/Biggie3D.tscn" id="3_dhwqs"]
-[ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Objects/Teller.png" id="4_ubo8c"]
-[ext_resource type="Texture2D" uid="uid://duun5cslc1hp8" path="res://Assets/PrototypeTextures/Orange/texture_05.png" id="5_qhiad"]
+[ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Images/Objects/Teller.png" id="5_0g32l"]
 [ext_resource type="PackedScene" uid="uid://c5looe35bo0d0" path="res://ObjectLibrary/Decor/Door3D.tscn" id="6_dtwt0"]
+[ext_resource type="Texture2D" uid="uid://duun5cslc1hp8" path="res://Assets/Images/PrototypeTextures/Orange/texture_05.png" id="6_qivu1"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/SwitchRoom/Door3D.gd" id="7_6hk5s"]
 [ext_resource type="Script" path="res://ObjectLibrary/Decor/Barrier.gd" id="8_6n0oe"]
 [ext_resource type="PackedScene" uid="uid://d2uv3klop1e83" path="res://ObjectLibrary/Decor/NearDoor3D.tscn" id="9_g7bsd"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="9_y4kq2"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/SwitchRoom/NearDoor3D.gd" id="10_426bl"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="10_smv5v"]
-[ext_resource type="Texture2D" uid="uid://c10c55eer036y" path="res://Assets/Objects/WallSwitch.png" id="11_1g64v"]
 [ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="11_csmfq"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/SwitchRoom/Switch3D.cs" id="11_o1rxi"]
+[ext_resource type="Texture2D" uid="uid://c10c55eer036y" path="res://Assets/Images/Objects/WallSwitch.png" id="15_kddty"]
+[ext_resource type="AudioStream" uid="uid://br5ov2yh737fn" path="res://Assets/Sounds/10. Light Switch.wav" id="16_quync"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cpq2k"]
-albedo_texture = ExtResource("4_ubo8c")
+albedo_texture = ExtResource("5_0g32l")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_vqbjs"]
 material = SubResource("StandardMaterial3D_cpq2k")
@@ -26,7 +27,7 @@ size = Vector2(2, 4)
 center_offset = Vector3(0, 0.01, 0)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qagrp"]
-albedo_texture = ExtResource("5_qhiad")
+albedo_texture = ExtResource("6_qivu1")
 uv1_scale = Vector3(10, 10, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ydtl6"]
@@ -58,7 +59,7 @@ _surfaces = [{
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gomsv"]
-albedo_texture = ExtResource("4_ubo8c")
+albedo_texture = ExtResource("5_0g32l")
 texture_filter = 0
 
 [sub_resource type="Resource" id="Resource_oscui"]
@@ -142,7 +143,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.129498, 0)
 mesh = SubResource("ArrayMesh_ol777")
 surface_material_override/0 = SubResource("StandardMaterial3D_gomsv")
 script = ExtResource("9_y4kq2")
-texture = ExtResource("4_ubo8c")
+texture = ExtResource("5_0g32l")
 region_rect = Rect2i(0, 0, 1, 1)
 generated_sprite_mesh = SubResource("Resource_oscui")
 
@@ -157,9 +158,12 @@ shape = SubResource("BoxShape3D_tko17")
 
 [node name="Sprite3D" type="Sprite3D" parent="LevelWrapper/TextBoxWrapper/Switch3D/InteractableArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.218655)
-texture = ExtResource("11_1g64v")
+texture = ExtResource("15_kddty")
 hframes = 2
 vframes = 2
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="LevelWrapper/TextBoxWrapper/Switch3D"]
+stream = ExtResource("16_quync")
 
 [node name="Camera3D" parent="LevelWrapper" instance=ExtResource("11_csmfq")]
 transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 3.28546, 1.75, 4.45)

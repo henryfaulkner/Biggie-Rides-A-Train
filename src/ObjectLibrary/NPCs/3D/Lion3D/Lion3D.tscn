@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://uuyhg1mhqlj"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/NPCs/3D/Lion3D/Lion3D.cs" id="1_ovtwg"]
-[ext_resource type="Texture2D" uid="uid://vmloap456m3d" path="res://Assets/Objects/Lion.png" id="1_yby20"]
+[ext_resource type="Texture2D" uid="uid://vmloap456m3d" path="res://Assets/Images/Objects/Lion.png" id="1_yby20"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="2_qeor0"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="3_gxmgu"]
 

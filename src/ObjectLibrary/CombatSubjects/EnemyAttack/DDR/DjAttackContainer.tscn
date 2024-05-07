@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/DjAttackContainer.cs" id="1_m34bw"]
 [ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/BiggieDjCombat.cs" id="2_p2ut2"]
-[ext_resource type="Texture2D" uid="uid://cvegqxpxkm8ie" path="res://Assets/CombatScenes/BiggieCombat.png" id="3_h5au7"]
+[ext_resource type="Texture2D" uid="uid://cvegqxpxkm8ie" path="res://Assets/Images/CombatScenes/BiggieCombat.png" id="3_h5au7"]
 [ext_resource type="PackedScene" uid="uid://buh5m7wlv85cl" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/BaseArrows/BaseArrowUp.tscn" id="4_dmx3y"]
 [ext_resource type="PackedScene" uid="uid://841ckydqawjr" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/BaseArrows/BaseArrowRight.tscn" id="5_1lhgl"]
 [ext_resource type="PackedScene" uid="uid://btg4ir18g3vbg" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/BaseArrows/BaseArrowDown.tscn" id="6_st00x"]

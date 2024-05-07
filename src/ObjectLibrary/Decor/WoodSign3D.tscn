@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://b7h13j4n2ygyc"]
 
-[ext_resource type="Texture2D" uid="uid://cxijxhhpqnn6i" path="res://Assets/Objects/WoodSign.png" id="1_ipy1q"]
+[ext_resource type="Texture2D" uid="uid://cxijxhhpqnn6i" path="res://Assets/Images/Objects/WoodSign.png" id="1_ipy1q"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="2_06obf"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="3_ep1gj"]
 

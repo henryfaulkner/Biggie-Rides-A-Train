@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://d2uv3klop1e83"]
 
-[ext_resource type="Texture2D" uid="uid://boqxoenfgd3b" path="res://Assets/Objects/SimpleDoor.png" id="1_uela5"]
+[ext_resource type="Texture2D" uid="uid://boqxoenfgd3b" path="res://Assets/Images/Objects/SimpleDoor.png" id="1_uela5"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="2_qriw6"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="3_o1kgp"]
 [ext_resource type="Script" path="res://ObjectLibrary/Decor/DoorCollisionObservable.gd" id="4_ylnbk"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://btg4ir18g3vbg"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/DDR/BaseArrows/BaseArrowDown.cs" id="1_in7cx"]
-[ext_resource type="Texture2D" uid="uid://rq1x43iicrdi" path="res://Assets/Objects/DDRarrows/(final)generic-DDRarrows.png" id="2_75ygi"]
+[ext_resource type="Texture2D" uid="uid://rq1x43iicrdi" path="res://Assets/Images/Objects/DDRarrows/(final)generic-DDRarrows.png" id="2_75ygi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nksw4"]
 size = Vector2(41.5, 40)

@@ -14,7 +14,7 @@ config/name="biggie_rides_a_train"
 run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.2", "C#", "Mobile")
 boot_splash/bg_color=Color(1, 1, 1, 1)
-boot_splash/image="res://Assets/Misc./company-logo.png"
+boot_splash/image="res://Assets/Images/Misc./company-logo.png"
 config/icon="res://icon.svg"
 
 [autoload]
