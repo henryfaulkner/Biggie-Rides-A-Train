@@ -15,7 +15,7 @@ public partial class Biggie3D : CharacterBody3D
 	private static readonly int _SPRITE_FRAME_WALK2_LEFT = 4;
 	public static readonly int _SPRITE_FRAME_CHANGE_INTERVAL = 45;
 	public static readonly int _SPRITE_WALK_FRAME_LENGTH = 2;
-	public static readonly float _BIGGIE_SPEED = 4800f;
+	public static readonly float _BIGGIE_SPEED = 1.4f;
 	public static readonly float _BIGGIE_SPEED_X_RATIO = 1.0f;
 	public static readonly float _BIGGIE_SPEED_Z_RATIO = 0.7f;
 
@@ -132,7 +132,7 @@ public partial class Biggie3D : CharacterBody3D
 			inputDirection = inputDirection.Normalized();
 		}
 
-		Velocity = inputDirection;
+		Velocity = inputDirection * _BIGGIE_SPEED;
 		return MoveAndCollide(Velocity * (float)delta);
 	}
 
@@ -153,6 +153,53 @@ public partial class Biggie3D : CharacterBody3D
 	public void CanMove(bool canMove)
 	{
 		_canMove = canMove;
+	}
+
+	public bool ForceWalk(Vector3 target, double delta)
+	{
+		CanMove(false);
+		Vector3 direction = (target - Position).Normalized();
+		Vector3 inputDirection = Vector3.Zero;
+		GD.Print($"ForceWalk Direction X:{direction.X} Y:{direction.Y} Z:{direction.Z}");
+		
+		if (direction.X > 0) // RIGHT
+		{
+			inputDirection.X = _BIGGIE_SPEED_X_RATIO;
+			_isMoving = true;
+			_frameIncrement += 1;
+			_currentFrameDirection = Enumerations.Movement.Directions.Left;
+			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
+		}
+		else if (direction.X < 0) // LEFT
+		{
+			inputDirection.X = _BIGGIE_SPEED_X_RATIO;
+			_isMoving = true;
+			_frameIncrement -= 1;
+			_currentFrameDirection = Enumerations.Movement.Directions.Right;
+			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
+		}
+		
+		if (direction.Z < 0) // UP
+		{
+			inputDirection.Z -= _BIGGIE_SPEED_Z_RATIO;
+			_isMoving = true;
+			_frameIncrement = 1;
+			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
+		}
+		else if (direction.Z > 0) // DOWN
+		{
+			inputDirection.Z += _BIGGIE_SPEED_Z_RATIO;
+			_isMoving = true;
+			_frameIncrement = 1;
+			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
+		}
+		
+		Velocity = inputDirection * _BIGGIE_SPEED;
+		MoveAndCollide(Velocity * (float)delta);
+
+		bool atTarget = Position == target;
+		CanMove(atTarget);
+		return atTarget;
 	}
 
 	private bool IsIdle()

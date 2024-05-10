@@ -5,10 +5,14 @@ public partial class Scene_TherapistOffice1 : Node3D
 {
 	private Therapist3D _nodeTherapist = null;
 	private TextBox _nodeTextBox = null;
-	private SceneBarrier _nodeSceneBarrier = null;
+	private SceneBarrier _nodeSceneBarrier = null;	
+	private AutoWalk_InteractableArea3D_1 _nodeAutoWalkCollision = null;
+	private Subconscious _nodeSubconscious = null; 
+	private Biggie3D _nodeBiggie = null;
 
 	private SaveStateService _serviceSaveState = null;
 
+	private bool ProcessingAutoWalk { get; set; }
 	private TherapistDialogueStates TherapistDialogueState { get; set; }
 
 
@@ -17,9 +21,26 @@ public partial class Scene_TherapistOffice1 : Node3D
 		_nodeTherapist = GetNode<Therapist3D>("./LevelWrapper/TextBoxWrapper/Therapist3D");
 		_nodeTextBox = GetNode<TextBox>("./LevelWrapper/TextBoxWrapper/TextBox");
 		_nodeSceneBarrier = GetNode<SceneBarrier>("./LevelWrapper/TextBoxWrapper/SceneBarrier");
+		_nodeAutoWalkCollision = GetNode<AutoWalk_InteractableArea3D_1>("./LevelWrapper/TextBoxWrapper/AutoWalk_InteractableArea3D_1");
+		_nodeSubconscious = GetNode<Subconscious>("./LevelWrapper/TextBoxWrapper/Subconscious");
+		_nodeBiggie = GetNode<Biggie3D>("./LevelWrapper/TextBoxWrapper/Biggie3D");
 
 		_nodeTherapist.Interact += ProcessTherapistDialogue;
 		TherapistDialogueState = TherapistDialogueStates.First;
+		_nodeAutoWalkCollision.Collision += () => ProcessingAutoWalk = true;
+		ProcessingAutoWalk = false;
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		if (ProcessingAutoWalk)
+		{
+			ProcessingAutoWalk = !ProcessAutoWalk(delta);
+			if (!ProcessingAutoWalk)
+			{
+				GD.Print("Stop AutoWalk");
+			}
+		}
 	}
 
 	public void ProcessTherapistDialogue()
@@ -45,6 +66,11 @@ public partial class Scene_TherapistOffice1 : Node3D
 				_nodeTextBox.ExecuteDialogueQueue();
 				break;
 		}
+	}
+
+	public bool ProcessAutoWalk(double delta)
+	{
+		return _nodeBiggie.ForceWalk(_nodeSubconscious.Position + new Vector3(-3.0f, 0.0f, 0.3f), delta);
 	}
 
 	private enum TherapistDialogueStates

@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://vegoiqc6ex1j"]
+[gd_scene load_steps=46 format=3 uid="uid://vegoiqc6ex1j"]
 
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/TherapistOffice1/Scene_TherapistOffice1.cs" id="1_4hb5t"]
 [ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_u2mbn"]
@@ -11,8 +11,10 @@
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/TherapistOffice1/NearDoor3D.gd" id="7_qp45e"]
 [ext_resource type="PackedScene" uid="uid://d2uv3klop1e83" path="res://ObjectLibrary/Decor/NearDoor3D.tscn" id="8_gt74d"]
 [ext_resource type="PackedScene" uid="uid://cfvt4pku54wba" path="res://ObjectLibrary/NPCs/3D/Mushroom3D/Mushroom3D.tscn" id="11_op8ra"]
+[ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/TherapistOffice1/AutoWalk_InteractableArea3D_1.cs" id="12_7qr5r"]
 [ext_resource type="Texture2D" uid="uid://dby4chrgi53gy" path="res://Assets/Images/Objects/NegaBiggie.png" id="12_t17bq"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="13_i1j5w"]
+[ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/TherapistOffice1/Subconscious.cs" id="13_wegur"]
 [ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="14_04f2e"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="14_ib7dy"]
 [ext_resource type="Texture2D" uid="uid://c23w8sksk6n7f" path="res://Assets/Images/PrototypeTextures/Red/texture_08.png" id="15_hq62o"]
@@ -63,6 +65,7 @@ size = Vector3(10, 1, 1)
 size = Vector3(1, 1, 5.35159)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ku23t"]
+size = Vector3(6, 4, 10)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_eh2i7"]
 _surfaces = [{
@@ -298,6 +301,7 @@ transform = Transform3D(0.44, 0, 0, 0, 0.44, 0, 0, 0, 0.44, 2.56473, 0, 0.581435
 
 [node name="AutoWalk_InteractableArea3D_1" type="Area3D" parent="LevelWrapper/TextBoxWrapper"]
 transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 12.9194, 0.602635, 0)
+script = ExtResource("12_7qr5r")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/AutoWalk_InteractableArea3D_1"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.0126461, -0.0386519, 0.489142)
@@ -305,9 +309,9 @@ shape = SubResource("BoxShape3D_6d7ek")
 
 [node name="Subconscious" type="CharacterBody3D" parent="LevelWrapper/TextBoxWrapper"]
 transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, 19.9813, 1.01034, 1.36217)
+script = ExtResource("13_wegur")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/Subconscious"]
-transform = Transform3D(6, 0, 0, 0, 4, 0, 0, 0, 10, 0, 0, 0)
 shape = SubResource("BoxShape3D_ku23t")
 
 [node name="SpriteMeshInstance" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Subconscious"]
