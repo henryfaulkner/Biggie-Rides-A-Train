@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://rnc3kww1v7jc"]
+[gd_scene load_steps=15 format=3 uid="uid://rnc3kww1v7jc"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/Biggie/Biggie3D.cs" id="1_frxkc"]
 [ext_resource type="Texture2D" uid="uid://df0xe1tnk46cf" path="res://Assets/Images/Objects/Biggie.png" id="2_xelug"]
@@ -21,6 +21,10 @@ _surfaces = [{
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vqcdr"]
+albedo_texture = ExtResource("2_xelug")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1k4h8"]
 albedo_texture = ExtResource("2_xelug")
 texture_filter = 0
 
@@ -81,7 +85,7 @@ _surfaces = [{
 [sub_resource type="Resource" id="Resource_sisuh"]
 script = ExtResource("4_2le65")
 meshes = Array[ArrayMesh]([SubResource("ArrayMesh_tfutk"), SubResource("ArrayMesh_kh3c2"), SubResource("ArrayMesh_fi48p"), SubResource("ArrayMesh_70bor"), SubResource("ArrayMesh_tat2u"), SubResource("ArrayMesh_vsvg6")])
-material = SubResource("StandardMaterial3D_vqcdr")
+material = SubResource("StandardMaterial3D_1k4h8")
 
 [node name="Biggie3D" type="CharacterBody3D"]
 script = ExtResource("1_frxkc")

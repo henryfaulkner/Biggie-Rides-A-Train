@@ -12,11 +12,11 @@ public partial class MushroomAttackContainer : Node2D
 	private SporeFall SporeFallInstance { get; set; }
 	private int FrameIndex { get; set; }
 	
-	private AudoiStreamPlayer _nodeHitAudio = null;
+	private AudioStreamPlayer _nodeHitAudio = null;
 	
 	public override void _Ready()
 	{
-		_nodeHitAudio = GetNode<AudoiStreamPlayer>("./Hit_AudioStreamPlayer");
+		_nodeHitAudio = GetNode<AudioStreamPlayer>("./Hit_AudioStreamPlayer");
 	}
 
 	public override void _PhysicsProcess(double _delta)

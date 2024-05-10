@@ -15,8 +15,8 @@ script = ExtResource("1_40cq3")
 [node name="TextBoxWrapper" parent="." instance=ExtResource("1_2lrwo")]
 
 [node name="Biggie" parent="TextBoxWrapper" instance=ExtResource("2_1opti")]
-position = Vector2(1024, 484)
-scale = Vector2(6, 6)
+position = Vector2(1024, 509)
+scale = Vector2(0.4, 0.4)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="TextBoxWrapper"]
 clip_contents = false
