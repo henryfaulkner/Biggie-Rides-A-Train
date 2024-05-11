@@ -12,6 +12,8 @@ public partial class MushroomAttackContainer : Node2D
 	private SporeFall SporeFallInstance { get; set; }
 	private int FrameIndex { get; set; }
 	
+	public int FramesPerRound { get; set; }
+	
 	private AudioStreamPlayer _nodeHitAudio = null;
 	
 	public override void _Ready()
@@ -21,7 +23,7 @@ public partial class MushroomAttackContainer : Node2D
 
 	public override void _PhysicsProcess(double _delta)
 	{
-		if (FrameIndex == 600)
+		if (FrameIndex == FramesPerRound)
 		{
 			EndTurn();
 			FrameIndex = 0;

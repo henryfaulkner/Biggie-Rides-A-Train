@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class CombatSceneMushroomBattle_1 : Node2D
+public partial class CombatSceneMushroomBattle_2 : Node2D
 {
 	public static readonly StringName _SCENE_BIGGIE_DEFEAT = new StringName("res://Pages/DefeatScenes/DjBattle/DefeatSceneDjBattle.tscn");
 	public static readonly StringName _SCENE_MUSHROOM_FIGHT = new StringName("res://Pages/Levels/3D/Tutorial/DreamState/MushroomFight/Scene_MushroomFight.tscn");

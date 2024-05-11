@@ -355,11 +355,7 @@ shape = SubResource("BoxShape3D_grnx3")
 transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 2.88535, 1.75, 4.45)
 
 [node name="Camera3D2" parent="LevelWrapper" instance=ExtResource("14_04f2e")]
-transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 12.296, 5.21669, 7.74349)
-script = null
-
-[node name="Camera3D3" parent="LevelWrapper" instance=ExtResource("14_04f2e")]
-transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 24.49, 5.21669, 7.74349)
+transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 19.276, 5.21669, 6.01431)
 script = null
 
 [node name="Camera3D4" parent="LevelWrapper" instance=ExtResource("14_04f2e")]

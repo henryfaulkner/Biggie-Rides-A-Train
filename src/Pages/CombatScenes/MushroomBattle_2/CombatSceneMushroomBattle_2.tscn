@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://cy8gec0o5ymq8"]
+
+[ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.tscn" id="1_dkmuv"]
+[ext_resource type="Script" path="res://Pages/CombatScenes/MushroomBattle_2/CombatSceneMushroomBattle_2.cs" id="1_srqsy"]
+[ext_resource type="PackedScene" uid="uid://2mh1lln1nml3" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/EnemyAttackContainer/EnemyAttackContainer.tscn" id="2_ru826"]
+[ext_resource type="PackedScene" uid="uid://cbxe4ywsrbc2y" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/EnemyAttackContainer/EnemyAttackPanel.tscn" id="3_odeux"]
+[ext_resource type="PackedScene" uid="uid://cbe22sj2cy0ic" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/Mushroom/MushroomAttackContainer.tscn" id="4_locu3"]
+[ext_resource type="Texture2D" uid="uid://co7aoj6hlth3i" path="res://Assets/Images/Objects/Therapist.png" id="5_48pp0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wm0qs"]
+
+[node name="CombatSceneMushroomBattle2" type="Node2D"]
+script = ExtResource("1_srqsy")
+
+[node name="CombatWrapper" parent="." instance=ExtResource("1_dkmuv")]
+
+[node name="EnemyAttackContainer" parent="CombatWrapper" instance=ExtResource("2_ru826")]
+
+[node name="EnemyAttackPanel" parent="CombatWrapper/EnemyAttackContainer" instance=ExtResource("3_odeux")]
+layout_mode = 2
+
+[node name="MushroomAttackContainer" parent="CombatWrapper/EnemyAttackContainer/EnemyAttackPanel" instance=ExtResource("4_locu3")]
+position = Vector2(-724, -456)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CombatWrapper"]
+position = Vector2(762, 58)
+
+[node name="Sprite2D" type="Sprite2D" parent="CombatWrapper/StaticBody2D"]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("5_48pp0")
+hframes = 2
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatWrapper/StaticBody2D"]
+shape = SubResource("RectangleShape2D_wm0qs")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="CombatWrapper"]
+position = Vector2(1264, 56)
+
+[node name="Sprite2D" type="Sprite2D" parent="CombatWrapper/StaticBody2D2"]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("5_48pp0")
+hframes = 2
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatWrapper/StaticBody2D2"]
+shape = SubResource("RectangleShape2D_wm0qs")

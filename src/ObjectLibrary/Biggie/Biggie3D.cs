@@ -160,9 +160,11 @@ public partial class Biggie3D : CharacterBody3D
 		CanMove(false);
 		Vector3 direction = (target - Position).Normalized();
 		Vector3 inputDirection = Vector3.Zero;
-		GD.Print($"ForceWalk Direction X:{direction.X} Y:{direction.Y} Z:{direction.Z}");
+		//GD.Print($"ForceWalk Direction X:{direction.X} Y:{direction.Y} Z:{direction.Z}");
+		GD.Print($"target Position X:{target.X} Y:{target.Y} Z:{target.Z}");
+		GD.Print($"biggie Position X:{Position.X} Y:{Position.Y} Z:{Position.Z}");
 		
-		if (direction.X > 0) // RIGHT
+		if (direction.X - 0.5f > 0) // RIGHT
 		{
 			inputDirection.X = _BIGGIE_SPEED_X_RATIO;
 			_isMoving = true;
@@ -170,7 +172,7 @@ public partial class Biggie3D : CharacterBody3D
 			_currentFrameDirection = Enumerations.Movement.Directions.Left;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
-		else if (direction.X < 0) // LEFT
+		else if (direction.X + 0.5f < 0) // LEFT
 		{
 			inputDirection.X = _BIGGIE_SPEED_X_RATIO;
 			_isMoving = true;
@@ -179,14 +181,14 @@ public partial class Biggie3D : CharacterBody3D
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
 		
-		if (direction.Z < 0) // UP
+		if (direction.Z + 0.5f < 0) // UP
 		{
 			inputDirection.Z -= _BIGGIE_SPEED_Z_RATIO;
 			_isMoving = true;
 			_frameIncrement = 1;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
-		else if (direction.Z > 0) // DOWN
+		else if (direction.Z - 0.5f > 0) // DOWN
 		{
 			inputDirection.Z += _BIGGIE_SPEED_Z_RATIO;
 			_isMoving = true;
@@ -197,8 +199,17 @@ public partial class Biggie3D : CharacterBody3D
 		Velocity = inputDirection * _BIGGIE_SPEED;
 		MoveAndCollide(Velocity * (float)delta);
 
-		bool atTarget = Position == target;
+		// opposite the other conditionals in this function
+		bool atTarget = direction.X - 0.5f < 0
+			&& direction.X + 0.5f > 0
+			&& direction.Z + 0.5f > 0
+			&& direction.Z - 0.5f < 0;
 		CanMove(atTarget);
+		GD.Print($"atTarget: {atTarget}");
+		GD.Print(direction.X - 0.5f > 0);
+		GD.Print(direction.X + 0.5f < 0);
+		GD.Print(direction.Z + 0.5f < 0);
+		GD.Print(direction.Z - 0.5f > 0);
 		return atTarget;
 	}
 
