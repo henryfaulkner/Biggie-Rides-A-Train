@@ -132,7 +132,7 @@ public partial class Spore : RigidBody2D
 		if (this.r > 16)
 		{
 			DrawTextureRect(
-				GD.Load<Texture2D>("res://Assets/CombatScenes/BiggieCombat.png"),
+				GD.Load<Texture2D>("res://Assets/Images/CombatScenes/BiggieCombat.png"),
 				new Rect2(this.pos.X, this.pos.Y, this.r, this.r),
 				false,
 				new Color(1, 0, 0, 1)
@@ -142,7 +142,7 @@ public partial class Spore : RigidBody2D
 		else
 		{
 			DrawTextureRect(
-				GD.Load<Texture2D>("res://Assets/CombatScenes/BiggieCombat.png"),
+				GD.Load<Texture2D>("res://Assets/Images/CombatScenes/BiggieCombat.png"),
 				new Rect2(this.pos.X, this.pos.Y, this.r, this.r),
 				false,
 				new Color(1, 1, 1, 1)

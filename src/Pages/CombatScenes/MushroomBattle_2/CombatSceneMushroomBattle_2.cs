@@ -4,7 +4,7 @@ using System;
 public partial class CombatSceneMushroomBattle_2 : Node2D
 {
 	public static readonly StringName _SCENE_BIGGIE_DEFEAT = new StringName("res://Pages/DefeatScenes/DjBattle/DefeatSceneDjBattle.tscn");
-	public static readonly StringName _SCENE_MUSHROOM_FIGHT = new StringName("res://Pages/Levels/3D/Tutorial/DreamState/MushroomFight/Scene_MushroomFight.tscn");
+	public static readonly StringName _SCENE_MUSHROOM_DEFEAT = new StringName("res://Pages/Levels/3D/Tutorial/DreamState/TherapistOffice1/Scene_TherapistOffice1.tscn");
 
 	private static readonly int _MAX_HEALTH_PHYSICAL_BIGGIE = 9;
 	private static readonly int _MAX_HEALTH_PHYSICAL_MUSHROOM = 9;
@@ -308,7 +308,7 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		context.IsMushroomDead = true;
 		_serviceSaveState.Commit(context);
 
-		GetTree().ChangeSceneToFile(_SCENE_MUSHROOM_FIGHT);
+		GetTree().ChangeSceneToFile(_SCENE_MUSHROOM_DEFEAT);
 		return;
 	}
 
@@ -318,7 +318,7 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		context.IsMushroomMoved = true;
 		_serviceSaveState.Commit(context);
 
-		GetTree().ChangeSceneToFile(_SCENE_MUSHROOM_FIGHT);
+		GetTree().ChangeSceneToFile(_SCENE_MUSHROOM_DEFEAT);
 		return;
 	}
 }

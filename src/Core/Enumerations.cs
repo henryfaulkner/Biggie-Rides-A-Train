@@ -132,6 +132,7 @@ public partial class Enumerations
 		MainStation = 2,
 		TherapistOffice = 3,
 		Club = 4,
+		TherapistOffice_1,
 	}
 
 	public struct DialogueStates

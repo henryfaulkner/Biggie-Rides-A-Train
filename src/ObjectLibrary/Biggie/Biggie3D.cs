@@ -157,13 +157,13 @@ public partial class Biggie3D : CharacterBody3D
 
 	public bool ForceWalk(Vector3 target, double delta)
 	{
+		GD.Print("Biggie ForceWalk");
 		CanMove(false);
 		Vector3 direction = (target - Position).Normalized();
 		Vector3 inputDirection = Vector3.Zero;
-		//GD.Print($"ForceWalk Direction X:{direction.X} Y:{direction.Y} Z:{direction.Z}");
-		GD.Print($"target Position X:{target.X} Y:{target.Y} Z:{target.Z}");
-		GD.Print($"biggie Position X:{Position.X} Y:{Position.Y} Z:{Position.Z}");
-		
+		// GD.Print($"target Position X:{target.X} Y:{target.Y} Z:{target.Z}");
+		// GD.Print($"biggie Position X:{Position.X} Y:{Position.Y} Z:{Position.Z}");
+
 		if (direction.X - 0.5f > 0) // RIGHT
 		{
 			inputDirection.X = _BIGGIE_SPEED_X_RATIO;
@@ -180,7 +180,7 @@ public partial class Biggie3D : CharacterBody3D
 			_currentFrameDirection = Enumerations.Movement.Directions.Right;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
-		
+
 		if (direction.Z + 0.5f < 0) // UP
 		{
 			inputDirection.Z -= _BIGGIE_SPEED_Z_RATIO;
@@ -195,7 +195,7 @@ public partial class Biggie3D : CharacterBody3D
 			_frameIncrement = 1;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
-		
+
 		Velocity = inputDirection * _BIGGIE_SPEED;
 		MoveAndCollide(Velocity * (float)delta);
 
@@ -205,11 +205,7 @@ public partial class Biggie3D : CharacterBody3D
 			&& direction.Z + 0.5f > 0
 			&& direction.Z - 0.5f < 0;
 		CanMove(atTarget);
-		GD.Print($"atTarget: {atTarget}");
-		GD.Print(direction.X - 0.5f > 0);
-		GD.Print(direction.X + 0.5f < 0);
-		GD.Print(direction.Z + 0.5f < 0);
-		GD.Print(direction.Z - 0.5f > 0);
+		GD.Print($"Biggie3D atTarget: {atTarget}");
 		return atTarget;
 	}
 

@@ -1,9 +1,9 @@
 public class DoorEntrance
 {
 	public int SceneId { get; set; }
-	public int X { get; set; }
-	public int Y { get; set; }
-	public int Z { get; set; }
+	public float X { get; set; }
+	public float Y { get; set; }
+	public float Z { get; set; }
 
 	public DoorEntrance()
 	{
@@ -13,7 +13,7 @@ public class DoorEntrance
 		Z = 0;
 	}
 
-	public DoorEntrance(int x, int y, int z = 0)
+	public DoorEntrance(float x, float y, float z = 0)
 	{
 		SceneId = (int)Enumerations.Scenes.Empty;
 		X = x;
@@ -21,7 +21,7 @@ public class DoorEntrance
 		Z = z;
 	}
 
-	public DoorEntrance(Enumerations.Scenes scene, int x, int y, int z = 0)
+	public DoorEntrance(Enumerations.Scenes scene, float x, float y, float z = 0)
 	{
 		SceneId = (int)scene;
 		X = x;

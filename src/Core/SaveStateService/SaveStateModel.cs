@@ -6,6 +6,9 @@ public class SaveStateModel
 	[JsonProperty("StoredLocation")]
 	public DoorEntrance StoredLocation { get; set; }
 
+	[JsonProperty("AdditionalStoredLocation")]
+	public DoorEntrance AdditionalStoredLocation { get; set; }
+
 	[JsonProperty("HasItemTicketPieceOne")]
 	public bool HasItemTicketPieceOne { get; set; }
 
@@ -44,6 +47,9 @@ public class SaveStateModel
 
 	[JsonProperty("DialogueStateDJ")]
 	public Enumerations.DialogueStates.DJ DialogueStateDJ { get; set; }
+
+	[JsonProperty("DialogueStateSubconscious")]
+	public int DialogueStateSubconscious { get; set; }
 
 	// Intro
 

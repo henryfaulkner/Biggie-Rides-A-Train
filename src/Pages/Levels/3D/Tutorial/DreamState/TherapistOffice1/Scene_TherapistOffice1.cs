@@ -1,9 +1,11 @@
 using Godot;
 using System;
+using System.Reflection.Metadata;
 
 public partial class Scene_TherapistOffice1 : Node3D
 {
 	private static readonly StringName _COMBAT_SCENE_MUSHROOM = new StringName("res://Pages/CombatScenes/MushroomBattle_2/CombatSceneMushroomBattle_2.tscn");
+	private static readonly StringName _COMBAT_SCENE_SUBCONSCIOUS_1 = new StringName("");
 
 	private Therapist3D _nodeTherapist = null;
 	private TextBox _nodeTextBox = null;
@@ -12,13 +14,16 @@ public partial class Scene_TherapistOffice1 : Node3D
 	private AutoWalk_InteractableArea3D_1 _nodeAutoWalkCollision = null;
 	private Subconscious _nodeSubconscious = null;
 	private Biggie3D _nodeBiggie = null;
+	private Node3D _nodeMushroomFight_2 = null;
 
 	private FramedLevelCamera _nodeMainCamera = null;
 	private Camera3D _nodeCameraTalk_1 = null;
+	private Camera3D _nodeCameraTalk_2 = null;
 
 	private SaveStateService _serviceSaveState = null;
 
-	private bool ProcessingAutoWalk { get; set; }
+	private bool ProcessingAutoWalk_1 { get; set; }
+	private bool ProcessingAutoWalk_2 { get; set; }
 	private TherapistDialogueStates TherapistDialogueState { get; set; }
 	private SubconsciousDialogueStates SubconsciousDialogueState { get; set; }
 
@@ -31,27 +36,49 @@ public partial class Scene_TherapistOffice1 : Node3D
 		_nodeAutoWalkCollision = GetNode<AutoWalk_InteractableArea3D_1>("./LevelWrapper/TextBoxWrapper/AutoWalk_InteractableArea3D_1");
 		_nodeSubconscious = GetNode<Subconscious>("./LevelWrapper/TextBoxWrapper/Subconscious");
 		_nodeBiggie = GetNode<Biggie3D>("./LevelWrapper/TextBoxWrapper/Biggie3D");
+		_nodeMushroomFight_2 = GetNode<Node3D>("./LevelWrapper/TextBoxWrapper/MushroomFight_2");
 
 		_nodeMainCamera = GetNode<FramedLevelCamera>("./LevelWrapper/Camera3D");
 		_nodeCameraTalk_1 = GetNode<Camera3D>("./LevelWrapper/Camera3D2");
+		_nodeCameraTalk_2 = GetNode<Camera3D>("./LevelWrapper/Camera3D4");
 
 		_nodeTherapist.Interact += ProcessTherapistDialogue;
 		TherapistDialogueState = TherapistDialogueStates.First;
 		SubconsciousDialogueState = SubconsciousDialogueStates.First;
-		_nodeInteractionTextBox.SelectedOptionId += ReactToCombatSelection;
-		_nodeAutoWalkCollision.Collision += () => ProcessingAutoWalk = true;
-		ProcessingAutoWalk = false;
+		_nodeInteractionTextBox.SelectedOptionId += ReactToInteractSelection_1;
+		_nodeAutoWalkCollision.Collision += () => ProcessingAutoWalk_1 = true;
+		ProcessingAutoWalk_1 = false;
+		ProcessingAutoWalk_2 = false;
+
+		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
+		var context = _serviceSaveState.Load();
+		if (context.DialogueStateSubconscious == (int)SubconsciousDialogueStates.PostMushroomCombat)
+		{
+			HandlePostMushroomCombat(context);
+		}
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (ProcessingAutoWalk)
+		if (ProcessingAutoWalk_1)
 		{
-			ProcessingAutoWalk = !ProcessAutoWalk(delta);
-			if (!ProcessingAutoWalk)
+			ProcessingAutoWalk_1 = !ProcessAutoWalk_1(delta);
+			if (!ProcessingAutoWalk_1)
 			{
-				GD.Print("Stop AutoWalk");
+				GD.Print("Stop AutoWalk_1");
 				_nodeCameraTalk_1.MakeCurrent();
+				ProcessSubconsciousDialogue();
+			}
+		}
+
+		if (ProcessingAutoWalk_2)
+		{
+			ProcessingAutoWalk_2 = !ProcessAutoWalk_2(delta);
+			if (!ProcessingAutoWalk_2)
+			{
+				GD.Print("Stop AutoWalk_2");
+				SubconsciousDialogueState = SubconsciousDialogueStates.MushroomCombat_Talk;
+				_nodeCameraTalk_2.MakeCurrent();
 				ProcessSubconsciousDialogue();
 			}
 		}
@@ -62,9 +89,31 @@ public partial class Scene_TherapistOffice1 : Node3D
 		{
 			ProcessSubconsciousDialogue();
 		}
-		else if (SubconsciousDialogueState == SubconsciousDialogueStates.MushroomCombat)
+		else if (SubconsciousDialogueState == SubconsciousDialogueStates.Interaction_1)
 		{
 			ProcessSubconsciousDialogue();
+		}
+		else if (SubconsciousDialogueState == SubconsciousDialogueStates.AutoWalk_2)
+		{
+			ProcessAutoWalk_2(delta);
+		}
+		else if (SubconsciousDialogueState == SubconsciousDialogueStates.MushroomCombat)
+		{
+			var context = _serviceSaveState.Load();
+			context.DialogueStateSubconscious = (int)SubconsciousDialogueStates.PostMushroomCombat;
+			context.StoredLocation = new DoorEntrance(Enumerations.Scenes.TherapistOffice_1, _nodeBiggie.Position.X, _nodeBiggie.Position.Y, _nodeBiggie.Position.Z);
+			context.AdditionalStoredLocation = new DoorEntrance(Enumerations.Scenes.TherapistOffice_1, _nodeSubconscious.Position.X, _nodeSubconscious.Position.Y, _nodeSubconscious.Position.Z);
+			GD.Print($"Commit {context.StoredLocation}");
+			GD.Print($"Commit {context.AdditionalStoredLocation}");
+			_serviceSaveState.Commit(context);
+
+			var nextScene = (PackedScene)ResourceLoader.Load(_COMBAT_SCENE_MUSHROOM);
+			GetTree().ChangeSceneToPacked(nextScene);
+		}
+		else if (SubconsciousDialogueState == SubconsciousDialogueStates.SubconsciousCombat)
+		{
+			var nextScene = (PackedScene)ResourceLoader.Load(_COMBAT_SCENE_SUBCONSCIOUS_1);
+			GetTree().ChangeSceneToPacked(nextScene);
 		}
 	}
 
@@ -93,16 +142,26 @@ public partial class Scene_TherapistOffice1 : Node3D
 		}
 	}
 
-	public bool ProcessAutoWalk(double delta)
+	public bool ProcessAutoWalk_1(double delta)
 	{
+		GD.Print("ProcessAutoWalk_1");
 		return _nodeBiggie.ForceWalk(_nodeSubconscious.Position + new Vector3(-3.0f, 0.0f, 0.3f), delta);
+	}
+
+	public bool ProcessAutoWalk_2(double delta)
+	{
+		GD.Print("ProcessAutoWalk_2");
+		bool result = _nodeBiggie.ForceWalk(_nodeMushroomFight_2.Position + new Vector3(-2.0f, 0.0f, 1.3f), delta);
+		result = _nodeSubconscious.ForceWalk(_nodeMushroomFight_2.Position + new Vector3(2.0f, 0.0f, 0.8f), delta)
+			&& result;
+		return result;
 	}
 
 	private void ProcessSubconsciousDialogue()
 	{
 		if (!_nodeTextBox.CanCreateDialogue()) return;
 		if (!_nodeInteractionTextBox.CanCreateDialogue()) return;
-		
+
 		switch (SubconsciousDialogueState)
 		{
 			case SubconsciousDialogueStates.First:
@@ -114,16 +173,34 @@ public partial class Scene_TherapistOffice1 : Node3D
 				break;
 			case SubconsciousDialogueStates.Second:
 				GD.Print("SubconsciousDialogueStates.Second");
-				_nodeTextBox.AddDialogue("That train is bad news. You’ll probably get hurt even getting on the train.");
-				_nodeTextBox.AddDialogue("You’re not strong enough to follow in the conductor’s footsteps. Don’t find him.");
+				_nodeTextBox.AddDialogue("That train is bad news. You’ll probably get hurt getting on the train.");
+				_nodeTextBox.AddDialogue("You’re not strong enough to follow in the [color=red]conductor’s[/color] footsteps. Don’t find him.");
+				_nodeTextBox.ExecuteDialogueQueue();
+				SubconsciousDialogueState = SubconsciousDialogueStates.Interaction_1;
+				break;
+			case SubconsciousDialogueStates.Interaction_1:
+				GD.Print("SubconsciousDialogueStates.Interaction_1");
+				_nodeInteractionTextBox.StartInteraction("Will you promise me that you will come back home and forget about the train station?", "No", (int)CombatSelectionOptions.Option_1);
+				_nodeInteractionTextBox.AddOption("No", (int)CombatSelectionOptions.Option_2);
+				_nodeInteractionTextBox.Execute();
+				break;
+			case SubconsciousDialogueStates.MushroomCombat_Talk:
+				_nodeInteractionTextBox.SelectedOptionId += ReactToInteractSelection_2;
+				_nodeTextBox.AddDialogue("That’s unfortunate. I can see you are not understanding my concern.");
+				_nodeTextBox.AddDialogue("Please go ahead and fight these two mushrooms. [wave amp=50 freq=6]This should show him he isn’t strong enough[/wave]");
 				_nodeTextBox.ExecuteDialogueQueue();
 				SubconsciousDialogueState = SubconsciousDialogueStates.MushroomCombat;
 				break;
-			case SubconsciousDialogueStates.MushroomCombat:
-				GD.Print("SubconsciousDialogueStates.MushroomCombat");
-				_nodeInteractionTextBox.StartInteraction("Will you promise me that you will come back home and forget about the train station?", "No", (int)CombatSelectionOptions.CombatNo_1);
-				_nodeInteractionTextBox.AddOption("No", (int)CombatSelectionOptions.CombatNo_2);
-				_nodeInteractionTextBox.Execute();
+			case SubconsciousDialogueStates.PostMushroomCombat:
+				//  todo: check context for these values
+				bool mushroomDead = true;
+				bool mushroomChat = true;
+
+				if (mushroomDead) _nodeTextBox.AddDialogue("Hmmm… those must have been the weakest fungi of all time.");
+				else if (mushroomChat) _nodeTextBox.AddDialogue("Why have they stopped expelling spores? The mind mushroom really is a pathetic species.");
+				_nodeTextBox.AddDialogue("The point is… You can’t go.");
+				_nodeTextBox.ExecuteDialogueQueue();
+				SubconsciousDialogueState = SubconsciousDialogueStates.SubconsciousCombat;
 				break;
 			default:
 				GD.Print("holyyyyyy");
@@ -131,18 +208,42 @@ public partial class Scene_TherapistOffice1 : Node3D
 		}
 	}
 
-	private void ReactToCombatSelection(int selectOption)
+	private void ReactToInteractSelection_1(int selectOption)
 	{
 		switch (selectOption)
 		{
-			case (int)CombatSelectionOptions.CombatNo_1:
-			case (int)CombatSelectionOptions.CombatNo_2:
-				var nextScene = (PackedScene)ResourceLoader.Load(_COMBAT_SCENE_MUSHROOM);
-				GetTree().ChangeSceneToPacked(nextScene);
+			case (int)CombatSelectionOptions.Option_1:
+			case (int)CombatSelectionOptions.Option_2:
+				SubconsciousDialogueState = SubconsciousDialogueStates.AutoWalk_2;
+				ProcessingAutoWalk_2 = true;
 				return;
 			default:
 				break;
 		}
+	}
+
+	private void ReactToInteractSelection_2(int selectOption)
+	{
+		switch (selectOption)
+		{
+			case (int)CombatSelectionOptions.Option_1:
+			case (int)CombatSelectionOptions.Option_2:
+				//
+				return;
+			default:
+				break;
+		}
+	}
+
+	private void HandlePostMushroomCombat(SaveStateModel context)
+	{
+		GD.Print("HandlePostMushroomCombat");
+		_nodeCameraTalk_2.MakeCurrent();
+		_nodeSubconscious.Position = new Vector3(
+			context.AdditionalStoredLocation.X,
+			context.AdditionalStoredLocation.Y,
+			context.AdditionalStoredLocation.Z
+		);
 	}
 
 	private enum TherapistDialogueStates
@@ -155,12 +256,17 @@ public partial class Scene_TherapistOffice1 : Node3D
 	{
 		First,
 		Second,
+		Interaction_1,
+		AutoWalk_2,
+		MushroomCombat_Talk,
 		MushroomCombat,
+		PostMushroomCombat,
+		SubconsciousCombat,
 	}
 
 	private enum CombatSelectionOptions
 	{
-		CombatNo_1,
-		CombatNo_2,
+		Option_1,
+		Option_2,
 	}
 }
