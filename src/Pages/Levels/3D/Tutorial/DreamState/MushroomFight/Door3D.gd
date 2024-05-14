@@ -16,5 +16,5 @@ func _ready():
 	collision.openDoor.connect(navigate)
 
 func navigate():
-	RelocationService.SetLocation(LevelEnumService.GetLevelEnums().TherapistOffice1, _nodeDoor.position.x, _nodeDoor.position.y, _nodeDoor.position.z)
+	RelocationService.SetLocation(LevelEnumService.GetLevelEnums().TherapistOffice1, _nodeDoor.position.x, _nodeDoor.position.y, _nodeDoor.position.z - 0.3)
 	get_tree().change_scene_to_packed(_SCENE)

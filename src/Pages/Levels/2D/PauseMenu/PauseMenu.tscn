@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://dwlmfdqio1b4g"]
+
+[ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="1_qhifn"]
+[ext_resource type="Script" path="res://Pages/Levels/2D/PauseMenu/PauseMenu.cs" id="1_ydbks"]
+[ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="2_ax5f1"]
+[ext_resource type="Script" path="res://Pages/Levels/2D/PauseMenu/OpenPauseMenuListener.cs" id="4_ld4sp"]
+
+[sub_resource type="Theme" id="Theme_whrd5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lix2n"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_daipw"]
+font = ExtResource("1_qhifn")
+font_size = 224
+
+[sub_resource type="LabelSettings" id="LabelSettings_61fgv"]
+font = ExtResource("2_ax5f1")
+font_size = 88
+
+[node name="PauseMenu" type="Node2D"]
+visible = false
+script = ExtResource("1_ydbks")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 2048.0
+offset_bottom = 1024.0
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_top = 160
+theme_override_constants/margin_right = 300
+theme_override_constants/margin_bottom = 160
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_whrd5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_lix2n")
+
+[node name="Label" type="Label" parent="MarginContainer/Panel"]
+layout_mode = 0
+offset_left = 397.0
+offset_top = 206.0
+offset_right = 1447.0
+offset_bottom = 606.0
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_daipw")
+
+[node name="Label2" type="Label" parent="MarginContainer/Panel"]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 431.0
+offset_right = 1072.0
+offset_bottom = 533.0
+text = "Press escape to resume."
+label_settings = SubResource("LabelSettings_61fgv")
+
+[node name="OpenClosePauseMenuListener" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("4_ld4sp")

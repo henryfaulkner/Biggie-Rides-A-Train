@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7a2u8logiptn"]
+[gd_scene load_steps=5 format=3 uid="uid://c7a2u8logiptn"]
 
 [ext_resource type="Texture2D" uid="uid://bynul23x74yr5" path="res://Assets/Images/PrototypeTextures/Light/texture_07.png" id="1_cum6f"]
+[ext_resource type="PackedScene" uid="uid://dwlmfdqio1b4g" path="res://Pages/Levels/2D/PauseMenu/PauseMenu.tscn" id="2_4p3cd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t6jgb"]
 albedo_texture = ExtResource("1_cum6f")
@@ -20,3 +21,5 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("PlaneMesh_ld4e8")
 skeleton = NodePath("../..")
+
+[node name="PauseMenu" parent="." instance=ExtResource("2_4p3cd")]
