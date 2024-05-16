@@ -44,17 +44,10 @@ public partial class Enumerations
 				ChatterTextBox_FromBiggieFightBite = 33,
 				TransitionToChatterTextBox_FromEnemyAttack = 34,
 				ChatterTextBox_FromEnemyAttack = 35,
-				TransitionToChatterTextBox_FromDefeatChatter_Ask = 36,
-				ChatterTextBox_FromDefeatChatter_Ask = 37,
-
-				TransitionToChatterTextBox_FromDefeatChatter_Charm = 38,
-				ChatterTextBox_FromDefeatChatter_Charm = 39,
-
-				TransitionToChatterTextBox_FromDefeatChatter_Scratch = 40,
-				ChatterTextBox_FromDefeatChatter_Scratch = 41,
-
-				TransitionToChatterTextBox_FromDefeatChatter_Bite = 42,
-				ChatterTextBox_FromDefeatChatter_Bite = 43,
+				TargetEnemy_FromBiggieChatAsk = 36,
+				TargetEnemy_FromBiggieChatCharm = 37,
+				TargetEnemy_FromBiggieFightScratch = 38,
+				TargetEnemy_FromBiggieFightBite = 39,
 			}
 
 			public enum Events
@@ -75,10 +68,11 @@ public partial class Enumerations
 				ShowChatterTextBox_SelectChatCharm = 13,
 				ShowChatterTextBox_SelectFightScratch = 14,
 				ShowChatterTextBox_SelectFightBite = 15,
-				DefeatChatter_Ask = 16,
-				DefeatChatter_Charm = 17,
-				DefeatChatter_Scratch = 18,
-				DefeatChatter_Bite = 19,
+				TargetEnemy_Ask = 16,
+				TargetEnemy_Charm = 17,
+				TargetEnemy_Scratch = 18,
+				TargetEnemy_Bite = 19,
+				FinishTargetEnemy = 20,
 			}
 		}
 

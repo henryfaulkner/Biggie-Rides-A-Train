@@ -1,11 +1,16 @@
 {
   "StoredLocation": {
-    "SceneId": 4,
-    "X": 10.0,
-    "Y": 0.0,
-    "Z": 0.0
+    "SceneId": 5,
+    "X": 27.548,
+    "Y": 0.5,
+    "Z": 1.6230643
   },
-  "AdditionalStoredLocation": null,
+  "AdditionalStoredLocation": {
+    "SceneId": 5,
+    "X": 31.320942,
+    "Y": 1.01034,
+    "Z": 1.36217
+  },
   "HasItemTicketPieceOne": false,
   "HasItemTicketPieceTwo": false,
   "HasItemTicketPieceThree": false,
@@ -19,9 +24,9 @@
   "DialogueStateChess": 0,
   "DialogueStateTherapist": 0,
   "DialogueStateDJ": 0,
-  "DialogueStateSubconscious": 0,
-  "IsSwitchDoorOpen": true,
-  "IsButtonDoorOpen": true,
-  "IsMushroomDead": false,
+  "DialogueStateSubconscious": 6,
+  "IsSwitchDoorOpen": false,
+  "IsButtonDoorOpen": false,
+  "IsMushroomDead": true,
   "IsMushroomMoved": false
 }

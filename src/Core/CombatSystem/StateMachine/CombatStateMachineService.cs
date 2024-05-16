@@ -145,7 +145,11 @@ public partial class CombatStateMachineService : Node
 		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieFightBite),
 		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromBiggieFightBite),
 		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromEnemyAttack),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromEnemyAttack)
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromEnemyAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieChatAsk),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieChatCharm),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieFightScratch),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieFightBite)
 	};
 		return result;
 	}
@@ -167,11 +171,15 @@ public partial class CombatStateMachineService : Node
 			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectChatCharm
 			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectFightBite
 			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectFightScratch
-			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromEnemyAttack
-			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromDefeatChatter_Ask
-			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromDefeatChatter_Charm
-			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromDefeatChatter_Scratch
-			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromDefeatChatter_Bite;
+			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromEnemyAttack;
+	}
+
+	public bool IsATargetEnemyTransition(Enumerations.Combat.StateMachine.States stateId)
+	{
+		return stateId == Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieChatAsk
+			|| stateId == Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieChatCharm
+			|| stateId == Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieFightBite
+			|| stateId == Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieFightScratch;
 	}
 
 	private static readonly StringName _COMBAT_EVENT = new StringName("CombatEvent");

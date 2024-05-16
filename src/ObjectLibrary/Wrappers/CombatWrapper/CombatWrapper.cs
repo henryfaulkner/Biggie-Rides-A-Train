@@ -203,6 +203,10 @@ public partial class CombatWrapper : Node2D
 				}
 			}
 		}
+		else if (_globalCombatSingleton.CombatStateMachineService.IsATargetEnemyTransition(currStateId))
+		{
+			GD.Print("Hello World");
+		}
 	}
 
 	[Signal]

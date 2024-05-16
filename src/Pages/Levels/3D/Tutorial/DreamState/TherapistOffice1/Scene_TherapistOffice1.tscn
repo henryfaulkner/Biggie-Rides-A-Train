@@ -65,7 +65,6 @@ size = Vector3(10, 1, 1)
 size = Vector3(1, 1, 5.35159)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ku23t"]
-size = Vector3(6, 4, 10)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_eh2i7"]
 _surfaces = [{

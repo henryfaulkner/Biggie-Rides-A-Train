@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class CombatSceneMushroomBattle_2 : Node2D
 {
@@ -18,6 +19,10 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 	private ProgressBar _nodeBiggieHealthBar = null;
 	private Label _nodeBiggieHpValueLabel = null;
 
+	private Node _nodeMushroomTarget1 = null;
+	private Node _nodeMushroomTarget2 = null;
+	public List<Node> EnemyTargetList { get; set; }
+
 	private CombatSingleton _globalCombatSingleton = null;
 	private SaveStateService _serviceSaveState = null;
 
@@ -31,6 +36,14 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		_nodeChatterTextBox = GetNode<ChatterTextBox>("./CombatWrapper/ChatterTextBox");
 		_nodeBiggieHealthBar = GetNode<ProgressBar>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
 		_nodeBiggieHpValueLabel = GetNode<Label>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/HpValueLabel");
+
+		_nodeMushroomTarget1 = GetNode<Node>("./CombatWrapper/MushroomTarget1");
+		_nodeMushroomTarget2 = GetNode<Node>("./CombatWrapper/MushroomTarget2");
+		EnemyTargetList = new List<Node>()
+		{
+			_nodeMushroomTarget1,
+			_nodeMushroomTarget2,
+		};
 
 		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
@@ -89,16 +102,44 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		switch (combatOption)
 		{
 			case Enumerations.Combat.CombatOptions.Ask:
-				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatAsk);
+				if (EnemyTargetList.Count > 0)
+				{
+					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.TargetEnemy_Ask);
+				}
+				else
+				{
+					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatAsk);
+				}
 				break;
 			case Enumerations.Combat.CombatOptions.Charm:
-				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatCharm);
+				if (EnemyTargetList.Count > 0)
+				{
+					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.TargetEnemy_Charm);
+				}
+				else
+				{
+					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatCharm);
+				}
 				break;
 			case Enumerations.Combat.CombatOptions.Scratch:
-				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightScratch);
+				if (EnemyTargetList.Count > 0)
+				{
+					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.TargetEnemy_Scratch);
+				}
+				else
+				{
+					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightScratch);
+				}
 				break;
 			case Enumerations.Combat.CombatOptions.Bite:
-				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightBite);
+				if (EnemyTargetList.Count > 0)
+				{
+					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.TargetEnemy_Bite);
+				}
+				else
+				{
+					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightBite);
+				}
 				break;
 			default:
 				GD.Print("CombatSceneDjBattle.EndBiggieCombatMenuTurn: Could not map combat options");
