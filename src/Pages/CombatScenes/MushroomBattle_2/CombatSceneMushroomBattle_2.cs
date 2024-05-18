@@ -48,6 +48,8 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 		_globalCombatSingleton.NewBattle(_MAX_HEALTH_PHYSICAL_BIGGIE, _MAX_HEALTH_PHYSICAL_MUSHROOM, _MAX_HEALTH_EMOTIONAL_MUSHROOM);
+		_globalCombatSingleton.AddEnemyTarget(0, _nodeMushroomTarget1, 12, 8);
+		_globalCombatSingleton.AddEnemyTarget(1, _nodeMushroomTarget2, 8, 12);
 		_globalCombatSingleton.CombatStateMachineService.SetCheckChatterConditions(CheckChatterConditions);
 		ChangeBiggieHealthBar();
 

@@ -18,6 +18,8 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 	private ProgressBar _nodeBiggieHealthBar = null;
 	private Label _nodeBiggieHpValueLabel = null;
 
+	private Node _nodeMushroomTarget1 = null;
+
 	private CombatSingleton _globalCombatSingleton = null;
 	private SaveStateService _serviceSaveState = null;
 
@@ -31,10 +33,12 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 		_nodeChatterTextBox = GetNode<ChatterTextBox>("./CombatWrapper/ChatterTextBox");
 		_nodeBiggieHealthBar = GetNode<ProgressBar>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
 		_nodeBiggieHpValueLabel = GetNode<Label>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/HpValueLabel");
+		_nodeMushroomTarget1 = GetNode<Node>("./CombatWrapper/MushroomTarget1");
 
 		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 		_globalCombatSingleton.NewBattle(_MAX_HEALTH_PHYSICAL_BIGGIE, _MAX_HEALTH_PHYSICAL_MUSHROOM, _MAX_HEALTH_EMOTIONAL_MUSHROOM);
+		_globalCombatSingleton.AddEnemyTarget(0, _nodeMushroomTarget1, 9, 9);
 		_globalCombatSingleton.CombatStateMachineService.SetCheckChatterConditions(CheckChatterConditions);
 		ChangeBiggieHealthBar();
 

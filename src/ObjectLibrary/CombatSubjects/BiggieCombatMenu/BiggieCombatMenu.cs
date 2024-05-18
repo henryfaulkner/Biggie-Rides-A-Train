@@ -10,6 +10,7 @@ public partial class BiggieCombatMenu : CanvasLayer
 	private BasePageBasePanel _nodeBasePagePanel = null;
 	private ChatPageBasePanel _nodeChatPagePanel = null;
 	private FightPageBasePanel _nodeFightPagePanel = null;
+	private TargetingPagePanel _nodeTargetingPagePanel = null;
 
 	private CombatSingleton _globalCombatSingleton = null;
 
@@ -20,6 +21,7 @@ public partial class BiggieCombatMenu : CanvasLayer
 		_nodeBasePagePanel = GetNode<BasePageBasePanel>("./TextBoxContainer/BasePagePanel");
 		_nodeChatPagePanel = GetNode<ChatPageBasePanel>("./TextBoxContainer/ChatPagePanel");
 		_nodeFightPagePanel = GetNode<FightPageBasePanel>("./TextBoxContainer/FightPagePanel");
+		_nodeTargetingPagePanel = GetNode<TargetingPagePanel>("./TextBoxContainer/TargetingPagePanel");
 
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 
@@ -41,11 +43,13 @@ public partial class BiggieCombatMenu : CanvasLayer
 
 	public override void _Process(double delta)
 	{
-		//if (Input.IsActionJustPressed(_INTERACT_INPUT))
-		//{
-		//////GD.Print("Interact Input");
-		//HandleInteraction();
-		//}
+		if (_nodeTargetingPagePanel.IsTargeting
+			&& _globalCombatSingleton.CombatStateMachineService.IsATargetEnemyTransition(
+				_globalCombatSingleton.CombatStateMachineService.CurrentCombatState.Id
+			))
+		{
+			_nodeTargetingPagePanel.IsTargeting = true;
+		}
 	}
 
 	public void StartTurn()
