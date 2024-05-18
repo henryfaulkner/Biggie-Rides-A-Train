@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://d1x1etb0wuxsc"]
+[gd_scene load_steps=28 format=3 uid="uid://d1x1etb0wuxsc"]
 
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/ButtonRoom/Scene_ButtonRoom.cs" id="1_2ugpi"]
 [ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_6mrti"]
@@ -15,9 +15,12 @@
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/ButtonRoom/NearDoor3D.gd" id="10_4u6ov"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="10_deoob"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="11_5okmm"]
+[ext_resource type="Texture2D" uid="uid://cgq1qyeaq5l4g" path="res://Assets/Images/Objects/CatPaw.png" id="16_r66bm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sneph"]
 albedo_texture = ExtResource("4_7bn0r")
+refraction_enabled = true
+refraction_texture = ExtResource("4_7bn0r")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7dx1x"]
 material = SubResource("StandardMaterial3D_sneph")
@@ -72,13 +75,19 @@ script = ExtResource("1_2ugpi")
 
 [node name="TextBoxWrapper" parent="LevelWrapper" instance=ExtResource("2_snkrx")]
 
-[node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("3_7bbt2")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 2.10677, 0.5, 0.885)
+[node name="Node3D3" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.107, 0.5, 1.696)
+
+[node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper/Node3D3" instance=ExtResource("3_7bbt2")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="Camera3D" parent="LevelWrapper/TextBoxWrapper/Node3D3" instance=ExtResource("7_kk02u")]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0.809, 1.25, 3.661)
 
 [node name="Facade" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
 
 [node name="Floor" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
-transform = Transform3D(10, 0, 0, 0, 4, 0, 0, 0, 1, 9.75025, 0, 1.67287)
+transform = Transform3D(12, 0, 0, 0, 4, 0, 0, 0, 2, 9.75025, 0, 0.852364)
 mesh = SubResource("PlaneMesh_7dx1x")
 skeleton = NodePath("")
 
@@ -142,19 +151,95 @@ texture = ExtResource("4_7bn0r")
 region_rect = Rect2i(0, 0, 1, 1)
 generated_sprite_mesh = SubResource("Resource_cdjme")
 
-[node name="PressurePlate1" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("9_tatfy")]
+[node name="PressurePlates" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 4.495, 2.224, 0.2)
 
-[node name="PressurePlate2" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("9_tatfy")]
-transform = Transform3D(0.4, 0, 0, 0, 0.0999996, 0.00111003, 0, -0.000277507, 0.399998, 5.36, 0, 1.485)
+[node name="PressurePlate1" parent="LevelWrapper/TextBoxWrapper/PressurePlates" instance=ExtResource("9_tatfy")]
+transform = Transform3D(0.4, 0, 0, 0, 0.0999996, 0.00111003, 0, -0.000277507, 0.399998, 0.36, 0, 1.479)
+skeleton = NodePath("../..")
 
-[node name="PressurePlate3" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("9_tatfy")]
-transform = Transform3D(0.4, 0, 0, 0, 0.0999996, 0.00111003, 0, -0.000277507, 0.399998, 6.10032, 0, 2.04932)
+[node name="PressurePlate2" parent="LevelWrapper/TextBoxWrapper/PressurePlates" instance=ExtResource("9_tatfy")]
+transform = Transform3D(0.4, 0, 0, 0, 0.0999996, 0.00111003, 0, -0.000277507, 0.399998, 0.36, 0, 0.485)
+skeleton = NodePath("../..")
 
-[node name="PressurePlate4" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("9_tatfy")]
-transform = Transform3D(0.4, 0, 0, 0, 0.0999996, 0.00111003, 0, -0.000277507, 0.399998, 6.90135, 0, 2.4792)
+[node name="PressurePlate3" parent="LevelWrapper/TextBoxWrapper/PressurePlates" instance=ExtResource("9_tatfy")]
+transform = Transform3D(0.4, 0, 0, 0, 0.0999996, 0.00111003, 0, -0.000277507, 0.399998, 1.1, 0, 1.049)
+skeleton = NodePath("../..")
 
-[node name="PressurePlate5" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("9_tatfy")]
-transform = Transform3D(0.4, 0, 0, 0, 0.0999996, 0.00111003, 0, -0.000277507, 0.399998, 6.82323, 0, 1.51866)
+[node name="PressurePlate4" parent="LevelWrapper/TextBoxWrapper/PressurePlates" instance=ExtResource("9_tatfy")]
+transform = Transform3D(0.4, 0, 0, 0, 0.0999996, 0.00111003, 0, -0.000277507, 0.399998, 1.901, 0, 1.479)
+skeleton = NodePath("../..")
+
+[node name="PressurePlate5" parent="LevelWrapper/TextBoxWrapper/PressurePlates" instance=ExtResource("9_tatfy")]
+transform = Transform3D(0.4, 0, 0, 0, 0.0999996, 0.00111003, 0, -0.000277507, 0.399998, 1.823, 0, 0.519)
+skeleton = NodePath("../..")
+
+[node name="Node3D" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0436416)
+
+[node name="PawPrint1" type="Sprite3D" parent="LevelWrapper/TextBoxWrapper/Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.63553, 0.1, 0.816254)
+pixel_size = 0.0005
+texture = ExtResource("16_r66bm")
+
+[node name="PawPrint2" type="Sprite3D" parent="LevelWrapper/TextBoxWrapper/Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.87894, 0.1, 0.937451)
+pixel_size = 0.0005
+texture = ExtResource("16_r66bm")
+
+[node name="PawPrint3" type="Sprite3D" parent="LevelWrapper/TextBoxWrapper/Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.63553, 0.1, 1.11299)
+pixel_size = 0.0005
+texture = ExtResource("16_r66bm")
+
+[node name="PawPrint4" type="Sprite3D" parent="LevelWrapper/TextBoxWrapper/Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.87072, 0.1, 1.21735)
+pixel_size = 0.0005
+texture = ExtResource("16_r66bm")
+
+[node name="PawPrint5" type="Sprite3D" parent="LevelWrapper/TextBoxWrapper/Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.88726, 0.1, 0.68436)
+pixel_size = 0.0005
+texture = ExtResource("16_r66bm")
+
+[node name="PawPrint6" type="Sprite3D" parent="LevelWrapper/TextBoxWrapper/Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.63553, 0.1, 0.550956)
+pixel_size = 0.0005
+texture = ExtResource("16_r66bm")
+
+[node name="Node3D2" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.4, 0.147)
+
+[node name="PawPrint1" type="Sprite3D" parent="LevelWrapper/TextBoxWrapper/Node3D2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.63553, 0.1, 0.816254)
+pixel_size = 0.0005
+texture = ExtResource("16_r66bm")
+
+[node name="PawPrint2" type="Sprite3D" parent="LevelWrapper/TextBoxWrapper/Node3D2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.87894, 0.1, 0.937451)
+pixel_size = 0.0005
+texture = ExtResource("16_r66bm")
+
+[node name="PawPrint3" type="Sprite3D" parent="LevelWrapper/TextBoxWrapper/Node3D2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.63553, 0.1, 1.11299)
+pixel_size = 0.0005
+texture = ExtResource("16_r66bm")
+
+[node name="PawPrint4" type="Sprite3D" parent="LevelWrapper/TextBoxWrapper/Node3D2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.8746, 0.1, 1.21735)
+pixel_size = 0.0005
+texture = ExtResource("16_r66bm")
+
+[node name="PawPrint5" type="Sprite3D" parent="LevelWrapper/TextBoxWrapper/Node3D2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.88726, 0.1, 0.68436)
+pixel_size = 0.0005
+texture = ExtResource("16_r66bm")
+
+[node name="PawPrint6" type="Sprite3D" parent="LevelWrapper/TextBoxWrapper/Node3D2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.63553, 0.1, 0.550956)
+pixel_size = 0.0005
+texture = ExtResource("16_r66bm")
 
 [node name="Camera3D" parent="LevelWrapper" instance=ExtResource("7_kk02u")]
-transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 2.90922, 1.75, 4.45)
+transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 6.69935, 3.52113, 6.16206)
+script = null

@@ -24,10 +24,10 @@ public partial class FramedLevelCamera : Camera3D
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Camera3D>(".");
-		_nodeBiggie = GetNode<CharacterBody3D>("../TextBoxWrapper/Biggie3D");
-		_nodeRightMostBarrier = GetNode<StaticBody3D>("../TextBoxWrapper/SceneBorders/RightMostBarrier");
-		_nodeBottomMostBarrier = GetNode<StaticBody3D>("../TextBoxWrapper/SceneBorders/BottomMostBarrier");
-		_nodeLeftMostBarrier = GetNode<StaticBody3D>("../TextBoxWrapper/SceneBorders/LeftMostBarrier");
+		_nodeBiggie = GetNode<CharacterBody3D>("../Biggie3D");
+		_nodeRightMostBarrier = GetNode<StaticBody3D>("../../SceneBorders/RightMostBarrier");
+		_nodeBottomMostBarrier = GetNode<StaticBody3D>("../../SceneBorders/BottomMostBarrier");
+		_nodeLeftMostBarrier = GetNode<StaticBody3D>("../../SceneBorders/LeftMostBarrier");
 
 		RightLimit = _nodeRightMostBarrier.Position.X + _CAMERA_BARRIER_TOLERANCE_RIGHT;
 		LeftLimit = _nodeLeftMostBarrier.Position.X + _CAMERA_BARRIER_TOLERANCE_LEFT;

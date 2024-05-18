@@ -20,11 +20,11 @@ public partial class Scene_ButtonRoom : Node3D
 
 	public override void _Ready()
 	{
-		_nodePressurePlate1 = GetNode<PressurePlate>("LevelWrapper/TextBoxWrapper/PressurePlate1");
-		_nodePressurePlate2 = GetNode<PressurePlate>("LevelWrapper/TextBoxWrapper/PressurePlate2");
-		_nodePressurePlate3 = GetNode<PressurePlate>("LevelWrapper/TextBoxWrapper/PressurePlate3");
-		_nodePressurePlate4 = GetNode<PressurePlate>("LevelWrapper/TextBoxWrapper/PressurePlate4");
-		_nodePressurePlate5 = GetNode<PressurePlate>("LevelWrapper/TextBoxWrapper/PressurePlate5");
+		_nodePressurePlate1 = GetNode<PressurePlate>("LevelWrapper/TextBoxWrapper/PressurePlates/PressurePlate1");
+		_nodePressurePlate2 = GetNode<PressurePlate>("LevelWrapper/TextBoxWrapper/PressurePlates/PressurePlate2");
+		_nodePressurePlate3 = GetNode<PressurePlate>("LevelWrapper/TextBoxWrapper/PressurePlates/PressurePlate3");
+		_nodePressurePlate4 = GetNode<PressurePlate>("LevelWrapper/TextBoxWrapper/PressurePlates/PressurePlate4");
+		_nodePressurePlate5 = GetNode<PressurePlate>("LevelWrapper/TextBoxWrapper/PressurePlates/PressurePlate5");
 		_nodePressurePlate1.Pressed += () =>
 		{
 			bitPressurePlate1 = true;
