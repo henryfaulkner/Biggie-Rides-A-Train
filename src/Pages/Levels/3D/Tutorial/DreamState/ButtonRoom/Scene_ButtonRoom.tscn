@@ -17,14 +17,13 @@
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="11_5okmm"]
 [ext_resource type="Texture2D" uid="uid://cgq1qyeaq5l4g" path="res://Assets/Images/Objects/CatPaw.png" id="16_r66bm"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sneph"]
-albedo_texture = ExtResource("4_7bn0r")
-refraction_enabled = true
-refraction_texture = ExtResource("4_7bn0r")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ni64i"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7dx1x"]
-material = SubResource("StandardMaterial3D_sneph")
+material = SubResource("ShaderMaterial_ni64i")
 size = Vector2(2, 4)
+subdivide_width = 32
+subdivide_depth = 32
 center_offset = Vector3(0, 0.01, 0)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rsecl"]
@@ -34,6 +33,9 @@ uv1_scale = Vector3(10, 10, 10)
 [sub_resource type="BoxMesh" id="BoxMesh_ogvhs"]
 material = SubResource("StandardMaterial3D_rsecl")
 size = Vector3(10, 5, 10)
+subdivide_width = 32
+subdivide_height = 32
+subdivide_depth = 32
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v5kss"]
 size = Vector3(10, 1, 1)

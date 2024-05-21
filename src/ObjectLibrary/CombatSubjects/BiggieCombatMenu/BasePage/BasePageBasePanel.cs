@@ -20,8 +20,8 @@ public partial class BasePageBasePanel : Panel
 	private Label _nodeActionTitleLabel = null;
 	private Label _nodeActionEffectLabel = null;
 	private Label _nodeActionDescriptionLabel = null;
-	private AudioStreamPlayer _nodeSelectAudio = null;
-	private AudioStreamPlayer _nodeSwitchAudio = null;
+	private AudioStreamPlayer _audioSelect = null;
+	private AudioStreamPlayer _audioSwitch = null;
 
 	private SelectionHelper SelectionHelperInstance { get; set; }
 	public bool IsOpen { get; set; }
@@ -43,8 +43,8 @@ public partial class BasePageBasePanel : Panel
 		_nodeActionTitleLabel = GetNode<Label>("../../../HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionName");
 		_nodeActionEffectLabel = GetNode<Label>("../../../HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionEffect");
 		_nodeActionDescriptionLabel = GetNode<Label>("../../../HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/ActionDescription");
-		_nodeSelectAudio = GetNode<AudioStreamPlayer>("../Select_AudioStreamPlayer");
-		_nodeSwitchAudio = GetNode<AudioStreamPlayer>("../Switch_AudioStreamPlayer");
+		_audioSelect = GetNode<AudioStreamPlayer>("../Select_AudioStreamPlayer");
+		_audioSwitch = GetNode<AudioStreamPlayer>("../Switch_AudioStreamPlayer");
 
 		SelectionHelperInstance = new SelectionHelper();
 		SelectionHelperInstance.AddOption(-1, (int)Enumerations.Combat.BasePagePanelOptions.Fight, true, _nodeFightSelectionPanel, _nodeFightOptionLabel);
@@ -72,21 +72,21 @@ public partial class BasePageBasePanel : Panel
 		{
 			if (Input.IsActionJustPressed(_INTERACT_INPUT))
 			{
-				_nodeSelectAudio.Play();
+				_audioSelect.Play();
 				EmitSignal(SignalName.SelectBase, SelectionHelperInstance.GetSelectedOptionId());
 			}
 
 			if (Input.IsActionJustPressed(_LEFT_INPUT))
 			{
 				//GD.Print("Left Input");
-				_nodeSwitchAudio.Play();
+				_audioSwitch.Play();
 				SelectionHelperInstance.ShiftSelectionLeft();
 				ProcessSelection();
 			}
 			if (Input.IsActionJustPressed(_RIGHT_INPUT))
 			{
 				//GD.Print("Right Input");
-				_nodeSwitchAudio.Play();
+				_audioSwitch.Play();
 				SelectionHelperInstance.ShiftSelectionRight();
 				ProcessSelection();
 			}

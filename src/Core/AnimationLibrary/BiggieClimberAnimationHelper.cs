@@ -41,10 +41,14 @@ public class BiggieClimberAnimationHelper
 		XOriginAxis = new Vector3(1, 0, 0);
 		ZOriginAxis = new Vector3(0, 0, 1);
 		// 1.5708 radians is equivalent to 90 degrees
-		//ForwardTargetRotation = new Transform3D.Rotated(ZOriginAxis, 1.5708f);
-		//RightTargetRotation = new Transform3D.Rotated(XOriginAxis, 1.5708f);
-		//BackwardTargetRotation = new Transform3D.Rotated(ZOriginAxis, -1.5708f);
-		//LeftTargetRotation = new Transform3D.Rotated(XOriginAxis, -1.5708f);
+		ForwardTargetRotation = new Transform3D();
+		ForwardTargetRotation.Rotated(ZOriginAxis, 1.5708f);
+		RightTargetRotation = new Transform3D();
+		RightTargetRotation.Rotated(XOriginAxis, 1.5708f);
+		BackwardTargetRotation = new Transform3D();
+		BackwardTargetRotation.Rotated(ZOriginAxis, -1.5708f);
+		LeftTargetRotation = new Transform3D();
+		LeftTargetRotation.Rotated(XOriginAxis, -1.5708f);
 
 		DefaultFloor = defaultFloor;
 		DefaultCeiling = defaultCeiling;
@@ -79,6 +83,16 @@ public class BiggieClimberAnimationHelper
 	}
 
 	private void RevealAllWalls()
+	{
+		RevealSpecifiedWall(DefaultFloor);
+		RevealSpecifiedWall(DefaultCeiling);
+		RevealSpecifiedWall(DefaultForwardWall);
+		RevealSpecifiedWall(DefaultRightWall);
+		RevealSpecifiedWall(DefaultBackwardWall);
+		RevealSpecifiedWall(DefaultLeftWall);
+	}
+
+	private void RevealSpecifiedWall(Node wall)
 	{
 
 	}

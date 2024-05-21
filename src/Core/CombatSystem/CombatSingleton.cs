@@ -12,7 +12,7 @@ public partial class CombatSingleton : Node
 
 	private CombatBiggieModel BiggiePhysical { get; set; }
 	private CombatParticipantModel EnemyPhysical { get; set; }
-	private List<EnemyTarget> EnemyTargetList { get; set; }
+	public List<EnemyTarget> EnemyTargetList { get; set; }
 
 	public CombatSingleton()
 	{
@@ -32,11 +32,12 @@ public partial class CombatSingleton : Node
 		//GD.Print("End NewBattle");
 	}
 
-	//FOR THE COMPILER
+	#region FOR THE COMPILER; DEPRECATE THIS!
 	private CombatParticipantModel EnemyEmotional { get; set; }
 	public BiggieAttackProxy BiggiePhysicalAttackProxy { get; set; }
 	public BiggieAttackProxy BiggieEmotionalAttackProxy { get; set; }
 	public void NewBattle(double totalBiggiePhysicalHealth, double totalEnemyPhysicalHealth, double totalEnemyEmotionalHealth) { }
+	#endregion
 
 	public void AddEnemyTarget(int id, Node targetNode, double totalEnemyPhysicalHealth, double totalEnemyEmotionalHealth)
 	{
