@@ -19,6 +19,7 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 	private Label _nodeBiggieHpValueLabel = null;
 
 	private Node _nodeMushroomTarget1 = null;
+	private Panel _nodeMushroomTarget1Panel = null;
 
 	private CombatSingleton _globalCombatSingleton = null;
 	private SaveStateService _serviceSaveState = null;
@@ -33,12 +34,14 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 		_nodeChatterTextBox = GetNode<ChatterTextBox>("./CombatWrapper/ChatterTextBox");
 		_nodeBiggieHealthBar = GetNode<ProgressBar>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
 		_nodeBiggieHpValueLabel = GetNode<Label>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/HpValueLabel");
-		_nodeMushroomTarget1 = GetNode<Node>("./CombatWrapper/MushroomTarget1");
+		_nodeMushroomTarget1 = GetNode<Node>("./CombatWrapper/Panel/MushroomTarget1");
+		_nodeMushroomTarget1Panel = GetNode<Panel>("./CombatWrapper/Panel");
 
 		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 		_globalCombatSingleton.NewBattle(_MAX_HEALTH_PHYSICAL_BIGGIE, _MAX_HEALTH_PHYSICAL_MUSHROOM, _MAX_HEALTH_EMOTIONAL_MUSHROOM);
-		_globalCombatSingleton.AddEnemyTarget(0, _nodeMushroomTarget1, 9, 9);
+		if (_globalCombatSingleton.EnemyPhysicalAttackProxy == null) GD.Print("ready cum");
+		_globalCombatSingleton.AddEnemyTarget(0, _nodeMushroomTarget1Panel, 9, 9);
 		_globalCombatSingleton.CombatStateMachineService.SetCheckChatterConditions(CheckChatterConditions);
 		ChangeBiggieHealthBar();
 
@@ -77,13 +80,13 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 		_nodeBiggieCombatMenu.Visible = false;
 		_nodeBiggieCombatMenu.EndTurn();
 
-		if (_globalCombatSingleton.BiggiePhysicalAttackProxy.IsTargetDefeated())
+		if (_globalCombatSingleton.EnemyTargetList[0].BiggiePhysicalAttackProxy.IsTargetDefeated())
 		{
 			//GD.Print("Dj Physical Defeat");
 			HandleMushroomPhysicalDefeat();
 			return;
 		}
-		if (_globalCombatSingleton.BiggieEmotionalAttackProxy.IsTargetDefeated())
+		if (_globalCombatSingleton.EnemyTargetList[0].BiggieEmotionalAttackProxy.IsTargetDefeated())
 		{
 			//GD.Print("Dj Emotional Defeat");
 			HandleMushroomEmotionalDefeat();
@@ -162,8 +165,8 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 
 		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieChatAsk)
 		{
-			var enemyEmotionalHealthPercentage = _globalCombatSingleton.BiggieEmotionalAttackProxy.GetTargetHealthPercentage();
-			if (enemyEmotionalHealthPercentage > 50 && !ask1)
+			var enemyEmotionalHealthPercentage = _globalCombatSingleton.EnemyTargetList[0].BiggieEmotionalAttackProxy.GetTargetHealthPercentage();
+			if (enemyEmotionalHealthPercentage > 0.50f && !ask1)
 			{
 				_nodeChatterTextBox.AddDialogue("You ask whether the mushroom would prefer a spot away from the door.");
 				_nodeChatterTextBox.AddDialogue("You get no response.");
@@ -184,7 +187,7 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 				ask2 = true;
 				return true;
 			}
-			else if (_globalCombatSingleton.BiggieEmotionalAttackProxy.IsTargetDefeated())
+			else if (_globalCombatSingleton.EnemyTargetList[0].BiggieEmotionalAttackProxy.IsTargetDefeated())
 			{
 				_nodeChatterTextBox.AddDialogue("Persuaded by Biggie’s suggestion, the mushroom decides to move to the damp spot 2 feet away. The mycelium colony may remember this.");
 				_nodeChatterTextBox.ExecuteDialogueQueue();
@@ -194,8 +197,8 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 
 		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieChatCharm)
 		{
-			var enemyEmotionalHealthPercentage = _globalCombatSingleton.BiggieEmotionalAttackProxy.GetTargetHealthPercentage();
-			if (enemyEmotionalHealthPercentage > 50 && !charm1)
+			var enemyEmotionalHealthPercentage = _globalCombatSingleton.EnemyTargetList[0].BiggieEmotionalAttackProxy.GetTargetHealthPercentage();
+			if (enemyEmotionalHealthPercentage > 0.50f && !charm1)
 			{
 				_nodeChatterTextBox.AddDialogue("The mushroom does not respond to your romantic gestures.");
 				if (!explainSpore)
@@ -214,7 +217,7 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 				charm2 = true;
 				return true;
 			}
-			else if (_globalCombatSingleton.BiggieEmotionalAttackProxy.IsTargetDefeated())
+			else if (_globalCombatSingleton.EnemyTargetList[0].BiggieEmotionalAttackProxy.IsTargetDefeated())
 			{
 				_nodeChatterTextBox.AddDialogue("Taken by Biggie’s grace, the mushroom decides to let him pass. The mycelium colony may remember this.");
 				_nodeChatterTextBox.ExecuteDialogueQueue();
@@ -224,8 +227,8 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 
 		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieFightScratch)
 		{
-			var enemyPhysicalHealthPercentage = _globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage();
-			if (enemyPhysicalHealthPercentage > 50 & !scratch1)
+			var enemyPhysicalHealthPercentage = _globalCombatSingleton.EnemyTargetList[0].BiggiePhysicalAttackProxy.GetTargetHealthPercentage();
+			if (enemyPhysicalHealthPercentage > 0.50f & !scratch1)
 			{
 				_nodeChatterTextBox.AddDialogue("The scratches irritate the mushroom. She seems a little more red than before.");
 				if (!explainSpore)
@@ -244,7 +247,7 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 				scratch2 = true;
 				return true;
 			}
-			else if (_globalCombatSingleton.BiggiePhysicalAttackProxy.IsTargetDefeated())
+			else if (_globalCombatSingleton.EnemyTargetList[0].BiggiePhysicalAttackProxy.IsTargetDefeated())
 			{
 				_nodeChatterTextBox.AddDialogue("Mushroom crumbs are scattered about the floor. The mycelium colony may remember this.");
 				_nodeChatterTextBox.ExecuteDialogueQueue();
@@ -254,8 +257,8 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 
 		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieFightBite)
 		{
-			var enemyPhysicalHealthPercentage = _globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage();
-			if (enemyPhysicalHealthPercentage > 50 && !bite1)
+			var enemyPhysicalHealthPercentage = _globalCombatSingleton.EnemyTargetList[0].BiggiePhysicalAttackProxy.GetTargetHealthPercentage();
+			if (enemyPhysicalHealthPercentage > 0.50f && !bite1)
 			{
 				_nodeChatterTextBox.AddDialogue("The mushroom does not taste very good.");
 				_nodeChatterTextBox.AddDialogue("But maybe with some butter…");
@@ -275,7 +278,7 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 				bite2 = true;
 				return true;
 			}
-			else if (_globalCombatSingleton.BiggiePhysicalAttackProxy.IsTargetDefeated())
+			else if (_globalCombatSingleton.EnemyTargetList[0].BiggiePhysicalAttackProxy.IsTargetDefeated())
 			{
 				_nodeChatterTextBox.AddDialogue("Mushroom crumbs are scattered about the floor. The mycelium colony may remember this.");
 				_nodeChatterTextBox.ExecuteDialogueQueue();
@@ -287,17 +290,22 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 
 	public bool CheckForBiggeDefeat()
 	{
+		if (_globalCombatSingleton.EnemyPhysicalAttackProxy == null) GD.Print("biggie cum");
 		return _globalCombatSingleton.EnemyPhysicalAttackProxy.IsTargetDefeated() && !_nodeChatterTextBox.IsOpen();
 	}
 
 	public bool CheckForMushroomPhysicalDefeat()
 	{
-		return _globalCombatSingleton.BiggiePhysicalAttackProxy.IsTargetDefeated() && !_nodeChatterTextBox.IsOpen();
+		return !_nodeChatterTextBox.IsOpen()
+			&& _globalCombatSingleton.AreAnyEnemiesPhysicallyDefeated()
+			&& _globalCombatSingleton.AreAllEnemiesDefeated();
 	}
 
 	public bool CheckForMushroomEmotionalDefeat()
 	{
-		return _globalCombatSingleton.BiggieEmotionalAttackProxy.IsTargetDefeated() && !_nodeChatterTextBox.IsOpen();
+		return !_nodeChatterTextBox.IsOpen()
+			&& !_globalCombatSingleton.AreAnyEnemiesPhysicallyDefeated()
+			&& _globalCombatSingleton.AreAllEnemiesDefeated();
 	}
 
 	public void HandleBiggieDefeat()

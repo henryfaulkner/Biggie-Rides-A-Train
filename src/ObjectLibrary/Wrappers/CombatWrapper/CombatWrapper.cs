@@ -563,8 +563,8 @@ public partial class CombatWrapper : Node2D
 	public delegate void ProjectPhysicalDamageEventHandler();
 	public void DealPhysicalDamage(double damage)
 	{
-		_globalCombatSingleton.BiggiePhysicalAttackProxy.DealDamage(damage);
-		GD.Print($"enemy health: {_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage()}");
+		_globalCombatSingleton.EnemyTargetList[0].BiggiePhysicalAttackProxy.DealDamage(damage);
+		GD.Print($"enemy health: {_globalCombatSingleton.EnemyTargetList[0].BiggiePhysicalAttackProxy.GetTargetHealthPercentage()}");
 		EmitSignal(SignalName.ProjectPhysicalDamage);
 	}
 
@@ -572,8 +572,8 @@ public partial class CombatWrapper : Node2D
 	public delegate void ProjectEmotionalDamageEventHandler();
 	public void DealEmotionalDamage(double damage)
 	{
-		_globalCombatSingleton.BiggieEmotionalAttackProxy.DealDamage(damage);
-		GD.Print($"enemy health: {_globalCombatSingleton.BiggieEmotionalAttackProxy.GetTargetHealthPercentage()}");
+		_globalCombatSingleton.EnemyTargetList[0].BiggieEmotionalAttackProxy.DealDamage(damage);
+		GD.Print($"enemy health: {_globalCombatSingleton.EnemyTargetList[0].BiggieEmotionalAttackProxy.GetTargetHealthPercentage()}");
 		EmitSignal(SignalName.ProjectPhysicalDamage);
 	}
 

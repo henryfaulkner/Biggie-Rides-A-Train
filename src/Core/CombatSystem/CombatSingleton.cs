@@ -18,17 +18,23 @@ public partial class CombatSingleton : Node
 	{
 		CombatStateMachineService = new CombatStateMachineService();
 		EnemyAttackPanelService = new EnemyAttackPanelService();
-		BiggiePhysical = null;
-		EnemyPhysicalAttackProxy = null;
+		CombatStateMachineService.Reset();
+		EnemyAttackPanelService = new EnemyAttackPanelService();
+		BiggiePhysical = new CombatBiggieModel(10);
+		EnemyPhysicalAttackProxy = new OpponentAttackProxy(EnemyPhysical, BiggiePhysical);
+		EnemyTargetList = new List<EnemyTarget>();
 	}
 
 	public void NewBattle(double totalBiggiePhysicalHealth)
 	{
 		//GD.Print("Start NewBattle");
+		CombatStateMachineService = new CombatStateMachineService();
+		EnemyAttackPanelService = new EnemyAttackPanelService();
 		CombatStateMachineService.Reset();
-		//EnemyAttackPanelService = new EnemyAttackPanelService();
+		EnemyAttackPanelService = new EnemyAttackPanelService();
 		BiggiePhysical = new CombatBiggieModel(totalBiggiePhysicalHealth);
 		EnemyPhysicalAttackProxy = new OpponentAttackProxy(EnemyPhysical, BiggiePhysical);
+		EnemyTargetList = new List<EnemyTarget>();
 		//GD.Print("End NewBattle");
 	}
 
@@ -39,14 +45,14 @@ public partial class CombatSingleton : Node
 	public void NewBattle(double totalBiggiePhysicalHealth, double totalEnemyPhysicalHealth, double totalEnemyEmotionalHealth) { }
 	#endregion
 
-	public void AddEnemyTarget(int id, Node targetNode, double totalEnemyPhysicalHealth, double totalEnemyEmotionalHealth)
+	public void AddEnemyTarget(int id, Panel targetPanel, double totalEnemyPhysicalHealth, double totalEnemyEmotionalHealth)
 	{
 		var tempEnemyPhysical = new CombatParticipantModel(totalEnemyPhysicalHealth);
 		var tempEnemyEmotional = new CombatParticipantModel(totalEnemyEmotionalHealth);
 		var enemyTarget = new EnemyTarget()
 		{
 			Id = id,
-			TargetNode = targetNode,
+			TargetPanel = targetPanel,
 			EnemyPhysical = tempEnemyPhysical,
 			EnemyEmotional = tempEnemyEmotional,
 			BiggiePhysicalAttackProxy = new BiggieAttackProxy(BiggiePhysical, tempEnemyPhysical),
@@ -63,14 +69,17 @@ public partial class CombatSingleton : Node
 			EnemyTargetList.Remove(enemyTarget);
 		}
 	}
-}
 
-public partial class EnemyTarget
-{
-	public int Id { get; set; }
-	public Node TargetNode { get; set; }
-	public CombatParticipantModel EnemyEmotional { get; set; }
-	public CombatParticipantModel EnemyPhysical { get; set; }
-	public BiggieAttackProxy BiggiePhysicalAttackProxy { get; set; }
-	public BiggieAttackProxy BiggieEmotionalAttackProxy { get; set; }
+	public bool AreAllEnemiesDefeated()
+	{
+		return EnemyTargetList
+		.All(x => x.EnemyPhysical.CurrentHealth <= 0
+			|| x.EnemyEmotional.CurrentHealth <= 0);
+	}
+
+	public bool AreAnyEnemiesPhysicallyDefeated()
+	{
+		return EnemyTargetList
+			.Any(x => x.EnemyPhysical.CurrentHealth <= 0);
+	}
 }

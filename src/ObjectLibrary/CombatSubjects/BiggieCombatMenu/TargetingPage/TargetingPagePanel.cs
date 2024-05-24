@@ -14,7 +14,7 @@ public partial class TargetingPagePanel : Panel
 
 	private CombatSingleton _serviceCombat = null;
 
-	public ISelectionHelper SelectionHelperInstance { get; set; }
+	public TargetSelectionHelper SelectionHelperInstance { get; set; }
 	public bool IsTargeting { get; set; }
 
 	public override void _Ready()
@@ -26,7 +26,7 @@ public partial class TargetingPagePanel : Panel
 		SelectionHelperInstance = new TargetSelectionHelper();
 		foreach ((EnemyTarget target, int i) in _serviceCombat.EnemyTargetList.Select((value, i) => (value, i)))
 		{
-			SelectionHelperInstance.AddOption(-1, i, true, _nodeFightSelectionPanel, _nodeFightOptionLabel);
+			SelectionHelperInstance.AddOption(target.Id, target.Id, true, target.TargetPanel, null);
 		}
 		ProcessSelection();
 	}
@@ -62,26 +62,28 @@ public partial class TargetingPagePanel : Panel
 
 	public void ProcessSelection()
 	{
-
+		foreach (var option in SelectionHelperInstance.OptionList)
+		{
+			try
+			{
+				if (option.IsSelected)
+				{
+					SelectionHelperInstance.ApplyActiveEnemyTargetPanelOption(option.SelectionPanel);
+				}
+				else
+				{
+					SelectionHelperInstance.ApplyInactiveEnemyTargetPanelOption(option.SelectionPanel);
+				}
+			}
+			catch (Exception exception)
+			{
+				////GD.Print($"Exception occured on option id {option.Id}: {exception.Message}");
+			}
+		}
 	}
-}
 
-public class TargetSelectionHelper : ISelectionHelper
-{
-
-}
-
-public interface ISelectionHelper
-{
-	public List<OptionModel> OptionList { get; set; }
-	public void InstantiateSelectionStyles();
-	public void AddOption(int id, int uiId, bool isSelected, Panel panel, Label label);
-	public void ShiftSelectionLeft();
-	public void ShiftSelectionRight();
-	public int GetSelectedOptionId();
-	public void ApplyActivePagePanelOption(Panel panel);
-	public void ApplyInactivePagePanelOption(Panel panel);
-	public void ApplyActivePageLabelSettingOption(Label label);
-	public void ApplyInactivePageLabelSettingOption(Label label);
-	public void Reset();
+	public void ResetPointerOffset()
+	{
+		SelectionHelperInstance.Reset();
+	}
 }

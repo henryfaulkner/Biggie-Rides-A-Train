@@ -17,6 +17,6 @@
   "DialogueStateSubconscious": 0,
   "IsSwitchDoorOpen": false,
   "IsButtonDoorOpen": false,
-  "IsMushroomDead": false,
-  "IsMushroomMoved": false
+  "IsMushroomDead": true,
+  "IsMushroomMoved": true
 }

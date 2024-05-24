@@ -196,8 +196,14 @@ script = ExtResource("1_4hb5t")
 
 [node name="TextBoxWrapper" parent="LevelWrapper" instance=ExtResource("2_we0wj")]
 
-[node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("3_46xpc")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 2.10677, 0.5, 0.885)
+[node name="Node3D3" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.107, 0.5, 1.696)
+
+[node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper/Node3D3" instance=ExtResource("3_46xpc")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="Camera3D" parent="LevelWrapper/TextBoxWrapper/Node3D3" instance=ExtResource("14_04f2e")]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0.809, 1.25, 3.661)
 
 [node name="Therapist3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("5_ljn10")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 3.77926, 0.816618, 0.565245)
@@ -349,9 +355,6 @@ transform = Transform3D(6, 0, 9.99201e-16, 0, 6, 2.51744e-13, 0, -4.07573e-15, 6
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/SceneBarrier2/InteractableArea3D"]
 transform = Transform3D(0.2, 0, 8.53484e-16, 0, 0.2, -6.04483e-16, -4.33681e-16, 2.78599e-16, 0.2, -0.178393, 2.38419e-07, 0)
 shape = SubResource("BoxShape3D_grnx3")
-
-[node name="Camera3D" parent="LevelWrapper" instance=ExtResource("14_04f2e")]
-transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 2.88535, 1.75, 4.45)
 
 [node name="Camera3D2" parent="LevelWrapper" instance=ExtResource("14_04f2e")]
 transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 19.276, 5.21669, 6.01431)

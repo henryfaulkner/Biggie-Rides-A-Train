@@ -20,7 +20,9 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 	private Label _nodeBiggieHpValueLabel = null;
 
 	private Node _nodeMushroomTarget1 = null;
+	private Panel _nodeMushroomTarget1Panel = null;
 	private Node _nodeMushroomTarget2 = null;
+	private Panel _nodeMushroomTarget2Panel = null;
 	public List<Node> EnemyTargetList { get; set; }
 
 	private CombatSingleton _globalCombatSingleton = null;
@@ -37,8 +39,10 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		_nodeBiggieHealthBar = GetNode<ProgressBar>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
 		_nodeBiggieHpValueLabel = GetNode<Label>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/HpValueLabel");
 
-		_nodeMushroomTarget1 = GetNode<Node>("./CombatWrapper/MushroomTarget1");
-		_nodeMushroomTarget2 = GetNode<Node>("./CombatWrapper/MushroomTarget2");
+		_nodeMushroomTarget1 = GetNode<Node>("./CombatWrapper/Panel/MushroomTarget1");
+		_nodeMushroomTarget1Panel = GetNode<Panel>("./CombatWrapper/Panel");
+		_nodeMushroomTarget2 = GetNode<Node>("./CombatWrapper/Panel2/MushroomTarget2");
+		_nodeMushroomTarget2Panel = GetNode<Panel>("./CombatWrapper/Panel");
 		EnemyTargetList = new List<Node>()
 		{
 			_nodeMushroomTarget1,
@@ -48,8 +52,8 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 		_globalCombatSingleton.NewBattle(_MAX_HEALTH_PHYSICAL_BIGGIE, _MAX_HEALTH_PHYSICAL_MUSHROOM, _MAX_HEALTH_EMOTIONAL_MUSHROOM);
-		_globalCombatSingleton.AddEnemyTarget(0, _nodeMushroomTarget1, 12, 8);
-		_globalCombatSingleton.AddEnemyTarget(1, _nodeMushroomTarget2, 8, 12);
+		_globalCombatSingleton.AddEnemyTarget(0, _nodeMushroomTarget1Panel, 12, 8);
+		_globalCombatSingleton.AddEnemyTarget(1, _nodeMushroomTarget2Panel, 8, 12);
 		_globalCombatSingleton.CombatStateMachineService.SetCheckChatterConditions(CheckChatterConditions);
 		ChangeBiggieHealthBar();
 
