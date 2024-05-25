@@ -47,7 +47,9 @@ public partial class CombatSceneDjBattle : Node2D
 		_nodeCombatWrapper.StartEnemyAttackTurn += StartEnemyAttackTurn;
 		_nodeCombatWrapper.ProjectPhysicalDamage += ChangeDjHealthBar;
 		_nodeCombatWrapper.ProjectPhysicalDamage += () => _globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
-		_nodeBiggieCombatMenu.EndBiggieCombatMenuTurn += EndBiggieCombatMenuTurn;
+		_nodeCombatWrapper.BiggieDefeat += HandleBiggieDefeat;
+		_nodeCombatWrapper.EnemyListPhysicalDefeat += HandleDjPhysicalDefeat;
+		_nodeCombatWrapper.EnemyListEmotionalDefeat += HandleDjEmotionalDefeat;
 		_nodeDjAttackContainer.ProjectPhysicalDamage += ChangeBiggieHealthBar;
 		_nodeDjAttackContainer.EndEnemyAttackTurn += EndEnemyAttackTurn;
 
@@ -57,57 +59,10 @@ public partial class CombatSceneDjBattle : Node2D
 		StartBiggieTextTurn();
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
 	public void StartBiggieTextTurn()
 	{
 		_nodeBiggieCombatMenu.StartTurn();
 		_nodeBiggieCombatMenu.Show();
-	}
-
-	public void EndBiggieCombatMenuTurn(int combatOptionIndex)
-	{
-		//GD.Print("EndBiggieTurn");
-		var combatOption = (Enumerations.Combat.CombatOptions)combatOptionIndex;
-		_nodeBiggieCombatMenu.Visible = false;
-		_nodeBiggieCombatMenu.EndTurn();
-
-		if (_globalCombatSingleton.BiggiePhysicalAttackProxy.IsTargetDefeated())
-		{
-			//GD.Print("Dj Physical Defeat");
-			HandleDjPhysicalDefeat();
-			return;
-		}
-		if (_globalCombatSingleton.BiggieEmotionalAttackProxy.IsTargetDefeated())
-		{
-			//GD.Print("Dj Emotional Defeat");
-			HandleDjEmotionalDefeat();
-			return;
-		}
-
-		switch (combatOption)
-		{
-			case Enumerations.Combat.CombatOptions.Ask:
-				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatAsk);
-				break;
-			case Enumerations.Combat.CombatOptions.Charm:
-				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatCharm);
-				break;
-			case Enumerations.Combat.CombatOptions.Scratch:
-				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightScratch);
-				break;
-			case Enumerations.Combat.CombatOptions.Bite:
-				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightBite);
-				break;
-			default:
-				GD.Print("CombatSceneDjBattle.EndBiggieCombatMenuTurn: Could not map combat options");
-				break;
-		}
-
-		return;
 	}
 
 	public void StartEnemyAttackTurn()

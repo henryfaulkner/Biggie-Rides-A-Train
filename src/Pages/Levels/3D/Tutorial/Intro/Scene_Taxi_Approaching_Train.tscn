@@ -74,3 +74,4 @@ script = null
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_btm7x")
+bus = &"Fx"

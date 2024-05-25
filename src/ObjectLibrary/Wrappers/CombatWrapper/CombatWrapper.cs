@@ -99,6 +99,10 @@ public partial class CombatWrapper : Node2D
 
 	public override void _Process(double delta)
 	{
+		if (CheckForBiggeDefeat()) EmitSignal(SignalName.BiggieDefeat);
+		if (CheckForEnemyListPhysicalDefeat()) EmitSignal(SignalName.EnemyListPhysicalDefeat);
+		if (CheckForEnemyListEmotionalDefeat()) EmitSignal(SignalName.EnemyListEmotionalDefeat);
+
 		bool skipTransition = Input.IsActionJustPressed(_INTERACT_INPUT);
 		var currStateId = _globalCombatSingleton.CombatStateMachineService.CurrentCombatState?.Id
 			?? Enumerations.Combat.StateMachine.States.BiggieCombatMenu;
@@ -554,9 +558,43 @@ public partial class CombatWrapper : Node2D
 
 	}
 
-	private void HandleEndBiggieCombatMenuTurn(int combatOption)
+	[Signal]
+	public delegate void BiggieDefeatEventHandler();
+	[Signal]
+	public delegate void EnemyListPhysicalDefeatEventHandler();
+	[Signal]
+	public delegate void EnemyListEmotionalDefeatEventHandler();
+
+	private void HandleEndBiggieCombatMenuTurn(int combatOption, int enemyTargetIndex)
 	{
 		LastCombatOptionUsed = (Enumerations.Combat.CombatOptions)combatOption;
+		_nodeBiggieCombatMenu.Visible = false;
+		_nodeBiggieCombatMenu.EndTurn();
+
+		switch ((Enumerations.Combat.CombatOptions)combatOption)
+		{
+			case Enumerations.Combat.CombatOptions.Ask:
+				_globalCombatSingleton.BiggieEmotionalAttackProxy = _globalCombatSingleton.EnemyTargetList[enemyTargetIndex].BiggieEmotionalAttackProxy;
+				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatAsk);
+				break;
+			case Enumerations.Combat.CombatOptions.Charm:
+				_globalCombatSingleton.BiggieEmotionalAttackProxy = _globalCombatSingleton.EnemyTargetList[enemyTargetIndex].BiggieEmotionalAttackProxy;
+				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatCharm);
+				break;
+			case Enumerations.Combat.CombatOptions.Scratch:
+				_globalCombatSingleton.BiggiePhysicalAttackProxy = _globalCombatSingleton.EnemyTargetList[enemyTargetIndex].BiggiePhysicalAttackProxy;
+				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightScratch);
+				break;
+			case Enumerations.Combat.CombatOptions.Bite:
+				_globalCombatSingleton.BiggiePhysicalAttackProxy = _globalCombatSingleton.EnemyTargetList[enemyTargetIndex].BiggiePhysicalAttackProxy;
+				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightBite);
+				break;
+			default:
+				GD.Print("CombatSceneDjBattle.EndBiggieCombatMenuTurn: Could not map combat options");
+				break;
+		}
+
+		return;
 	}
 
 	[Signal]
@@ -589,5 +627,24 @@ public partial class CombatWrapper : Node2D
 		GD.Print($"CombatWrapper _globalCombatSingleton.EnemyAttackPanelService.Size {_globalCombatSingleton.EnemyAttackPanelService.Size.X} {_globalCombatSingleton.EnemyAttackPanelService.Size.Y}");
 		_globalCombatSingleton.EnemyAttackPanelService.Position = enemyAttackPanelPosition;
 		GD.Print($"CombatWrapper _globalCombatSingleton.EnemyAttackPanelService.Position {_globalCombatSingleton.EnemyAttackPanelService.Position.X} {_globalCombatSingleton.EnemyAttackPanelService.Position.Y}");
+	}
+
+	public bool CheckForBiggeDefeat()
+	{
+		return _globalCombatSingleton.EnemyPhysicalAttackProxy.IsTargetDefeated() && !_nodeChatterTextBox.IsOpen();
+	}
+
+	public bool CheckForEnemyListPhysicalDefeat()
+	{
+		return !_nodeChatterTextBox.IsOpen()
+			&& _globalCombatSingleton.AreAnyEnemiesPhysicallyDefeated()
+			&& _globalCombatSingleton.AreAllEnemiesDefeated();
+	}
+
+	public bool CheckForEnemyListEmotionalDefeat()
+	{
+		return !_nodeChatterTextBox.IsOpen()
+			&& !_globalCombatSingleton.AreAnyEnemiesPhysicallyDefeated()
+			&& _globalCombatSingleton.AreAllEnemiesDefeated();
 	}
 }

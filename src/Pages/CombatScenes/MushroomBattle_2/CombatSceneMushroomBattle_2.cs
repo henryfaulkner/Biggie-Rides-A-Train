@@ -23,7 +23,6 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 	private Panel _nodeMushroomTarget1Panel = null;
 	private Node _nodeMushroomTarget2 = null;
 	private Panel _nodeMushroomTarget2Panel = null;
-	public List<Node> EnemyTargetList { get; set; }
 
 	private CombatSingleton _globalCombatSingleton = null;
 	private SaveStateService _serviceSaveState = null;
@@ -43,11 +42,6 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		_nodeMushroomTarget1Panel = GetNode<Panel>("./CombatWrapper/Panel");
 		_nodeMushroomTarget2 = GetNode<Node>("./CombatWrapper/Panel2/MushroomTarget2");
 		_nodeMushroomTarget2Panel = GetNode<Panel>("./CombatWrapper/Panel");
-		EnemyTargetList = new List<Node>()
-		{
-			_nodeMushroomTarget1,
-			_nodeMushroomTarget2,
-		};
 
 		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
@@ -62,7 +56,9 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		//_nodeCombatWrapper.ProjectPhysicalDamage += ChangeDjHealthBar;
 		_nodeCombatWrapper.ProjectPhysicalDamage += () => _globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
 		_nodeCombatWrapper.ProjectEmotionalDamage += () => _globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
-		_nodeBiggieCombatMenu.EndBiggieCombatMenuTurn += EndBiggieCombatMenuTurn;
+		_nodeCombatWrapper.BiggieDefeat += HandleBiggieDefeat;
+		_nodeCombatWrapper.EnemyListPhysicalDefeat += HandleMushroomPhysicalDefeat;
+		_nodeCombatWrapper.EnemyListEmotionalDefeat += HandleMushroomEmotionalDefeat;
 		_nodeMushroomAttackContainer.ProjectPhysicalDamage += ChangeBiggieHealthBar;
 		_nodeMushroomAttackContainer.EndEnemyAttackTurn += EndEnemyAttackTurn;
 		_nodeMushroomAttackContainer.FramesPerRound = 600;
@@ -74,85 +70,12 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 
 	public override void _Process(double delta)
 	{
-		if (CheckForBiggeDefeat()) HandleBiggieDefeat();
-		if (CheckForMushroomPhysicalDefeat()) HandleMushroomPhysicalDefeat();
-		if (CheckForMushroomEmotionalDefeat()) HandleMushroomEmotionalDefeat();
 	}
 
 	public void StartBiggieTextTurn()
 	{
 		_nodeBiggieCombatMenu.StartTurn();
 		_nodeBiggieCombatMenu.Show();
-	}
-
-	public void EndBiggieCombatMenuTurn(int combatOptionIndex)
-	{
-		//GD.Print("EndBiggieTurn");
-		var combatOption = (Enumerations.Combat.CombatOptions)combatOptionIndex;
-		_nodeBiggieCombatMenu.Visible = false;
-		_nodeBiggieCombatMenu.EndTurn();
-
-		if (_globalCombatSingleton.BiggiePhysicalAttackProxy.IsTargetDefeated())
-		{
-			//GD.Print("Dj Physical Defeat");
-			HandleMushroomPhysicalDefeat();
-			return;
-		}
-		if (_globalCombatSingleton.BiggieEmotionalAttackProxy.IsTargetDefeated())
-		{
-			//GD.Print("Dj Emotional Defeat");
-			HandleMushroomEmotionalDefeat();
-			return;
-		}
-
-		switch (combatOption)
-		{
-			case Enumerations.Combat.CombatOptions.Ask:
-				if (EnemyTargetList.Count > 0)
-				{
-					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.TargetEnemy_Ask);
-				}
-				else
-				{
-					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatAsk);
-				}
-				break;
-			case Enumerations.Combat.CombatOptions.Charm:
-				if (EnemyTargetList.Count > 0)
-				{
-					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.TargetEnemy_Charm);
-				}
-				else
-				{
-					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatCharm);
-				}
-				break;
-			case Enumerations.Combat.CombatOptions.Scratch:
-				if (EnemyTargetList.Count > 0)
-				{
-					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.TargetEnemy_Scratch);
-				}
-				else
-				{
-					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightScratch);
-				}
-				break;
-			case Enumerations.Combat.CombatOptions.Bite:
-				if (EnemyTargetList.Count > 0)
-				{
-					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.TargetEnemy_Bite);
-				}
-				else
-				{
-					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightBite);
-				}
-				break;
-			default:
-				GD.Print("CombatSceneDjBattle.EndBiggieCombatMenuTurn: Could not map combat options");
-				break;
-		}
-
-		return;
 	}
 
 	public void StartEnemyAttackTurn()
@@ -326,21 +249,6 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 			}
 		}
 		return false;
-	}
-
-	public bool CheckForBiggeDefeat()
-	{
-		return _globalCombatSingleton.EnemyPhysicalAttackProxy.IsTargetDefeated() && !_nodeChatterTextBox.IsOpen();
-	}
-
-	public bool CheckForMushroomPhysicalDefeat()
-	{
-		return _globalCombatSingleton.BiggiePhysicalAttackProxy.IsTargetDefeated() && !_nodeChatterTextBox.IsOpen();
-	}
-
-	public bool CheckForMushroomEmotionalDefeat()
-	{
-		return _globalCombatSingleton.BiggieEmotionalAttackProxy.IsTargetDefeated() && !_nodeChatterTextBox.IsOpen();
 	}
 
 	public void HandleBiggieDefeat()

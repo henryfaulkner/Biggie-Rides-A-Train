@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class BiggieCombatMenu : CanvasLayer
 {
@@ -34,6 +35,7 @@ public partial class BiggieCombatMenu : CanvasLayer
 		_nodeBasePagePanel.ShowActionInfo += ShowActionInfoFunc;
 		_nodeBasePagePanel.HideActionInfo += HideActionInfoFunc;
 		_nodeChatPagePanel.SelectChat += HandleChatSelection;
+		_nodeTargetingPagePanel.SelectTarget += HandleTargetingSelection;
 		_nodeChatPagePanel.ShowActionInfo += ShowActionInfoFunc;
 		_nodeChatPagePanel.HideActionInfo += HideActionInfoFunc;
 		_nodeFightPagePanel.SelectFight += HandleFightSelection;
@@ -41,15 +43,8 @@ public partial class BiggieCombatMenu : CanvasLayer
 		_nodeFightPagePanel.HideActionInfo += HideActionInfoFunc;
 	}
 
-	public override void _Process(double delta)
+	public override void _Process(double _delta)
 	{
-		if (_nodeTargetingPagePanel.IsTargeting
-			&& _globalCombatSingleton.CombatStateMachineService.IsATargetEnemyTransition(
-				_globalCombatSingleton.CombatStateMachineService.CurrentCombatState.Id
-			))
-		{
-			_nodeTargetingPagePanel.IsTargeting = true;
-		}
 	}
 
 	public void StartTurn()
@@ -58,7 +53,7 @@ public partial class BiggieCombatMenu : CanvasLayer
 	}
 
 	[Signal]
-	public delegate void EndBiggieCombatMenuTurnEventHandler(int combatOption);
+	public delegate void EndBiggieCombatMenuTurnEventHandler(int combatOption, int enemyTargetIndex);
 
 	public void EndTurn()
 	{
@@ -99,12 +94,37 @@ public partial class BiggieCombatMenu : CanvasLayer
 			switch (selection)
 			{
 				case (int)Enumerations.Combat.FightPagePanelOptions.Scratch:
-					//GD.Print("Scratch");
-					EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Scratch);
+					if (_globalCombatSingleton.EnemyTargetList.Count == 1)
+					{
+						EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Scratch, 0);
+					}
+					else if (_globalCombatSingleton.EnemyTargetList.Count > 1)
+					{
+						_nodeTargetingPagePanel.IsOpen = true;
+						_nodeFightPagePanel.IsOpen = false;
+						_nodeTargetingPagePanel.ProcessSelection(Enumerations.Combat.CombatOptions.Scratch);
+					}
+					else
+					{
+						GD.Print("There are no enemy targets.");
+					}
 					break;
 				case (int)Enumerations.Combat.FightPagePanelOptions.Bite:
-					//GD.Print("Bite");
-					EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Bite);
+					if (_globalCombatSingleton.EnemyTargetList.Count == 1)
+					{
+						//GD.Print("Bite");
+						EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Bite, 0);
+					}
+					else if (_globalCombatSingleton.EnemyTargetList.Count > 1)
+					{
+						_nodeTargetingPagePanel.IsOpen = true;
+						_nodeFightPagePanel.IsOpen = false;
+						_nodeTargetingPagePanel.ProcessSelection(Enumerations.Combat.CombatOptions.Bite);
+					}
+					else
+					{
+						GD.Print("There are no enemy targets.");
+					}
 					break;
 				case (int)Enumerations.Combat.FightPagePanelOptions.Back:
 					_nodeBasePagePanel.IsOpen = true;
@@ -130,12 +150,38 @@ public partial class BiggieCombatMenu : CanvasLayer
 		switch (selection)
 		{
 			case (int)Enumerations.Combat.ChatPagePanelOptions.Ask:
-				//GD.Print("Ask");
-				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Ask);
+				if (_globalCombatSingleton.EnemyTargetList.Count == 1)
+				{
+					//GD.Print("Ask");
+					EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Ask, 0);
+				}
+				else if (_globalCombatSingleton.EnemyTargetList.Count > 1)
+				{
+					_nodeTargetingPagePanel.IsOpen = true;
+					_nodeChatPagePanel.IsOpen = false;
+					_nodeTargetingPagePanel.ProcessSelection(Enumerations.Combat.CombatOptions.Ask);
+				}
+				else
+				{
+					GD.Print("There are no enemy targets.");
+				}
 				break;
 			case (int)Enumerations.Combat.ChatPagePanelOptions.Charm:
-				//GD.Print("Charm");
-				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Charm);
+				if (_globalCombatSingleton.EnemyTargetList.Count == 1)
+				{
+					//GD.Print("Charm");
+					EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Charm, 0);
+				}
+				else if (_globalCombatSingleton.EnemyTargetList.Count > 1)
+				{
+					_nodeTargetingPagePanel.IsOpen = true;
+					_nodeChatPagePanel.IsOpen = false;
+					_nodeTargetingPagePanel.ProcessSelection(Enumerations.Combat.CombatOptions.Charm);
+				}
+				else
+				{
+					GD.Print("There are no enemy targets.");
+				}
 				break;
 			case (int)Enumerations.Combat.ChatPagePanelOptions.Back:
 				_nodeBasePagePanel.IsOpen = true;
@@ -148,6 +194,33 @@ public partial class BiggieCombatMenu : CanvasLayer
 		}
 
 		_nodeChatPagePanel.ResetPointerOffset();
+	}
+
+	public void HandleTargetingSelection(int combatOption, int enemyTargetIndex)
+	{
+		switch (combatOption)
+		{
+			case (int)Enumerations.Combat.CombatOptions.Ask:
+				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Ask, enemyTargetIndex);
+				break;
+
+			case (int)Enumerations.Combat.CombatOptions.Charm:
+				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Charm, enemyTargetIndex);
+				break;
+			case (int)Enumerations.Combat.CombatOptions.Scratch:
+				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Scratch, enemyTargetIndex);
+				break;
+			case (int)Enumerations.Combat.CombatOptions.Bite:
+				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Bite, enemyTargetIndex);
+				break;
+			default:
+				// this will represent the BACK button
+				_nodeTargetingPagePanel.IsOpen = false;
+				_nodeBasePagePanel.IsOpen = true;
+				break;
+		}
+
+		_nodeTargetingPagePanel.ResetPointerOffset();
 	}
 
 	private void ResetPageState()

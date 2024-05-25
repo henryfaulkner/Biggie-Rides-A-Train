@@ -53,6 +53,8 @@ layout_mode = 2
 
 [node name="Switch_AudioStreamPlayer" type="AudioStreamPlayer" parent="TextBoxContainer"]
 stream = ExtResource("7_aqtjn")
+bus = &"Fx"
 
 [node name="Select_AudioStreamPlayer" type="AudioStreamPlayer" parent="TextBoxContainer"]
 stream = ExtResource("8_ng2te")
+bus = &"Fx"

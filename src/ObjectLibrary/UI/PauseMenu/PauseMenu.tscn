@@ -1,25 +1,28 @@
-[gd_scene load_steps=9 format=3 uid="uid://dwlmfdqio1b4g"]
+[gd_scene load_steps=12 format=3 uid="uid://dwlmfdqio1b4g"]
 
-[ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="1_qhifn"]
-[ext_resource type="Script" path="res://Pages/Levels/2D/PauseMenu/PauseMenu.cs" id="1_ydbks"]
-[ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="2_ax5f1"]
-[ext_resource type="Script" path="res://Pages/Levels/2D/PauseMenu/OpenPauseMenuListener.cs" id="4_ld4sp"]
+[ext_resource type="Script" path="res://ObjectLibrary/UI/PauseMenu/PauseMenu.cs" id="1_u6non"]
+[ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="2_2uhv5"]
+[ext_resource type="FontFile" uid="uid://2djit275asxv" path="res://Assets/Fonts/HelvetiPixel.ttf" id="3_gawf8"]
+[ext_resource type="Script" path="res://ObjectLibrary/UI/PauseMenu/OpenPauseMenuListener.cs" id="4_kxnc4"]
+[ext_resource type="Texture2D" uid="uid://c2wacpjeoo3xp" path="res://Assets/Images/MainMenu/volume-up-solid.png" id="5_v7igw"]
+[ext_resource type="Texture2D" uid="uid://10gpgelmwihy" path="res://Assets/Images/MainMenu/volume-mute-solid.png" id="6_25qc6"]
+[ext_resource type="Script" path="res://ObjectLibrary/UI/PauseMenu/TextureButton.cs" id="7_anvhy"]
 
 [sub_resource type="Theme" id="Theme_whrd5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lix2n"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_daipw"]
-font = ExtResource("1_qhifn")
+font = ExtResource("2_2uhv5")
 font_size = 224
 
 [sub_resource type="LabelSettings" id="LabelSettings_61fgv"]
-font = ExtResource("2_ax5f1")
+font = ExtResource("3_gawf8")
 font_size = 88
 
 [node name="PauseMenu" type="Node2D"]
 visible = false
-script = ExtResource("1_ydbks")
+script = ExtResource("1_u6non")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 offset_right = 2048.0
@@ -54,4 +57,16 @@ label_settings = SubResource("LabelSettings_61fgv")
 
 [node name="OpenClosePauseMenuListener" type="Node" parent="."]
 process_mode = 3
-script = ExtResource("4_ld4sp")
+script = ExtResource("4_kxnc4")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = 364.0
+offset_top = 212.0
+offset_right = 439.0
+offset_bottom = 287.0
+toggle_mode = true
+texture_normal = ExtResource("5_v7igw")
+texture_pressed = ExtResource("6_25qc6")
+script = ExtResource("7_anvhy")
+
+[connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]

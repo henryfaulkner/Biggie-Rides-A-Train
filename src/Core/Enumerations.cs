@@ -68,6 +68,8 @@ public partial class Enumerations
 				ShowChatterTextBox_SelectChatCharm = 13,
 				ShowChatterTextBox_SelectFightScratch = 14,
 				ShowChatterTextBox_SelectFightBite = 15,
+
+				// DEPRECATE THIS
 				TargetEnemy_Ask = 16,
 				TargetEnemy_Charm = 17,
 				TargetEnemy_Scratch = 18,

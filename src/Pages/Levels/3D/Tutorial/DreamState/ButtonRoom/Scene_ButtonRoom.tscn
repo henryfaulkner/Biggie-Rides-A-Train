@@ -77,14 +77,11 @@ script = ExtResource("1_2ugpi")
 
 [node name="TextBoxWrapper" parent="LevelWrapper" instance=ExtResource("2_snkrx")]
 
-[node name="Node3D3" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.107, 0.5, 1.696)
+[node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("3_7bbt2")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 2.10648, 0.5, 1.696)
 
-[node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper/Node3D3" instance=ExtResource("3_7bbt2")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
-
-[node name="Camera3D" parent="LevelWrapper/TextBoxWrapper/Node3D3" instance=ExtResource("7_kk02u")]
-transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0.809, 1.25, 3.661)
+[node name="MainFramedCamera" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("7_kk02u")]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 2.916, 1.75, 5.357)
 
 [node name="Facade" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
 
@@ -241,7 +238,3 @@ texture = ExtResource("16_r66bm")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.63553, 0.1, 0.550956)
 pixel_size = 0.0005
 texture = ExtResource("16_r66bm")
-
-[node name="Camera3D" parent="LevelWrapper" instance=ExtResource("7_kk02u")]
-transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 6.69935, 3.52113, 6.16206)
-script = null

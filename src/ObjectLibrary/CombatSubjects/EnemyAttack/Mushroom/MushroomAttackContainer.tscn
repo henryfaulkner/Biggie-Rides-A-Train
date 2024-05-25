@@ -24,3 +24,4 @@ shape = SubResource("RectangleShape2D_8g802")
 
 [node name="Hit_AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_m4pto")
+bus = &"Fx"

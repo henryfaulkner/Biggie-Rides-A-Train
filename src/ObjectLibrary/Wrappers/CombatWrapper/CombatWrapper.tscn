@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dcdbd272fdx4j"]
+[gd_scene load_steps=21 format=3 uid="uid://dcdbd272fdx4j"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.cs" id="1_c2u0m"]
 [ext_resource type="PackedScene" uid="uid://cbnxk7w87v22a" path="res://ObjectLibrary/Wrappers/CombatWrapper/EnemyPhysicalHealth.tscn" id="1_cep38"]
@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://or6ojto661ha" path="res://Assets/Sounds/23. Biggie Takes A Hit copy.wav" id="8_rvtu0"]
 [ext_resource type="PackedScene" uid="uid://dfqa61mbuuw6m" path="res://ObjectLibrary/CombatSubjects/ChatterTextBox/ChatterTextBox.tscn" id="11_cx26k"]
 [ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/ChatterTextBox/ChatterTextBox.cs" id="12_bhne2"]
+[ext_resource type="PackedScene" uid="uid://dwlmfdqio1b4g" path="res://ObjectLibrary/UI/PauseMenu/PauseMenu.tscn" id="14_3soy4"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_hbdiu"]
 script/source = "using Godot;
@@ -100,9 +101,11 @@ vframes = 24
 
 [node name="GoodHit_AudioStreamPlayer" type="AudioStreamPlayer" parent="BiggieAttackContainer"]
 stream = ExtResource("7_cmx8w")
+bus = &"Fx"
 
 [node name="BadHit_AudioStreamPlayer" type="AudioStreamPlayer" parent="BiggieAttackContainer"]
 stream = ExtResource("8_rvtu0")
+bus = &"Fx"
 
 [node name="TransformContainer" type="MarginContainer" parent="."]
 offset_top = 424.0
@@ -218,3 +221,5 @@ autowrap_mode = 3
 
 [node name="ChatterTextBox" parent="." instance=ExtResource("11_cx26k")]
 script = ExtResource("12_bhne2")
+
+[node name="PauseMenu" parent="." instance=ExtResource("14_3soy4")]

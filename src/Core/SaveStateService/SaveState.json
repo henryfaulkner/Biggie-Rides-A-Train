@@ -1,6 +1,16 @@
 {
-  "StoredLocation": null,
-  "AdditionalStoredLocation": null,
+  "StoredLocation": {
+    "SceneId": 2,
+    "X": 10.0,
+    "Y": 0.0,
+    "Z": 0.0
+  },
+  "AdditionalStoredLocation": {
+    "SceneId": 0,
+    "X": 0.0,
+    "Y": 0.0,
+    "Z": 0.0
+  },
   "HasItemTicketPieceOne": false,
   "HasItemTicketPieceTwo": false,
   "HasItemTicketPieceThree": false,
@@ -17,6 +27,9 @@
   "DialogueStateSubconscious": 0,
   "IsSwitchDoorOpen": false,
   "IsButtonDoorOpen": false,
-  "IsMushroomDead": true,
-  "IsMushroomMoved": true
+  "IsMushroomDead": false,
+  "IsMushroomMoved": false,
+  "UserSettings": {
+    "FxMuted": true
+  }
 }

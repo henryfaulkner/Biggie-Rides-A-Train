@@ -3,6 +3,13 @@ using Newtonsoft.Json;
 
 public class SaveStateModel
 {
+	public SaveStateModel()
+	{
+		StoredLocation = new DoorEntrance();
+		AdditionalStoredLocation = new DoorEntrance();
+		UserSettings = new UserSettingsModel();
+	}
+
 	[JsonProperty("StoredLocation")]
 	public DoorEntrance StoredLocation { get; set; }
 
@@ -62,4 +69,11 @@ public class SaveStateModel
 	public bool IsMushroomDead { get; set; }
 	[JsonProperty("IsMushroomMoved")]
 	public bool IsMushroomMoved { get; set; }
+
+	public UserSettingsModel UserSettings { get; set; }
+}
+
+public class UserSettingsModel
+{
+	public bool FxMuted { get; set; }
 }
