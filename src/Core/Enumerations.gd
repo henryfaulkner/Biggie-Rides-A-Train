@@ -1,4 +1,4 @@
-enum LevelEnumerations {
+enum Levels {
 	# Intro
 	TaxiApproachingTrain,
 	Sleep,
@@ -9,4 +9,9 @@ enum LevelEnumerations {
 	SwitchRoom,
 	MushroomFightRoom,
 	TherapistOffice1
+}
+
+enum Rotations {
+	Default,
+	Forward
 }

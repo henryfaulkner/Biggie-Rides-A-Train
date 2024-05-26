@@ -181,4 +181,13 @@ public partial class Enumerations
 			Idle = 4,
 		}
 	}
+
+	public static class Physics
+	{
+		public enum Rotations
+		{
+			Default,
+			Forward,
+		}
+	}
 }

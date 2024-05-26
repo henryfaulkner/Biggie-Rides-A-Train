@@ -49,68 +49,78 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		_globalCombatSingleton.AddEnemyTarget(0, _nodeMushroomTarget1Panel, 12, 8);
 		_globalCombatSingleton.AddEnemyTarget(1, _nodeMushroomTarget2Panel, 8, 12);
 		_globalCombatSingleton.CombatStateMachineService.SetCheckChatterConditions(CheckChatterConditions);
-		ChangeBiggieHealthBar();
+		HandleChangeBiggieHealthBar();
 
-		_nodeCombatWrapper.StartBiggieTextTurn += StartBiggieTextTurn;
-		_nodeCombatWrapper.StartEnemyAttackTurn += StartEnemyAttackTurn;
-		//_nodeCombatWrapper.ProjectPhysicalDamage += ChangeDjHealthBar;
+		_nodeCombatWrapper.StartBiggieTextTurn += HandleStartBiggieTextTurn;
+		_nodeCombatWrapper.StartEnemyAttackTurn += HandleStartEnemyAttackTurn;
 		_nodeCombatWrapper.ProjectPhysicalDamage += () => _globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
 		_nodeCombatWrapper.ProjectEmotionalDamage += () => _globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
 		_nodeCombatWrapper.BiggieDefeat += HandleBiggieDefeat;
 		_nodeCombatWrapper.EnemyListPhysicalDefeat += HandleMushroomPhysicalDefeat;
 		_nodeCombatWrapper.EnemyListEmotionalDefeat += HandleMushroomEmotionalDefeat;
-		_nodeMushroomAttackContainer.ProjectPhysicalDamage += ChangeBiggieHealthBar;
-		_nodeMushroomAttackContainer.EndEnemyAttackTurn += EndEnemyAttackTurn;
+		_nodeMushroomAttackContainer.ProjectPhysicalDamage += HandleChangeBiggieHealthBar;
+		_nodeMushroomAttackContainer.EndEnemyAttackTurn += HandleEndEnemyAttackTurn;
 		_nodeMushroomAttackContainer.FramesPerRound = 600;
 
 		_nodeMushroomAttackContainer.Hide();
 		_nodeMushroomAttackContainer.IsAttacking = false;
-		StartBiggieTextTurn();
+		HandleStartBiggieTextTurn();
 	}
 
-	public override void _Process(double delta)
-	{
-	}
+	#region Handlers
 
-	public void StartBiggieTextTurn()
+	public void HandleStartBiggieTextTurn()
 	{
 		_nodeBiggieCombatMenu.StartTurn();
 		_nodeBiggieCombatMenu.Show();
 	}
 
-	public void StartEnemyAttackTurn()
+	public void HandleStartEnemyAttackTurn()
 	{
 		_nodeMushroomAttackContainer.Visible = true;
-		//_nodeHitCallout.Visible = true;
 		_nodeMushroomAttackContainer.StartTurn();
-		GD.Print("CombatSceneMushroomBattle_1 StartEnemyAttackTurn");
 	}
 
-	public void EndEnemyAttackTurn()
+	public void HandleEndEnemyAttackTurn()
 	{
 		_nodeMushroomAttackContainer.Visible = false;
-		//_nodeHitCallout.Visible = false;
-		//_nodeMushroomAttackContainer.EndTurn();
-		ChangeBiggieHealthBar();
-
-		if (_globalCombatSingleton.EnemyPhysicalAttackProxy.IsTargetDefeated())
-		{
-			//GD.Print("Biggie Physical Defeat");
-			HandleBiggieDefeat();
-			return;
-		}
-
 		_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishEnemyAttack);
 		return;
 	}
 
-	public void ChangeBiggieHealthBar()
+	public void HandleChangeBiggieHealthBar()
 	{
-		//GD.Print("Start ChangeBiggieHealthBar");
 		_nodeBiggieHealthBar.Value = _globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetHealthPercentage();
 		_nodeBiggieHpValueLabel.Text = $"{_globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetCurrentHealth()}/{_globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetMaxHealth()}";
-		//GD.Print($"End ChangeBiggieHealthBar {_nodeBiggieHealthBar.Value}");
 	}
+
+	public void HandleBiggieDefeat()
+	{
+		GetTree().ChangeSceneToFile(_SCENE_BIGGIE_DEFEAT);
+		return;
+	}
+
+	public void HandleMushroomPhysicalDefeat()
+	{
+		var context = _serviceSaveState.Load();
+		context.IsMushroomDead = true;
+		_serviceSaveState.Commit(context);
+
+		GetTree().ChangeSceneToFile(_SCENE_MUSHROOM_DEFEAT);
+		return;
+	}
+
+	public void HandleMushroomEmotionalDefeat()
+	{
+		var context = _serviceSaveState.Load();
+		context.IsMushroomMoved = true;
+		_serviceSaveState.Commit(context);
+
+		GetTree().ChangeSceneToFile(_SCENE_MUSHROOM_DEFEAT);
+		return;
+	}
+
+	#endregion
 
 	private bool explainSpore = false;
 	private bool ask1 = false;
@@ -251,29 +261,5 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		return false;
 	}
 
-	public void HandleBiggieDefeat()
-	{
-		GetTree().ChangeSceneToFile(_SCENE_BIGGIE_DEFEAT);
-		return;
-	}
 
-	public void HandleMushroomPhysicalDefeat()
-	{
-		var context = _serviceSaveState.Load();
-		context.IsMushroomDead = true;
-		_serviceSaveState.Commit(context);
-
-		GetTree().ChangeSceneToFile(_SCENE_MUSHROOM_DEFEAT);
-		return;
-	}
-
-	public void HandleMushroomEmotionalDefeat()
-	{
-		var context = _serviceSaveState.Load();
-		context.IsMushroomMoved = true;
-		_serviceSaveState.Commit(context);
-
-		GetTree().ChangeSceneToFile(_SCENE_MUSHROOM_DEFEAT);
-		return;
-	}
 }

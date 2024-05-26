@@ -9,8 +9,11 @@ public partial class Scene_ButtonRoom : Node3D
 	private PressurePlate _nodePressurePlate4 = null;
 	private PressurePlate _nodePressurePlate5 = null;
 	private StaticBody3D _nodeBarrier = null;
+	private RotationPaws _nodeRotationPaws = null;
 
 	private SaveStateService _serviceSaveState = null;
+	private RotationService _serviceRotation = null;
+	private GravityService _serviceGravity = null;
 
 	private bool bitPressurePlate1 = false;
 	private bool bitPressurePlate2 = false;
@@ -52,8 +55,11 @@ public partial class Scene_ButtonRoom : Node3D
 		};
 
 		_nodeBarrier = GetNode<StaticBody3D>("LevelWrapper/TextBoxWrapper/Barrier");
+		_nodeRotationPaws = GetNode<RotationPaws>("./LevelWrapper/TextBoxWrapper/RotationPaws");
 
 		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
+		_serviceRotation = GetNode<RotationService>("/root/RotationService");
+		_serviceGravity = GetNode<GravityService>("/root/GravityService");
 		var context = _serviceSaveState.Load();
 		if (context.IsButtonDoorOpen)
 		{
@@ -64,6 +70,8 @@ public partial class Scene_ButtonRoom : Node3D
 			bitPressurePlate5 = true;
 			if (CheckAllPressurePlates()) ProcessAllPressed();
 		}
+
+		_nodeRotationPaws.Rotate += HandleForwardRotate;
 	}
 
 	private void ProcessAllPressed()
@@ -87,5 +95,26 @@ public partial class Scene_ButtonRoom : Node3D
 	{
 		GD.Print("call MoveBarrier");
 		_nodeBarrier.Position += new Vector3(50, 0, 0);
+	}
+
+	public void HandleForwardRotate()
+	{
+		GD.Print("HandleForwardRotate");
+		switch (_serviceRotation.CurrentRotation)
+		{
+			case Enumerations.Physics.Rotations.Default:
+				GD.Print("Enumerations.Physics.Rotations.Default");
+				_serviceRotation.RotateToForward();
+				_serviceGravity.SetForwardGravity();
+				break;
+			case Enumerations.Physics.Rotations.Forward:
+				GD.Print("Enumerations.Physics.Rotations.Forward");
+				_serviceRotation.RotateToDefault();
+				_serviceGravity.SetDefaultGravity();
+				break;
+			default:
+				GD.Print("RotationService CurrentRotation could not be mapped.");
+				break;
+		}
 	}
 }

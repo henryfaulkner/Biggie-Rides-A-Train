@@ -5,8 +5,8 @@ public class SaveStateModel
 {
 	public SaveStateModel()
 	{
-		StoredLocation = new DoorEntrance();
-		AdditionalStoredLocation = new DoorEntrance();
+		StoredLocation = null;
+		AdditionalStoredLocation = null;
 		UserSettings = new UserSettingsModel();
 	}
 

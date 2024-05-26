@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class SelectionHelper
+public class SelectionHelper : ISelectionHelper
 {
 
 	private static readonly StringName _STYLEBOX_NAME = new StringName("panel");
@@ -23,7 +23,7 @@ public class SelectionHelper
 		InstantiateSelectionStyles();
 	}
 
-	public void InstantiateSelectionStyles()
+	public virtual void InstantiateSelectionStyles()
 	{
 		_styleActivePageLabelSettingOption = GD.Load<LabelSettings>(_ACTIVE_PAGE_LABEL_SETTING_OPTION);
 		_styleInactivePageLabelSettingOption = GD.Load<LabelSettings>(_INACTIVE_PAGE_LABEL_SETTING_OPTION);
@@ -32,7 +32,7 @@ public class SelectionHelper
 	}
 
 	public List<OptionModel> OptionList { get; set; }
-	private int CurrentSelectedOptionIndex { get; set; }
+	protected int CurrentSelectedOptionIndex { get; set; }
 
 	public void AddOption(int id, int uiId, bool isSelected, Panel panel, Label label)
 	{
@@ -92,60 +92,6 @@ public class SelectionHelper
 		return CurrentSelectedOptionIndex;
 	}
 
-	public void AddSelectBorder(Panel panel)
-	{
-		if (panel.HasThemeStylebox(_STYLEBOX_NAME))
-		{
-			StyleBoxFlat newStyleboxNormal = panel.GetThemeStylebox(_STYLEBOX_NAME).Duplicate() as StyleBoxFlat;
-			newStyleboxNormal.BorderWidthLeft = 2;
-			newStyleboxNormal.BorderWidthTop = 2;
-			newStyleboxNormal.BorderWidthRight = 2;
-			newStyleboxNormal.BorderWidthBottom = 2;
-			panel.AddThemeStyleboxOverride(_STYLEBOX_NAME, newStyleboxNormal);
-		}
-	}
-
-	public void RemoveSelectBorder(Panel panel)
-	{
-		if (panel.HasThemeStylebox(_STYLEBOX_NAME))
-		{
-			StyleBoxFlat newStyleboxNormal = panel.GetThemeStylebox(_STYLEBOX_NAME).Duplicate() as StyleBoxFlat;
-			newStyleboxNormal.BorderWidthLeft = 0;
-			newStyleboxNormal.BorderWidthTop = 0;
-			newStyleboxNormal.BorderWidthRight = 0;
-			newStyleboxNormal.BorderWidthBottom = 0;
-			panel.AddThemeStyleboxOverride(_STYLEBOX_NAME, newStyleboxNormal);
-		}
-	}
-
-	public void AddWhiteFont(Label label)
-	{
-		if (label.LabelSettings != null)
-		{
-			var newLabelSettings = label.LabelSettings.Duplicate() as LabelSettings;
-			newLabelSettings.FontColor = Colors.White;
-			label.LabelSettings = newLabelSettings;
-		}
-		else
-		{
-			////GD.Print("LabelSettings are null. White FontColor was not applied");
-		}
-	}
-
-	public void AddGreyFont(Label label)
-	{
-		if (label.LabelSettings != null)
-		{
-			var newLabelSettings = label.LabelSettings.Duplicate() as LabelSettings;
-			newLabelSettings.FontColor = new Color(0x707070ff);
-			label.LabelSettings = newLabelSettings;
-		}
-		else
-		{
-			////GD.Print("LabelSettings are null. Grey FontColor was not applied");
-		}
-	}
-
 	public void ApplyActivePagePanelOption(Panel panel)
 	{
 		panel.AddThemeStyleboxOverride(_STYLEBOX_NAME, _styleActivePagePanelOption);
@@ -179,7 +125,7 @@ public class SelectionHelper
 		return false;
 	}
 
-	public void Reset()
+	public virtual void Reset()
 	{
 		CurrentSelectedOptionIndex = 0;
 		int len = OptionList.Count;

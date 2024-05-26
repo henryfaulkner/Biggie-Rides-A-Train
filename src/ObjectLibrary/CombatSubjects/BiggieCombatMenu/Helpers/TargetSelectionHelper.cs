@@ -2,7 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Godot;
 
-public class TargetSelectionHelper : ISelectionHelper
+public class TargetSelectionHelper : SelectionHelper, ISelectionHelper
 {
 	private static readonly StringName _STYLEBOX_NAME = new StringName("panel");
 	private static readonly StringName _ACTIVE_ENEMY_TARGET_PANEL_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Active_EnemyTargetPanelOption.tres");
@@ -11,78 +11,15 @@ public class TargetSelectionHelper : ISelectionHelper
 	private StyleBoxFlat _styleActiveEnemyTargetPanelOption = null;
 	private StyleBoxFlat _styleInactiveEnemyTargetPanelOption = null;
 
-	public List<OptionModel> OptionList { get; set; }
-	private int CurrentSelectedOptionIndex { get; set; }
-
-	public TargetSelectionHelper()
+	public TargetSelectionHelper() : base()
 	{
-		OptionList = new List<OptionModel>();
-		CurrentSelectedOptionIndex = 0;
 		InstantiateSelectionStyles();
 	}
 
-	public void InstantiateSelectionStyles()
+	public override void InstantiateSelectionStyles()
 	{
 		_styleActiveEnemyTargetPanelOption = GD.Load<StyleBoxFlat>(_ACTIVE_ENEMY_TARGET_PANEL_OPTION);
 		_styleInactiveEnemyTargetPanelOption = GD.Load<StyleBoxFlat>(_INACTIVE_ENEMY_TARGET_PANEL_OPTION);
-	}
-
-	public void AddOption(int id, int uiId, bool isSelected, Panel panel, Label label)
-	{
-		var option = new OptionModel(id, uiId, isSelected, panel, label);
-		OptionList.Add(option);
-	}
-
-	public void ShiftSelectionLeft()
-	{
-		int len = OptionList.Count;
-		if (len == 0)
-		{
-			//GD.Print("Error: OptionList is empty");
-			return;
-		}
-		if (len == 1) return;
-
-		OptionList[CurrentSelectedOptionIndex].IsSelected = false;
-		if (CurrentSelectedOptionIndex == 0)
-		{
-			CurrentSelectedOptionIndex = len - 1;
-		}
-		else
-		{
-			CurrentSelectedOptionIndex -= 1;
-		}
-		OptionList[CurrentSelectedOptionIndex].IsSelected = true;
-		return;
-	}
-
-	public void ShiftSelectionRight()
-	{
-		int len = OptionList.Count;
-		if (len == 0)
-		{
-			//GD.Print("Error: OptionList is empty");
-			return;
-		}
-		if (len == 1) return;
-
-		OptionList[CurrentSelectedOptionIndex].IsSelected = false;
-
-		if (CurrentSelectedOptionIndex == (len - 1))
-		{
-			CurrentSelectedOptionIndex = 0;
-		}
-		else
-		{
-			CurrentSelectedOptionIndex += 1;
-		}
-		OptionList[CurrentSelectedOptionIndex].IsSelected = true;
-		return;
-	}
-
-	public int GetSelectedOptionId()
-	{
-		return CurrentSelectedOptionIndex;
 	}
 
 	public void ApplyActiveEnemyTargetPanelOption(Panel panel)
@@ -95,7 +32,7 @@ public class TargetSelectionHelper : ISelectionHelper
 		panel.AddThemeStyleboxOverride(_STYLEBOX_NAME, _styleInactiveEnemyTargetPanelOption);
 	}
 
-	public void Reset()
+	public override void Reset()
 	{
 		CurrentSelectedOptionIndex = 0;
 		int len = OptionList.Count;

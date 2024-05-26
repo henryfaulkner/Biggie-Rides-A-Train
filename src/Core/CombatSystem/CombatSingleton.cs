@@ -13,6 +13,9 @@ public partial class CombatSingleton : Node
 	private CombatBiggieModel BiggiePhysical { get; set; }
 	private CombatParticipantModel EnemyPhysical { get; set; }
 	public List<EnemyTarget> EnemyTargetList { get; set; }
+	private CombatParticipantModel EnemyEmotional { get; set; }
+	public BiggieAttackProxy BiggiePhysicalAttackProxy { get; set; }
+	public BiggieAttackProxy BiggieEmotionalAttackProxy { get; set; }
 
 	public CombatSingleton()
 	{
@@ -25,9 +28,8 @@ public partial class CombatSingleton : Node
 		EnemyTargetList = new List<EnemyTarget>();
 	}
 
-	public void NewBattle(double totalBiggiePhysicalHealth)
+	public void NewBattle(double totalBiggiePhysicalHealth, double totalEnemyPhysicalHealth, double totalEnemyEmotionalHealth)
 	{
-		//GD.Print("Start NewBattle");
 		CombatStateMachineService = new CombatStateMachineService();
 		EnemyAttackPanelService = new EnemyAttackPanelService();
 		CombatStateMachineService.Reset();
@@ -35,15 +37,7 @@ public partial class CombatSingleton : Node
 		BiggiePhysical = new CombatBiggieModel(totalBiggiePhysicalHealth);
 		EnemyPhysicalAttackProxy = new OpponentAttackProxy(EnemyPhysical, BiggiePhysical);
 		EnemyTargetList = new List<EnemyTarget>();
-		//GD.Print("End NewBattle");
 	}
-
-	#region FOR THE COMPILER; DEPRECATE THIS!
-	private CombatParticipantModel EnemyEmotional { get; set; }
-	public BiggieAttackProxy BiggiePhysicalAttackProxy { get; set; }
-	public BiggieAttackProxy BiggieEmotionalAttackProxy { get; set; }
-	public void NewBattle(double totalBiggiePhysicalHealth, double totalEnemyPhysicalHealth, double totalEnemyEmotionalHealth) { }
-	#endregion
 
 	public void AddEnemyTarget(int id, Panel targetPanel, double totalEnemyPhysicalHealth, double totalEnemyEmotionalHealth)
 	{

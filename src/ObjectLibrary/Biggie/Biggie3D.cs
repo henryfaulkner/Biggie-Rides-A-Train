@@ -30,6 +30,8 @@ public partial class Biggie3D : CharacterBody3D
 	private Enumerations.Movement.Directions _currentFrameDirection = Enumerations.Movement.Directions.Down;
 
 	private RelocationService _serviceRelocation = null;
+	private GravityService _serviceGravity = null;
+	private RotationService _serviceRotation = null;
 
 	public override void _Ready()
 	{
@@ -40,6 +42,8 @@ public partial class Biggie3D : CharacterBody3D
 
 		_serviceRelocation = GetNode<RelocationService>("/root/RelocationService");
 		AttemptStoredLocationApplication();
+		_serviceGravity = GetNode<GravityService>("/root/GravityService");
+		_serviceRotation = GetNode<RotationService>("/root/RotationService");
 	}
 
 	public override void _Process(double delta)
@@ -49,9 +53,11 @@ public partial class Biggie3D : CharacterBody3D
 			&& (_nodeTextBox == null || !_nodeTextBox.IsOpen())
 			&& (_nodeInteractionTextBox == null || !_nodeInteractionTextBox.IsOpen))
 		{
+			ProcessGravity(delta);
 			var collision = Movement(delta);
 			if (collision != null)
 			{
+				GD.Print("Collide");
 				Collide(collision);
 			}
 		}
@@ -73,7 +79,7 @@ public partial class Biggie3D : CharacterBody3D
 
 		if (Input.IsActionPressed(_MOVE_LEFT_INPUT))
 		{
-			inputDirection.X = -_BIGGIE_SPEED_X_RATIO;
+			inputDirection = _serviceRotation.ApplyRightDirection(inputDirection, -_BIGGIE_SPEED_X_RATIO);
 			_isMoving = true;
 			_frameIncrement += 1;
 			_currentFrameDirection = Enumerations.Movement.Directions.Right;
@@ -81,7 +87,7 @@ public partial class Biggie3D : CharacterBody3D
 		}
 		else if (Input.IsActionPressed(_MOVE_RIGHT_INPUT))
 		{
-			inputDirection.X = _BIGGIE_SPEED_X_RATIO;
+			inputDirection = _serviceRotation.ApplyRightDirection(inputDirection, _BIGGIE_SPEED_X_RATIO);
 			_isMoving = true;
 			_frameIncrement += 1;
 			_currentFrameDirection = Enumerations.Movement.Directions.Left;
@@ -90,14 +96,14 @@ public partial class Biggie3D : CharacterBody3D
 
 		if (Input.IsActionPressed(_MOVE_DOWN_INPUT))
 		{
-			inputDirection.Z += _BIGGIE_SPEED_Z_RATIO;
+			inputDirection = _serviceRotation.ApplyDownDirection(inputDirection, _BIGGIE_SPEED_Z_RATIO);
 			_isMoving = true;
 			_frameIncrement = 1;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
 		else if (Input.IsActionPressed(_MOVE_UP_INPUT))
 		{
-			inputDirection.Z = -_BIGGIE_SPEED_Z_RATIO;
+			inputDirection = _serviceRotation.ApplyUpDirection(inputDirection, _BIGGIE_SPEED_Z_RATIO);
 			_isMoving = true;
 			_frameIncrement += 1;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
@@ -249,5 +255,17 @@ public partial class Biggie3D : CharacterBody3D
 		{
 			////GD.Print($"AttemptStoredLocationApplication exception: {exception}");
 		}
+	}
+
+	public void ProcessGravity(double delta)
+	{
+		Velocity = new Vector3(
+			Velocity.X + _serviceGravity.CurrentGravity.X,
+			Velocity.Y + _serviceGravity.CurrentGravity.Y,
+			Velocity.Z + _serviceGravity.CurrentGravity.Z
+		);
+		MoveAndCollide(Velocity * (float)delta);
+		GD.Print($"Gravity : {_serviceGravity.CurrentGravity}");
+		GD.Print($"Velocity : {Velocity}");
 	}
 }

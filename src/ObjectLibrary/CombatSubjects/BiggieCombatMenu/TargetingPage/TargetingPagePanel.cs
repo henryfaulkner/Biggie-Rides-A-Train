@@ -20,6 +20,7 @@ public partial class TargetingPagePanel : Panel
 	public TargetSelectionHelper SelectionHelperInstance { get; set; }
 	public bool IsOpen { get; set; }
 	private Enumerations.Combat.CombatOptions CurrentCombatOption { get; set; }
+	private bool IsInitialized { get; set; }
 
 	public override void _Ready()
 	{
@@ -29,15 +30,13 @@ public partial class TargetingPagePanel : Panel
 		_audioSwitch = GetNode<AudioStreamPlayer>("../Switch_AudioStreamPlayer");
 		_serviceCombat = GetNode<CombatSingleton>("/root/CombatSingleton");
 
-		SelectionHelperInstance = new TargetSelectionHelper();
-		foreach ((EnemyTarget target, int i) in _serviceCombat.EnemyTargetList.Select((value, i) => (value, i)))
-		{
-			SelectionHelperInstance.AddOption(target.Id, target.Id, i == 0, target.TargetPanel, null);
-		}
+		IsInitialized = false;
 	}
 
 	public override void _PhysicsProcess(double _delta)
 	{
+		if (!IsInitialized) IsInitialized = InitializeTargetingPanels();
+
 		if (!IsOpen)
 		{
 			if (Visible) Visible = false;
@@ -72,23 +71,59 @@ public partial class TargetingPagePanel : Panel
 		}
 	}
 
+	public bool InitializeTargetingPanels()
+	{
+		if (_serviceCombat.EnemyTargetList.Count == 0) return false;
+		SelectionHelperInstance = new TargetSelectionHelper();
+		GD.Print($"EnemyTarget Count: {_serviceCombat.EnemyTargetList.Count}");
+		foreach ((EnemyTarget target, int i) in _serviceCombat.EnemyTargetList.Select((value, i) => (value, i)))
+		{
+			SelectionHelperInstance.AddOption(target.Id, target.Id, i == 0, target.TargetPanel, null);
+		}
+		// Add BACK Panel as an option.
+		SelectionHelperInstance.AddOption(-1, -1, false, _nodeBackSelectionPanel, _nodeBackOptionLabel);
+		ProcessSelection(null);
+		return true;
+	}
+
 	[Signal]
 	public delegate void SelectTargetEventHandler(int combatOption, int enemyTargetIndex);
 
-	public void ProcessSelection(Enumerations.Combat.CombatOptions combatOption)
+	public void ProcessSelection(Enumerations.Combat.CombatOptions? combatOption)
 	{
-		CurrentCombatOption = combatOption;
+		if (combatOption.HasValue) CurrentCombatOption = combatOption.Value;
 		foreach (var option in SelectionHelperInstance.OptionList)
 		{
 			try
 			{
-				if (option.IsSelected)
+				// -1 is the BACK Panel.
+				if (option.Id == -1)
 				{
-					SelectionHelperInstance.ApplyActiveEnemyTargetPanelOption(option.SelectionPanel);
+					if (option.IsSelected)
+					{
+						GD.Print("ApplyActiveBack");
+						SelectionHelperInstance.ApplyActivePageLabelSettingOption(option.OptionLabel);
+						SelectionHelperInstance.ApplyActivePagePanelOption(option.SelectionPanel);
+					}
+					else
+					{
+						GD.Print("ApplyInactiveBack");
+						SelectionHelperInstance.ApplyInactivePageLabelSettingOption(option.OptionLabel);
+						SelectionHelperInstance.ApplyInactivePagePanelOption(option.SelectionPanel);
+					}
 				}
 				else
 				{
-					SelectionHelperInstance.ApplyInactiveEnemyTargetPanelOption(option.SelectionPanel);
+					if (option.IsSelected)
+					{
+						GD.Print("ApplyActiveEnemyTarget");
+						SelectionHelperInstance.ApplyActiveEnemyTargetPanelOption(option.SelectionPanel);
+					}
+					else
+					{
+						GD.Print("ApplyInactiveEnemyTarget");
+						SelectionHelperInstance.ApplyInactiveEnemyTargetPanelOption(option.SelectionPanel);
+					}
 				}
 			}
 			catch (Exception exception)

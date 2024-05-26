@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dovoy7y5yxgol"]
+[gd_scene load_steps=21 format=3 uid="uid://dovoy7y5yxgol"]
 
 [ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_qrbr8"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/MushroomFight/Scene_MushroomFight.cs" id="1_v53qj"]
@@ -37,6 +37,9 @@ size = Vector3(1, 1, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bjpgp"]
 size = Vector3(10, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eemlo"]
+size = Vector3(100, 0.2, 13.48)
 
 [node name="SceneMushroomFight" type="Node3D"]
 script = ExtResource("1_v53qj")
@@ -96,6 +99,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.811)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/LeftMostBarrier"]
 shape = SubResource("BoxShape3D_yirjk")
+
+[node name="FloorMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.38081, 0.045277, 1.93252)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/FloorMostBarrier"]
+shape = SubResource("BoxShape3D_eemlo")
+
+[node name="ForwardWallMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12.7616, -0.535829, 0.834153)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/ForwardWallMostBarrier"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.758507, -3.73999)
+shape = SubResource("BoxShape3D_eemlo")
 
 [node name="Door3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("6_u1oi5")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.1, 4.29458, 0.758061, 0.483449)

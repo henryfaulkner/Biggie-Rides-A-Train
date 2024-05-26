@@ -59,7 +59,7 @@ size = Vector3(10, 1, 1)
 size = Vector3(1, 1, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_topyh"]
-size = Vector3(10, 1, 1)
+size = Vector3(100, 0.2, 13.48)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6d7ek"]
 size = Vector3(1, 1, 5.35159)
@@ -267,6 +267,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.811)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/LeftMostBarrier"]
 shape = SubResource("BoxShape3D_a7uyo")
+
+[node name="FloorMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.38081, -0.267914, 1.93252)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/FloorMostBarrier"]
+shape = SubResource("BoxShape3D_topyh")
+
+[node name="ForwardWallMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12.7616, -0.535829, 0.834153)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/ForwardWallMostBarrier"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.758507, -3.73999)
+shape = SubResource("BoxShape3D_topyh")
 
 [node name="NearDoor3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("8_gt74d")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.1, 2.77977, 0.79571, 3.60392)

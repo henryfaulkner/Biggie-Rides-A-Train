@@ -1,16 +1,11 @@
 {
   "StoredLocation": {
-    "SceneId": 2,
-    "X": 10.0,
+    "SceneId": 5,
+    "X": 2.0,
     "Y": 0.0,
-    "Z": 0.0
+    "Z": 3.0
   },
-  "AdditionalStoredLocation": {
-    "SceneId": 0,
-    "X": 0.0,
-    "Y": 0.0,
-    "Z": 0.0
-  },
+  "AdditionalStoredLocation": null,
   "HasItemTicketPieceOne": false,
   "HasItemTicketPieceTwo": false,
   "HasItemTicketPieceThree": false,
@@ -25,11 +20,11 @@
   "DialogueStateTherapist": 0,
   "DialogueStateDJ": 0,
   "DialogueStateSubconscious": 0,
-  "IsSwitchDoorOpen": false,
-  "IsButtonDoorOpen": false,
+  "IsSwitchDoorOpen": true,
+  "IsButtonDoorOpen": true,
   "IsMushroomDead": false,
   "IsMushroomMoved": false,
   "UserSettings": {
-    "FxMuted": true
+    "FxMuted": false
   }
 }

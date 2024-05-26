@@ -29,18 +29,19 @@ public partial class BiggieCombatMenu : CanvasLayer
 		_nodeBasePagePanel.IsOpen = false;
 		_nodeChatPagePanel.IsOpen = false;
 		_nodeFightPagePanel.IsOpen = false;
-		HideActionInfoFunc();
+		_nodeTargetingPagePanel.IsOpen = false;
+		HandleHideActionInfo();
 
 		_nodeBasePagePanel.SelectBase += HandleBaseSelection;
-		_nodeBasePagePanel.ShowActionInfo += ShowActionInfoFunc;
-		_nodeBasePagePanel.HideActionInfo += HideActionInfoFunc;
+		_nodeBasePagePanel.ShowActionInfo += HandleShowActionInfo;
+		_nodeBasePagePanel.HideActionInfo += HandleHideActionInfo;
 		_nodeChatPagePanel.SelectChat += HandleChatSelection;
 		_nodeTargetingPagePanel.SelectTarget += HandleTargetingSelection;
-		_nodeChatPagePanel.ShowActionInfo += ShowActionInfoFunc;
-		_nodeChatPagePanel.HideActionInfo += HideActionInfoFunc;
+		_nodeChatPagePanel.ShowActionInfo += HandleShowActionInfo;
+		_nodeChatPagePanel.HideActionInfo += HandleHideActionInfo;
 		_nodeFightPagePanel.SelectFight += HandleFightSelection;
-		_nodeFightPagePanel.ShowActionInfo += ShowActionInfoFunc;
-		_nodeFightPagePanel.HideActionInfo += HideActionInfoFunc;
+		_nodeFightPagePanel.ShowActionInfo += HandleShowActionInfo;
+		_nodeFightPagePanel.HideActionInfo += HandleHideActionInfo;
 	}
 
 	public override void _Process(double _delta)
@@ -228,20 +229,22 @@ public partial class BiggieCombatMenu : CanvasLayer
 		_nodeBasePagePanel.ResetPointerOffset();
 		_nodeChatPagePanel.ResetPointerOffset();
 		_nodeFightPagePanel.ResetPointerOffset();
+		_nodeTargetingPagePanel.ResetPointerOffset();
 		_nodeBasePagePanel.IsOpen = false;
 		_nodeChatPagePanel.IsOpen = false;
 		_nodeFightPagePanel.IsOpen = false;
+		_nodeTargetingPagePanel.IsOpen = false;
 	}
 
 	[Signal]
 	public delegate void ShowActionInfoEventHandler();
 	[Signal]
 	public delegate void HideActionInfoEventHandler();
-	private void ShowActionInfoFunc()
+	private void HandleShowActionInfo()
 	{
 		EmitSignal(SignalName.ShowActionInfo);
 	}
-	private void HideActionInfoFunc()
+	private void HandleHideActionInfo()
 	{
 		EmitSignal(SignalName.HideActionInfo);
 	}

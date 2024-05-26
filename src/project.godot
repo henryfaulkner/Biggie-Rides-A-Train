@@ -22,8 +22,10 @@ config/icon="res://icon.svg"
 CombatSingleton="*res://Core/CombatSystem/CombatSingleton.cs"
 LoggingService="*res://Core/LoggingService/LoggingService.cs"
 RelocationService="*res://Core/RelocationService/RelocationService.cs"
-LevelEnumService="*res://Core/LevelEnumService.gd"
+GDEnumService="*res://Core/GDEnumService.gd"
 SaveStateService="*res://Core/SaveStateService/SaveStateService.cs"
+GravityService="*res://Core/Physics/GravityService.cs"
+RotationService="*res://Core/Physics/RotationService.cs"
 
 [display]
 
