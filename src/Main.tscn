@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnrmjtfaqyxy8"]
+[gd_scene load_steps=7 format=3 uid="uid://bnrmjtfaqyxy8"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_cnm6e"]
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_fkue4"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://Play.gd" id="4_1vg3r"]
 [ext_resource type="AudioStream" uid="uid://bycft7j8ap3vv" path="res://Assets/Sounds/2. Menu Select copy.wav" id="5_c0n12"]
 [ext_resource type="AudioStream" uid="uid://dw48r7oe41tp6" path="res://Assets/Sounds/13. Menu Scroll copy.wav" id="6_h8r83"]
-[ext_resource type="PackedScene" uid="uid://dwlmfdqio1b4g" path="res://ObjectLibrary/UI/PauseMenu/PauseMenu.tscn" id="7_pm33e"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_cnm6e")
@@ -72,8 +71,6 @@ text = "Quit"
 [node name="Switch_AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_h8r83")
 bus = &"Fx"
-
-[node name="PauseMenu" parent="." instance=ExtResource("7_pm33e")]
 
 [connection signal="pressed" from="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/Play" to="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/Play" method="_on_pressed"]
 [connection signal="pressed" from="TextBoxWrapper/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/Options" to="." method="_on_options_pressed"]

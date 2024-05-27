@@ -32,7 +32,7 @@ public partial class Main : Node2D
 		FocusIndex = 0;
 	}
 
-	public override void _Process(double delta)
+	public override void _Process(double _delta)
 	{
 		if (Input.IsActionJustPressed(_UP_INPUT)
 			|| Input.IsActionJustPressed(_RIGHT_INPUT)
@@ -41,7 +41,7 @@ public partial class Main : Node2D
 		{
 			_nodeSwitchAudio.Play();
 		}
-		
+
 		if (Input.IsActionJustPressed(_TAB_INPUT))
 		{
 			_nodeSwitchAudio.Play();
@@ -56,7 +56,6 @@ public partial class Main : Node2D
 				Buttons[FocusIndex + 1].GrabFocus();
 				FocusIndex += 1;
 			}
-
 		}
 	}
 

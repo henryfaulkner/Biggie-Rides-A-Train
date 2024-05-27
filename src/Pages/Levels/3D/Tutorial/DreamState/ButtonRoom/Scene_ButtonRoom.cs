@@ -10,6 +10,7 @@ public partial class Scene_ButtonRoom : Node3D
 	private PressurePlate _nodePressurePlate5 = null;
 	private StaticBody3D _nodeBarrier = null;
 	private RotationPaws _nodeRotationPaws = null;
+	private RotationPaws _nodeRotationPaws2 = null;
 
 	private SaveStateService _serviceSaveState = null;
 	private RotationService _serviceRotation = null;
@@ -56,6 +57,9 @@ public partial class Scene_ButtonRoom : Node3D
 
 		_nodeBarrier = GetNode<StaticBody3D>("LevelWrapper/TextBoxWrapper/Barrier");
 		_nodeRotationPaws = GetNode<RotationPaws>("./LevelWrapper/TextBoxWrapper/RotationPaws");
+		_nodeRotationPaws.Rotate += HandleForwardRotate;
+		_nodeRotationPaws2 = GetNode<RotationPaws>("./LevelWrapper/TextBoxWrapper/RotationPaws2");
+		_nodeRotationPaws2.Rotate += HandleForwardRotate;
 
 		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
 		_serviceRotation = GetNode<RotationService>("/root/RotationService");
@@ -70,8 +74,6 @@ public partial class Scene_ButtonRoom : Node3D
 			bitPressurePlate5 = true;
 			if (CheckAllPressurePlates()) ProcessAllPressed();
 		}
-
-		_nodeRotationPaws.Rotate += HandleForwardRotate;
 	}
 
 	private void ProcessAllPressed()

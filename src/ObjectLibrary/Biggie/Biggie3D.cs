@@ -265,7 +265,5 @@ public partial class Biggie3D : CharacterBody3D
 			Velocity.Z + _serviceGravity.CurrentGravity.Z
 		);
 		MoveAndCollide(Velocity * (float)delta);
-		GD.Print($"Gravity : {_serviceGravity.CurrentGravity}");
-		GD.Print($"Velocity : {Velocity}");
 	}
 }
