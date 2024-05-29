@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class CombatSceneMushroomBattle_2 : Node2D
 {
@@ -14,18 +15,23 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 	private Node2D _nodeSelf = null;
 	private CombatWrapper _nodeCombatWrapper = null;
 	private BiggieCombatMenu _nodeBiggieCombatMenu = null;
-	private MushroomAttackContainer _nodeMushroomAttackContainer = null;
+	private MushroomAttackContainer _nodeMushroomAttackContainer1 = null;
+	private MushroomAttackContainer _nodeMushroomAttackContainer2 = null;
 	private ChatterTextBox _nodeChatterTextBox = null;
 	private ProgressBar _nodeBiggieHealthBar = null;
 	private Label _nodeBiggieHpValueLabel = null;
 
+	private const int EnemyTarget1Id = 0;
 	private Node _nodeMushroomTarget1 = null;
 	private Panel _nodeMushroomTarget1Panel = null;
+	private const int EnemyTarget2Id = 1;
 	private Node _nodeMushroomTarget2 = null;
 	private Panel _nodeMushroomTarget2Panel = null;
 
 	private CombatSingleton _globalCombatSingleton = null;
 	private SaveStateService _serviceSaveState = null;
+
+	private Queue<EnemyOpponent> EnemyOpponentQueue { get; set; }
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -33,7 +39,8 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		_nodeSelf = GetNode<Node2D>(".");
 		_nodeCombatWrapper = GetNode<CombatWrapper>("./CombatWrapper");
 		_nodeBiggieCombatMenu = GetNode<BiggieCombatMenu>("./CombatWrapper/BiggieCombatMenu");
-		_nodeMushroomAttackContainer = GetNode<MushroomAttackContainer>("./CombatWrapper/EnemyAttackContainer/EnemyAttackPanel/MushroomAttackContainer");
+		_nodeMushroomAttackContainer1 = GetNode<MushroomAttackContainer>("./CombatWrapper/EnemyAttackContainer/EnemyAttackPanel/MushroomAttackContainer");
+		_nodeMushroomAttackContainer2 = GetNode<MushroomAttackContainer>("./CombatWrapper/EnemyAttackContainer/EnemyAttackPanel/MushroomAttackContainer2");
 		_nodeChatterTextBox = GetNode<ChatterTextBox>("./CombatWrapper/ChatterTextBox");
 		_nodeBiggieHealthBar = GetNode<ProgressBar>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
 		_nodeBiggieHpValueLabel = GetNode<Label>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/HpValueLabel");
@@ -41,13 +48,13 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		_nodeMushroomTarget1 = GetNode<Node>("./CombatWrapper/Panel/MushroomTarget1");
 		_nodeMushroomTarget1Panel = GetNode<Panel>("./CombatWrapper/Panel");
 		_nodeMushroomTarget2 = GetNode<Node>("./CombatWrapper/Panel2/MushroomTarget2");
-		_nodeMushroomTarget2Panel = GetNode<Panel>("./CombatWrapper/Panel");
+		_nodeMushroomTarget2Panel = GetNode<Panel>("./CombatWrapper/Panel2");
 
 		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 		_globalCombatSingleton.NewBattle(_MAX_HEALTH_PHYSICAL_BIGGIE, _MAX_HEALTH_PHYSICAL_MUSHROOM, _MAX_HEALTH_EMOTIONAL_MUSHROOM);
-		_globalCombatSingleton.AddEnemyTarget(0, _nodeMushroomTarget1Panel, 12, 8);
-		_globalCombatSingleton.AddEnemyTarget(1, _nodeMushroomTarget2Panel, 8, 12);
+		_globalCombatSingleton.AddEnemyTarget(EnemyTarget1Id, _nodeMushroomTarget1Panel, 12, 8);
+		_globalCombatSingleton.AddEnemyTarget(EnemyTarget2Id, _nodeMushroomTarget2Panel, 8, 12);
 		_globalCombatSingleton.CombatStateMachineService.SetCheckChatterConditions(CheckChatterConditions);
 		HandleChangeBiggieHealthBar();
 
@@ -58,12 +65,20 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		_nodeCombatWrapper.BiggieDefeat += HandleBiggieDefeat;
 		_nodeCombatWrapper.EnemyListPhysicalDefeat += HandleMushroomPhysicalDefeat;
 		_nodeCombatWrapper.EnemyListEmotionalDefeat += HandleMushroomEmotionalDefeat;
-		_nodeMushroomAttackContainer.ProjectPhysicalDamage += HandleChangeBiggieHealthBar;
-		_nodeMushroomAttackContainer.EndEnemyAttackTurn += HandleEndEnemyAttackTurn;
-		_nodeMushroomAttackContainer.FramesPerRound = 600;
 
-		_nodeMushroomAttackContainer.Hide();
-		_nodeMushroomAttackContainer.IsAttacking = false;
+		_nodeMushroomAttackContainer1.ProjectPhysicalDamage += HandleChangeBiggieHealthBar;
+		_nodeMushroomAttackContainer1.EndEnemyAttackTurn += HandleEndEnemyAttackTurn;
+		_nodeMushroomAttackContainer1.FramesPerRound = 600;
+		_nodeMushroomAttackContainer1.Hide();
+		_nodeMushroomAttackContainer1.IsAttacking = false;
+
+		_nodeMushroomAttackContainer2.ProjectPhysicalDamage += HandleChangeBiggieHealthBar;
+		_nodeMushroomAttackContainer2.EndEnemyAttackTurn += HandleEndEnemyAttackTurn;
+		_nodeMushroomAttackContainer2.FramesPerRound = 600;
+		_nodeMushroomAttackContainer2.Hide();
+		_nodeMushroomAttackContainer2.IsAttacking = false;
+
+		EnemyOpponentQueue = new Queue<EnemyOpponent>();
 		HandleStartBiggieTextTurn();
 	}
 
@@ -77,13 +92,51 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 
 	public void HandleStartEnemyAttackTurn()
 	{
-		_nodeMushroomAttackContainer.Visible = true;
-		_nodeMushroomAttackContainer.StartTurn();
+		var enemyTarget1 =
+			_globalCombatSingleton.EnemyTargetList
+			.Where(x => x.Id == EnemyTarget1Id)
+			.First();
+		if (enemyTarget1 != null)
+		{
+			EnemyOpponentQueue.Enqueue(
+				new EnemyOpponent()
+				{
+					EnemyTarget = enemyTarget1,
+					EnemyAttackContainer = _nodeMushroomAttackContainer1
+				}
+			);
+		}
+
+		var enemyTarget2 =
+			_globalCombatSingleton.EnemyTargetList
+			.Where(x => x.Id == EnemyTarget2Id)
+			.First();
+		if (enemyTarget2 != null)
+		{
+			EnemyOpponentQueue.Enqueue(
+				new EnemyOpponent()
+				{
+					EnemyTarget = enemyTarget2,
+					EnemyAttackContainer = _nodeMushroomAttackContainer2,
+				}
+			);
+		}
+
+		if (EnemyOpponentQueue.Any())
+		{
+			var enemyOpponent = EnemyOpponentQueue.Peek();
+			enemyOpponent.EnemyAttackContainer.Visible = true;
+			enemyOpponent.EnemyAttackContainer.StartTurn();
+		}
 	}
 
 	public void HandleEndEnemyAttackTurn()
 	{
-		_nodeMushroomAttackContainer.Visible = false;
+		if (EnemyOpponentQueue.Any())
+		{
+			var enemyOpponent = EnemyOpponentQueue.Peek();
+			enemyOpponent.EnemyAttackContainer.Visible = false;
+		}
 		_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishEnemyAttack);
 		return;
 	}
@@ -261,5 +314,11 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		return false;
 	}
 
-
+	private static readonly StringName _NODE_MUSHROOM_ATTACK_CONTAINER = new StringName("res://ObjectLibrary/CombatSubjects/EnemyAttack/Mushroom/MushroomAttackContainer.tscn");
+	private MushroomAttackContainer InstantiateMushroomAttackContainer()
+	{
+		var scene = GD.Load<PackedScene>(_NODE_MUSHROOM_ATTACK_CONTAINER);
+		var instance = scene.Instantiate<MushroomAttackContainer>();
+		return instance;
+	}
 }

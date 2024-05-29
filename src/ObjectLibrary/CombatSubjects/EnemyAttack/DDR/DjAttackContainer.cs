@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-public partial class DjAttackContainer : MarginContainer
+public partial class DjAttackContainer : EnemyAttackContainer
 {
 	private static readonly StringName _HIT_CALLOUT_STYLEBOX_NAME = new StringName("panel");
 	private static readonly StringName _MISS_IMAGE_ASSET = new StringName("res://Assets/CombatScenes/DDR/miss.svg");
@@ -112,9 +112,14 @@ public partial class DjAttackContainer : MarginContainer
 		}
 	}
 
-	public void StartTurn()
+	public override void StartTurn()
 	{
 		IsAttacking = true;
+	}
+
+	public override void ProcessTurn()
+	{
+		throw new NotImplementedException();
 	}
 
 	[Signal]
@@ -122,7 +127,7 @@ public partial class DjAttackContainer : MarginContainer
 	[Signal]
 	public delegate void EndEnemyAttackTurnEventHandler();
 
-	public void EndTurn()
+	public override void EndTurn()
 	{
 		IsAttacking = false;
 	}

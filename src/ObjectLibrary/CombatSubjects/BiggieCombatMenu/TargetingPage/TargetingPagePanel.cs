@@ -35,7 +35,11 @@ public partial class TargetingPagePanel : Panel
 
 	public override void _PhysicsProcess(double _delta)
 	{
-		if (!IsInitialized) IsInitialized = InitializeTargetingPanels();
+		if (!IsInitialized)
+		{
+			IsInitialized = InitializeTargetingPanels();
+			HideSelectionPanels();
+		}
 
 		if (!IsOpen)
 		{
@@ -102,14 +106,22 @@ public partial class TargetingPagePanel : Panel
 					if (option.IsSelected)
 					{
 						GD.Print("ApplyActiveBack");
-						SelectionHelperInstance.ApplyActivePageLabelSettingOption(option.OptionLabel);
-						SelectionHelperInstance.ApplyActivePagePanelOption(option.SelectionPanel);
+						if (option.OptionLabel != null)
+							SelectionHelperInstance.ApplyActivePageLabelSettingOption(option.OptionLabel);
+						else GD.Print("Back Label is null");
+						if (option.SelectionPanel != null)
+							SelectionHelperInstance.ApplyActivePagePanelOption(option.SelectionPanel);
+						else GD.Print("Back Panel is null");
 					}
 					else
 					{
 						GD.Print("ApplyInactiveBack");
-						SelectionHelperInstance.ApplyInactivePageLabelSettingOption(option.OptionLabel);
-						SelectionHelperInstance.ApplyInactivePagePanelOption(option.SelectionPanel);
+						if (option.OptionLabel != null)
+							SelectionHelperInstance.ApplyInactivePageLabelSettingOption(option.OptionLabel);
+						else GD.Print("Back Label is null");
+						if (option.SelectionPanel != null)
+							SelectionHelperInstance.ApplyInactivePagePanelOption(option.SelectionPanel);
+						else GD.Print("Back Panel is null");
 					}
 				}
 				else
@@ -117,12 +129,16 @@ public partial class TargetingPagePanel : Panel
 					if (option.IsSelected)
 					{
 						GD.Print("ApplyActiveEnemyTarget");
-						SelectionHelperInstance.ApplyActiveEnemyTargetPanelOption(option.SelectionPanel);
+						if (option.SelectionPanel != null)
+							SelectionHelperInstance.ApplyActiveEnemyTargetPanelOption(option.SelectionPanel);
+						else GD.Print($"Enemy Target {option.Id} Panel is null");
 					}
 					else
 					{
 						GD.Print("ApplyInactiveEnemyTarget");
-						SelectionHelperInstance.ApplyInactiveEnemyTargetPanelOption(option.SelectionPanel);
+						if (option.SelectionPanel != null)
+							SelectionHelperInstance.ApplyInactiveEnemyTargetPanelOption(option.SelectionPanel);
+						else GD.Print($"Enemy Target {option.Id} Panel is null");
 					}
 				}
 			}
@@ -136,5 +152,31 @@ public partial class TargetingPagePanel : Panel
 	public void ResetPointerOffset()
 	{
 		SelectionHelperInstance.Reset();
+	}
+
+	public void ShowSelectionPanels()
+	{
+		foreach (var panel in SelectionHelperInstance.OptionList.Select(x => x.SelectionPanel))
+		{
+			panel.SelfModulate = new Color(
+				panel.SelfModulate.R,
+				panel.SelfModulate.G,
+				panel.SelfModulate.B,
+				1.0f
+			);
+		}
+	}
+
+	public void HideSelectionPanels()
+	{
+		foreach (var panel in SelectionHelperInstance.OptionList.Select(x => x.SelectionPanel))
+		{
+			panel.SelfModulate = new Color(
+				panel.SelfModulate.R,
+				panel.SelfModulate.G,
+				panel.SelfModulate.B,
+				0.0f
+			);
+		}
 	}
 }

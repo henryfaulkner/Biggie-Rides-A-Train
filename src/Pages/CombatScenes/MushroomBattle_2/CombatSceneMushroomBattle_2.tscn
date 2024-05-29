@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cy8gec0o5ymq8"]
+[gd_scene load_steps=9 format=3 uid="uid://cy8gec0o5ymq8"]
 
 [ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.tscn" id="1_dkmuv"]
 [ext_resource type="Script" path="res://Pages/CombatScenes/MushroomBattle_2/CombatSceneMushroomBattle_2.cs" id="1_srqsy"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cbxe4ywsrbc2y" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/EnemyAttackContainer/EnemyAttackPanel.tscn" id="3_odeux"]
 [ext_resource type="PackedScene" uid="uid://cbe22sj2cy0ic" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/Mushroom/MushroomAttackContainer.tscn" id="4_locu3"]
 [ext_resource type="Texture2D" uid="uid://co7aoj6hlth3i" path="res://Assets/Images/Objects/Therapist.png" id="5_48pp0"]
+[ext_resource type="StyleBox" uid="uid://dectwjukpq2an" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Inactive_EnemyTargetPanelOption.tres.tres" id="6_ifvbd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wm0qs"]
 
@@ -22,26 +23,43 @@ layout_mode = 2
 [node name="MushroomAttackContainer" parent="CombatWrapper/EnemyAttackContainer/EnemyAttackPanel" instance=ExtResource("4_locu3")]
 position = Vector2(-724, -456)
 
-[node name="MushroomTarget1" type="StaticBody2D" parent="CombatWrapper"]
-position = Vector2(762, 58)
+[node name="MushroomAttackContainer2" parent="CombatWrapper/EnemyAttackContainer/EnemyAttackPanel" instance=ExtResource("4_locu3")]
+position = Vector2(-1448, -912)
 
-[node name="Sprite2D" type="Sprite2D" parent="CombatWrapper/MushroomTarget1"]
+[node name="Panel" type="Panel" parent="CombatWrapper"]
+offset_left = 645.0
+offset_top = 79.0
+offset_right = 1008.0
+offset_bottom = 404.0
+theme_override_styles/panel = ExtResource("6_ifvbd")
+
+[node name="MushroomTarget1" type="StaticBody2D" parent="CombatWrapper/Panel"]
+position = Vector2(180, 35)
+
+[node name="Sprite2D" type="Sprite2D" parent="CombatWrapper/Panel/MushroomTarget1"]
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("5_48pp0")
 hframes = 2
 vframes = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatWrapper/MushroomTarget1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatWrapper/Panel/MushroomTarget1"]
 shape = SubResource("RectangleShape2D_wm0qs")
 
-[node name="MushroomTarget2" type="StaticBody2D" parent="CombatWrapper"]
-position = Vector2(1264, 56)
+[node name="Panel2" type="Panel" parent="CombatWrapper"]
+offset_left = 1082.0
+offset_top = 76.0
+offset_right = 1445.0
+offset_bottom = 401.0
+theme_override_styles/panel = ExtResource("6_ifvbd")
 
-[node name="Sprite2D" type="Sprite2D" parent="CombatWrapper/MushroomTarget2"]
+[node name="MushroomTarget2" type="StaticBody2D" parent="CombatWrapper/Panel2"]
+position = Vector2(180, 35)
+
+[node name="Sprite2D" type="Sprite2D" parent="CombatWrapper/Panel2/MushroomTarget2"]
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("5_48pp0")
 hframes = 2
 vframes = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatWrapper/MushroomTarget2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatWrapper/Panel2/MushroomTarget2"]
 shape = SubResource("RectangleShape2D_wm0qs")

@@ -20,9 +20,7 @@ public partial class CombatSingleton : Node
 	public CombatSingleton()
 	{
 		CombatStateMachineService = new CombatStateMachineService();
-		EnemyAttackPanelService = new EnemyAttackPanelService();
 		CombatStateMachineService.Reset();
-		EnemyAttackPanelService = new EnemyAttackPanelService();
 		BiggiePhysical = new CombatBiggieModel(10);
 		EnemyPhysicalAttackProxy = new OpponentAttackProxy(EnemyPhysical, BiggiePhysical);
 		EnemyTargetList = new List<EnemyTarget>();
@@ -31,9 +29,7 @@ public partial class CombatSingleton : Node
 	public void NewBattle(double totalBiggiePhysicalHealth, double totalEnemyPhysicalHealth, double totalEnemyEmotionalHealth)
 	{
 		CombatStateMachineService = new CombatStateMachineService();
-		EnemyAttackPanelService = new EnemyAttackPanelService();
 		CombatStateMachineService.Reset();
-		EnemyAttackPanelService = new EnemyAttackPanelService();
 		BiggiePhysical = new CombatBiggieModel(totalBiggiePhysicalHealth);
 		EnemyPhysicalAttackProxy = new OpponentAttackProxy(EnemyPhysical, BiggiePhysical);
 		EnemyTargetList = new List<EnemyTarget>();

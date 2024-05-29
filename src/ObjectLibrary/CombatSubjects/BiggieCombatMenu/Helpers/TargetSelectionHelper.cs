@@ -6,17 +6,17 @@ public class TargetSelectionHelper : SelectionHelper, ISelectionHelper
 {
 	private static readonly StringName _STYLEBOX_NAME = new StringName("panel");
 	private static readonly StringName _ACTIVE_ENEMY_TARGET_PANEL_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Active_EnemyTargetPanelOption.tres");
-	private static readonly StringName _INACTIVE_ENEMY_TARGET_PANEL_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Inactive_EnemyTargetPanelOption.tres");
+	private static readonly StringName _INACTIVE_ENEMY_TARGET_PANEL_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Inactive_EnemyTargetPanelOption.tres.tres");
 
 	private StyleBoxFlat _styleActiveEnemyTargetPanelOption = null;
 	private StyleBoxFlat _styleInactiveEnemyTargetPanelOption = null;
 
 	public TargetSelectionHelper() : base()
 	{
-		InstantiateSelectionStyles();
+		LoadStyles();
 	}
 
-	public override void InstantiateSelectionStyles()
+	public void LoadStyles()
 	{
 		_styleActiveEnemyTargetPanelOption = GD.Load<StyleBoxFlat>(_ACTIVE_ENEMY_TARGET_PANEL_OPTION);
 		_styleInactiveEnemyTargetPanelOption = GD.Load<StyleBoxFlat>(_INACTIVE_ENEMY_TARGET_PANEL_OPTION);

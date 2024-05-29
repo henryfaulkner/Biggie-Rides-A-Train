@@ -103,7 +103,9 @@ public partial class BiggieCombatMenu : CanvasLayer
 					{
 						_nodeTargetingPagePanel.IsOpen = true;
 						_nodeFightPagePanel.IsOpen = false;
+						HandleHideActionInfo();
 						_nodeTargetingPagePanel.ProcessSelection(Enumerations.Combat.CombatOptions.Scratch);
+						_nodeTargetingPagePanel.ShowSelectionPanels();
 					}
 					else
 					{
@@ -120,7 +122,9 @@ public partial class BiggieCombatMenu : CanvasLayer
 					{
 						_nodeTargetingPagePanel.IsOpen = true;
 						_nodeFightPagePanel.IsOpen = false;
+						HandleHideActionInfo();
 						_nodeTargetingPagePanel.ProcessSelection(Enumerations.Combat.CombatOptions.Bite);
+						_nodeTargetingPagePanel.ShowSelectionPanels();
 					}
 					else
 					{
@@ -160,7 +164,9 @@ public partial class BiggieCombatMenu : CanvasLayer
 				{
 					_nodeTargetingPagePanel.IsOpen = true;
 					_nodeChatPagePanel.IsOpen = false;
+					HandleHideActionInfo();
 					_nodeTargetingPagePanel.ProcessSelection(Enumerations.Combat.CombatOptions.Ask);
+					_nodeTargetingPagePanel.ShowSelectionPanels();
 				}
 				else
 				{
@@ -177,7 +183,9 @@ public partial class BiggieCombatMenu : CanvasLayer
 				{
 					_nodeTargetingPagePanel.IsOpen = true;
 					_nodeChatPagePanel.IsOpen = false;
+					HandleHideActionInfo();
 					_nodeTargetingPagePanel.ProcessSelection(Enumerations.Combat.CombatOptions.Charm);
+					_nodeTargetingPagePanel.ShowSelectionPanels();
 				}
 				else
 				{
@@ -203,21 +211,26 @@ public partial class BiggieCombatMenu : CanvasLayer
 		{
 			case (int)Enumerations.Combat.CombatOptions.Ask:
 				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Ask, enemyTargetIndex);
+				_nodeTargetingPagePanel.HideSelectionPanels();
 				break;
 
 			case (int)Enumerations.Combat.CombatOptions.Charm:
 				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Charm, enemyTargetIndex);
+				_nodeTargetingPagePanel.HideSelectionPanels();
 				break;
 			case (int)Enumerations.Combat.CombatOptions.Scratch:
 				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Scratch, enemyTargetIndex);
+				_nodeTargetingPagePanel.HideSelectionPanels();
 				break;
 			case (int)Enumerations.Combat.CombatOptions.Bite:
 				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Bite, enemyTargetIndex);
+				_nodeTargetingPagePanel.HideSelectionPanels();
 				break;
 			default:
 				// this will represent the BACK button
 				_nodeTargetingPagePanel.IsOpen = false;
 				_nodeBasePagePanel.IsOpen = true;
+				_nodeTargetingPagePanel.HideSelectionPanels();
 				break;
 		}
 

@@ -617,6 +617,8 @@ public partial class CombatWrapper : Node2D
 
 	public void SetEnemyAttackContainerService(MarginContainer enemyAttackContainer)
 	{
+		_globalCombatSingleton.EnemyAttackPanelService = new EnemyAttackPanelService();
+
 		var enemyAttackPanelSize = new Vector2(enemyAttackContainer.GetRect().Size.X - enemyAttackContainer.GetThemeConstant("margin_left") - enemyAttackContainer.GetThemeConstant("margin_right"),
 			enemyAttackContainer.GetRect().Size.Y - enemyAttackContainer.GetThemeConstant("margin_top") - enemyAttackContainer.GetThemeConstant("margin_bottom"));
 		var enemyAttackPanelPosition = new Vector2(enemyAttackContainer.GetRect().Position.X + enemyAttackContainer.GetThemeConstant("margin_left"),
