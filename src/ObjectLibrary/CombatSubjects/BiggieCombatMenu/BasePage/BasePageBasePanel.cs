@@ -64,6 +64,8 @@ public partial class BasePageBasePanel : Panel
 			return;
 		}
 
+		GD.Print("BasePageBasePanel is open.");
+
 		if (!_nodeSelf.Visible)
 		{
 			_nodeSelf.Visible = true;
@@ -73,7 +75,7 @@ public partial class BasePageBasePanel : Panel
 			if (Input.IsActionJustPressed(_INTERACT_INPUT))
 			{
 				_audioSelect.Play();
-				EmitSignal(SignalName.SelectBase, SelectionHelperInstance.GetSelectedOptionId());
+				EmitSignal(SignalName.SelectBase, SelectionHelperInstance.GetSelectedOptionIndex());
 			}
 
 			if (Input.IsActionJustPressed(_LEFT_INPUT))

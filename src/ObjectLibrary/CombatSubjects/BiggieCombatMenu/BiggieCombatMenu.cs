@@ -207,13 +207,21 @@ public partial class BiggieCombatMenu : CanvasLayer
 
 	public void HandleTargetingSelection(int combatOption, int enemyTargetIndex)
 	{
+		// Selection is Back
+		if (enemyTargetIndex == -1)
+		{
+			HandleTargetingSelectionBack();
+			return;
+		}
+
+		GD.Print($"HandleTargetingSelection enemyTargetIndex {enemyTargetIndex}");
+		GD.Print($"HandleTargetingSelection combatOption {combatOption}");
 		switch (combatOption)
 		{
 			case (int)Enumerations.Combat.CombatOptions.Ask:
 				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Ask, enemyTargetIndex);
 				_nodeTargetingPagePanel.HideSelectionPanels();
 				break;
-
 			case (int)Enumerations.Combat.CombatOptions.Charm:
 				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Charm, enemyTargetIndex);
 				_nodeTargetingPagePanel.HideSelectionPanels();
@@ -227,14 +235,20 @@ public partial class BiggieCombatMenu : CanvasLayer
 				_nodeTargetingPagePanel.HideSelectionPanels();
 				break;
 			default:
-				// this will represent the BACK button
-				_nodeTargetingPagePanel.IsOpen = false;
-				_nodeBasePagePanel.IsOpen = true;
-				_nodeTargetingPagePanel.HideSelectionPanels();
 				break;
 		}
 
 		_nodeTargetingPagePanel.ResetPointerOffset();
+	}
+
+	public void HandleTargetingSelectionBack()
+	{
+		GD.Print("CombatOption BACK");
+		// this will represent the BACK button
+		_nodeTargetingPagePanel.IsOpen = false;
+		_nodeTargetingPagePanel.HideSelectionPanels();
+		_nodeBasePagePanel.IsOpen = true;
+		_nodeBasePagePanel.ProcessSelection();
 	}
 
 	private void ResetPageState()

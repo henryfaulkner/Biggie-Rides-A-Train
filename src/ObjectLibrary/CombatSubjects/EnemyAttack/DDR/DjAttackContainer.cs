@@ -152,6 +152,18 @@ public partial class DjAttackContainer : EnemyAttackContainer
 		}
 	}
 
+	public override void ShowAndEnableCollision()
+	{
+		Show();
+		ProcessMode = ProcessModeEnum.Inherit;
+	}
+
+	public override void HideAndDisableCollision()
+	{
+		Hide();
+		ProcessMode = ProcessModeEnum.Disabled;
+	}
+
 	private void GenerateAttack(List<char> tokens)
 	{
 		if (CompositionParsingService.IsBeatToken(tokens[0]))

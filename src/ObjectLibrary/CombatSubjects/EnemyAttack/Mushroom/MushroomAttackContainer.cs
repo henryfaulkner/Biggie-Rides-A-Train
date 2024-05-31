@@ -15,10 +15,12 @@ public partial class MushroomAttackContainer : EnemyAttackContainer
 	public int FramesPerRound { get; set; }
 
 	private AudioStreamPlayer _nodeHitAudio = null;
+	private BiggieMushroomCombat _nodeBiggieMushroomCombat = null;
 
 	public override void _Ready()
 	{
 		_nodeHitAudio = GetNode<AudioStreamPlayer>("./Hit_AudioStreamPlayer");
+		_nodeBiggieMushroomCombat = GetNode<BiggieMushroomCombat>("./BiggieMushroomCombat");
 	}
 
 	public override void _PhysicsProcess(double _delta)
@@ -67,6 +69,18 @@ public partial class MushroomAttackContainer : EnemyAttackContainer
 		var scene = GD.Load<PackedScene>(_NODE_SPORE_FALL);
 		var instance = scene.Instantiate<SporeFall>();
 		return instance;
+	}
+
+	public override void ShowAndEnableCollision()
+	{
+		Show();
+		ProcessMode = ProcessModeEnum.Inherit;
+	}
+
+	public override void HideAndDisableCollision()
+	{
+		Hide();
+		ProcessMode = ProcessModeEnum.Disabled;
 	}
 
 	private void HandleSporeHitBiggie()

@@ -37,6 +37,7 @@ texture = ExtResource("3_swir3")
 expand_mode = 1
 
 [node name="BasePagePanel" parent="TextBoxContainer" instance=ExtResource("2_n6akt")]
+visible = false
 layout_mode = 2
 
 [node name="ChatPagePanel" parent="TextBoxContainer" instance=ExtResource("3_x1bsp")]
@@ -48,7 +49,6 @@ visible = false
 layout_mode = 2
 
 [node name="TargetingPagePanel" parent="TextBoxContainer" instance=ExtResource("7_utkc1")]
-visible = false
 layout_mode = 2
 
 [node name="Switch_AudioStreamPlayer" type="AudioStreamPlayer" parent="TextBoxContainer"]

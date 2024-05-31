@@ -14,4 +14,7 @@ public abstract partial class EnemyAttackContainer : Node2D
     /// Set some variable indicating this Attack Container should be Inactive
     /// </summary>
     public abstract void EndTurn();
+
+    public abstract void ShowAndEnableCollision();
+    public abstract void HideAndDisableCollision();
 }

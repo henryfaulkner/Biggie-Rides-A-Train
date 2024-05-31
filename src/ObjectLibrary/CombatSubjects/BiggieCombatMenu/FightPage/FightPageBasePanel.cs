@@ -72,7 +72,7 @@ public partial class FightPageBasePanel : Panel
 			if (Input.IsActionJustPressed(_INTERACT_INPUT))
 			{
 				_audioSelect.Play();
-				EmitSignal(SignalName.SelectFight, SelectionHelperInstance.GetSelectedOptionId());
+				EmitSignal(SignalName.SelectFight, SelectionHelperInstance.GetSelectedOptionIndex());
 			}
 			if (Input.IsActionJustPressed(_LEFT_INPUT))
 			{

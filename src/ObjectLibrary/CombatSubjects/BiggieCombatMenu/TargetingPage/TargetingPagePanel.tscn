@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bca6fiygoh0xn"]
+[gd_scene load_steps=7 format=3 uid="uid://bca6fiygoh0xn"]
 
 [ext_resource type="StyleBox" uid="uid://b4x4mlujs27nj" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Inactive_PagePanelOption.tres" id="1_ruw8b"]
 [ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/TargetingPage/TargetingPagePanel.cs" id="1_ush1a"]
@@ -6,7 +6,11 @@
 [ext_resource type="StyleBox" uid="uid://b4n45wnqi4q4w" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Active_PagePanelOption.tres" id="3_g0hb7"]
 [ext_resource type="LabelSettings" uid="uid://dvfcsx453vpjn" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Active_PageLabelSettingOption.tres" id="4_afu1y"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vbr0p"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [node name="TargetingPagePanel" type="Panel"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_vbr0p")
 script = ExtResource("1_ush1a")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

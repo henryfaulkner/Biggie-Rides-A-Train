@@ -8,6 +8,6 @@ public interface ISelectionHelper
 	public void AddOption(int id, int uiId, bool isSelected, Panel panel, Label label);
 	public void ShiftSelectionLeft();
 	public void ShiftSelectionRight();
-	public int GetSelectedOptionId();
+	public int GetSelectedOptionIndex();
 	public void Reset();
 }

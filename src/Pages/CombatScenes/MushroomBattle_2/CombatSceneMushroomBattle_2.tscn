@@ -21,10 +21,10 @@ script = ExtResource("1_srqsy")
 layout_mode = 2
 
 [node name="MushroomAttackContainer" parent="CombatWrapper/EnemyAttackContainer/EnemyAttackPanel" instance=ExtResource("4_locu3")]
-position = Vector2(-724, -456)
+position = Vector2(-726, -456)
 
 [node name="MushroomAttackContainer2" parent="CombatWrapper/EnemyAttackContainer/EnemyAttackPanel" instance=ExtResource("4_locu3")]
-position = Vector2(-1448, -912)
+position = Vector2(-724, -456)
 
 [node name="Panel" type="Panel" parent="CombatWrapper"]
 offset_left = 645.0

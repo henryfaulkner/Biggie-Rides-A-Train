@@ -72,7 +72,7 @@ public partial class ChatPageBasePanel : Panel
 			if (Input.IsActionJustPressed(_INTERACT_INPUT))
 			{
 				_audioSelect.Play();
-				EmitSignal(SignalName.SelectChat, SelectionHelperInstance.GetSelectedOptionId());
+				EmitSignal(SignalName.SelectChat, SelectionHelperInstance.GetSelectedOptionIndex());
 			}
 			if (Input.IsActionJustPressed(_LEFT_INPUT))
 			{

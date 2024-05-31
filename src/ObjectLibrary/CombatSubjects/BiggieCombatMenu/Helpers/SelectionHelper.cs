@@ -91,6 +91,11 @@ public class SelectionHelper : ISelectionHelper
 
 	public int GetSelectedOptionId()
 	{
+		return OptionList[CurrentSelectedOptionIndex].Id;
+	}
+
+	public int GetSelectedOptionIndex()
+	{
 		return CurrentSelectedOptionIndex;
 	}
 

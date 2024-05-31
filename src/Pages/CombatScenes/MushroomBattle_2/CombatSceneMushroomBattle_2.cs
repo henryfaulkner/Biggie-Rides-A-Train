@@ -69,13 +69,13 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		_nodeMushroomAttackContainer1.ProjectPhysicalDamage += HandleChangeBiggieHealthBar;
 		_nodeMushroomAttackContainer1.EndEnemyAttackTurn += HandleEndEnemyAttackTurn;
 		_nodeMushroomAttackContainer1.FramesPerRound = 600;
-		_nodeMushroomAttackContainer1.Hide();
+		_nodeMushroomAttackContainer1.HideAndDisableCollision();
 		_nodeMushroomAttackContainer1.IsAttacking = false;
 
 		_nodeMushroomAttackContainer2.ProjectPhysicalDamage += HandleChangeBiggieHealthBar;
 		_nodeMushroomAttackContainer2.EndEnemyAttackTurn += HandleEndEnemyAttackTurn;
 		_nodeMushroomAttackContainer2.FramesPerRound = 600;
-		_nodeMushroomAttackContainer2.Hide();
+		_nodeMushroomAttackContainer2.HideAndDisableCollision();
 		_nodeMushroomAttackContainer2.IsAttacking = false;
 
 		EnemyOpponentQueue = new Queue<EnemyOpponent>();
@@ -125,19 +125,34 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		if (EnemyOpponentQueue.Any())
 		{
 			var enemyOpponent = EnemyOpponentQueue.Peek();
-			enemyOpponent.EnemyAttackContainer.Visible = true;
+			// show
+			enemyOpponent.EnemyAttackContainer.ShowAndEnableCollision();
 			enemyOpponent.EnemyAttackContainer.StartTurn();
 		}
 	}
 
 	public void HandleEndEnemyAttackTurn()
 	{
+		// remove and hide current
+		if (EnemyOpponentQueue.Any())
+		{
+			var enemyOpponent = EnemyOpponentQueue.Dequeue();
+			// hide
+			enemyOpponent.EnemyAttackContainer.HideAndDisableCollision();
+		}
+
+		// run next in queue
 		if (EnemyOpponentQueue.Any())
 		{
 			var enemyOpponent = EnemyOpponentQueue.Peek();
-			enemyOpponent.EnemyAttackContainer.Visible = false;
+			// show
+			enemyOpponent.EnemyAttackContainer.ShowAndEnableCollision();
+			enemyOpponent.EnemyAttackContainer.StartTurn();
 		}
-		_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishEnemyAttack);
+		else
+		{
+			_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishEnemyAttack);
+		}
 		return;
 	}
 
@@ -186,7 +201,7 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 	private bool bite2 = false;
 	public bool CheckChatterConditions()
 	{
-		GD.Print("CombatSceneMushroomBattle_1 CheckChatterConditions is false");
+		//GD.Print("CombatSceneMushroomBattle_1 CheckChatterConditions is false");
 		var currState = _globalCombatSingleton.CombatStateMachineService.CurrentCombatState;
 
 		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieChatAsk)
