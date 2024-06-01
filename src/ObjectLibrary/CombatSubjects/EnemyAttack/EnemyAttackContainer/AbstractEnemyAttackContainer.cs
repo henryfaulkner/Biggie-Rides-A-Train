@@ -1,6 +1,6 @@
 using Godot;
 
-public abstract partial class EnemyAttackContainer : Node2D
+public abstract partial class AbstractEnemyAttackContainer : Node2D
 {
     /// <summary>
     /// Set some variable indicating this Attack Container should be Active

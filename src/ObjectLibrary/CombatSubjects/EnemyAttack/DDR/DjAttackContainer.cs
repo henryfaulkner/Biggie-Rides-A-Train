@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-public partial class DjAttackContainer : EnemyAttackContainer
+public partial class DjAttackContainer : AbstractEnemyAttackContainer
 {
 	private static readonly StringName _HIT_CALLOUT_STYLEBOX_NAME = new StringName("panel");
 	private static readonly StringName _MISS_IMAGE_ASSET = new StringName("res://Assets/CombatScenes/DDR/miss.svg");

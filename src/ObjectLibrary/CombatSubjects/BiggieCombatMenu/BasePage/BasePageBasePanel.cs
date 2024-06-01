@@ -64,8 +64,6 @@ public partial class BasePageBasePanel : Panel
 			return;
 		}
 
-		GD.Print("BasePageBasePanel is open.");
-
 		if (!_nodeSelf.Visible)
 		{
 			_nodeSelf.Visible = true;

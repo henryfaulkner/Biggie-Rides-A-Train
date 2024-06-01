@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class MushroomAttackContainer : EnemyAttackContainer
+public partial class MushroomAttackContainer : AbstractEnemyAttackContainer
 {
 	private static readonly StringName _NODE_SPORE_FALL = new StringName("res://ObjectLibrary/CombatSubjects/EnemyAttack/Mushroom/SporeFall.tscn");
 
