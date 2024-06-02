@@ -40,8 +40,8 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 		_globalCombatSingleton.NewBattle(_MAX_HEALTH_PHYSICAL_BIGGIE, _MAX_HEALTH_PHYSICAL_MUSHROOM, _MAX_HEALTH_EMOTIONAL_MUSHROOM);
-		if (_globalCombatSingleton.EnemyPhysicalAttackProxy == null) GD.Print("ready cum");
-		_globalCombatSingleton.AddEnemyTarget(0, _nodeMushroomTarget1Panel, 9, 9);
+		if (_globalCombatSingleton.EnemyPhysicalAttackProxy == null) //GD.Print("ready cum");
+			_globalCombatSingleton.AddEnemyTarget(0, _nodeMushroomTarget1Panel, 9, 9);
 		_globalCombatSingleton.CombatStateMachineService.SetCheckChatterConditions(CheckChatterConditions);
 		ChangeBiggieHealthBar();
 
@@ -73,7 +73,7 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 		_nodeMushroomAttackContainer.Visible = true;
 		//_nodeHitCallout.Visible = true;
 		_nodeMushroomAttackContainer.StartTurn();
-		GD.Print("CombatSceneMushroomBattle_1 StartEnemyAttackTurn");
+		//GD.Print("CombatSceneMushroomBattle_1 StartEnemyAttackTurn");
 	}
 
 	public void EndEnemyAttackTurn()
@@ -85,7 +85,7 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 
 		if (_globalCombatSingleton.EnemyPhysicalAttackProxy.IsTargetDefeated())
 		{
-			//GD.Print("Biggie Physical Defeat");
+			////GD.Print("Biggie Physical Defeat");
 			HandleBiggieDefeat();
 			return;
 		}
@@ -96,10 +96,10 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 
 	public void ChangeBiggieHealthBar()
 	{
-		//GD.Print("Start ChangeBiggieHealthBar");
+		////GD.Print("Start ChangeBiggieHealthBar");
 		_nodeBiggieHealthBar.Value = _globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetHealthPercentage();
 		_nodeBiggieHpValueLabel.Text = $"{_globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetCurrentHealth()}/{_globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetMaxHealth()}";
-		//GD.Print($"End ChangeBiggieHealthBar {_nodeBiggieHealthBar.Value}");
+		////GD.Print($"End ChangeBiggieHealthBar {_nodeBiggieHealthBar.Value}");
 	}
 
 	private bool explainSpore = false;
@@ -113,7 +113,7 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 	private bool bite2 = false;
 	public bool CheckChatterConditions()
 	{
-		//GD.Print("CombatSceneMushroomBattle_1 CheckChatterConditions is false");
+		////GD.Print("CombatSceneMushroomBattle_1 CheckChatterConditions is false");
 		var currState = _globalCombatSingleton.CombatStateMachineService.CurrentCombatState;
 
 		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieChatAsk)
@@ -243,8 +243,8 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 
 	public bool CheckForBiggeDefeat()
 	{
-		if (_globalCombatSingleton.EnemyPhysicalAttackProxy == null) GD.Print("biggie cum");
-		return _globalCombatSingleton.EnemyPhysicalAttackProxy.IsTargetDefeated() && !_nodeChatterTextBox.IsOpen();
+		if (_globalCombatSingleton.EnemyPhysicalAttackProxy == null) //GD.Print("biggie cum");
+			return _globalCombatSingleton.EnemyPhysicalAttackProxy.IsTargetDefeated() && !_nodeChatterTextBox.IsOpen();
 	}
 
 	public bool CheckForMushroomPhysicalDefeat()

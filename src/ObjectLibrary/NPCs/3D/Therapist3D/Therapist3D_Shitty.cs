@@ -91,7 +91,7 @@ public partial class Therapist3D_Shitty : Node3D
 				_nodeTextBox.ExecuteDialogueQueue();
 				break;
 			default:
-				////GD.Print("DJ.HandleInteraction option id did not map.");
+				//////GD.Print("DJ.HandleInteraction option id did not map.");
 				break;
 		}
 	}

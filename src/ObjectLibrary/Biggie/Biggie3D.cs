@@ -57,7 +57,7 @@ public partial class Biggie3D : CharacterBody3D
 			var collision = Movement(delta);
 			if (collision != null)
 			{
-				GD.Print("Collide");
+				//GD.Print("Collide");
 				Collide(collision);
 			}
 		}
@@ -122,17 +122,17 @@ public partial class Biggie3D : CharacterBody3D
 			bool hittingWorldBorderZ = HittingWorldBorderZ(_nodeSelf, inputDirection);
 			if (hittingWorldBorderX && hittingWorldBorderZ)
 			{
-				GD.Print("Biggie is running into World Border. Position X and Z is zero.");
+				//GD.Print("Biggie is running into World Border. Position X and Z is zero.");
 				inputDirection = Vector3.Zero;
 			}
 			else if (hittingWorldBorderX)
 			{
-				GD.Print("Biggie is running into World Border. Position X is zero.");
+				//GD.Print("Biggie is running into World Border. Position X is zero.");
 				inputDirection = Vector3.Zero;
 			}
 			else if (hittingWorldBorderZ)
 			{
-				GD.Print("Biggie is running into World Border. Position Z is zero.");
+				//GD.Print("Biggie is running into World Border. Position Z is zero.");
 				inputDirection = Vector3.Zero;
 			}
 			inputDirection = inputDirection.Normalized();
@@ -146,7 +146,7 @@ public partial class Biggie3D : CharacterBody3D
 	{
 		if (collision.GetCollider().HasMethod("Hit"))
 		{
-			GD.Print("Call Hit");
+			//GD.Print("Call Hit");
 			collision.GetCollider().Call("Hit");
 		}
 	}
@@ -163,12 +163,12 @@ public partial class Biggie3D : CharacterBody3D
 
 	public bool ForceWalk(Vector3 target, double delta)
 	{
-		GD.Print("Biggie ForceWalk");
+		//GD.Print("Biggie ForceWalk");
 		CanMove(false);
 		Vector3 direction = (target - Position).Normalized();
 		Vector3 inputDirection = Vector3.Zero;
-		// GD.Print($"target Position X:{target.X} Y:{target.Y} Z:{target.Z}");
-		// GD.Print($"biggie Position X:{Position.X} Y:{Position.Y} Z:{Position.Z}");
+		// //GD.Print($"target Position X:{target.X} Y:{target.Y} Z:{target.Z}");
+		// //GD.Print($"biggie Position X:{Position.X} Y:{Position.Y} Z:{Position.Z}");
 
 		if (direction.X - 0.5f > 0) // RIGHT
 		{
@@ -211,7 +211,7 @@ public partial class Biggie3D : CharacterBody3D
 			&& direction.Z + 0.5f > 0
 			&& direction.Z - 0.5f < 0;
 		CanMove(atTarget);
-		GD.Print($"Biggie3D atTarget: {atTarget}");
+		//GD.Print($"Biggie3D atTarget: {atTarget}");
 		return atTarget;
 	}
 
@@ -236,7 +236,7 @@ public partial class Biggie3D : CharacterBody3D
 
 	private void AttemptStoredLocationApplication()
 	{
-		////GD.Print("AttemptStoredLocationApplication");
+		//////GD.Print("AttemptStoredLocationApplication");
 		try
 		{
 			using (var context = new SaveStateService())
@@ -246,14 +246,14 @@ public partial class Biggie3D : CharacterBody3D
 				var rs = new RelocationService();
 				if (storedLocation != null)
 				{
-					////GD.Print($"Biggie applied Position. X: {storedLocation.X}. Y: {storedLocation.Y}");
+					//////GD.Print($"Biggie applied Position. X: {storedLocation.X}. Y: {storedLocation.Y}");
 					Position = new Vector3(storedLocation.X, Position.Y, storedLocation.Z);
 				}
 			}
 		}
 		catch (Exception exception)
 		{
-			////GD.Print($"AttemptStoredLocationApplication exception: {exception}");
+			//////GD.Print($"AttemptStoredLocationApplication exception: {exception}");
 		}
 	}
 

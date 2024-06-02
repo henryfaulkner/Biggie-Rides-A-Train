@@ -18,7 +18,7 @@ public class SelectionHelper : ISelectionHelper
 
 	public SelectionHelper()
 	{
-		GD.Print("SelectionHelper!!!!");
+		//GD.Print("SelectionHelper!!!!");
 		OptionList = new List<OptionModel>();
 		CurrentSelectedOptionIndex = 0;
 		InitializeStyles();
@@ -26,7 +26,7 @@ public class SelectionHelper : ISelectionHelper
 
 	private void InitializeStyles()
 	{
-		GD.Print("SelectionHelper InstantiateSelectionStyles!!!");
+		//GD.Print("SelectionHelper InstantiateSelectionStyles!!!");
 		_styleActivePageLabelSettingOption = GD.Load<LabelSettings>(_ACTIVE_PAGE_LABEL_SETTING_OPTION);
 		_styleInactivePageLabelSettingOption = GD.Load<LabelSettings>(_INACTIVE_PAGE_LABEL_SETTING_OPTION);
 		_styleActivePagePanelOption = GD.Load<StyleBoxFlat>(_ACTIVE_PAGE_PANEL_OPTION);
@@ -47,7 +47,7 @@ public class SelectionHelper : ISelectionHelper
 		int len = OptionList.Count;
 		if (len == 0)
 		{
-			//GD.Print("Error: OptionList is empty");
+			////GD.Print("Error: OptionList is empty");
 			return;
 		}
 		if (len == 1) return;
@@ -70,7 +70,7 @@ public class SelectionHelper : ISelectionHelper
 		int len = OptionList.Count;
 		if (len == 0)
 		{
-			//GD.Print("Error: OptionList is empty");
+			////GD.Print("Error: OptionList is empty");
 			return;
 		}
 		if (len == 1) return;

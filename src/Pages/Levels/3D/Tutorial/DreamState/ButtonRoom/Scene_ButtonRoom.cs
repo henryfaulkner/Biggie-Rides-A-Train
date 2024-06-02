@@ -95,27 +95,27 @@ public partial class Scene_ButtonRoom : Node3D
 
 	private void MoveBarrier()
 	{
-		GD.Print("call MoveBarrier");
+		//GD.Print("call MoveBarrier");
 		_nodeBarrier.Position += new Vector3(50, 0, 0);
 	}
 
 	public void HandleForwardRotate()
 	{
-		GD.Print("HandleForwardRotate");
+		//GD.Print("HandleForwardRotate");
 		switch (_serviceRotation.CurrentRotation)
 		{
 			case Enumerations.Physics.Rotations.Default:
-				GD.Print("Enumerations.Physics.Rotations.Default");
+				//GD.Print("Enumerations.Physics.Rotations.Default");
 				_serviceRotation.RotateToForward();
 				_serviceGravity.SetForwardGravity();
 				break;
 			case Enumerations.Physics.Rotations.Forward:
-				GD.Print("Enumerations.Physics.Rotations.Forward");
+				//GD.Print("Enumerations.Physics.Rotations.Forward");
 				_serviceRotation.RotateToDefault();
 				_serviceGravity.SetDefaultGravity();
 				break;
 			default:
-				GD.Print("RotationService CurrentRotation could not be mapped.");
+				//GD.Print("RotationService CurrentRotation could not be mapped.");
 				break;
 		}
 	}

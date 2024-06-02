@@ -5,212 +5,216 @@ using Godot;
 
 public partial class InfoPagePanel : Panel
 {
-	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
-	private static readonly StringName _LEFT_INPUT = new StringName("move_left");
-	private static readonly StringName _RIGHT_INPUT = new StringName("move_right");
+    private static readonly StringName _INTERACT_INPUT = new StringName("interact");
+    private static readonly StringName _LEFT_INPUT = new StringName("move_left");
+    private static readonly StringName _RIGHT_INPUT = new StringName("move_right");
 
-	RichTextLabel _nodeRichTextLabel = null;
-	Panel _nodeBackSelectionPanel = null;
-	private Label _nodeBackOptionLabel = null;
+    RichTextLabel _nodeRichTextLabel = null;
+    Panel _nodeBackSelectionPanel = null;
+    private Label _nodeBackOptionLabel = null;
 
-	private AudioStreamPlayer _audioSelect = null;
-	private AudioStreamPlayer _audioSwitch = null;
+    private AudioStreamPlayer _audioSelect = null;
+    private AudioStreamPlayer _audioSwitch = null;
 
-	private CombatSingleton _serviceCombat = null;
+    private CombatSingleton _serviceCombat = null;
 
-	public TargetSelectionHelper SelectionHelperInstance { get; set; }
-	public bool IsOpen { get; set; }
-	private bool IsInitialized { get; set; }
+    public TargetSelectionHelper SelectionHelperInstance { get; set; }
+    public bool IsOpen { get; set; }
+    private bool IsInitialized { get; set; }
 
-	public override void _Ready()
-	{
-		_nodeRichTextLabel = GetNode<RichTextLabel>("./MarginContainer/OptionContainer/VBoxContainer/MarginContainer/RichTextLabel");
-		_nodeBackSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/Button/Panel");
-		_nodeBackOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
-		_audioSelect = GetNode<AudioStreamPlayer>("../Select_AudioStreamPlayer");
-		_audioSwitch = GetNode<AudioStreamPlayer>("../Switch_AudioStreamPlayer");
-		_serviceCombat = GetNode<CombatSingleton>("/root/CombatSingleton");
+    public override void _Ready()
+    {
+        _nodeRichTextLabel = GetNode<RichTextLabel>("./MarginContainer/OptionContainer/VBoxContainer/MarginContainer/RichTextLabel");
+        _nodeBackSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/Button/Panel");
+        _nodeBackOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
+        _audioSelect = GetNode<AudioStreamPlayer>("../Select_AudioStreamPlayer");
+        _audioSwitch = GetNode<AudioStreamPlayer>("../Switch_AudioStreamPlayer");
+        _serviceCombat = GetNode<CombatSingleton>("/root/CombatSingleton");
 
-		IsInitialized = false;
-	}
+        IsInitialized = false;
+    }
 
-	public override void _PhysicsProcess(double _delta)
-	{
-		if (!IsInitialized)
-		{
-			IsInitialized = InitializeTargetingPanels();
-			HideSelectionPanels();
-		}
+    public override void _PhysicsProcess(double _delta)
+    {
+        if (!IsInitialized)
+        {
+            IsInitialized = InitializeTargetingPanels();
+            HideSelectionPanels();
+        }
 
-		if (!IsOpen)
-		{
-			if (!Visible) Visible = true;
-			else
-			{
-				if (Input.IsActionJustPressed(_INTERACT_INPUT))
-				{
-					_audioSelect.Play();
-					EmitSignal(SignalName.SelectInfo);
-				}
-				if (Input.IsActionJustPressed(_LEFT_INPUT))
-				{
-					//GD.Print("Left Input");
-					_audioSwitch.Play();
-					SelectionHelperInstance.ShiftSelectionLeft();
-					ProcessSelection();
-					HandleInfoHover(SelectionHelperInstance.GetSelectedOptionId());
-				}
-				if (Input.IsActionJustPressed(_RIGHT_INPUT))
-				{
-					//GD.Print("Right Input");
-					_audioSwitch.Play();
-					SelectionHelperInstance.ShiftSelectionRight();
-					ProcessSelection();
-					HandleInfoHover(SelectionHelperInstance.GetSelectedOptionId());
-				}
-			}
-		}
-	}
+        if (!IsOpen)
+        {
+            if (!Visible) Visible = true;
+            else
+            {
+                if (Input.IsActionJustPressed(_INTERACT_INPUT))
+                {
+                    _audioSelect.Play();
+                    EmitSignal(SignalName.SelectInfo);
+                }
+                if (Input.IsActionJustPressed(_LEFT_INPUT))
+                {
+                    ////GD.Print("Left Input");
+                    _audioSwitch.Play();
+                    SelectionHelperInstance.ShiftSelectionLeft();
+                    ProcessSelection();
+                    HandleInfoHover(SelectionHelperInstance.GetSelectedOptionId());
+                }
+                if (Input.IsActionJustPressed(_RIGHT_INPUT))
+                {
+                    ////GD.Print("Right Input");
+                    _audioSwitch.Play();
+                    SelectionHelperInstance.ShiftSelectionRight();
+                    ProcessSelection();
+                    HandleInfoHover(SelectionHelperInstance.GetSelectedOptionId());
+                }
+            }
+        }
+    }
 
-	public bool InitializeTargetingPanels()
-	{
-		if (_serviceCombat.EnemyTargetList.Count == 0) return false;
-		SelectionHelperInstance = new TargetSelectionHelper();
-		GD.Print($"EnemyTarget Count: {_serviceCombat.EnemyTargetList.Count}");
-		foreach ((EnemyTarget target, int i) in _serviceCombat.EnemyTargetList.Select((value, i) => (value, i)))
-		{
-			SelectionHelperInstance.AddOption(target.Id, target.Id, i == 0, target.TargetPanel, null);
-		}
-		// Add BACK Panel as an option.
-		SelectionHelperInstance.AddOption(-1, -1, false, _nodeBackSelectionPanel, _nodeBackOptionLabel);
-		ProcessSelection();
-		return true;
-	}
+    public bool InitializeTargetingPanels()
+    {
+        if (_serviceCombat.EnemyTargetList.Count == 0) return false;
+        SelectionHelperInstance = new TargetSelectionHelper();
+        //GD.Print($"EnemyTarget Count: {_serviceCombat.EnemyTargetList.Count}");
+        foreach ((EnemyTarget target, int i) in _serviceCombat.EnemyTargetList.Select((value, i) => (value, i)))
+        {
+            SelectionHelperInstance.AddOption(target.Id, target.Id, i == 0, target.TargetPanel, null);
+        }
+        // Add BACK Panel as an option.
+        SelectionHelperInstance.AddOption(-1, -1, false, _nodeBackSelectionPanel, _nodeBackOptionLabel);
+        ProcessSelection();
+        return true;
+    }
 
-	public void ProcessSelection()
-	{
-		foreach (var option in SelectionHelperInstance.OptionList)
-		{
-			try
-			{
-				// -1 is the BACK Panel.
-				if (option.Id == -1)
-				{
-					if (option.IsSelected)
-					{
-						GD.Print("ApplyActiveBack");
-						if (option.OptionLabel != null)
-							SelectionHelperInstance.ApplyActivePageLabelSettingOption(option.OptionLabel);
-						else GD.Print("Back Label is null");
-						if (option.SelectionPanel != null)
-							SelectionHelperInstance.ApplyActivePagePanelOption(option.SelectionPanel);
-						else GD.Print("Back Panel is null");
-					}
-					else
-					{
-						GD.Print("ApplyInactiveBack");
-						if (option.OptionLabel != null)
-							SelectionHelperInstance.ApplyInactivePageLabelSettingOption(option.OptionLabel);
-						else GD.Print("Back Label is null");
-						if (option.SelectionPanel != null)
-							SelectionHelperInstance.ApplyInactivePagePanelOption(option.SelectionPanel);
-						else GD.Print("Back Panel is null");
-					}
-				}
-				else
-				{
-					if (option.IsSelected)
-					{
-						GD.Print("ApplyActiveEnemyTarget");
-						if (option.SelectionPanel != null)
-							SelectionHelperInstance.ApplyActiveEnemyTargetPanelOption(option.SelectionPanel);
-						else GD.Print($"Enemy Target {option.Id} Panel is null");
-					}
-					else
-					{
-						GD.Print("ApplyInactiveEnemyTarget");
-						if (option.SelectionPanel != null)
-							SelectionHelperInstance.ApplyInactiveEnemyTargetPanelOption(option.SelectionPanel);
-						else GD.Print($"Enemy Target {option.Id} Panel is null");
-					}
-				}
-			}
-			catch (Exception exception)
-			{
-				////GD.Print($"Exception occured on option id {option.Id}: {exception.Message}");
-			}
-		}
-	}
+    public void ProcessSelection()
+    {
+        foreach (var option in SelectionHelperInstance.OptionList)
+        {
+            try
+            {
+                // -1 is the BACK Panel.
+                if (option.Id == -1)
+                {
+                    if (option.IsSelected)
+                    {
+                        //GD.Print("ApplyActiveBack");
+                        if (option.OptionLabel != null)
+                            SelectionHelperInstance.ApplyActivePageLabelSettingOption(option.OptionLabel);
+                        else //GD.Print("Back Label is null");
+                        if (option.SelectionPanel != null)
+                            SelectionHelperInstance.ApplyActivePagePanelOption(option.SelectionPanel);
+                        else //GD.Print("Back Panel is null");
 
-	public void ResetPointerOffset()
-	{
-		SelectionHelperInstance.Reset();
-	}
+                    }
+                    else
+                    {
+                        //GD.Print("ApplyInactiveBack");
+                        if (option.OptionLabel != null)
+                            SelectionHelperInstance.ApplyInactivePageLabelSettingOption(option.OptionLabel);
+                        else //GD.Print("Back Label is null");
+                        if (option.SelectionPanel != null)
+                            SelectionHelperInstance.ApplyInactivePagePanelOption(option.SelectionPanel);
+                        else //GD.Print("Back Panel is null");
 
-	[Signal]
-	public delegate void HoverInfoEventHandler(int enemyTargetIndex);
-	[Signal]
-	public delegate void SelectInfoEventHandler();
+                    }
+                }
+                else
+                {
+                    if (option.IsSelected)
+                    {
+                        //GD.Print("ApplyActiveEnemyTarget");
+                        if (option.SelectionPanel != null)
+                            SelectionHelperInstance.ApplyActiveEnemyTargetPanelOption(option.SelectionPanel);
+                        else //GD.Print($"Enemy Target {option.Id} Panel is null");
 
-	public void ShowSelectionPanels()
-	{
-		foreach (var panel in SelectionHelperInstance.OptionList.Select(x => x.SelectionPanel))
-		{
-			panel.SelfModulate = new Color(
-				panel.SelfModulate.R,
-				panel.SelfModulate.G,
-				panel.SelfModulate.B,
-				1.0f
-			);
-		}
-	}
+                    }
+                    else
+                    {
+                        //GD.Print("ApplyInactiveEnemyTarget");
+                        if (option.SelectionPanel != null)
+                            SelectionHelperInstance.ApplyInactiveEnemyTargetPanelOption(option.SelectionPanel);
+                        else //GD.Print($"Enemy Target {option.Id} Panel is null");
 
-	public void HideSelectionPanels()
-	{
-		foreach (var panel in SelectionHelperInstance.OptionList.Select(x => x.SelectionPanel))
-		{
-			panel.SelfModulate = new Color(
-				panel.SelfModulate.R,
-				panel.SelfModulate.G,
-				panel.SelfModulate.B,
-				0.0f
-			);
-		}
-	}
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                //////GD.Print($"Exception occured on option id {option.Id}: {exception.Message}");
+            }
+        }
+    }
 
-	public void HandleInfoHover(int enemyTargetIndex)
-	{
-		var biggiePhysicalAttackProxy = _serviceCombat.EnemyTargetList[enemyTargetIndex].BiggiePhysicalAttackProxy;
-		var biggieEmotionalAttackProxy = _serviceCombat.EnemyTargetList[enemyTargetIndex].BiggieEmotionalAttackProxy;
+    public void ResetPointerOffset()
+    {
+        SelectionHelperInstance.Reset();
+    }
 
-		var richTextModel = new RichTextModel()
-		{
-			Name = "Enemy",
-			PhysicalHealthLeft = biggiePhysicalAttackProxy.GetTargetCurrentHealth(),
-			PhysicalHealthMax = biggiePhysicalAttackProxy.GetTargetMaxHealth(),
-			EmotionalHealthLeft = biggieEmotionalAttackProxy.GetTargetCurrentHealth(),
-			EmotionalHealthMax = biggieEmotionalAttackProxy.GetTargetMaxHealth(),
-		};
+    [Signal]
+    public delegate void HoverInfoEventHandler(int enemyTargetIndex);
+    [Signal]
+    public delegate void SelectInfoEventHandler();
 
-		string richText = ConstructRichText(richTextModel);
-		_nodeRichTextLabel.Text = richText;
-	}
+    public void ShowSelectionPanels()
+    {
+        foreach (var panel in SelectionHelperInstance.OptionList.Select(x => x.SelectionPanel))
+        {
+            panel.SelfModulate = new Color(
+                panel.SelfModulate.R,
+                panel.SelfModulate.G,
+                panel.SelfModulate.B,
+                1.0f
+            );
+        }
+    }
 
-	private string ConstructRichText(RichTextModel model)
-	{
-		StringBuilder resultBuilder = new StringBuilder();
-		resultBuilder.Append($"{model.Name} Physical Health: {model.PhysicalHealthLeft}/{model.PhysicalHealthMax}\n");
-		resultBuilder.Append($"\n");
-		resultBuilder.Append($"{model.Name} Emotional Health: {model.EmotionalHealthLeft}/{model.EmotionalHealthMax}\n");
-		return resultBuilder.ToString();
-	}
+    public void HideSelectionPanels()
+    {
+        foreach (var panel in SelectionHelperInstance.OptionList.Select(x => x.SelectionPanel))
+        {
+            panel.SelfModulate = new Color(
+                panel.SelfModulate.R,
+                panel.SelfModulate.G,
+                panel.SelfModulate.B,
+                0.0f
+            );
+        }
+    }
 
-	private class RichTextModel
-	{
-		public string Name { get; set; }
-		public int PhysicalHealthLeft { get; set; }
-		public int PhysicalHealthMax { get; set; }
-		public int EmotionalHealthLeft { get; set; }
-		public int EmotionalHealthMax { get; set; }
-	}
+    public void HandleInfoHover(int enemyTargetIndex)
+    {
+        var biggiePhysicalAttackProxy = _serviceCombat.EnemyTargetList[enemyTargetIndex].BiggiePhysicalAttackProxy;
+        var biggieEmotionalAttackProxy = _serviceCombat.EnemyTargetList[enemyTargetIndex].BiggieEmotionalAttackProxy;
+
+        var richTextModel = new RichTextModel()
+        {
+            Name = "Enemy",
+            PhysicalHealthLeft = biggiePhysicalAttackProxy.GetTargetCurrentHealth(),
+            PhysicalHealthMax = biggiePhysicalAttackProxy.GetTargetMaxHealth(),
+            EmotionalHealthLeft = biggieEmotionalAttackProxy.GetTargetCurrentHealth(),
+            EmotionalHealthMax = biggieEmotionalAttackProxy.GetTargetMaxHealth(),
+        };
+
+        string richText = ConstructRichText(richTextModel);
+        _nodeRichTextLabel.Text = richText;
+    }
+
+    private string ConstructRichText(RichTextModel model)
+    {
+        StringBuilder resultBuilder = new StringBuilder();
+        resultBuilder.Append($"{model.Name} Physical Health: {model.PhysicalHealthLeft}/{model.PhysicalHealthMax}\n");
+        resultBuilder.Append($"\n");
+        resultBuilder.Append($"{model.Name} Emotional Health: {model.EmotionalHealthLeft}/{model.EmotionalHealthMax}\n");
+        return resultBuilder.ToString();
+    }
+
+    private class RichTextModel
+    {
+        public string Name { get; set; }
+        public int PhysicalHealthLeft { get; set; }
+        public int PhysicalHealthMax { get; set; }
+        public int EmotionalHealthLeft { get; set; }
+        public int EmotionalHealthMax { get; set; }
+    }
 }

@@ -61,13 +61,13 @@ public partial class Subconscious : CharacterBody3D
 
 	public bool ForceWalk(Vector3 target, double delta)
 	{
-		GD.Print("Subconscious ForceWalk");
+		//GD.Print("Subconscious ForceWalk");
 		CanMove(false);
 		Vector3 direction = (target - Position).Normalized();
 		Vector3 inputDirection = Vector3.Zero;
-		//GD.Print($"ForceWalk Direction X:{direction.X} Y:{direction.Y} Z:{direction.Z}");
-		// GD.Print($"target Position X:{target.X} Y:{target.Y} Z:{target.Z}");
-		// GD.Print($"subconscious Position X:{Position.X} Y:{Position.Y} Z:{Position.Z}");
+		////GD.Print($"ForceWalk Direction X:{direction.X} Y:{direction.Y} Z:{direction.Z}");
+		// //GD.Print($"target Position X:{target.X} Y:{target.Y} Z:{target.Z}");
+		// //GD.Print($"subconscious Position X:{Position.X} Y:{Position.Y} Z:{Position.Z}");
 
 		if (direction.X - 0.5f > 0) // RIGHT
 		{
@@ -110,7 +110,7 @@ public partial class Subconscious : CharacterBody3D
 			&& direction.Z + 0.5f > 0
 			&& direction.Z - 0.5f < 0;
 		CanMove(atTarget);
-		GD.Print($"Subconscious atTarget: {atTarget}");
+		//GD.Print($"Subconscious atTarget: {atTarget}");
 		return atTarget;
 	}
 }

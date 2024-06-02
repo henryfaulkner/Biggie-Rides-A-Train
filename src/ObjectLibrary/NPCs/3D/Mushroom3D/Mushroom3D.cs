@@ -19,7 +19,7 @@ public partial class Mushroom3D : Node3D
 		if (Input.IsActionJustPressed(_INTERACT_INPUT)
 			&& HelperFunctions.ContainsBiggie(_nodeInteractableArea.GetOverlappingBodies()))
 		{
-			GD.Print("Emit Mushroom3D Interact");
+			//GD.Print("Emit Mushroom3D Interact");
 			EmitSignal(SignalName.Interact);
 		}
 	}

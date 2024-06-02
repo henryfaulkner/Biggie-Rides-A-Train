@@ -60,14 +60,14 @@ public partial class TargetingPagePanel : Panel
 			}
 			if (Input.IsActionJustPressed(_LEFT_INPUT))
 			{
-				//GD.Print("Left Input");
+				////GD.Print("Left Input");
 				_audioSwitch.Play();
 				SelectionHelperInstance.ShiftSelectionLeft();
 				ProcessSelection(CurrentCombatOption);
 			}
 			if (Input.IsActionJustPressed(_RIGHT_INPUT))
 			{
-				//GD.Print("Right Input");
+				////GD.Print("Right Input");
 				_audioSwitch.Play();
 				SelectionHelperInstance.ShiftSelectionRight();
 				ProcessSelection(CurrentCombatOption);
@@ -79,7 +79,7 @@ public partial class TargetingPagePanel : Panel
 	{
 		if (_serviceCombat.EnemyTargetList.Count == 0) return false;
 		SelectionHelperInstance = new TargetSelectionHelper();
-		GD.Print($"EnemyTarget Count: {_serviceCombat.EnemyTargetList.Count}");
+		//GD.Print($"EnemyTarget Count: {_serviceCombat.EnemyTargetList.Count}");
 		foreach ((EnemyTarget target, int i) in _serviceCombat.EnemyTargetList.Select((value, i) => (value, i)))
 		{
 			SelectionHelperInstance.AddOption(target.Id, target.Id, i == 0, target.TargetPanel, null);
@@ -105,46 +105,46 @@ public partial class TargetingPagePanel : Panel
 				{
 					if (option.IsSelected)
 					{
-						GD.Print("ApplyActiveBack");
+						//GD.Print("ApplyActiveBack");
 						if (option.OptionLabel != null)
 							SelectionHelperInstance.ApplyActivePageLabelSettingOption(option.OptionLabel);
-						else GD.Print("Back Label is null");
+						else //GD.Print("Back Label is null");
 						if (option.SelectionPanel != null)
 							SelectionHelperInstance.ApplyActivePagePanelOption(option.SelectionPanel);
-						else GD.Print("Back Panel is null");
+						else //GD.Print("Back Panel is null");
 					}
 					else
 					{
-						GD.Print("ApplyInactiveBack");
+						//GD.Print("ApplyInactiveBack");
 						if (option.OptionLabel != null)
 							SelectionHelperInstance.ApplyInactivePageLabelSettingOption(option.OptionLabel);
-						else GD.Print("Back Label is null");
+						else //GD.Print("Back Label is null");
 						if (option.SelectionPanel != null)
 							SelectionHelperInstance.ApplyInactivePagePanelOption(option.SelectionPanel);
-						else GD.Print("Back Panel is null");
+						else //GD.Print("Back Panel is null");
 					}
 				}
 				else
 				{
 					if (option.IsSelected)
 					{
-						GD.Print("ApplyActiveEnemyTarget");
+						//GD.Print("ApplyActiveEnemyTarget");
 						if (option.SelectionPanel != null)
 							SelectionHelperInstance.ApplyActiveEnemyTargetPanelOption(option.SelectionPanel);
-						else GD.Print($"Enemy Target {option.Id} Panel is null");
+						else //GD.Print($"Enemy Target {option.Id} Panel is null");
 					}
 					else
 					{
-						GD.Print("ApplyInactiveEnemyTarget");
+						//GD.Print("ApplyInactiveEnemyTarget");
 						if (option.SelectionPanel != null)
 							SelectionHelperInstance.ApplyInactiveEnemyTargetPanelOption(option.SelectionPanel);
-						else GD.Print($"Enemy Target {option.Id} Panel is null");
+						else //GD.Print($"Enemy Target {option.Id} Panel is null");
 					}
 				}
 			}
 			catch (Exception exception)
 			{
-				////GD.Print($"Exception occured on option id {option.Id}: {exception.Message}");
+				//////GD.Print($"Exception occured on option id {option.Id}: {exception.Message}");
 			}
 		}
 	}

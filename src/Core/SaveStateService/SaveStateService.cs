@@ -32,7 +32,7 @@ public partial class SaveStateService : Node, IDisposable
 	{
 		try
 		{
-			//GD.Print("Load");
+			////GD.Print("Load");
 			//_globalLogger.LogDebug("Load");
 			using var file = FileAccess.Open(_SAVE_STATE_FILE, FileAccess.ModeFlags.Read);
 			string content = file.GetAsText();

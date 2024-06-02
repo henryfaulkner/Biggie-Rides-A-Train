@@ -228,7 +228,7 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 	private bool bite2 = false;
 	public bool CheckChatterConditions()
 	{
-		//GD.Print("CombatSceneMushroomBattle_1 CheckChatterConditions is false");
+		////GD.Print("CombatSceneMushroomBattle_1 CheckChatterConditions is false");
 		var currState = _globalCombatSingleton.CombatStateMachineService.CurrentCombatState;
 
 		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieChatAsk)

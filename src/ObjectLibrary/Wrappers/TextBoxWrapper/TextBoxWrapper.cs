@@ -20,14 +20,14 @@ public partial class TextBoxWrapper : Node2D
 		// ASSUMING INPUTMAP HAS A MAPPING FOR restart_scene
 		if (Input.IsActionJustPressed(_RESTART_SCENE_INPUT))
 		{
-			////GD.Print("Restart Scene Input");
+			//////GD.Print("Restart Scene Input");
 			GetTree().ReloadCurrentScene();
 		}
 
 		// ASSUMING INPUTMAP HAS A MAPPING FOR terminate_game
 		if (Input.IsActionJustPressed(_TERMINATE_GAME_INPUT))
 		{
-			////GD.Print("Terminate Game Input");
+			//////GD.Print("Terminate Game Input");
 			var nextScene = (PackedScene)ResourceLoader.Load("res://Main.tscn");
 			GetTree().ChangeSceneToPacked(nextScene);
 		}
@@ -35,7 +35,7 @@ public partial class TextBoxWrapper : Node2D
 		// ASSUMING INPUTMAP HAS A MAPPING FOR clear_save_state
 		if (Input.IsActionJustPressed(_CLEAR_SAVE_STATE_INPUT))
 		{
-			////GD.Print("Clear Save State Input");
+			//////GD.Print("Clear Save State Input");
 			using (var context = new SaveStateService())
 			{
 				context.Clear();

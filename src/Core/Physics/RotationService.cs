@@ -40,7 +40,7 @@ public partial class RotationService : Node
 				directionVector.Y = speedRatio;
 				break;
 			default:
-				GD.Print("RotationService CurrentRotation could not be mapped.");
+				//GD.Print("RotationService CurrentRotation could not be mapped.");
 				break;
 		}
 		return directionVector;
@@ -55,7 +55,7 @@ public partial class RotationService : Node
 				directionVector.X = speedRatio;
 				break;
 			default:
-				GD.Print("RotationService CurrentRotation could not be mapped.");
+				//GD.Print("RotationService CurrentRotation could not be mapped.");
 				break;
 		}
 		return directionVector;
@@ -72,7 +72,7 @@ public partial class RotationService : Node
 				directionVector.Y = -speedRatio;
 				break;
 			default:
-				GD.Print("RotationService CurrentRotation could not be mapped.");
+				//GD.Print("RotationService CurrentRotation could not be mapped.");
 				break;
 		}
 		return directionVector;
@@ -87,7 +87,7 @@ public partial class RotationService : Node
 				directionVector.X = -speedRatio;
 				break;
 			default:
-				GD.Print("RotationService CurrentRotation could not be mapped.");
+				//GD.Print("RotationService CurrentRotation could not be mapped.");
 				break;
 		}
 		return directionVector;

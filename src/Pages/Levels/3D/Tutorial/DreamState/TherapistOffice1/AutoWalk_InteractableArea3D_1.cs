@@ -7,7 +7,7 @@ public partial class AutoWalk_InteractableArea3D_1 : Area3D
 	{
 		if (HelperFunctions.ContainsBiggie(GetOverlappingBodies()))
 		{
-			GD.Print("Emit AutoWalk_InteractableArea3D_1 Collision");
+			//GD.Print("Emit AutoWalk_InteractableArea3D_1 Collision");
 			EmitSignal(SignalName.Collision);
 		}
 	}

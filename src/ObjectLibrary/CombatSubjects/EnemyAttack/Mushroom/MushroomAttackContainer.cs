@@ -30,7 +30,7 @@ public partial class MushroomAttackContainer : AbstractEnemyAttackContainer
 
 	public override void StartTurn()
 	{
-		GD.Print("MushroomAttackContainer StartTurn");
+		//GD.Print("MushroomAttackContainer StartTurn");
 		IsAttacking = true;
 		SporeFallInstance = SpawnSporeFall();
 		AddChild(SporeFallInstance);
@@ -53,7 +53,7 @@ public partial class MushroomAttackContainer : AbstractEnemyAttackContainer
 
 	public override void EndTurn()
 	{
-		GD.Print("MushroomAttackContainer EndTurn");
+		//GD.Print("MushroomAttackContainer EndTurn");
 		IsAttacking = false;
 		EmitSignal(SignalName.EndEnemyAttackTurn);
 		SporeFallInstance.QueueFree();

@@ -85,7 +85,7 @@ public partial class InteractionTextBox : CanvasLayer
 	// to the screen
 	public void Execute()
 	{
-		GD.Print("InteractionTextBox Execute and Show");
+		//GD.Print("InteractionTextBox Execute and Show");
 		IsOpen = true;
 		IsReading = true;
 		OptionContainerList[0].IsSelected = true;

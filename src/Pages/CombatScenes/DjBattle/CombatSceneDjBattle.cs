@@ -81,7 +81,7 @@ public partial class CombatSceneDjBattle : Node2D
 
 		if (_globalCombatSingleton.EnemyPhysicalAttackProxy.IsTargetDefeated())
 		{
-			//GD.Print("Biggie Physical Defeat");
+			////GD.Print("Biggie Physical Defeat");
 			HandleBiggieDefeat();
 			return;
 		}
@@ -92,24 +92,24 @@ public partial class CombatSceneDjBattle : Node2D
 
 	public void ChangeBiggieHealthBar()
 	{
-		//GD.Print("Start ChangeBiggieHealthBar");
+		////GD.Print("Start ChangeBiggieHealthBar");
 		_nodeBiggieHealthBar.Value = _globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetHealthPercentage();
 		_nodeBiggieHpValueLabel.Text = $"{_globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetCurrentHealth()}/{_globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetMaxHealth()}";
-		//GD.Print($"End ChangeBiggieHealthBar {_nodeBiggieHealthBar.Value}");
+		////GD.Print($"End ChangeBiggieHealthBar {_nodeBiggieHealthBar.Value}");
 	}
 
 
 	public void ChangeDjHealthBar()
 	{
-		//GD.Print("Start ChangeDjHealthBar");
+		////GD.Print("Start ChangeDjHealthBar");
 		_nodeDjHealthBar.Value = _globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage();
 		_nodeDjHpValueLabel.Text = $"{_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetCurrentHealth()}/{_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetMaxHealth()}";
-		//GD.Print($"End ChangeDjHealthBar {_nodeDjHealthBar.Value}");
+		////GD.Print($"End ChangeDjHealthBar {_nodeDjHealthBar.Value}");
 	}
 
 	public void HandleBiggieDefeat()
 	{
-		//GD.Print("HandleBiggieDefeat");
+		////GD.Print("HandleBiggieDefeat");
 		var root = GetTree().Root;
 
 		// Remove the current level
@@ -141,7 +141,7 @@ public partial class CombatSceneDjBattle : Node2D
 	public bool firstDialogueDone = false;
 	public bool CheckChatterConditions()
 	{
-		GD.Print("CombatSceneDjBattle CheckChatterConditions");
+		//GD.Print("CombatSceneDjBattle CheckChatterConditions");
 		if (_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage() < 100 && !firstDialogueDone)
 		{
 			_nodeChatterTextBox.AddDialogue("Pizza Pizza.");

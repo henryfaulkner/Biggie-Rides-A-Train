@@ -76,14 +76,14 @@ public partial class FightPageBasePanel : Panel
 			}
 			if (Input.IsActionJustPressed(_LEFT_INPUT))
 			{
-				//GD.Print("Left Input");
+				////GD.Print("Left Input");
 				_audioSwitch.Play();
 				SelectionHelperInstance.ShiftSelectionLeft();
 				ProcessSelection();
 			}
 			if (Input.IsActionJustPressed(_RIGHT_INPUT))
 			{
-				//GD.Print("Right Input");
+				////GD.Print("Right Input");
 				_audioSwitch.Play();
 				SelectionHelperInstance.ShiftSelectionRight();
 				ProcessSelection();
@@ -117,7 +117,7 @@ public partial class FightPageBasePanel : Panel
 			}
 			catch (Exception exception)
 			{
-				////GD.Print($"Exception occured on option id {option.Id}: {exception.Message}");
+				//////GD.Print($"Exception occured on option id {option.Id}: {exception.Message}");
 			}
 		}
 	}

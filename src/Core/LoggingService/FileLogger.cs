@@ -29,7 +29,7 @@ public class FileLogger : ILogger
 		}
 		catch (Exception exception)
 		{
-			//GD.Print($"Commit exception: {exception}");
+			////GD.Print($"Commit exception: {exception}");
 		}
 	}
 }

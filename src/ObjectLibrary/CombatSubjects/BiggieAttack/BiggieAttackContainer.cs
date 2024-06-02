@@ -87,30 +87,30 @@ public partial class BiggieAttackContainer : MarginContainer
 
 		if (isTrash)
 		{
-			GD.Print("DamageZones.Trash");
+			//GD.Print("DamageZones.Trash");
 			_nodeBadHitAudio.Play();
 			return DamageZones.Trash;
 		}
 		else if (isBad)
 		{
-			GD.Print("DamageZones.Bad");
+			//GD.Print("DamageZones.Bad");
 			_nodeGoodHitAudio.Play();
 			return DamageZones.Bad;
 		}
 		else if (isGood)
 		{
-			GD.Print("DamageZones.Good");
+			//GD.Print("DamageZones.Good");
 			_nodeGoodHitAudio.Play();
 			return DamageZones.Good;
 		}
 		else if (isPerfect)
 		{
-			GD.Print("DamageZones.Perfect");
+			//GD.Print("DamageZones.Perfect");
 			_nodeGoodHitAudio.Play();
 			return DamageZones.Perfect;
 		}
 
-		GD.Print("DamageZones fallback");
+		//GD.Print("DamageZones fallback");
 		_nodeBadHitAudio.Play();
 		return DamageZones.Trash;
 	}

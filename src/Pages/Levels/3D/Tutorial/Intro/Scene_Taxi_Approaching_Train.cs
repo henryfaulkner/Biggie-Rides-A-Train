@@ -66,7 +66,7 @@ public partial class Scene_Taxi_Approaching_Train : Node3D
 
 	private void ContinuePlay()
 	{
-		GD.Print("ContinuePlay");
+		//GD.Print("ContinuePlay");
 		PauseIncrement = false;
 	}
 }

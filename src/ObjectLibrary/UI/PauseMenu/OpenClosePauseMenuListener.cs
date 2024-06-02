@@ -22,7 +22,7 @@ public partial class OpenClosePauseMenuListener : Node
 		{
 			if (GetTree().Paused)
 			{
-				GD.Print("Unpause");
+				//GD.Print("Unpause");
 				_nodeBasePanel.Hide();
 				_nodeUserSettingsPanel.Hide();
 				EmitSignal(SignalName.CloseMenu);
@@ -30,7 +30,7 @@ public partial class OpenClosePauseMenuListener : Node
 			}
 			else
 			{
-				GD.Print("Pause");
+				//GD.Print("Pause");
 				_nodeBasePanel.Show();
 				EmitSignal(SignalName.OpenMenu);
 				GetTree().Paused = true;

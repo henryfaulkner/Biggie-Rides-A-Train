@@ -19,7 +19,7 @@ public partial class Therapist3D : Node3D
 		if (Input.IsActionJustPressed(_INTERACT_INPUT)
 			&& HelperFunctions.ContainsBiggie(_nodeInteractableArea.GetOverlappingBodies()))
 		{
-			GD.Print("Emit Therapist3D Interact");
+			//GD.Print("Emit Therapist3D Interact");
 			EmitSignal(SignalName.Interact);
 		}
 	}

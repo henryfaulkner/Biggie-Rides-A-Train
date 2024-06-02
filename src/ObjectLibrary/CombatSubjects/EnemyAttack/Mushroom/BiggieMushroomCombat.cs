@@ -28,7 +28,7 @@ public partial class BiggieMushroomCombat : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		if (!_nodeMushroomAttackContainer.IsAttacking) return;
-		
+
 		Vector2 inputDirection = GetInput();
 		Velocity = inputDirection * _SPEED;
 		MoveAndSlide();
@@ -44,23 +44,23 @@ public partial class BiggieMushroomCombat : CharacterBody2D
 		Vector2 inputDirection = new Vector2();
 		bool result = false;
 
-		if (biggiePos.X - (biggieSize.X/2) > borderPos.X && Input.IsActionPressed(_MOVE_LEFT_INPUT))
+		if (biggiePos.X - (biggieSize.X / 2) > borderPos.X && Input.IsActionPressed(_MOVE_LEFT_INPUT))
 		{
 			inputDirection.X = -_SPEED;
 			result = true;
 		}
-		else if (biggiePos.X + (biggieSize.X/2) < borderPos.X + borderSize.X && Input.IsActionPressed(_MOVE_RIGHT_INPUT))
+		else if (biggiePos.X + (biggieSize.X / 2) < borderPos.X + borderSize.X && Input.IsActionPressed(_MOVE_RIGHT_INPUT))
 		{
 			inputDirection.X = _SPEED;
 			result = true;
 		}
 
-		if (biggiePos.Y + (biggieSize.Y/2) < borderPos.Y + borderSize.Y && Input.IsActionPressed(_MOVE_DOWN_INPUT))
+		if (biggiePos.Y + (biggieSize.Y / 2) < borderPos.Y + borderSize.Y && Input.IsActionPressed(_MOVE_DOWN_INPUT))
 		{
 			inputDirection.Y += _SPEED;
 			result = true;
 		}
-		else if (biggiePos.Y - (biggieSize.Y/2) > borderPos.Y && Input.IsActionPressed(_MOVE_UP_INPUT))
+		else if (biggiePos.Y - (biggieSize.Y / 2) > borderPos.Y && Input.IsActionPressed(_MOVE_UP_INPUT))
 		{
 			inputDirection.Y = -_SPEED;
 			result = true;
@@ -79,41 +79,41 @@ public partial class BiggieMushroomCombat : CharacterBody2D
 		Vector2 borderPos = _globalCombatSingleton.EnemyAttackPanelService.Position;
 		bool result = false;
 
-		GD.Print($"biggieSize {biggieSize.X} {biggieSize.Y}");
-		GD.Print($"biggiePos {biggiePos.X} {biggiePos.Y}");
-		GD.Print($"borderSize {borderSize.X} {borderSize.Y}");
-		GD.Print($"borderPos {borderPos.X} {borderPos.Y}");
+		//GD.Print($"biggieSize {biggieSize.X} {biggieSize.Y}");
+		//GD.Print($"biggiePos {biggiePos.X} {biggiePos.Y}");
+		//GD.Print($"borderSize {borderSize.X} {borderSize.Y}");
+		//GD.Print($"borderPos {borderPos.X} {borderPos.Y}");
 
 		// hit up
 		// biggiePos.y - biggieSize.y < pos.y
 		if (biggiePos.Y < borderPos.Y && EnumDirection == Enumerations.Movement.Directions.Up)
 		{
-			//GD.Print($"IsHittingCombatBorders UP");
+			////GD.Print($"IsHittingCombatBorders UP");
 			result = true;
 		}
 		// hit right
 		// biggiePos.x + biggieSize.x > pos.x + size.x
 		if (biggiePos.X + biggieSize.X > borderPos.X + borderSize.X && EnumDirection == Enumerations.Movement.Directions.Right)
 		{
-			//GD.Print($"IsHittingCombatBorders RIGHT");
+			////GD.Print($"IsHittingCombatBorders RIGHT");
 			result = true;
 		}
 		// hit bottom
 		// biggiePos.y + biggieSize.y > pos.y + size.y 
 		if (biggiePos.Y + biggieSize.Y > borderPos.Y + borderSize.Y && EnumDirection == Enumerations.Movement.Directions.Down)
 		{
-			//GD.Print($"IsHittingCombatBorders DOWN");
+			////GD.Print($"IsHittingCombatBorders DOWN");
 			result = true;
 		}
 		// hit left 
 		// biggiePos.x < pos.x
 		if (biggiePos.X < borderPos.X && EnumDirection == Enumerations.Movement.Directions.Left)
 		{
-			//GD.Print($"IsHittingCombatBorders LEFT");
+			////GD.Print($"IsHittingCombatBorders LEFT");
 			result = true;
 		}
 
-		//GD.Print($"IsHittingCombatBorders ${result}");
+		////GD.Print($"IsHittingCombatBorders ${result}");
 		return result;
 	}
 }

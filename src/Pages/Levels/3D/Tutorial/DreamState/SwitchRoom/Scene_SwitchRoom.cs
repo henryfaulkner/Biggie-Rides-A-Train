@@ -24,7 +24,7 @@ public partial class Scene_SwitchRoom : Node3D
 
 	private void HandleSwitchFlip()
 	{
-		GD.Print("call HandleSwitchFlip");
+		//GD.Print("call HandleSwitchFlip");
 		_nodeBarrier.Position += new Vector3(50, 0, 0);
 		var context = _serviceSaveState.Load();
 		context.IsSwitchDoorOpen = true;

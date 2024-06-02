@@ -19,22 +19,22 @@ public partial class TextureButton : Godot.TextureButton
 
 	public void _on_pressed()
 	{
-		GD.Print("Mute button pressed.");
+		//GD.Print("Mute button pressed.");
 		var context = _serviceSaveState.Load();
 		if (IsInitializePress)
 		{
-			GD.Print("IsInitialized");
+			//GD.Print("IsInitialized");
 			AudioServer.SetBusMute(FxBusIndex, context.UserSettings.FxMuted);
 			IsInitializePress = false;
 		}
 		else
 		{
-			GD.Print("!IsInitialized");
+			//GD.Print("!IsInitialized");
 			AudioServer.SetBusMute(FxBusIndex, !AudioServer.IsBusMute(FxBusIndex));
 			context.UserSettings.FxMuted = AudioServer.IsBusMute(FxBusIndex);
 			_serviceSaveState.Commit(context);
 		}
-		GD.Print($"context.UserSettings.FxMuted: {context.UserSettings.FxMuted}");
+		//GD.Print($"context.UserSettings.FxMuted: {context.UserSettings.FxMuted}");
 	}
 }
 

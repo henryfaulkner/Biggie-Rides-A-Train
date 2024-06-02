@@ -109,7 +109,7 @@ public class CompositionParsingService
 		}
 		catch (Exception ex)
 		{
-			////GD.Print($"An error occurred: {ex.Message}");
+			//////GD.Print($"An error occurred: {ex.Message}");
 			return null;
 		}
 		return new char[0];

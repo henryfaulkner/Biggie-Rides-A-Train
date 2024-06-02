@@ -29,8 +29,8 @@ public partial class SporeFall : Node2D
 		{
 			float x = (float)GD.RandRange(0, _globalCombatSingleton.EnemyAttackPanelService.Size.X);
 			float y = (float)GD.RandRange(-_globalCombatSingleton.EnemyAttackPanelService.Size.Y, 0);
-			 //GD.Print($"SporeFall spore x: {x}");
-			 //GD.Print($"SporeFall spore y: {y}");
+			////GD.Print($"SporeFall spore x: {x}");
+			////GD.Print($"SporeFall spore y: {y}");
 			Spore spore = new Spore()
 			{
 				Position = new Vector2(x, y)
@@ -66,7 +66,7 @@ public partial class SporeFall : Node2D
 			}
 			catch (Exception ex)
 			{
-				GD.Print($"SporeFall exception: {ex.Message}");
+				//GD.Print($"SporeFall exception: {ex.Message}");
 			}
 		}
 
@@ -85,7 +85,7 @@ public partial class SporeFall : Node2D
 	public delegate void SporeHitBiggieEventHandler();
 	private void SporeHitBiggieFunc(Spore spore)
 	{
-		GD.Print("SporeHitBiggie");
+		//GD.Print("SporeHitBiggie");
 		_nodeSporeList.Remove(spore);
 		spore.QueueFree();
 

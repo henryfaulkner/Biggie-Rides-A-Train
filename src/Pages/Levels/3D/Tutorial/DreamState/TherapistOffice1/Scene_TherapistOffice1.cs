@@ -65,7 +65,7 @@ public partial class Scene_TherapistOffice1 : Node3D
 			ProcessingAutoWalk_1 = !ProcessAutoWalk_1(delta);
 			if (!ProcessingAutoWalk_1)
 			{
-				GD.Print("Stop AutoWalk_1");
+				//GD.Print("Stop AutoWalk_1");
 				_nodeCameraTalk_1.MakeCurrent();
 				ProcessSubconsciousDialogue();
 			}
@@ -76,7 +76,7 @@ public partial class Scene_TherapistOffice1 : Node3D
 			ProcessingAutoWalk_2 = !ProcessAutoWalk_2(delta);
 			if (!ProcessingAutoWalk_2)
 			{
-				GD.Print("Stop AutoWalk_2");
+				//GD.Print("Stop AutoWalk_2");
 				SubconsciousDialogueState = SubconsciousDialogueStates.MushroomCombat_Talk;
 				_nodeCameraTalk_2.MakeCurrent();
 				ProcessSubconsciousDialogue();
@@ -103,8 +103,8 @@ public partial class Scene_TherapistOffice1 : Node3D
 			context.DialogueStateSubconscious = (int)SubconsciousDialogueStates.PostMushroomCombat;
 			context.StoredLocation = new DoorEntrance(Enumerations.Scenes.TherapistOffice_1, _nodeBiggie.Position.X, _nodeBiggie.Position.Y, _nodeBiggie.Position.Z);
 			context.AdditionalStoredLocation = new DoorEntrance(Enumerations.Scenes.TherapistOffice_1, _nodeSubconscious.Position.X, _nodeSubconscious.Position.Y, _nodeSubconscious.Position.Z);
-			GD.Print($"Commit {context.StoredLocation}");
-			GD.Print($"Commit {context.AdditionalStoredLocation}");
+			//GD.Print($"Commit {context.StoredLocation}");
+			//GD.Print($"Commit {context.AdditionalStoredLocation}");
 			_serviceSaveState.Commit(context);
 
 			var nextScene = (PackedScene)ResourceLoader.Load(_COMBAT_SCENE_MUSHROOM);
@@ -119,11 +119,11 @@ public partial class Scene_TherapistOffice1 : Node3D
 
 	public void ProcessTherapistDialogue()
 	{
-		GD.Print("Scene_Dream_Room1 ProcessTherapistDialogue");
+		//GD.Print("Scene_Dream_Room1 ProcessTherapistDialogue");
 		switch (TherapistDialogueState)
 		{
 			case TherapistDialogueStates.First:
-				GD.Print("case TherapistDialogueStates.First");
+				//GD.Print("case TherapistDialogueStates.First");
 				if (!_nodeTextBox.CanCreateDialogue()) return;
 				_nodeTextBox.AddDialogue("Welcome. I am glad to see you’re here.");
 				_nodeTextBox.AddDialogue("Your attention is needed here and outside, and neither can be ignored.");
@@ -134,7 +134,7 @@ public partial class Scene_TherapistOffice1 : Node3D
 				_nodeSceneBarrier.CanOpen = true;
 				break;
 			default:
-				GD.Print("case TherapistDialogueStates.Default or default");
+				//GD.Print("case TherapistDialogueStates.Default or default");
 				if (!_nodeTextBox.CanCreateDialogue()) return;
 				_nodeTextBox.AddDialogue("Good luck.");
 				_nodeTextBox.ExecuteDialogueQueue();
@@ -144,13 +144,13 @@ public partial class Scene_TherapistOffice1 : Node3D
 
 	public bool ProcessAutoWalk_1(double delta)
 	{
-		GD.Print("ProcessAutoWalk_1");
+		//GD.Print("ProcessAutoWalk_1");
 		return _nodeBiggie.ForceWalk(_nodeSubconscious.Position + new Vector3(-3.0f, 0.0f, 0.3f), delta);
 	}
 
 	public bool ProcessAutoWalk_2(double delta)
 	{
-		GD.Print("ProcessAutoWalk_2");
+		//GD.Print("ProcessAutoWalk_2");
 		bool result = _nodeBiggie.ForceWalk(_nodeMushroomFight_2.Position + new Vector3(-2.0f, 0.0f, 1.3f), delta);
 		result = _nodeSubconscious.ForceWalk(_nodeMushroomFight_2.Position + new Vector3(2.0f, 0.0f, 0.8f), delta)
 			&& result;
@@ -165,21 +165,21 @@ public partial class Scene_TherapistOffice1 : Node3D
 		switch (SubconsciousDialogueState)
 		{
 			case SubconsciousDialogueStates.First:
-				GD.Print("SubconsciousDialogueStates.First");
+				//GD.Print("SubconsciousDialogueStates.First");
 				_nodeTextBox.AddDialogue("Hi Biggie. It’s good to see you. I’ve been meaning to talk to you.");
 				_nodeTextBox.AddDialogue("I think you are making a mistake, going to the train station like you are.");
 				_nodeTextBox.ExecuteDialogueQueue();
 				SubconsciousDialogueState = SubconsciousDialogueStates.Second;
 				break;
 			case SubconsciousDialogueStates.Second:
-				GD.Print("SubconsciousDialogueStates.Second");
+				//GD.Print("SubconsciousDialogueStates.Second");
 				_nodeTextBox.AddDialogue("That train is bad news. You’ll probably get hurt getting on the train.");
 				_nodeTextBox.AddDialogue("You’re not strong enough to follow in the [color=red]conductor’s[/color] footsteps. Don’t find him.");
 				_nodeTextBox.ExecuteDialogueQueue();
 				SubconsciousDialogueState = SubconsciousDialogueStates.Interaction_1;
 				break;
 			case SubconsciousDialogueStates.Interaction_1:
-				GD.Print("SubconsciousDialogueStates.Interaction_1");
+				//GD.Print("SubconsciousDialogueStates.Interaction_1");
 				_nodeInteractionTextBox.StartInteraction("Will you promise me that you will come back home and forget about the train station?", "No", (int)CombatSelectionOptions.Option_1);
 				_nodeInteractionTextBox.AddOption("No", (int)CombatSelectionOptions.Option_2);
 				_nodeInteractionTextBox.Execute();
@@ -203,7 +203,7 @@ public partial class Scene_TherapistOffice1 : Node3D
 				SubconsciousDialogueState = SubconsciousDialogueStates.SubconsciousCombat;
 				break;
 			default:
-				GD.Print("holyyyyyy");
+				//GD.Print("holyyyyyy");
 				break;
 		}
 	}
@@ -237,7 +237,7 @@ public partial class Scene_TherapistOffice1 : Node3D
 
 	private void HandlePostMushroomCombat(SaveStateModel context)
 	{
-		GD.Print("HandlePostMushroomCombat");
+		//GD.Print("HandlePostMushroomCombat");
 		_nodeCameraTalk_2.MakeCurrent();
 		_nodeSubconscious.Position = new Vector3(
 			context.AdditionalStoredLocation.X,

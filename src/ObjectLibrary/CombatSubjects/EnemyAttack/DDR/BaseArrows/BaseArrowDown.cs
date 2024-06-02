@@ -34,35 +34,35 @@ public partial class BaseArrowDown : Area2D
 	{
 		if (Input.IsActionJustPressed(_DOWN_INPUT))
 		{
-			////GD.Print("DOWN pressed.");
+			//////GD.Print("DOWN pressed.");
 			if (_nodeAreaEarlyBad.HasOverlappingBodies())
 			{
-				////GD.Print("DOWN early bad.");
+				//////GD.Print("DOWN early bad.");
 				HandleCollision(Enumerations.HitType.Bad);
 			}
 			else if (_nodeAreaEarlyGood.HasOverlappingBodies())
 			{
-				////GD.Print("DOWN early good.");
+				//////GD.Print("DOWN early good.");
 				HandleCollision(Enumerations.HitType.Good);
 			}
 			else if (_nodeAreaPerfect.HasOverlappingBodies())
 			{
-				////GD.Print("DOWN perfect.");
+				//////GD.Print("DOWN perfect.");
 				HandleCollision(Enumerations.HitType.Perfect);
 			}
 			else if (_nodeAreaLateGood.HasOverlappingBodies())
 			{
-				////GD.Print("DOWN late good.");
+				//////GD.Print("DOWN late good.");
 				HandleCollision(Enumerations.HitType.Good);
 			}
 			else if (_nodeAreaLateBad.HasOverlappingBodies())
 			{
-				////GD.Print("DOWN late bad.");
+				//////GD.Print("DOWN late bad.");
 				HandleCollision(Enumerations.HitType.Bad);
 			}
 			else
 			{
-				////GD.Print("DOWN miss.");
+				//////GD.Print("DOWN miss.");
 				HandleCollision(Enumerations.HitType.Miss);
 			}
 		}
@@ -73,7 +73,7 @@ public partial class BaseArrowDown : Area2D
 
 	public void HandleCollision(Enumerations.HitType hit)
 	{
-		////GD.Print("Down HandleCollision");
+		//////GD.Print("Down HandleCollision");
 		EmitSignal(SignalName.DequeueFallingArrowDown, (int)hit);
 		return;
 	}

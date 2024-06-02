@@ -113,7 +113,7 @@ public partial class CombatWrapper : Node2D
 			|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieFightScratch
 		)
 		{
-			//GD.Print("Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFrom...");
+			////GD.Print("Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFrom...");
 			if (!ProcessFirstPass())
 			{
 				HideBiggieAttackContainer();
@@ -126,13 +126,13 @@ public partial class CombatWrapper : Node2D
 					EmitSignal(SignalName.StartEnemyAttackTurn);
 					ShowEnemyAttackContainer();
 					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
-					//GD.Print("EmitSignal(SignalName.StartOpponentTurn);");
+					////GD.Print("EmitSignal(SignalName.StartOpponentTurn);");
 				}
 			}
 		}
 		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieCombatMenu)
 		{
-			//GD.Print("Enumerations.Combat.StateMachine.States.TransitionToBiggieCombatMenu");
+			////GD.Print("Enumerations.Combat.StateMachine.States.TransitionToBiggieCombatMenu");
 			if (!ProcessFirstPass())
 			{
 				HideEnemyAttackContainer();
@@ -150,7 +150,7 @@ public partial class CombatWrapper : Node2D
 		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightScratch
 				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightBite)
 		{
-			//GD.Print("Enumerations.Combat.StateMachine.States.TransitionToBiggieFight...");
+			////GD.Print("Enumerations.Combat.StateMachine.States.TransitionToBiggieFight...");
 			if (!ProcessFirstPass())
 			{
 				HideBiggieCombatMenuTextContainer();
@@ -170,7 +170,7 @@ public partial class CombatWrapper : Node2D
 		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatAsk
 				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatCharm)
 		{
-			//GD.Print("Enumerations.Combat.StateMachine.States.TransitionToBiggieChat...");
+			////GD.Print("Enumerations.Combat.StateMachine.States.TransitionToBiggieChat...");
 			if (!ProcessFirstPass())
 			{
 				HideBiggieCombatMenuTextContainer();
@@ -189,7 +189,7 @@ public partial class CombatWrapper : Node2D
 		}
 		else if (_globalCombatSingleton.CombatStateMachineService.IsATransitionToChatterBox(currStateId))
 		{
-			//GD.Print("Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox...");
+			////GD.Print("Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox...");
 			if (!ProcessFirstPass())
 			{
 				HideBiggieAttackContainer();
@@ -209,7 +209,7 @@ public partial class CombatWrapper : Node2D
 		}
 		else if (_globalCombatSingleton.CombatStateMachineService.IsATargetEnemyTransition(currStateId))
 		{
-			GD.Print("Hello World");
+			//GD.Print("Hello World");
 		}
 	}
 
@@ -312,7 +312,7 @@ public partial class CombatWrapper : Node2D
 		}
 		else
 		{
-			////GD.Print($"SizeY {MainAnimationHelper.CheckSizeY(_nodeSubjectPanel, _nodeEnemyAttackPanel)}");
+			//////GD.Print($"SizeY {MainAnimationHelper.CheckSizeY(_nodeSubjectPanel, _nodeEnemyAttackPanel)}");
 		}
 		return false;
 	}
@@ -343,7 +343,7 @@ public partial class CombatWrapper : Node2D
 		}
 		else
 		{
-			////GD.Print($"SizeY {MainAnimationHelper.CheckSizeY(_nodeSubjectPanel, _nodeBiggieAttackPanel)}");
+			//////GD.Print($"SizeY {MainAnimationHelper.CheckSizeY(_nodeSubjectPanel, _nodeBiggieAttackPanel)}");
 		}
 		return false;
 	}
@@ -374,7 +374,7 @@ public partial class CombatWrapper : Node2D
 		}
 		else
 		{
-			////GD.Print($"SizeY {MainAnimationHelper.CheckSizeY(_nodeSubjectPanel, _nodeBasePagePanel)}");
+			//////GD.Print($"SizeY {MainAnimationHelper.CheckSizeY(_nodeSubjectPanel, _nodeBasePagePanel)}");
 		}
 		return false;
 	}
@@ -405,7 +405,7 @@ public partial class CombatWrapper : Node2D
 		}
 		else
 		{
-			////GD.Print($"SizeY {MainAnimationHelper.CheckSizeY(_nodeSubjectPanel, _nodeEnemyAttackPanel)}");
+			//////GD.Print($"SizeY {MainAnimationHelper.CheckSizeY(_nodeSubjectPanel, _nodeEnemyAttackPanel)}");
 		}
 		return false;
 	}
@@ -467,7 +467,7 @@ public partial class CombatWrapper : Node2D
 
 	public void HideActionInfo()
 	{
-		//GD.Print("CombatWrapper.HideActionInfo");
+		////GD.Print("CombatWrapper.HideActionInfo");
 		_nodeActionInfo.Modulate = new Color(1, 1, 1, 0);
 	}
 
@@ -546,7 +546,7 @@ public partial class CombatWrapper : Node2D
 				DealEmotionalDamage(3 * damagePercentage);
 				break;
 			default:
-				GD.Print("CombatWrapper HandleEndBiggieAttackTurn LastCombatOptionUsed did not map.");
+				//GD.Print("CombatWrapper HandleEndBiggieAttackTurn LastCombatOptionUsed did not map.");
 				break;
 		}
 
@@ -590,7 +590,7 @@ public partial class CombatWrapper : Node2D
 				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightBite);
 				break;
 			default:
-				GD.Print("CombatSceneDjBattle.EndBiggieCombatMenuTurn: Could not map combat options");
+				//GD.Print("CombatSceneDjBattle.EndBiggieCombatMenuTurn: Could not map combat options");
 				break;
 		}
 
@@ -602,7 +602,7 @@ public partial class CombatWrapper : Node2D
 	public void DealPhysicalDamage(double damage)
 	{
 		_globalCombatSingleton.EnemyTargetList[0].BiggiePhysicalAttackProxy.DealDamage(damage);
-		GD.Print($"enemy health: {_globalCombatSingleton.EnemyTargetList[0].BiggiePhysicalAttackProxy.GetTargetHealthPercentage()}");
+		//GD.Print($"enemy health: {_globalCombatSingleton.EnemyTargetList[0].BiggiePhysicalAttackProxy.GetTargetHealthPercentage()}");
 		EmitSignal(SignalName.ProjectPhysicalDamage);
 	}
 
@@ -611,7 +611,7 @@ public partial class CombatWrapper : Node2D
 	public void DealEmotionalDamage(double damage)
 	{
 		_globalCombatSingleton.EnemyTargetList[0].BiggieEmotionalAttackProxy.DealDamage(damage);
-		GD.Print($"enemy health: {_globalCombatSingleton.EnemyTargetList[0].BiggieEmotionalAttackProxy.GetTargetHealthPercentage()}");
+		//GD.Print($"enemy health: {_globalCombatSingleton.EnemyTargetList[0].BiggieEmotionalAttackProxy.GetTargetHealthPercentage()}");
 		EmitSignal(SignalName.ProjectPhysicalDamage);
 	}
 
@@ -624,11 +624,11 @@ public partial class CombatWrapper : Node2D
 		var enemyAttackPanelPosition = new Vector2(enemyAttackContainer.GetRect().Position.X + enemyAttackContainer.GetThemeConstant("margin_left"),
 			enemyAttackContainer.GetRect().Position.Y + enemyAttackContainer.GetThemeConstant("margin_top"));
 
-		GD.Print("CombatWrapper SetEnemyAttackContainerService");
+		//GD.Print("CombatWrapper SetEnemyAttackContainerService");
 		_globalCombatSingleton.EnemyAttackPanelService.Size = enemyAttackPanelSize;
-		GD.Print($"CombatWrapper _globalCombatSingleton.EnemyAttackPanelService.Size {_globalCombatSingleton.EnemyAttackPanelService.Size.X} {_globalCombatSingleton.EnemyAttackPanelService.Size.Y}");
+		//GD.Print($"CombatWrapper _globalCombatSingleton.EnemyAttackPanelService.Size {_globalCombatSingleton.EnemyAttackPanelService.Size.X} {_globalCombatSingleton.EnemyAttackPanelService.Size.Y}");
 		_globalCombatSingleton.EnemyAttackPanelService.Position = enemyAttackPanelPosition;
-		GD.Print($"CombatWrapper _globalCombatSingleton.EnemyAttackPanelService.Position {_globalCombatSingleton.EnemyAttackPanelService.Position.X} {_globalCombatSingleton.EnemyAttackPanelService.Position.Y}");
+		//GD.Print($"CombatWrapper _globalCombatSingleton.EnemyAttackPanelService.Position {_globalCombatSingleton.EnemyAttackPanelService.Position.X} {_globalCombatSingleton.EnemyAttackPanelService.Position.Y}");
 	}
 
 	public bool CheckForBiggeDefeat()

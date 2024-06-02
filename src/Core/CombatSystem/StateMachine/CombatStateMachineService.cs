@@ -54,15 +54,15 @@ public partial class CombatStateMachineService : Node
 		var transition = transitions.Where(x => x.Event.Id == eventId).First();
 		if (transition == null)
 		{
-			////GD.Print("GetStateByEventAndTransitions Transition was not found.");
-			////GD.PrintErr("GetStateByEventAndTransitions Transition was not found.");
+			//////GD.Print("GetStateByEventAndTransitions Transition was not found.");
+			//////GD.PrintErr("GetStateByEventAndTransitions Transition was not found.");
 			return new CombatStateModel();
 		}
 		var nextStateId = transition.NextState.Id;
 		if (transition == null)
 		{
-			////GD.Print("GetStateByEventAndTransitions NextStateId was not found.");
-			////GD.PrintErr("GetStateByEventAndTransitions NextStateId was not found.");
+			//////GD.Print("GetStateByEventAndTransitions NextStateId was not found.");
+			//////GD.PrintErr("GetStateByEventAndTransitions NextStateId was not found.");
 			return new CombatStateModel();
 		}
 
@@ -75,11 +75,11 @@ public partial class CombatStateMachineService : Node
 		var eventId = (Enumerations.Combat.StateMachine.Events)eventIdIndex;
 		var transitions = GetTransitionsByStateId(CurrentCombatState.Id);
 
-		////GD.Print($"BEFORE CombatStateMachineService HandleCombatEvent: {CurrentCombatState.Id} {CurrentCombatState.Name}");
-		////GD.Print($"EventId: {eventId}");
-		////GD.Print(JsonConvert.SerializeObject(transitions));
+		//////GD.Print($"BEFORE CombatStateMachineService HandleCombatEvent: {CurrentCombatState.Id} {CurrentCombatState.Name}");
+		//////GD.Print($"EventId: {eventId}");
+		//////GD.Print(JsonConvert.SerializeObject(transitions));
 		var nextState = GetStateByEventAndTransitions(eventId, transitions);
-		////GD.Print($"AFTER CombatStateMachineService HandleCombatEvent: {nextState.Id} {nextState.Name}");
+		//////GD.Print($"AFTER CombatStateMachineService HandleCombatEvent: {nextState.Id} {nextState.Name}");
 		CurrentCombatState = nextState;
 	}
 
@@ -101,7 +101,7 @@ public partial class CombatStateMachineService : Node
 		}
 		catch (Exception exception)
 		{
-			////GD.PrintErr($"Issue parsing _TRANSITIONS_FILE: {exception.Message}");
+			//////GD.PrintErr($"Issue parsing _TRANSITIONS_FILE: {exception.Message}");
 		}
 		return result;
 	}

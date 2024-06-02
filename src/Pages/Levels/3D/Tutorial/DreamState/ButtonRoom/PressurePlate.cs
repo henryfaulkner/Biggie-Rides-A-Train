@@ -6,9 +6,9 @@ public partial class PressurePlate : MeshInstance3D
 	private Area3D _nodeInteractableArea = null;
 	private AudioStreamPlayer3D _nodeAudio = null;
 	private Vector3 PressedPosition { get; set; }
-	
+
 	private bool _pressed = false;
-	
+
 	public override void _Ready()
 	{
 		_nodeInteractableArea = GetNode<Area3D>("./Area3D");
@@ -17,7 +17,7 @@ public partial class PressurePlate : MeshInstance3D
 									-(Scale.Y / 2),
 									Position.Z);
 	}
-	
+
 	public override void _PhysicsProcess(double _delta)
 	{
 		if (_pressed) return;
@@ -26,13 +26,13 @@ public partial class PressurePlate : MeshInstance3D
 			Press();
 		}
 	}
-	
+
 	[Signal]
 	public delegate void PressedEventHandler();
-	
+
 	private void Press()
 	{
-		GD.Print("Call Press");
+		//GD.Print("Call Press");
 		_pressed = true;
 		_nodeAudio.Play();
 		Position = PressedPosition;

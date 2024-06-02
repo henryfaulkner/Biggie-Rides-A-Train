@@ -17,7 +17,7 @@ public partial class RotationPaws : Node3D
 		if (Input.IsActionJustPressed(_INTERACT_INPUT)
 			&& HelperFunctions.ContainsBiggie(_nodeInteractableArea.GetOverlappingBodies()))
 		{
-			GD.Print("RotationPaws");
+			//GD.Print("RotationPaws");
 			EmitSignal(SignalName.Rotate);
 		}
 	}
