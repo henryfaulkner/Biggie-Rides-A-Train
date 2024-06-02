@@ -12,6 +12,7 @@ public partial class BiggieCombatMenu : CanvasLayer
 	private ChatPageBasePanel _nodeChatPagePanel = null;
 	private FightPageBasePanel _nodeFightPagePanel = null;
 	private TargetingPagePanel _nodeTargetingPagePanel = null;
+	private InfoPagePanel _nodeInfoPagePanel = null;
 
 	private CombatSingleton _globalCombatSingleton = null;
 
@@ -23,6 +24,7 @@ public partial class BiggieCombatMenu : CanvasLayer
 		_nodeChatPagePanel = GetNode<ChatPageBasePanel>("./TextBoxContainer/ChatPagePanel");
 		_nodeFightPagePanel = GetNode<FightPageBasePanel>("./TextBoxContainer/FightPagePanel");
 		_nodeTargetingPagePanel = GetNode<TargetingPagePanel>("./TextBoxContainer/TargetingPagePanel");
+		_nodeInfoPagePanel = GetNode<InfoPagePanel>("./TextBoxContainer/InfoPagePanel");
 
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 
@@ -30,6 +32,7 @@ public partial class BiggieCombatMenu : CanvasLayer
 		_nodeChatPagePanel.IsOpen = false;
 		_nodeFightPagePanel.IsOpen = false;
 		_nodeTargetingPagePanel.IsOpen = false;
+		_nodeInfoPagePanel.IsOpen = false;
 		HandleHideActionInfo();
 
 		_nodeBasePagePanel.SelectBase += HandleBaseSelection;
@@ -37,6 +40,7 @@ public partial class BiggieCombatMenu : CanvasLayer
 		_nodeBasePagePanel.HideActionInfo += HandleHideActionInfo;
 		_nodeChatPagePanel.SelectChat += HandleChatSelection;
 		_nodeTargetingPagePanel.SelectTarget += HandleTargetingSelection;
+		_nodeInfoPagePanel.SelectInfo += HandleInfoSelection;
 		_nodeChatPagePanel.ShowActionInfo += HandleShowActionInfo;
 		_nodeChatPagePanel.HideActionInfo += HandleHideActionInfo;
 		_nodeFightPagePanel.SelectFight += HandleFightSelection;
@@ -75,6 +79,11 @@ public partial class BiggieCombatMenu : CanvasLayer
 				_nodeBasePagePanel.IsOpen = false;
 				_nodeChatPagePanel.IsOpen = true;
 				_nodeChatPagePanel.ProcessSelection();
+				break;
+			case (int)Enumerations.Combat.BasePagePanelOptions.Info:
+				_nodeBasePagePanel.IsOpen = false;
+				_nodeInfoPagePanel.IsOpen = true;
+				_nodeInfoPagePanel.ProcessSelection();
 				break;
 			case (int)Enumerations.Combat.BasePagePanelOptions.Exit:
 				break;
@@ -234,6 +243,9 @@ public partial class BiggieCombatMenu : CanvasLayer
 				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Bite, enemyTargetIndex);
 				_nodeTargetingPagePanel.HideSelectionPanels();
 				break;
+			case (int)Enumerations.Combat.CombatOptions.Info:
+				HandleTargetingSelectionBack();
+				break;
 			default:
 				break;
 		}
@@ -247,6 +259,14 @@ public partial class BiggieCombatMenu : CanvasLayer
 		// this will represent the BACK button
 		_nodeTargetingPagePanel.IsOpen = false;
 		_nodeTargetingPagePanel.HideSelectionPanels();
+		_nodeBasePagePanel.IsOpen = true;
+		_nodeBasePagePanel.ProcessSelection();
+	}
+
+	public void HandleInfoSelection()
+	{
+		_nodeInfoPagePanel.IsOpen = false;
+		_nodeInfoPagePanel.HideSelectionPanels();
 		_nodeBasePagePanel.IsOpen = true;
 		_nodeBasePagePanel.ProcessSelection();
 	}

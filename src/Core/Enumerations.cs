@@ -84,13 +84,15 @@ public partial class Enumerations
 			Charm = 1,
 			Bite = 2,
 			Scratch = 3,
+			Info = 4,
 		}
 
 		public enum BasePagePanelOptions
 		{
 			Fight = 0,
 			Chat = 1,
-			Exit = 2,
+			Info = 2,
+			Exit = 3,
 		}
 
 		public enum FightPagePanelOptions

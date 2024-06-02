@@ -1,0 +1,101 @@
+[gd_scene load_steps=5 format=3 uid="uid://dag5rfc73l2kc"]
+
+[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/InfoPage/InfoPagePanel.cs" id="1_nrvcq"]
+[ext_resource type="StyleBox" uid="uid://b4x4mlujs27nj" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Inactive_PagePanelOption.tres" id="1_oxy3r"]
+[ext_resource type="LabelSettings" uid="uid://c3r6y2vafo346" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Inactive_PageLabelSettingOption.tres" id="2_x8yxo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xsgjl"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="InfoPagePanel" type="Panel"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_xsgjl")
+script = ExtResource("1_nrvcq")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="OptionContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/OptionContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Enemy Physical Health: {}
+
+Enemy Emotional Health: {}"
+fit_content = true
+scroll_following = true
+autowrap_mode = 0
+
+[node name="Divider" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ExitOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/ExitOptionContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -145.0
+offset_top = -75.0
+offset_right = 145.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("1_oxy3r")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 6
+
+[node name="Label" type="Label" parent="MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "BACK"
+label_settings = ExtResource("2_x8yxo")

@@ -13,6 +13,8 @@ public partial class BasePageBasePanel : Panel
 	private Label _nodeFightOptionLabel = null;
 	private Panel _nodeChatSelectionPanel = null;
 	private Label _nodeChatOptionLabel = null;
+	private Panel _nodeInfoSelectionPanel = null;
+	private Label _nodeInfoOptionLabel = null;
 	private Panel _nodeExitSelectionPanel = null;
 	private Label _nodeExitOptionLabel = null;
 
@@ -36,6 +38,8 @@ public partial class BasePageBasePanel : Panel
 		_nodeFightOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/FightOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
 		_nodeChatSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer/Button/Panel");
 		_nodeChatOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
+		_nodeInfoSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/InfoOptionContainer/MarginContainer/Button/Panel");
+		_nodeInfoOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/InfoOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
 		_nodeExitSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/Button/Panel");
 		_nodeExitOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
 
@@ -49,7 +53,8 @@ public partial class BasePageBasePanel : Panel
 		SelectionHelperInstance = new SelectionHelper();
 		SelectionHelperInstance.AddOption(-1, (int)Enumerations.Combat.BasePagePanelOptions.Fight, true, _nodeFightSelectionPanel, _nodeFightOptionLabel);
 		SelectionHelperInstance.AddOption(-2, (int)Enumerations.Combat.BasePagePanelOptions.Chat, false, _nodeChatSelectionPanel, _nodeChatOptionLabel);
-		SelectionHelperInstance.AddOption(-3, (int)Enumerations.Combat.BasePagePanelOptions.Exit, false, _nodeExitSelectionPanel, _nodeExitOptionLabel);
+		SelectionHelperInstance.AddOption(-3, (int)Enumerations.Combat.BasePagePanelOptions.Info, false, _nodeInfoSelectionPanel, _nodeInfoOptionLabel);
+		SelectionHelperInstance.AddOption(-4, (int)Enumerations.Combat.BasePagePanelOptions.Exit, false, _nodeExitSelectionPanel, _nodeExitOptionLabel);
 		ProcessSelection();
 	}
 

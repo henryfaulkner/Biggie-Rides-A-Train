@@ -128,6 +128,53 @@ text = "CHAT
 "
 label_settings = ExtResource("3_qubk2")
 
+[node name="InfoOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/InfoOptionContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="MarginContainer/OptionContainer/InfoOptionContainer/MarginContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/InfoOptionContainer/MarginContainer/Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -145.0
+offset_top = -75.0
+offset_right = 145.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("2_31qim")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/InfoOptionContainer/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/InfoOptionContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 6
+
+[node name="Label" type="Label" parent="MarginContainer/OptionContainer/InfoOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "INFO"
+label_settings = ExtResource("3_qubk2")
+
 [node name="Divider" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
