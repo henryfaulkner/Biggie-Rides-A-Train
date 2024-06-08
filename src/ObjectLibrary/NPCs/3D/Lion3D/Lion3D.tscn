@@ -1,6 +1,5 @@
-[gd_scene load_steps=13 format=3 uid="uid://uuyhg1mhqlj"]
+[gd_scene load_steps=12 format=3 uid="uid://uuyhg1mhqlj"]
 
-[ext_resource type="Script" path="res://ObjectLibrary/NPCs/3D/Lion3D/Lion3D.cs" id="1_ovtwg"]
 [ext_resource type="Texture2D" uid="uid://vmloap456m3d" path="res://Assets/Images/Objects/Lion.png" id="1_yby20"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="2_qeor0"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="3_gxmgu"]
@@ -61,13 +60,9 @@ size = Vector3(1.19836, 1.4306, 0.20459)
 [sub_resource type="BoxShape3D" id="BoxShape3D_02bme"]
 size = Vector3(1, 1, 0.806701)
 
-[node name="Lion3D" type="Node3D"]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -2.26841, 0.678843, 0.591856)
-script = ExtResource("1_ovtwg")
+[node name="Lion3D" type="CharacterBody3D"]
 
-[node name="CharacterBody3D" type="StaticBody3D" parent="."]
-
-[node name="SpriteMeshInstance" type="MeshInstance3D" parent="CharacterBody3D"]
+[node name="SpriteMeshInstance" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.05)
 mesh = SubResource("ArrayMesh_ptihc")
 skeleton = NodePath("")
@@ -79,7 +74,7 @@ vframes = 2
 region_rect = Rect2i(0, 0, 1, 1)
 generated_sprite_mesh = SubResource("Resource_ccnk7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0191042, -0.251556, -0.0235181)
 shape = SubResource("BoxShape3D_vh7pe")
 

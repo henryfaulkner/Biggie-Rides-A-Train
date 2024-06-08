@@ -27,6 +27,7 @@ SaveStateService="*res://Core/SaveStateService/SaveStateService.cs"
 GravityService="*res://Core/Physics/GravityService.cs"
 RotationService="*res://Core/Physics/RotationService.cs"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+TraceService="*res://Core/Collision/TraceService.cs"
 
 [display]
 
