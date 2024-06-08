@@ -57,15 +57,15 @@ public partial class FramedLevelCamera : Camera3D
 				_nodeSelf.Position.Y,
 				_nodeSelf.Position.Z + (Movement.DirectionZ * _CAMERA_SPEED)
 			);
-			_nodeSelf.Position = LerpOvershootV(_nodeSelf.Position, targetVector, 0.2f, Overshoot);
-		} 
+			_nodeSelf.Position = LerpOvershootHelper.LerpOvershootV(_nodeSelf.Position, targetVector, 0.2f, Overshoot);
+		}
 		DeltaIndex += 1;
 		if (DeltaIndex == 1000) DeltaIndex = 0;
 	}
 
-	private bool CheckBarrierCollision(float cameraX, float barrierLimit)
+	private bool CheckBarrierCollision(float camera, float barrierLimit)
 	{
-		float cameraBarrierLimitSum = cameraX + barrierLimit;
+		float cameraBarrierLimitSum = camera + barrierLimit;
 		return -_CAMERA_SPEED <= cameraBarrierLimitSum
 			&& cameraBarrierLimitSum <= _CAMERA_SPEED;
 	}
@@ -78,99 +78,15 @@ public partial class FramedLevelCamera : Camera3D
 		bool moveLeft = camera.X > targetLeftLimit;
 		if (moveRight)
 		{
-			return new FramedLevelCameraMovement(true, target, FramedLevelCameraMovement.Direction.Right);
+			return new FramedLevelCameraMovement(true, target, Enumerations.Cameras.Direction.Right);
 		}
 		else if (moveLeft)
 		{
-			return new FramedLevelCameraMovement(true, target, FramedLevelCameraMovement.Direction.Left);
+			return new FramedLevelCameraMovement(true, target, Enumerations.Cameras.Direction.Left);
 		}
 		else
 		{
 			return new FramedLevelCameraMovement();
-		}
-	}
-
-	// https://www.reddit.com/r/godot/comments/rk6hlz/how_did_you_solve_2d_camera_smoothing/
-	public float LerpOvershoot(float origin, float target, float weight, float overshoot)
-	{
-		var distance = (target - origin) * weight;
-		if (IsEqualApprox(distance, 0.0f))
-		{
-			return target;
-		}
-
-		var distanceSign = Mathf.Sign(distance);
-		var lerpValue = Mathf.Lerp(origin, target + (overshoot * distanceSign), weight);
-		if (distanceSign == 1.0)
-		{
-			lerpValue = Mathf.Min(lerpValue, target);
-		}
-		else if (distanceSign == -1.0)
-		{
-			lerpValue = Mathf.Max(lerpValue, target);
-		}
-		return lerpValue;
-	}
-
-	private Vector3 LerpOvershootV(Vector3 from, Vector3 to, float weight, Vector3 overshoot)
-	{
-		var x = LerpOvershoot(from.X, to.X, weight, overshoot.X);
-		var y = LerpOvershoot(from.Y, to.Y, weight, overshoot.Y);
-		var z = LerpOvershoot(from.Z, to.Z, weight, overshoot.Z);
-		return new Vector3(x, y, z);
-	}
-
-	private bool IsEqualApprox(float a, float b)
-	{
-		return a > b - float.Epsilon && a < b + float.Epsilon;
-	}
-
-	public class FramedLevelCameraMovement
-	{
-		public FramedLevelCameraMovement()
-		{
-			ShouldMove = false;
-			Target = Vector3.Zero;
-		}
-		public FramedLevelCameraMovement(bool shouldMove, Vector3 target, Direction movementDirection)
-		{
-			ShouldMove = shouldMove;
-			Target = target;
-			switch (movementDirection)
-			{
-				case Direction.Up:
-					DirectionX = 0;
-					DirectionZ = -1;
-					break;
-				case Direction.Right:
-					DirectionX = 1;
-					DirectionZ = 0;
-					break;
-				case Direction.Down:
-					DirectionX = 0;
-					DirectionZ = 1;
-					break;
-				case Direction.Left:
-					DirectionX = -1;
-					DirectionZ = 0;
-					break;
-				default:
-					DirectionX = 0;
-					DirectionZ = 0;
-					break;
-			}
-		}
-
-		public bool ShouldMove { get; set; }
-		public Vector3 Target { get; set; }
-		public int DirectionX { get; set; }
-		public int DirectionZ { get; set; }
-		public enum Direction
-		{
-			Up = 0,
-			Right = 1,
-			Down = 2,
-			Left = 3,
 		}
 	}
 }

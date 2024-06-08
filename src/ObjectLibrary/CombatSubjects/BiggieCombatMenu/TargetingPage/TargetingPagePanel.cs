@@ -108,20 +108,30 @@ public partial class TargetingPagePanel : Panel
 						//GD.Print("ApplyActiveBack");
 						if (option.OptionLabel != null)
 							SelectionHelperInstance.ApplyActivePageLabelSettingOption(option.OptionLabel);
-						else //GD.Print("Back Label is null");
+						else
+						{
+							//GD.Print("Back Label is null");
+						}
 						if (option.SelectionPanel != null)
 							SelectionHelperInstance.ApplyActivePagePanelOption(option.SelectionPanel);
-						else //GD.Print("Back Panel is null");
+						else
+						{
+							//GD.Print("Back Panel is null");
+						}
 					}
 					else
 					{
 						//GD.Print("ApplyInactiveBack");
 						if (option.OptionLabel != null)
 							SelectionHelperInstance.ApplyInactivePageLabelSettingOption(option.OptionLabel);
-						else //GD.Print("Back Label is null");
+						else
+						//GD.Print("Back Label is null");
 						if (option.SelectionPanel != null)
 							SelectionHelperInstance.ApplyInactivePagePanelOption(option.SelectionPanel);
-						else //GD.Print("Back Panel is null");
+						else
+						{
+							//GD.Print("Back Panel is null");
+						}
 					}
 				}
 				else
@@ -131,14 +141,20 @@ public partial class TargetingPagePanel : Panel
 						//GD.Print("ApplyActiveEnemyTarget");
 						if (option.SelectionPanel != null)
 							SelectionHelperInstance.ApplyActiveEnemyTargetPanelOption(option.SelectionPanel);
-						else //GD.Print($"Enemy Target {option.Id} Panel is null");
+						else
+						{
+							//GD.Print($"Enemy Target {option.Id} Panel is null");
+						}
 					}
 					else
 					{
 						//GD.Print("ApplyInactiveEnemyTarget");
 						if (option.SelectionPanel != null)
 							SelectionHelperInstance.ApplyInactiveEnemyTargetPanelOption(option.SelectionPanel);
-						else //GD.Print($"Enemy Target {option.Id} Panel is null");
+						else
+						{
+							//GD.Print($"Enemy Target {option.Id} Panel is null");
+						}
 					}
 				}
 			}

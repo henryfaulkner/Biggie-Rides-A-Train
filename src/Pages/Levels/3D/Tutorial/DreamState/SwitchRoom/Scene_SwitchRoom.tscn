@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="9_y4kq2"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/SwitchRoom/NearDoor3D.gd" id="10_426bl"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="10_smv5v"]
-[ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="11_csmfq"]
+[ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera1D.tscn" id="11_csmfq"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/SwitchRoom/Switch3D.cs" id="11_o1rxi"]
 [ext_resource type="Texture2D" uid="uid://c10c55eer036y" path="res://Assets/Images/Objects/WallSwitch.png" id="15_kddty"]
 [ext_resource type="AudioStream" uid="uid://br5ov2yh737fn" path="res://Assets/Sounds/10. Light Switch.wav" id="16_quync"]

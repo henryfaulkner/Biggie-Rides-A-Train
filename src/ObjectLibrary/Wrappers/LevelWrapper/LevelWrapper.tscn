@@ -14,6 +14,7 @@ size = Vector2(100, 50)
 [node name="LevelWrapper" type="Node3D"]
 
 [node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.1894, -12.7175, -13.1416)
 mesh = SubResource("PlaneMesh_ld4e8")
 skeleton = NodePath("../..")
 

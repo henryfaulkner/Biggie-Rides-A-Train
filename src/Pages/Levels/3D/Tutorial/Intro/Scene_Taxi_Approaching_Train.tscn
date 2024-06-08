@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/Intro/Scene_Taxi_Approaching_Train.cs" id="1_pwosc"]
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_2i4cc"]
 [ext_resource type="Texture2D" uid="uid://xfhqclbajlps" path="res://Assets/Images/Intro/Road.png" id="4_8rchw"]
-[ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="4_nyxka"]
+[ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera1D.tscn" id="4_nyxka"]
 [ext_resource type="PackedScene" uid="uid://jcu3xw86ar0s" path="res://ObjectLibrary/NPCs/3D/Taxi3D/Taxi3D.tscn" id="4_q0q76"]
 [ext_resource type="AudioStream" uid="uid://bhpmp533mdpss" path="res://Assets/Sounds/Biggie Sound BoardCar Moving_bip copy.wav" id="7_btm7x"]
 

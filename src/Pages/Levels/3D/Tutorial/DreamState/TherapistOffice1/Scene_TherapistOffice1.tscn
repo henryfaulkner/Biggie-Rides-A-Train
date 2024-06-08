@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://dby4chrgi53gy" path="res://Assets/Images/Objects/NegaBiggie.png" id="12_t17bq"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="13_i1j5w"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/TherapistOffice1/Subconscious.cs" id="13_wegur"]
-[ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="14_04f2e"]
+[ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera1D.tscn" id="14_04f2e"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="14_ib7dy"]
 [ext_resource type="Texture2D" uid="uid://c23w8sksk6n7f" path="res://Assets/Images/PrototypeTextures/Red/texture_08.png" id="15_hq62o"]
 

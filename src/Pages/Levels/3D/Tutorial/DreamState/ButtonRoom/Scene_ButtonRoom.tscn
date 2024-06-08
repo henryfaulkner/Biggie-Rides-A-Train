@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Images/Objects/Teller.png" id="4_7bn0r"]
 [ext_resource type="Texture2D" uid="uid://duun5cslc1hp8" path="res://Assets/Images/PrototypeTextures/Orange/texture_05.png" id="5_tamra"]
 [ext_resource type="PackedScene" uid="uid://c5looe35bo0d0" path="res://ObjectLibrary/Decor/Door3D.tscn" id="6_76rno"]
-[ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="7_kk02u"]
+[ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera1D.tscn" id="7_kk02u"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/ButtonRoom/Door3D.gd" id="7_xjtq3"]
 [ext_resource type="Script" path="res://ObjectLibrary/Decor/Barrier.gd" id="9_exxx1"]
 [ext_resource type="PackedScene" uid="uid://d2uv3klop1e83" path="res://ObjectLibrary/Decor/NearDoor3D.tscn" id="9_l8n4y"]

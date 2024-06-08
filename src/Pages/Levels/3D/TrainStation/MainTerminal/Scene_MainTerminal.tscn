@@ -1,0 +1,184 @@
+[gd_scene load_steps=24 format=3 uid="uid://0v6ujein2rgj"]
+
+[ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_g0fpa"]
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_kjt3v"]
+[ext_resource type="PackedScene" uid="uid://rnc3kww1v7jc" path="res://ObjectLibrary/Biggie/Biggie3D.tscn" id="3_g8h4i"]
+[ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Images/Objects/Teller.png" id="5_74ffu"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_rkbc3"]
+[ext_resource type="Texture2D" uid="uid://duun5cslc1hp8" path="res://Assets/Images/PrototypeTextures/Orange/texture_05.png" id="6_f722h"]
+[ext_resource type="ArrayMesh" uid="uid://ldqkni4nnar4" path="res://Assets/3D_Models/SpiralStair.obj" id="7_a5qd7"]
+[ext_resource type="ArrayMesh" uid="uid://77hh2xhqqyp8" path="res://Assets/3D_Models/Teller.obj" id="8_6ptmk"]
+[ext_resource type="ArrayMesh" uid="uid://ogi7a7un8vm5" path="res://Assets/3D_Models/PedestalGlass.obj" id="9_m4j3f"]
+[ext_resource type="Material" uid="uid://damkwcny37uf8" path="res://Assets/Materials/GlassMaterial.tres" id="10_fx1ky"]
+[ext_resource type="ArrayMesh" uid="uid://c1virn0w6msoc" path="res://Assets/3D_Models/PedestalStand.obj" id="11_h3yda"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="13_wjk60"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="15_tb6mm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvmyi"]
+albedo_texture = ExtResource("5_74ffu")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2qm52"]
+material = SubResource("StandardMaterial3D_vvmyi")
+size = Vector2(2, 4)
+center_offset = Vector3(0, 0.01, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8la1"]
+albedo_texture = ExtResource("6_f722h")
+uv1_scale = Vector3(10, 10, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_be5k0"]
+material = SubResource("StandardMaterial3D_n8la1")
+size = Vector3(10, 5, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5krpv"]
+size = Vector3(10, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6ut1i"]
+size = Vector3(1, 1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sgm5a"]
+size = Vector3(10, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_77vuk"]
+size = Vector3(100, 0.2, 13.48)
+
+[sub_resource type="Environment" id="Environment_s1o1x"]
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_jvoeq"]
+script = ExtResource("15_tb6mm")
+cull_mask = 1048575
+h_offset = 0.0
+v_offset = 0.0
+projection = 0
+fov = 75.0
+size = 1.0
+frustum_offset = Vector2(0, 0)
+near = 0.05
+far = 4000.0
+
+[node name="SceneMainTerminal" type="Node3D"]
+
+[node name="LevelWrapper" parent="." instance=ExtResource("1_g0fpa")]
+
+[node name="TextBoxWrapper" parent="LevelWrapper" instance=ExtResource("2_kjt3v")]
+
+[node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("3_g8h4i")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 11.4511, 0.5, 5.22925)
+
+[node name="Facade" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+
+[node name="Floor" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(20, 0, 0, 0, 4, 0, 0, 0, 7, 20.282, 0, 11.0603)
+mesh = SubResource("PlaneMesh_2qm52")
+skeleton = NodePath("")
+
+[node name="LeftWall" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(-0.0201059, 0.499994, -2.18554e-08, 0, -2.18557e-08, -0.5, -3.99995, -0.00251324, 1.09857e-10, -0.900512, 1.83798, 5.07393)
+mesh = SubResource("BoxMesh_be5k0")
+skeleton = NodePath("")
+
+[node name="BackWall" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(-0.00010053, 8.99989, -2.18554e-08, 0, -3.93403e-07, -0.5, -0.0199997, -0.0452383, 1.09857e-10, 20.6862, 1.83798, 0.0806475)
+mesh = SubResource("BoxMesh_be5k0")
+skeleton = NodePath("")
+
+[node name="LeftWall2" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 3, 41.3651, 1.94969, 10.7102)
+mesh = SubResource("BoxMesh_be5k0")
+skeleton = NodePath("")
+
+[node name="SceneBorders" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+
+[node name="TopMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 1, 24.4515, 0.579015, 0.548595)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/TopMostBarrier"]
+shape = SubResource("BoxShape3D_5krpv")
+
+[node name="RightMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 20, 40.8352, 0.925612, 7.47801)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/RightMostBarrier"]
+shape = SubResource("BoxShape3D_6ut1i")
+
+[node name="BottomMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 23.9389)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/BottomMostBarrier"]
+shape = SubResource("BoxShape3D_sgm5a")
+
+[node name="LeftMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 20, -0.0346346, 0.389235, 2.90152)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/LeftMostBarrier"]
+shape = SubResource("BoxShape3D_6ut1i")
+
+[node name="FloorMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 20, 6.38081, 0.045277, 1.93252)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/FloorMostBarrier"]
+shape = SubResource("BoxShape3D_77vuk")
+
+[node name="ForwardWallMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12.7616, -0.535829, 0.834153)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/ForwardWallMostBarrier"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.758507, -3.73999)
+shape = SubResource("BoxShape3D_77vuk")
+
+[node name="SpiralStaircase" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 36.7128, 9.26996, 9.94883)
+mesh = ExtResource("7_a5qd7")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5037, 4.42847, 15.6656)
+spot_range = 1e+06
+
+[node name="Teller" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(0.12, 0, 0, 0, -5.24537e-09, 0.12, 0, -0.12, -5.24537e-09, 23.944, -0.607383, 5.16874)
+mesh = ExtResource("8_6ptmk")
+
+[node name="SpotLight3D" type="OmniLight3D" parent="LevelWrapper/TextBoxWrapper/Teller"]
+transform = Transform3D(6.66667, 5.68434e-13, 1.35525e-20, -5.68434e-13, 6.66667, 1.42109e-13, -2.03288e-20, -1.42109e-13, 6.66667, 0, -5.53795, 19.1177)
+
+[node name="Pedestal" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.94161, 0, 5.31387)
+
+[node name="PedestalGlass" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Pedestal"]
+transform = Transform3D(0.052, 0, 0, 0, -2.27299e-09, 0.052, 0, -0.052, -2.27299e-09, 0, 1.177, 0.3)
+mesh = ExtResource("9_m4j3f")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("10_fx1ky")
+
+[node name="PedestalStand" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Pedestal"]
+transform = Transform3D(0.05, 0, 0, 0, -2.18557e-09, 0.05, 0, -0.05, -2.18557e-09, 0, 0, 0)
+mesh = ExtResource("11_h3yda")
+skeleton = NodePath("../..")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_s1o1x")
+
+[node name="PhantomCamera3D" type="Node3D" parent="." node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(1, 0, 0, 0, 0.866023, 0.499999, 0, -0.499999, 0.866023, 11.4511, 2.5, 8.69334)
+script = ExtResource("13_wjk60")
+follow_mode = 5
+follow_target = NodePath("../LevelWrapper/TextBoxWrapper/Biggie3D")
+camera_3d_resource = SubResource("Resource_jvoeq")
+follow_damping = true
+follow_damping_value = Vector3(0.5, 0.5, 0.5)
+follow_distance = 4.0
+dead_zone_width = 0.55
+dead_zone_height = 0.1
+show_viewfinder_in_play = true
+spring_length = 4.0
+look_at_damping = true
+
+[node name="CameraRotationRef" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -18.5351, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866023, 0.499999, 0, -0.499999, 0.866023, 11.4511, 2.5, 8.69334)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
+script = ExtResource("5_rkbc3")

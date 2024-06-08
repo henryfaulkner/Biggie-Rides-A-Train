@@ -26,6 +26,7 @@ GDEnumService="*res://Core/GDEnumService.gd"
 SaveStateService="*res://Core/SaveStateService/SaveStateService.cs"
 GravityService="*res://Core/Physics/GravityService.cs"
 RotationService="*res://Core/Physics/RotationService.cs"
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 
 [display]
 
@@ -38,7 +39,7 @@ project/assembly_name="biggie_rides_a_train"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/sprite_mesh/plugin.cfg")
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg", "res://addons/sprite_mesh/plugin.cfg")
 
 [input]
 

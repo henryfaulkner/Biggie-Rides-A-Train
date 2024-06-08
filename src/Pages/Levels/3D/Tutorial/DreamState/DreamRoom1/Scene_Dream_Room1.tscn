@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://duun5cslc1hp8" path="res://Assets/Images/PrototypeTextures/Orange/texture_05.png" id="5_lppo5"]
 [ext_resource type="PackedScene" uid="uid://b7h13j4n2ygyc" path="res://ObjectLibrary/Decor/WoodSign3D.tscn" id="6_dkw0h"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/DreamRoom1/WoodSign.cs" id="7_1ypxd"]
-[ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="7_tnbnb"]
+[ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera1D.tscn" id="7_tnbnb"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/DreamRoom1/WoodSign2.cs" id="8_etu42"]
 [ext_resource type="PackedScene" uid="uid://c5looe35bo0d0" path="res://ObjectLibrary/Decor/Door3D.tscn" id="10_s6cg4"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/DreamRoom1/Door3D.gd" id="11_iy20t"]

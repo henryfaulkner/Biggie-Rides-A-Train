@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c5looe35bo0d0" path="res://ObjectLibrary/Decor/Door3D.tscn" id="6_u1oi5"]
 [ext_resource type="PackedScene" uid="uid://cfvt4pku54wba" path="res://ObjectLibrary/NPCs/3D/Mushroom3D/Mushroom3D.tscn" id="7_w1tjq"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/MushroomFight/Door3D.gd" id="8_0aarx"]
-[ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera3D.tscn" id="8_b5as2"]
+[ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera1D.tscn" id="8_b5as2"]
 [ext_resource type="PackedScene" uid="uid://d2uv3klop1e83" path="res://ObjectLibrary/Decor/NearDoor3D.tscn" id="9_m7ahi"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/DreamState/MushroomFight/NearDoor3D.gd" id="10_40tyu"]
 

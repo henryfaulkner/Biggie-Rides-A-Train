@@ -41,7 +41,7 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 		_globalCombatSingleton.NewBattle(_MAX_HEALTH_PHYSICAL_BIGGIE, _MAX_HEALTH_PHYSICAL_MUSHROOM, _MAX_HEALTH_EMOTIONAL_MUSHROOM);
 		if (_globalCombatSingleton.EnemyPhysicalAttackProxy == null) //GD.Print("ready cum");
-			_globalCombatSingleton.AddEnemyTarget(0, _nodeMushroomTarget1Panel, 9, 9);
+			_globalCombatSingleton.AddEnemyTarget(0, "Mushroom 1", _nodeMushroomTarget1Panel, 9, 9);
 		_globalCombatSingleton.CombatStateMachineService.SetCheckChatterConditions(CheckChatterConditions);
 		ChangeBiggieHealthBar();
 
@@ -243,8 +243,7 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 
 	public bool CheckForBiggeDefeat()
 	{
-		if (_globalCombatSingleton.EnemyPhysicalAttackProxy == null) //GD.Print("biggie cum");
-			return _globalCombatSingleton.EnemyPhysicalAttackProxy.IsTargetDefeated() && !_nodeChatterTextBox.IsOpen();
+		return _globalCombatSingleton.EnemyPhysicalAttackProxy.IsTargetDefeated() && !_nodeChatterTextBox.IsOpen();
 	}
 
 	public bool CheckForMushroomPhysicalDefeat()
