@@ -1,9 +1,9 @@
 {
   "StoredLocation": {
-    "SceneId": 5,
-    "X": 2.0,
+    "SceneId": 0,
+    "X": 0.0,
     "Y": 0.0,
-    "Z": 3.0
+    "Z": 0.0
   },
   "AdditionalStoredLocation": null,
   "HasItemTicketPieceOne": false,

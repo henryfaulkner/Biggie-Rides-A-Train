@@ -3,6 +3,8 @@ using System;
 
 public partial class Biggie3D : CharacterBody3D
 {
+	private static readonly float STEPSIZE = 1.0f;
+
 	private static readonly StringName _MOVE_LEFT_INPUT = new StringName("move_left");
 	private static readonly StringName _MOVE_UP_INPUT = new StringName("move_up");
 	private static readonly StringName _MOVE_RIGHT_INPUT = new StringName("move_right");
@@ -23,6 +25,7 @@ public partial class Biggie3D : CharacterBody3D
 	private Node _nodeBiggieSpriteMeshInstance = null;
 	private TextBox _nodeTextBox = null;
 	private InteractionTextBox _nodeInteractionTextBox = null;
+	private CollisionShape3D _nodeCollider = null;
 
 	private bool _isMoving = false;
 	private bool _canMove = true;
@@ -39,14 +42,15 @@ public partial class Biggie3D : CharacterBody3D
 		_nodeBiggieSpriteMeshInstance = GetNode("./SpriteMeshInstance");
 		_nodeTextBox = GetNode<TextBox>("../TextBox");
 		_nodeInteractionTextBox = GetNode<InteractionTextBox>("../InteractionTextBox");
+		_nodeCollider = GetNode<CollisionShape3D>("./CollisionShape3D");
 
 		_serviceRelocation = GetNode<RelocationService>("/root/RelocationService");
-		AttemptStoredLocationApplication();
+		//AttemptStoredLocationApplication();
 		_serviceGravity = GetNode<GravityService>("/root/GravityService");
 		_serviceRotation = GetNode<RotationService>("/root/RotationService");
 	}
 
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		if (_canMove
 			&& _nodeSelf.IsVisibleInTree()
@@ -58,6 +62,7 @@ public partial class Biggie3D : CharacterBody3D
 			if (collision != null)
 			{
 				//GD.Print("Collide");
+				StepMovement(GlobalTransform.Origin, Velocity.Normalized() * 10, delta);
 				Collide(collision);
 			}
 		}
@@ -140,6 +145,45 @@ public partial class Biggie3D : CharacterBody3D
 
 		Velocity = inputDirection * _BIGGIE_SPEED;
 		return MoveAndCollide(Velocity * (float)delta);
+	}
+
+	// https://thelowrooms.com/articledir/programming_stepclimbing.php
+	public bool StepMovement(Vector3 originalPosition, Vector3 velocity, double delta)
+	{
+		Vector3 dest;
+		Vector3 down;
+		Vector3 up;
+		TraceBusiness trace = new TraceBusiness();
+		AddChild(trace);
+
+		// Get destination position that is one step-size above the intended move
+		dest = originalPosition;
+		dest[0] += velocity[0] * (float)delta;
+		dest[1] += STEPSIZE;
+		dest[2] += velocity[2] * (float)delta;
+
+		// 1st Trace: Check for collisions one stepsize above the original position
+		up = originalPosition + Vector3.Up * STEPSIZE;
+		trace.Standard(originalPosition, up, _nodeCollider.Shape, _nodeSelf.GetRid());
+		dest[1] = trace.EndPosition[1];
+
+		// 2nd Trace: Check for collisions one stepsize above the original position
+		// and along the intended destination
+		trace.Standard(trace.EndPosition, dest, _nodeCollider.Shape, _nodeSelf.GetRid());
+
+		// 3rd Trace: Check for collisions below the stepsize until 
+		// level with original position
+		down = new Vector3(trace.EndPosition[0], originalPosition[1], trace.EndPosition[2]);
+		trace.Standard(trace.EndPosition, down, _nodeCollider.Shape, _nodeSelf.GetRid());
+
+		// Move to trace collision position if step is higher than original position 
+		// and not steep
+		if (trace.EndPosition[1] > originalPosition[1] && trace.Normal[1] >= 0.7f)
+		{
+			GlobalPosition = trace.EndPosition;
+			return true;
+		}
+		return false;
 	}
 
 	public void Collide(KinematicCollision3D collision)

@@ -17,7 +17,7 @@ func _ready():
 	_relocation_service = _RELOCATION_SERVICE_SCRIPT.new()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if should_redirect():
 		redirect()
 

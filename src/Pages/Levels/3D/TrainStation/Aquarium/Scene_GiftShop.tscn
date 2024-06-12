@@ -1,0 +1,254 @@
+[gd_scene load_steps=36 format=3 uid="uid://jiqak6yi10bn"]
+
+[ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_dgjlb"]
+[ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_7f1lw"]
+[ext_resource type="PackedScene" uid="uid://rnc3kww1v7jc" path="res://ObjectLibrary/Biggie/Biggie3D.tscn" id="3_nv4dy"]
+[ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Images/Objects/Teller.png" id="4_dcll8"]
+[ext_resource type="Texture2D" uid="uid://duun5cslc1hp8" path="res://Assets/Images/PrototypeTextures/Orange/texture_05.png" id="5_u1ikw"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="6_3tpsf"]
+[ext_resource type="Script" path="res://Pages/Levels/3D/TrainStation/MainTerminal/AquariumGiftShop.cs" id="6_q8ij8"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_ayqc1"]
+[ext_resource type="Texture2D" uid="uid://cqic03fqsmvf4" path="res://Assets/Images/Misc./AquariumLogo.png" id="7_o3j7v"]
+[ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="8_djith"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="8_vx2xo"]
+[ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="9_l1pfs"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="9_qbjdk"]
+[ext_resource type="Texture2D" uid="uid://cd4f4osl4meik" path="res://Assets/Images/Misc./AquariumDoor.png" id="10_cfwgr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvmyi"]
+albedo_texture = ExtResource("4_dcll8")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_r0g6j"]
+material = SubResource("StandardMaterial3D_vvmyi")
+size = Vector2(2, 4)
+center_offset = Vector3(0, 0.01, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8la1"]
+albedo_texture = ExtResource("5_u1ikw")
+uv1_scale = Vector3(10, 10, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o3jq6"]
+material = SubResource("StandardMaterial3D_n8la1")
+size = Vector3(10, 5, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7n7f2"]
+size = Vector3(10, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3gfqr"]
+size = Vector3(1, 1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_te6t4"]
+size = Vector3(10, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bywqf"]
+size = Vector3(100, 0.2, 13.48)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sbrw6"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ms1sv"]
+_surfaces = [{
+"aabb": AABB(-1.98, -1.64, -0.005, 3.96, 3.28001, 0.01001),
+"attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 181, 126, 165, 58, 0, 0, 0, 0, 181, 126, 165, 58, 0, 0, 0, 0, 181, 126, 165, 58, 0, 0, 128, 63, 181, 126, 165, 58, 0, 0, 128, 63, 65, 173, 127, 63, 0, 0, 0, 0, 65, 173, 127, 63, 0, 0, 0, 0, 65, 173, 127, 63, 0, 0, 128, 63, 65, 173, 127, 63, 0, 0, 128, 63, 0, 0, 0, 0, 12, 206, 199, 58, 0, 0, 128, 63, 12, 206, 199, 58, 0, 0, 128, 63, 12, 206, 199, 58, 0, 0, 0, 0, 12, 206, 199, 58, 0, 0, 0, 0, 25, 156, 127, 63, 0, 0, 128, 63, 25, 156, 127, 63, 0, 0, 128, 63, 25, 156, 127, 63, 0, 0, 0, 0, 25, 156, 127, 63),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 6, 0, 8, 0, 9, 0, 10, 0, 11, 0, 12, 0, 10, 0, 12, 0, 13, 0, 14, 0, 15, 0, 16, 0, 14, 0, 16, 0, 17, 0, 18, 0, 19, 0, 20, 0, 18, 0, 20, 0, 21, 0, 22, 0, 23, 0, 24, 0, 22, 0, 24, 0, 25, 0),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 26,
+"vertex_data": PackedByteArray(163, 112, 253, 191, 133, 235, 209, 63, 10, 215, 163, 59, 163, 112, 253, 63, 133, 235, 209, 63, 10, 215, 163, 59, 163, 112, 253, 63, 133, 235, 209, 191, 10, 215, 163, 59, 163, 112, 253, 191, 133, 235, 209, 63, 10, 215, 163, 59, 163, 112, 253, 63, 133, 235, 209, 191, 10, 215, 163, 59, 163, 112, 253, 191, 133, 235, 209, 191, 10, 215, 163, 59, 163, 112, 253, 63, 133, 235, 209, 63, 10, 215, 163, 187, 163, 112, 253, 191, 133, 235, 209, 63, 10, 215, 163, 187, 163, 112, 253, 191, 133, 235, 209, 191, 10, 215, 163, 187, 163, 112, 253, 63, 133, 235, 209, 191, 10, 215, 163, 187, 163, 112, 253, 191, 133, 235, 209, 63, 10, 215, 163, 187, 163, 112, 253, 191, 133, 235, 209, 63, 10, 215, 163, 59, 163, 112, 253, 191, 133, 235, 209, 191, 10, 215, 163, 59, 163, 112, 253, 191, 133, 235, 209, 191, 10, 215, 163, 187, 163, 112, 253, 63, 133, 235, 209, 63, 10, 215, 163, 59, 163, 112, 253, 63, 133, 235, 209, 63, 10, 215, 163, 187, 163, 112, 253, 63, 133, 235, 209, 191, 10, 215, 163, 187, 163, 112, 253, 63, 133, 235, 209, 191, 10, 215, 163, 59, 163, 112, 253, 191, 133, 235, 209, 63, 10, 215, 163, 187, 163, 112, 253, 63, 133, 235, 209, 63, 10, 215, 163, 187, 163, 112, 253, 63, 133, 235, 209, 63, 10, 215, 163, 59, 163, 112, 253, 191, 133, 235, 209, 63, 10, 215, 163, 59, 163, 112, 253, 191, 133, 235, 209, 191, 10, 215, 163, 59, 163, 112, 253, 63, 133, 235, 209, 191, 10, 215, 163, 59, 163, 112, 253, 63, 133, 235, 209, 191, 10, 215, 163, 187, 163, 112, 253, 191, 133, 235, 209, 191, 10, 215, 163, 187, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191)
+}]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_htxse"]
+albedo_texture = ExtResource("7_o3j7v")
+texture_filter = 0
+
+[sub_resource type="Resource" id="Resource_b3770"]
+script = ExtResource("9_l1pfs")
+meshes = Array[ArrayMesh]([SubResource("ArrayMesh_ms1sv")])
+material = SubResource("StandardMaterial3D_htxse")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_mo6ag"]
+_surfaces = [{
+"aabb": AABB(-0.31, -5.1, -0.005, 5.71, 10.2, 0.01001),
+"attribute_data": PackedByteArray(192, 77, 241, 62, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 192, 77, 241, 62, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 192, 77, 241, 62, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 192, 77, 241, 62, 0, 0, 0, 0, 192, 77, 241, 62, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 110, 138, 241, 62, 0, 0, 0, 0, 110, 138, 241, 62, 0, 0, 0, 0, 110, 138, 241, 62, 0, 0, 128, 63, 110, 138, 241, 62, 0, 0, 128, 63, 169, 225, 127, 63, 0, 0, 0, 0, 169, 225, 127, 63, 0, 0, 0, 0, 169, 225, 127, 63, 0, 0, 128, 63, 169, 225, 127, 63, 0, 0, 128, 63, 192, 77, 241, 62, 129, 128, 0, 58, 0, 0, 128, 63, 129, 128, 0, 58, 0, 0, 128, 63, 129, 128, 0, 58, 192, 77, 241, 62, 129, 128, 0, 58, 192, 77, 241, 62, 224, 223, 127, 63, 0, 0, 128, 63, 224, 223, 127, 63, 0, 0, 128, 63, 224, 223, 127, 63, 192, 77, 241, 62, 224, 223, 127, 63),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 6, 0, 8, 0, 9, 0, 10, 0, 11, 0, 12, 0, 10, 0, 12, 0, 13, 0, 14, 0, 15, 0, 16, 0, 14, 0, 16, 0, 17, 0, 18, 0, 19, 0, 20, 0, 18, 0, 20, 0, 21, 0, 22, 0, 23, 0, 24, 0, 22, 0, 24, 0, 25, 0),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 26,
+"vertex_data": PackedByteArray(82, 184, 158, 190, 51, 51, 163, 64, 10, 215, 163, 59, 205, 204, 172, 64, 51, 51, 163, 64, 10, 215, 163, 59, 205, 204, 172, 64, 51, 51, 163, 192, 10, 215, 163, 59, 82, 184, 158, 190, 51, 51, 163, 64, 10, 215, 163, 59, 205, 204, 172, 64, 51, 51, 163, 192, 10, 215, 163, 59, 82, 184, 158, 190, 51, 51, 163, 192, 10, 215, 163, 59, 205, 204, 172, 64, 51, 51, 163, 64, 10, 215, 163, 187, 82, 184, 158, 190, 51, 51, 163, 64, 10, 215, 163, 187, 82, 184, 158, 190, 51, 51, 163, 192, 10, 215, 163, 187, 205, 204, 172, 64, 51, 51, 163, 192, 10, 215, 163, 187, 82, 184, 158, 190, 51, 51, 163, 64, 10, 215, 163, 187, 82, 184, 158, 190, 51, 51, 163, 64, 10, 215, 163, 59, 82, 184, 158, 190, 51, 51, 163, 192, 10, 215, 163, 59, 82, 184, 158, 190, 51, 51, 163, 192, 10, 215, 163, 187, 205, 204, 172, 64, 51, 51, 163, 64, 10, 215, 163, 59, 205, 204, 172, 64, 51, 51, 163, 64, 10, 215, 163, 187, 205, 204, 172, 64, 51, 51, 163, 192, 10, 215, 163, 187, 205, 204, 172, 64, 51, 51, 163, 192, 10, 215, 163, 59, 82, 184, 158, 190, 51, 51, 163, 64, 10, 215, 163, 187, 205, 204, 172, 64, 51, 51, 163, 64, 10, 215, 163, 187, 205, 204, 172, 64, 51, 51, 163, 64, 10, 215, 163, 59, 82, 184, 158, 190, 51, 51, 163, 64, 10, 215, 163, 59, 82, 184, 158, 190, 51, 51, 163, 192, 10, 215, 163, 59, 205, 204, 172, 64, 51, 51, 163, 192, 10, 215, 163, 59, 205, 204, 172, 64, 51, 51, 163, 192, 10, 215, 163, 187, 82, 184, 158, 190, 51, 51, 163, 192, 10, 215, 163, 187, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191)
+}]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oo17o"]
+albedo_texture = ExtResource("10_cfwgr")
+texture_filter = 0
+
+[sub_resource type="Resource" id="Resource_rc7d4"]
+script = ExtResource("9_l1pfs")
+meshes = Array[ArrayMesh]([SubResource("ArrayMesh_mo6ag")])
+material = SubResource("StandardMaterial3D_oo17o")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vbv1u"]
+size = Vector3(1, 1, 0.806701)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fpmkg"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kk43k"]
+material = SubResource("StandardMaterial3D_fpmkg")
+
+[sub_resource type="Environment" id="Environment_l2k56"]
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_1o17d"]
+script = ExtResource("7_ayqc1")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="Resource" id="Resource_4762c"]
+script = ExtResource("8_vx2xo")
+cull_mask = 1048575
+h_offset = 0.0
+v_offset = 0.0
+projection = 0
+fov = 75.0
+size = 1.0
+frustum_offset = Vector2(0, 0)
+near = 0.05
+far = 4000.0
+
+[node name="SceneGiftShop" type="Node3D"]
+
+[node name="LevelWrapper" parent="." instance=ExtResource("1_dgjlb")]
+
+[node name="TextBoxWrapper" parent="LevelWrapper" instance=ExtResource("2_7f1lw")]
+
+[node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("3_nv4dy")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 25.4212, 1.84142, 12.0342)
+
+[node name="Facade" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+
+[node name="Floor" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(37.143, 0, 0, 0, 7.429, 0, 0, 0, 13, 20.282, 0, 11.0603)
+mesh = SubResource("PlaneMesh_r0g6j")
+skeleton = NodePath("")
+
+[node name="LeftWall" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(-0.0201059, 0.499994, -2.18554e-08, 0, -2.18557e-08, -0.5, -3.99995, -0.00251324, 1.09857e-10, -0.900512, 1.83798, 5.07393)
+mesh = SubResource("BoxMesh_o3jq6")
+skeleton = NodePath("")
+
+[node name="BackWall" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(-0.00010053, 8.99989, -2.18554e-08, 0, -3.93403e-07, -0.5, -0.0199997, -0.0452383, 1.09857e-10, 20.6862, 1.83798, 0.0806475)
+mesh = SubResource("BoxMesh_o3jq6")
+skeleton = NodePath("")
+
+[node name="LeftWall2" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 3, 41.3651, 1.94969, 10.7102)
+mesh = SubResource("BoxMesh_o3jq6")
+skeleton = NodePath("")
+
+[node name="SceneBorders" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+
+[node name="TopMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 1, 24.4515, 0.579015, 0.548595)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/TopMostBarrier"]
+shape = SubResource("BoxShape3D_7n7f2")
+
+[node name="RightMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 20, 40.8352, 0.925612, 7.47801)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/RightMostBarrier"]
+shape = SubResource("BoxShape3D_3gfqr")
+
+[node name="BottomMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 23.9389)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/BottomMostBarrier"]
+shape = SubResource("BoxShape3D_te6t4")
+
+[node name="LeftMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 20, -0.0346346, 0.389235, 2.90152)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/LeftMostBarrier"]
+shape = SubResource("BoxShape3D_3gfqr")
+
+[node name="FloorMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 20, 6.38081, 0.045277, 1.93252)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/FloorMostBarrier"]
+shape = SubResource("BoxShape3D_bywqf")
+
+[node name="ForwardWallMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12.7616, -0.535829, 0.834153)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/ForwardWallMostBarrier"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.758507, -3.73999)
+shape = SubResource("BoxShape3D_bywqf")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5037, 4.42847, 15.6656)
+spot_range = 1e+06
+
+[node name="AquariumGiftShop" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.23232, 0, 19.6274)
+script = ExtResource("6_q8ij8")
+
+[node name="OuterAquarium" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/AquariumGiftShop"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 6, 1.25827, 2.0875, 1.25957)
+mesh = SubResource("BoxMesh_sbrw6")
+
+[node name="AquariumLogo" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/AquariumGiftShop/OuterAquarium"]
+transform = Transform3D(-4.37114e-09, 0, -0.5, 0, 0.1, 0, 0.1, 0, -2.18557e-08, -0.50313, 0.279023, 0)
+mesh = SubResource("ArrayMesh_ms1sv")
+surface_material_override/0 = SubResource("StandardMaterial3D_htxse")
+script = ExtResource("8_djith")
+texture = ExtResource("7_o3j7v")
+region_rect = Rect2i(0, 0, 1, 1)
+generated_sprite_mesh = SubResource("Resource_b3770")
+
+[node name="AquariumDoor" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/AquariumGiftShop/OuterAquarium"]
+transform = Transform3D(-1.74846e-09, 0, -0.8, 0, 0.05, 0, 0.04, 0, -3.49691e-08, -0.511002, -0.246418, -0.100484)
+mesh = SubResource("ArrayMesh_mo6ag")
+surface_material_override/0 = SubResource("StandardMaterial3D_oo17o")
+script = ExtResource("8_djith")
+texture = ExtResource("10_cfwgr")
+region_rect = Rect2i(0, 0, 1, 1)
+generated_sprite_mesh = SubResource("Resource_rc7d4")
+
+[node name="InteractableArea3D" type="Area3D" parent="LevelWrapper/TextBoxWrapper/AquariumGiftShop/OuterAquarium/AquariumDoor"]
+transform = Transform3D(1.06999e-13, 1.31134e-06, 35, 44.8, -1.04907e-06, 0, 1.71477e-07, 2.10158, -1.07173e-07, 1.33166, -0.563197, 0.279919)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/AquariumGiftShop/OuterAquarium/AquariumDoor/InteractableArea3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.0126461, -0.0386519, 0.0346525)
+shape = SubResource("BoxShape3D_vbv1u")
+
+[node name="MainTerminalDoor" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/AquariumGiftShop/OuterAquarium"]
+transform = Transform3D(-1.22392e-08, -0.2, 0, 0.28, -8.74228e-09, 0, 0, 0, 0.1, -0.500994, -0.274578, 0.00297952)
+mesh = SubResource("PlaneMesh_kk43k")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_l2k56")
+
+[node name="PhantomCamera3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866023, 0.499999, 0, -0.499999, 0.866023, 4.2039e-45, 2, 3.46409)
+script = ExtResource("6_3tpsf")
+follow_mode = 5
+tween_resource = SubResource("Resource_1o17d")
+camera_3d_resource = SubResource("Resource_4762c")
+follow_damping = true
+follow_damping_value = Vector3(0.5, 0.5, 0.5)
+follow_distance = 4.0
+dead_zone_width = 0.55
+dead_zone_height = 0.1
+spring_length = 4.0
+look_at_damping = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866023, 0.499999, 0, -0.499999, 0.866023, 4.2039e-45, 2, 3.46409)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
+script = ExtResource("9_qbjdk")

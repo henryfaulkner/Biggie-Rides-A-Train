@@ -63,6 +63,14 @@ public partial class RelocationService : Node
 		SetTargetDoorEntranceState(location);
 	}
 
+	public void SetLocation(int x, int y, int z = 0)
+	{
+		//GD.Print($"SetLocation x:{x} y:{y} z:{z}");
+		var location = new DoorEntrance(Enumerations.Scenes.Empty, x, y, z);
+		//GD.Print($"SetLocation location.x:{location.X} location.y:{location.Y} location.z:{location.Z}");
+		SetTargetDoorEntranceState(location);
+	}
+
 	public void SetLocation(Enumerations.Scenes scene, int x, int y, int z = 0)
 	{
 		//GD.Print($"SetLocation x:{x} y:{y} z:{z}");
