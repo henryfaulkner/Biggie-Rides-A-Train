@@ -126,7 +126,7 @@ far = 4000.0
 [node name="TextBoxWrapper" parent="LevelWrapper" instance=ExtResource("2_7f1lw")]
 
 [node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("3_nv4dy")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 25.4212, 1.84142, 12.0342)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3.10957, 0.465381, 8.84407)
 
 [node name="Facade" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
 
@@ -165,7 +165,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 20, 40.8352, 0.925612, 7.47801)
 shape = SubResource("BoxShape3D_3gfqr")
 
 [node name="BottomMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
-transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 23.9389)
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 15.9734)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/BottomMostBarrier"]
 shape = SubResource("BoxShape3D_te6t4")
@@ -194,7 +194,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5037, 4.42847, 15.6656)
 spot_range = 1e+06
 
 [node name="AquariumGiftShop" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.23232, 0, 19.6274)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.23232, 0, 10.4104)
 script = ExtResource("6_q8ij8")
 
 [node name="OuterAquarium" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/AquariumGiftShop"]
@@ -233,10 +233,11 @@ mesh = SubResource("PlaneMesh_kk43k")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_l2k56")
 
-[node name="PhantomCamera3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.866023, 0.499999, 0, -0.499999, 0.866023, 4.2039e-45, 2, 3.46409)
+[node name="PhantomCamera3D" type="Node3D" parent="." node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(1, 0, 0, 0, 0.866023, 0.499999, 0, -0.499999, 0.866023, 3.10957, 2.46603, 12.3082)
 script = ExtResource("6_3tpsf")
 follow_mode = 5
+follow_target = NodePath("../LevelWrapper/TextBoxWrapper/Biggie3D")
 tween_resource = SubResource("Resource_1o17d")
 camera_3d_resource = SubResource("Resource_4762c")
 follow_damping = true
@@ -248,7 +249,7 @@ spring_length = 4.0
 look_at_damping = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.866023, 0.499999, 0, -0.499999, 0.866023, 4.2039e-45, 2, 3.46409)
+transform = Transform3D(1, 0, 0, 0, 0.866023, 0.499999, 0, -0.499999, 0.866023, 3.10957, 2.46603, 12.3082)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("9_qbjdk")
