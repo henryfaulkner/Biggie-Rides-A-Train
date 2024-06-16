@@ -39,7 +39,8 @@ public partial class InfoPagePanel : Panel
 		if (!IsInitialized)
 		{
 			IsInitialized = InitializeTargetingPanels();
-			HideSelectionPanels();
+			if (IsInitialized)
+				HideSelectionPanels();
 		}
 
 		if (!IsOpen)
@@ -103,7 +104,7 @@ public partial class InfoPagePanel : Panel
 				{
 					if (option.IsSelected)
 					{
-						GD.Print("ApplyActiveBack");
+						//GD.Print("ApplyActiveBack");
 						if (option.OptionLabel != null)
 							SelectionHelperInstance.ApplyActivePageLabelSettingOption(option.OptionLabel);
 						else GD.Print("Back Label is null");
@@ -114,7 +115,7 @@ public partial class InfoPagePanel : Panel
 					}
 					else
 					{
-						GD.Print("ApplyInactiveBack");
+						//GD.Print("ApplyInactiveBack");
 						if (option.OptionLabel != null)
 							SelectionHelperInstance.ApplyInactivePageLabelSettingOption(option.OptionLabel);
 						else GD.Print("Back Label is null");
@@ -128,7 +129,7 @@ public partial class InfoPagePanel : Panel
 				{
 					if (option.IsSelected)
 					{
-						GD.Print("ApplyActiveEnemyTarget");
+						//GD.Print("ApplyActiveEnemyTarget");
 						if (option.SelectionPanel != null)
 							SelectionHelperInstance.ApplyActiveEnemyTargetPanelOption(option.SelectionPanel);
 						else GD.Print($"Enemy Target {option.Id} Panel is null");
@@ -136,7 +137,7 @@ public partial class InfoPagePanel : Panel
 					}
 					else
 					{
-						GD.Print("ApplyInactiveEnemyTarget");
+						//GD.Print("ApplyInactiveEnemyTarget");
 						if (option.SelectionPanel != null)
 							SelectionHelperInstance.ApplyInactiveEnemyTargetPanelOption(option.SelectionPanel);
 						else GD.Print($"Enemy Target {option.Id} Panel is null");

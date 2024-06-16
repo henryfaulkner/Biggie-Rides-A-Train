@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public partial class CombatWrapper : Node2D
 {
@@ -574,25 +576,28 @@ public partial class CombatWrapper : Node2D
 		switch ((Enumerations.Combat.CombatOptions)combatOption)
 		{
 			case Enumerations.Combat.CombatOptions.Ask:
-				_globalCombatSingleton.BiggieEmotionalAttackProxy = _globalCombatSingleton.EnemyTargetList[enemyTargetIndex].BiggieEmotionalAttackProxy;
+				_globalCombatSingleton.TargetedBiggieEmotionalAttackProxy = _globalCombatSingleton.EnemyTargetList[enemyTargetIndex].BiggieEmotionalAttackProxy;
 				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatAsk);
 				break;
 			case Enumerations.Combat.CombatOptions.Charm:
-				_globalCombatSingleton.BiggieEmotionalAttackProxy = _globalCombatSingleton.EnemyTargetList[enemyTargetIndex].BiggieEmotionalAttackProxy;
+				_globalCombatSingleton.TargetedBiggieEmotionalAttackProxy = _globalCombatSingleton.EnemyTargetList[enemyTargetIndex].BiggieEmotionalAttackProxy;
 				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatCharm);
 				break;
 			case Enumerations.Combat.CombatOptions.Scratch:
-				_globalCombatSingleton.BiggiePhysicalAttackProxy = _globalCombatSingleton.EnemyTargetList[enemyTargetIndex].BiggiePhysicalAttackProxy;
+				_globalCombatSingleton.TargetedBiggiePhysicalAttackProxy = _globalCombatSingleton.EnemyTargetList[enemyTargetIndex].BiggiePhysicalAttackProxy;
 				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightScratch);
 				break;
 			case Enumerations.Combat.CombatOptions.Bite:
-				_globalCombatSingleton.BiggiePhysicalAttackProxy = _globalCombatSingleton.EnemyTargetList[enemyTargetIndex].BiggiePhysicalAttackProxy;
+				_globalCombatSingleton.TargetedBiggiePhysicalAttackProxy = _globalCombatSingleton.EnemyTargetList[enemyTargetIndex].BiggiePhysicalAttackProxy;
 				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightBite);
 				break;
 			default:
 				//GD.Print("CombatSceneDjBattle.EndBiggieCombatMenuTurn: Could not map combat options");
 				break;
 		}
+
+		int id = CheckForEnemyTargetDefeat();
+		if (id > -1) HandleEnemyTargetDefeat(id);
 
 		return;
 	}
@@ -601,8 +606,7 @@ public partial class CombatWrapper : Node2D
 	public delegate void ProjectPhysicalDamageEventHandler();
 	public void DealPhysicalDamage(double damage)
 	{
-		_globalCombatSingleton.EnemyTargetList[0].BiggiePhysicalAttackProxy.DealDamage(damage);
-		//GD.Print($"enemy health: {_globalCombatSingleton.EnemyTargetList[0].BiggiePhysicalAttackProxy.GetTargetHealthPercentage()}");
+		_globalCombatSingleton.TargetedBiggiePhysicalAttackProxy.DealDamage(damage);
 		EmitSignal(SignalName.ProjectPhysicalDamage);
 	}
 
@@ -610,9 +614,30 @@ public partial class CombatWrapper : Node2D
 	public delegate void ProjectEmotionalDamageEventHandler();
 	public void DealEmotionalDamage(double damage)
 	{
-		_globalCombatSingleton.EnemyTargetList[0].BiggieEmotionalAttackProxy.DealDamage(damage);
-		//GD.Print($"enemy health: {_globalCombatSingleton.EnemyTargetList[0].BiggieEmotionalAttackProxy.GetTargetHealthPercentage()}");
+		_globalCombatSingleton.TargetedBiggieEmotionalAttackProxy.DealDamage(damage);
 		EmitSignal(SignalName.ProjectPhysicalDamage);
+	}
+
+	private int CheckForEnemyTargetDefeat()
+	{
+		foreach (var target in _globalCombatSingleton.EnemyTargetList)
+		{
+			if (target.BiggiePhysicalAttackProxy.IsTargetDefeated()
+				|| target.BiggieEmotionalAttackProxy.IsTargetDefeated())
+			{
+				return target.Id;
+			}
+		}
+		return -1;
+	}
+
+	private void HandleEnemyTargetDefeat(int id)
+	{
+		GD.Print("HandleTargetDefeat");
+		var target = _globalCombatSingleton.EnemyTargetList
+			.Where(x => x.Id == id)
+			.First();
+		_globalCombatSingleton.EnemyTargetList.Remove(target);
 	}
 
 	public void SetEnemyAttackContainerService(MarginContainer enemyAttackContainer)

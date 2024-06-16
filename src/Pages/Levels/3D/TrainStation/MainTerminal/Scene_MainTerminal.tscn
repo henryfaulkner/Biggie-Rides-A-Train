@@ -562,7 +562,7 @@ spring_length = 4.0
 look_at_damping = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.866023, 0.499999, 0, -0.499999, 0.866023, 23.8097, 2.92377, 24.7952)
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 23.8097, 2.92377, 24.7952)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("5_rkbc3")

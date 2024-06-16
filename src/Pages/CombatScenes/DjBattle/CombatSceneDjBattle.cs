@@ -102,8 +102,8 @@ public partial class CombatSceneDjBattle : Node2D
 	public void ChangeDjHealthBar()
 	{
 		////GD.Print("Start ChangeDjHealthBar");
-		_nodeDjHealthBar.Value = _globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage();
-		_nodeDjHpValueLabel.Text = $"{_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetCurrentHealth()}/{_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetMaxHealth()}";
+		_nodeDjHealthBar.Value = _globalCombatSingleton.TargetedBiggiePhysicalAttackProxy.GetTargetHealthPercentage();
+		_nodeDjHpValueLabel.Text = $"{_globalCombatSingleton.TargetedBiggiePhysicalAttackProxy.GetTargetCurrentHealth()}/{_globalCombatSingleton.TargetedBiggiePhysicalAttackProxy.GetTargetMaxHealth()}";
 		////GD.Print($"End ChangeDjHealthBar {_nodeDjHealthBar.Value}");
 	}
 
@@ -142,7 +142,7 @@ public partial class CombatSceneDjBattle : Node2D
 	public bool CheckChatterConditions()
 	{
 		//GD.Print("CombatSceneDjBattle CheckChatterConditions");
-		if (_globalCombatSingleton.BiggiePhysicalAttackProxy.GetTargetHealthPercentage() < 100 && !firstDialogueDone)
+		if (_globalCombatSingleton.TargetedBiggiePhysicalAttackProxy.GetTargetHealthPercentage() < 100 && !firstDialogueDone)
 		{
 			_nodeChatterTextBox.AddDialogue("Pizza Pizza.");
 			_nodeChatterTextBox.AddDialogue("Please.");

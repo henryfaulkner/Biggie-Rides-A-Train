@@ -14,8 +14,8 @@ public partial class CombatSingleton : Node
 	private CombatParticipantModel EnemyPhysical { get; set; }
 	public List<EnemyTarget> EnemyTargetList { get; set; }
 	private CombatParticipantModel EnemyEmotional { get; set; }
-	public BiggieAttackProxy BiggiePhysicalAttackProxy { get; set; }
-	public BiggieAttackProxy BiggieEmotionalAttackProxy { get; set; }
+	public BiggieAttackProxy TargetedBiggiePhysicalAttackProxy { get; set; }
+	public BiggieAttackProxy TargetedBiggieEmotionalAttackProxy { get; set; }
 
 	public CombatSingleton()
 	{

@@ -49,7 +49,7 @@ script = ExtResource("1_nx7r8")
 [node name="TextBoxWrapper" parent="LevelWrapper" instance=ExtResource("2_vlmr0")]
 
 [node name="Node3D3" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.107, 0.5, 1.696)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.976, 0.5, 2.68891)
 
 [node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper/Node3D3" instance=ExtResource("3_iirlj")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
@@ -58,6 +58,7 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0.809, 1.25, 3.661)
 
 [node name="Facade" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15591, 0, 0.992911)
 
 [node name="Floor" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
 transform = Transform3D(10, 0, 0, 0, 4, 0, 0, 0, 1, 9.75025, 0, 1.67287)
@@ -75,9 +76,10 @@ mesh = SubResource("BoxMesh_0msv2")
 skeleton = NodePath("")
 
 [node name="SceneBorders" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.868997, 0, 0.992911)
 
 [node name="TopMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -0.44)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -2.50146)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/TopMostBarrier"]
 shape = SubResource("BoxShape3D_g2t2f")
@@ -114,13 +116,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.758507, -3.73999)
 shape = SubResource("BoxShape3D_lysay")
 
 [node name="WoodSign" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("6_dkw0h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25929, 0.345055, 0.35213)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.12829, 0.345055, 1.34504)
 script = ExtResource("7_1ypxd")
 
 [node name="WoodSign2" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("6_dkw0h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.59781, 0.416, 0.35)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.46681, 0.416, 1.34291)
 script = ExtResource("8_etu42")
 
 [node name="Door3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("10_s6cg4")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.1, 8.98751, 0.758061, 0.483449)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.1, 9.85651, 0.758061, 1.47636)
 script = ExtResource("11_iy20t")

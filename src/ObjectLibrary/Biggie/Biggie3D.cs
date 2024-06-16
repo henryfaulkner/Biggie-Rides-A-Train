@@ -45,7 +45,7 @@ public partial class Biggie3D : CharacterBody3D
 		_nodeCollider = GetNode<CollisionShape3D>("./CollisionShape3D");
 
 		_serviceRelocation = GetNode<RelocationService>("/root/RelocationService");
-		//AttemptStoredLocationApplication();
+		AttemptStoredLocationApplication();
 		_serviceGravity = GetNode<GravityService>("/root/GravityService");
 		_serviceRotation = GetNode<RotationService>("/root/RotationService");
 	}
@@ -123,23 +123,25 @@ public partial class Biggie3D : CharacterBody3D
 
 		if (inputDirection != Vector3.Zero)
 		{
-			bool hittingWorldBorderX = HittingWorldBorderX(_nodeSelf, inputDirection);
-			bool hittingWorldBorderZ = HittingWorldBorderZ(_nodeSelf, inputDirection);
-			if (hittingWorldBorderX && hittingWorldBorderZ)
-			{
-				//GD.Print("Biggie is running into World Border. Position X and Z is zero.");
-				inputDirection = Vector3.Zero;
-			}
-			else if (hittingWorldBorderX)
-			{
-				//GD.Print("Biggie is running into World Border. Position X is zero.");
-				inputDirection = Vector3.Zero;
-			}
-			else if (hittingWorldBorderZ)
-			{
-				//GD.Print("Biggie is running into World Border. Position Z is zero.");
-				inputDirection = Vector3.Zero;
-			}
+			//bool hittingWorldBorderX = HittingWorldBorderX(_nodeSelf, inputDirection);
+			//if (hittingWorldBorderX) GD.Print("HittingWorldBorderX");
+			//bool hittingWorldBorderZ = HittingWorldBorderZ(_nodeSelf, inputDirection);
+			//if (hittingWorldBorderZ) GD.Print("HittingWorldBorderZ");
+			//if (hittingWorldBorderX && hittingWorldBorderZ)
+			//{
+			////GD.Print("Biggie is running into World Border. Position X and Z is zero.");
+			//inputDirection = Vector3.Zero;
+			//}
+			//else if (hittingWorldBorderX)
+			//{
+			////GD.Print("Biggie is running into World Border. Position X is zero.");
+			//inputDirection = Vector3.Zero;
+			//}
+			//else if (hittingWorldBorderZ)
+			//{
+			////GD.Print("Biggie is running into World Border. Position Z is zero.");
+			//inputDirection = Vector3.Zero;
+			//}
 			inputDirection = inputDirection.Normalized();
 		}
 

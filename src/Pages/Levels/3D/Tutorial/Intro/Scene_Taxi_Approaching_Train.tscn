@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bc54jg6exsllk"]
+[gd_scene load_steps=16 format=3 uid="uid://bc54jg6exsllk"]
 
 [ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_al72k"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/Tutorial/Intro/Scene_Taxi_Approaching_Train.cs" id="1_pwosc"]
@@ -6,15 +6,16 @@
 [ext_resource type="Texture2D" uid="uid://xfhqclbajlps" path="res://Assets/Images/Intro/Road.png" id="4_8rchw"]
 [ext_resource type="PackedScene" uid="uid://cce6058tanenu" path="res://ObjectLibrary/Cameras/LevelCamera1D.tscn" id="4_nyxka"]
 [ext_resource type="PackedScene" uid="uid://jcu3xw86ar0s" path="res://ObjectLibrary/NPCs/3D/Taxi3D/Taxi3D.tscn" id="4_q0q76"]
+[ext_resource type="ArrayMesh" uid="uid://b1h3vv321iqi4" path="res://Assets/3D_Models/low-poly-taxi.obj" id="6_fatw6"]
 [ext_resource type="AudioStream" uid="uid://bhpmp533mdpss" path="res://Assets/Sounds/Biggie Sound BoardCar Moving_bip copy.wav" id="7_btm7x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sd32n"]
 albedo_texture = ExtResource("4_8rchw")
-uv1_scale = Vector3(2, 1, 1)
+uv1_scale = Vector3(40, 1, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_wauwq"]
 material = SubResource("StandardMaterial3D_sd32n")
-size = Vector2(2, 4)
+size = Vector2(90, 4)
 center_offset = Vector3(0, 0.01, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n3pb8"]
@@ -25,6 +26,12 @@ size = Vector3(1, 1, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_knioe"]
 size = Vector3(10, 1, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_688ls"]
+points = PackedVector3Array(-2.7153, 2.36412, 1.65509, 2.53432, 2.88909, 1.65509, 1.76725, 0.11457, 2.79945, -1.66495, 2.01425, 5.32862, -2.01489, 0.0898005, 3.92908, -0.965071, 3.23961, 1.4798, 1.65921, 2.01425, 5.32862, 1.89289, 0.5057, 1.59605, 2.00915, 0.0898005, 3.92908, -0.548524, 0.563708, 5.1288, -1.89864, 0.5057, 1.59605, 2.70955, 2.36412, 2.00487, -2.7153, 2.71432, 2.00487, 0.959328, 3.23961, 1.65509, 1.32921, 0.558723, 4.98022, -1.77299, 0.11457, 2.79945, 1.83444, 3.06419, 1.4798, -1.31501, 2.18902, 4.97883, -2.54006, 2.88909, 2.00487, 1.83444, 2.01425, 5.15373, -1.79566, 1.18769, 4.97264, 2.53432, 2.88909, 2.00487, 1.01877, 1.02729, 5.29908, -1.84018, 3.06419, 1.4798, 1.30927, 2.18902, 4.97883, -0.965071, 3.23961, 1.65509, -1.84018, 2.01425, 5.15373, 2.70955, 2.36412, 1.65509, -1.33395, 0.559488, 4.9791, -1.02428, 1.02742, 5.29865, 1.80262, 0.870678, 4.8262, -2.7153, 2.36412, 2.00487)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_e57t5"]
+points = PackedVector3Array(1.40198, 3.38556, -2.47715, -1.89135, 0.0600546, -3.8322, 1.88561, 0.0600546, -3.8322, 1.93805, 0.5057, 1.35217, -1.84001, 3.23959, 1.47941, -1.84001, 2.19019, -5.51982, 0.25921, 4.63957, 0.779204, -1.9427, 0.506698, 1.35022, 2.00942, 2.19019, -5.34494, -0.0902321, 4.63957, -2.19438, 1.83427, 3.23959, 1.47941, 1.07089, 0.70792, -5.49469, -2.01516, -0.0852976, -3.06946, -1.73521, 0.545331, -5.32519, -2.01516, 2.36409, -4.64474, 2.00942, -0.0852976, -3.06946, 1.13453, 2.36409, -5.51982, 0.25921, 4.63957, -2.02161, -0.264953, 4.63957, -2.02161, 2.02122, 0.901244, 1.21152, -2.022, 0.904622, 1.20337, 1.73059, 0.544208, -5.32728, -0.264953, 4.63957, 0.779204, -1.14027, 2.36409, -5.51982, -2.01516, 2.19019, -5.34494, -1.40646, 3.38456, -2.47682, 1.97661, 2.19845, 1.13836, -1.97673, 2.19868, 1.12914, 2.00942, 2.36409, -4.64474, 1.83427, 2.19019, -5.51982, -1.40854, 0.871791, -5.49857, 1.85076, 0.58537, -5.08972)
 
 [node name="SceneTaxiApproachingTrain" type="Node3D"]
 script = ExtResource("1_pwosc")
@@ -67,10 +74,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.811)
 shape = SubResource("BoxShape3D_qegu4")
 
 [node name="Taxi3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("4_q0q76")]
+visible = false
 
-[node name="Camera3D" parent="LevelWrapper" instance=ExtResource("4_nyxka")]
-transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 2.909, 2.75, 6.45)
+[node name="TaxiCharacterBody3D" type="CharacterBody3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.17674, 0, 1.30256)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/TaxiCharacterBody3D"]
+transform = Transform3D(-1.22392e-08, 0, 0.28, 0, 0.28, 0, -0.28, 0, -1.22392e-08, 0.877976, 0.0899286, 1.21204)
+mesh = ExtResource("6_fatw6")
+
+[node name="Camera3D" parent="LevelWrapper/TextBoxWrapper/TaxiCharacterBody3D/MeshInstance3D" instance=ExtResource("4_nyxka")]
+transform = Transform3D(-1.56112e-07, 1.50935, -3.23681, 0, 3.23681, 1.50935, 3.57143, 6.59758e-08, -1.41486e-07, -18.707, 9.50025, 7.25365)
 script = null
+
+[node name="@CollisionShape3D@26513" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/TaxiCharacterBody3D"]
+transform = Transform3D(-1.22392e-08, 0, 0.28, 0, 0.28, 0, -0.28, 0, -1.22392e-08, 0.877976, 0.0899286, 1.21204)
+shape = SubResource("ConvexPolygonShape3D_688ls")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/TaxiCharacterBody3D"]
+transform = Transform3D(-1.22392e-08, 0, 0.28, 0, 0.28, 0, -0.28, 0, -1.22392e-08, 0.877976, 0.0899286, 1.21204)
+shape = SubResource("ConvexPolygonShape3D_e57t5")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_btm7x")

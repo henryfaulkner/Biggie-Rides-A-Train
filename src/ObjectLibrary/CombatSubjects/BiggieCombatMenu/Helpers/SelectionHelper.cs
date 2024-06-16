@@ -101,25 +101,25 @@ public class SelectionHelper : ISelectionHelper
 
 	public void ApplyActivePagePanelOption(Panel panel)
 	{
-		GD.Print("ApplyActivePagePanelOption");
+		//GD.Print("ApplyActivePagePanelOption");
 		panel.AddThemeStyleboxOverride(_STYLEBOX_NAME, _styleActivePagePanelOption);
 	}
 
 	public void ApplyInactivePagePanelOption(Panel panel)
 	{
-		GD.Print("ApplyInactivePagePanelOption");
+		//GD.Print("ApplyInactivePagePanelOption");
 		panel.AddThemeStyleboxOverride(_STYLEBOX_NAME, _styleInactivePagePanelOption);
 	}
 
 	public void ApplyActivePageLabelSettingOption(Label label)
 	{
-		GD.Print("ApplyActivePageLabelSettingOption");
+		//GD.Print("ApplyActivePageLabelSettingOption");
 		label.LabelSettings = _styleActivePageLabelSettingOption;
 	}
 
 	public void ApplyInactivePageLabelSettingOption(Label label)
 	{
-		GD.Print("ApplyInactivePageLabelSettingOption");
+		//GD.Print("ApplyInactivePageLabelSettingOption");
 		label.LabelSettings = _styleInactivePageLabelSettingOption;
 	}
 

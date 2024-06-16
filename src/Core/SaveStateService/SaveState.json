@@ -1,11 +1,16 @@
 {
   "StoredLocation": {
-    "SceneId": 0,
-    "X": 0.0,
-    "Y": 0.0,
-    "Z": 0.0
+    "SceneId": 5,
+    "X": 27.60776,
+    "Y": 0.4356713,
+    "Z": 1.6722289
   },
-  "AdditionalStoredLocation": null,
+  "AdditionalStoredLocation": {
+    "SceneId": 5,
+    "X": 31.320942,
+    "Y": 1.01034,
+    "Z": 1.36217
+  },
   "HasItemTicketPieceOne": false,
   "HasItemTicketPieceTwo": false,
   "HasItemTicketPieceThree": false,
@@ -15,13 +20,13 @@
   "HasItemSmoothJazzRecord": false,
   "HasItemClubMixRecord": false,
   "ActiveRecord": 0,
-  "DialogueStateTeller": 1,
+  "DialogueStateTeller": 0,
   "DialogueStateChess": 0,
   "DialogueStateTherapist": 0,
   "DialogueStateDJ": 0,
-  "DialogueStateSubconscious": 0,
-  "IsSwitchDoorOpen": true,
-  "IsButtonDoorOpen": true,
+  "DialogueStateSubconscious": 6,
+  "IsSwitchDoorOpen": false,
+  "IsButtonDoorOpen": false,
   "IsMushroomDead": false,
   "IsMushroomMoved": false,
   "UserSettings": {

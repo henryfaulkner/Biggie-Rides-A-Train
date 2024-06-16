@@ -9,7 +9,7 @@ public partial class Scene_Taxi_Approaching_Train : Node3D
 
 	private Node3D _nodeSelf = null;
 	private TextBox _nodeTextBox = null;
-	private Taxi3D _nodeTaxi = null;
+	private CharacterBody3D _nodeTaxi = null;
 	private AudioStreamPlayer _nodeAudio = null;
 
 	private int FrameIncrement { get; set; }
@@ -19,11 +19,10 @@ public partial class Scene_Taxi_Approaching_Train : Node3D
 	{
 		_nodeSelf = GetNode<Node3D>(".");
 		_nodeTextBox = GetNode<TextBox>("./LevelWrapper/TextBoxWrapper/TextBox");
-		_nodeTaxi = GetNode<Taxi3D>("./LevelWrapper/TextBoxWrapper/Taxi3D");
+		_nodeTaxi = GetNode<CharacterBody3D>("./LevelWrapper/TextBoxWrapper/TaxiCharacterBody3D");
 		_nodeAudio = GetNode<AudioStreamPlayer>("./AudioStreamPlayer");
 
 		_nodeTextBox.HidingTextBox += ContinuePlay;
-		_nodeTaxi.IsMoving = true;
 		_nodeAudio.Play();
 	}
 
@@ -45,6 +44,8 @@ public partial class Scene_Taxi_Approaching_Train : Node3D
 
 		if (!PauseIncrement)
 		{
+			_nodeTaxi.Velocity = new Vector3(0.8f, 0, 0); 
+			_nodeTaxi.MoveAndSlide();
 			FrameIncrement += 1;
 		}
 	}

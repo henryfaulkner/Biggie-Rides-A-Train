@@ -5,16 +5,17 @@ using Newtonsoft.Json;
 public partial class SaveStateService : Node, IDisposable
 {
 	private static readonly StringName _SAVE_STATE_FILE = new StringName("res://Core/SaveStateService/SaveState.json");
-	private LoggingService _globalLogger = null;
+	//private LoggingService _serviceLogger = null;
 
 	public SaveStateService()
 	{
-		//_globalLogger = GetNode<LoggingService>("/root/LoggingService");
+		//_serviceLogger = GetNode<LoggingService>("/root/LoggingService");
 	}
 
 	public void Commit(SaveStateModel saveState)
 	{
-		//_globalLogger.LogDebug("Commit");
+		//_serviceLogger.LogDebug("Commit");
+		GD.Print("Commit");
 		try
 		{
 			string content = JsonConvert.SerializeObject(saveState, Formatting.Indented);
@@ -23,8 +24,10 @@ public partial class SaveStateService : Node, IDisposable
 		}
 		catch (Exception exception)
 		{
-			//_globalLogger.LogError($"Commit exception: {exception}");
-			//_globalLogger.LogError($"Commit SaveState: {saveState}");
+			GD.Print($"Commit exception: {exception}");
+			GD.Print($"Commit SaveState: {saveState}");
+			//_serviceLogger.LogError($"Commit exception: {exception}");
+			//_serviceLogger.LogError($"Commit SaveState: {saveState}");
 		}
 	}
 
@@ -32,8 +35,8 @@ public partial class SaveStateService : Node, IDisposable
 	{
 		try
 		{
-			////GD.Print("Load");
-			//_globalLogger.LogDebug("Load");
+			GD.Print("Load");
+			//_serviceLogger.LogDebug("Load");
 			using var file = FileAccess.Open(_SAVE_STATE_FILE, FileAccess.ModeFlags.Read);
 			string content = file.GetAsText();
 			var json = JsonConvert.DeserializeObject<SaveStateModel>(content);
@@ -41,14 +44,14 @@ public partial class SaveStateService : Node, IDisposable
 		}
 		catch (Exception exception)
 		{
-			//_globalLogger.LogError($"Load exception: {exception}");
+			//_serviceLogger.LogError($"Load exception: {exception}");
 		}
 		return new SaveStateModel();
 	}
 
 	public void Clear()
 	{
-		//_globalLogger.LogDebug("Clear");
+		//_serviceLogger.LogDebug("Clear");
 		Commit(new SaveStateModel());
 	}
 }
