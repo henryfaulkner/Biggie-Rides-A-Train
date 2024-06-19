@@ -84,31 +84,53 @@ public partial class Biggie3D : CharacterBody3D
 
 		if (Input.IsActionPressed(_MOVE_LEFT_INPUT))
 		{
-			inputDirection = _serviceRotation.ApplyRightDirection(inputDirection, -_BIGGIE_SPEED_X_RATIO);
+			if (UsingMirrorControls)
+			{
+				inputDirection = _serviceRotation.ApplyLeftDirection(inputDirection, -_BIGGIE_SPEED_X_RATIO);
+				_currentFrameDirection = Enumerations.Movement.Directions.Left;
+			}
+			else
+			{ 
+				inputDirection = _serviceRotation.ApplyRightDirection(inputDirection, -_BIGGIE_SPEED_X_RATIO);
+				_currentFrameDirection = Enumerations.Movement.Directions.Right;
+			}
+
 			_isMoving = true;
 			_frameIncrement += 1;
-			_currentFrameDirection = Enumerations.Movement.Directions.Right;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
 		else if (Input.IsActionPressed(_MOVE_RIGHT_INPUT))
 		{
-			inputDirection = _serviceRotation.ApplyRightDirection(inputDirection, _BIGGIE_SPEED_X_RATIO);
+			if (UsingMirrorControls)
+			{
+				inputDirection = _serviceRotation.ApplyLeftDirection(inputDirection, _BIGGIE_SPEED_X_RATIO);
+				_currentFrameDirection = Enumerations.Movement.Directions.Right;
+			}
+			else
+			{
+				inputDirection = _serviceRotation.ApplyRightDirection(inputDirection, _BIGGIE_SPEED_X_RATIO);
+				_currentFrameDirection = Enumerations.Movement.Directions.Left;
+			}
+
 			_isMoving = true;
 			_frameIncrement += 1;
-			_currentFrameDirection = Enumerations.Movement.Directions.Left;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
 
 		if (Input.IsActionPressed(_MOVE_DOWN_INPUT))
 		{
-			inputDirection = _serviceRotation.ApplyDownDirection(inputDirection, _BIGGIE_SPEED_Z_RATIO);
+			if (UsingMirrorControls) inputDirection = _serviceRotation.ApplyUpDirection(inputDirection, _BIGGIE_SPEED_Z_RATIO);
+			else inputDirection = _serviceRotation.ApplyDownDirection(inputDirection, _BIGGIE_SPEED_Z_RATIO);
+
 			_isMoving = true;
 			_frameIncrement = 1;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
 		else if (Input.IsActionPressed(_MOVE_UP_INPUT))
 		{
-			inputDirection = _serviceRotation.ApplyUpDirection(inputDirection, _BIGGIE_SPEED_Z_RATIO);
+			if (UsingMirrorControls) inputDirection = _serviceRotation.ApplyDownDirection(inputDirection, _BIGGIE_SPEED_Z_RATIO);
+			else inputDirection = _serviceRotation.ApplyUpDirection(inputDirection, _BIGGIE_SPEED_Z_RATIO);
+
 			_isMoving = true;
 			_frameIncrement += 1;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
@@ -123,25 +145,6 @@ public partial class Biggie3D : CharacterBody3D
 
 		if (inputDirection != Vector3.Zero)
 		{
-			//bool hittingWorldBorderX = HittingWorldBorderX(_nodeSelf, inputDirection);
-			//if (hittingWorldBorderX) GD.Print("HittingWorldBorderX");
-			//bool hittingWorldBorderZ = HittingWorldBorderZ(_nodeSelf, inputDirection);
-			//if (hittingWorldBorderZ) GD.Print("HittingWorldBorderZ");
-			//if (hittingWorldBorderX && hittingWorldBorderZ)
-			//{
-			////GD.Print("Biggie is running into World Border. Position X and Z is zero.");
-			//inputDirection = Vector3.Zero;
-			//}
-			//else if (hittingWorldBorderX)
-			//{
-			////GD.Print("Biggie is running into World Border. Position X is zero.");
-			//inputDirection = Vector3.Zero;
-			//}
-			//else if (hittingWorldBorderZ)
-			//{
-			////GD.Print("Biggie is running into World Border. Position Z is zero.");
-			//inputDirection = Vector3.Zero;
-			//}
 			inputDirection = inputDirection.Normalized();
 		}
 
@@ -311,5 +314,16 @@ public partial class Biggie3D : CharacterBody3D
 			Velocity.Z + _serviceGravity.CurrentGravity.Z
 		);
 		MoveAndCollide(Velocity * (float)delta);
+	}
+
+	public bool UsingMirrorControls { get; set; }
+	public void SetDefaultControls()
+	{
+		UsingMirrorControls = false;
+	}
+
+	public void SetMirrorControls()
+	{
+		UsingMirrorControls = true;
 	}
 }

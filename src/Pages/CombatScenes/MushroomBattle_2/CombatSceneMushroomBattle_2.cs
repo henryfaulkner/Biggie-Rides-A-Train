@@ -193,7 +193,7 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 	public void HandleMushroomPhysicalDefeat()
 	{
 		var context = _serviceSaveState.Load();
-		context.IsMushroomDead = true;
+		context.IsDoubleMushroomDefeated = true;
 		_serviceSaveState.Commit(context);
 
 		GetTree().ChangeSceneToFile(_SCENE_MUSHROOM_DEFEAT);

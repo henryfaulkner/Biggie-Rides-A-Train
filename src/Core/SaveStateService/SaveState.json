@@ -1,9 +1,9 @@
 {
   "StoredLocation": {
-    "SceneId": 5,
-    "X": 27.60776,
-    "Y": 0.4356713,
-    "Z": 1.6722289
+    "SceneId": 0,
+    "X": 0.0,
+    "Y": 0.0,
+    "Z": 0.0
   },
   "AdditionalStoredLocation": {
     "SceneId": 5,
@@ -29,6 +29,7 @@
   "IsButtonDoorOpen": false,
   "IsMushroomDead": false,
   "IsMushroomMoved": true,
+  "IsDoubleMushroomDefeated": false,
   "UserSettings": {
     "FxMuted": false
   }

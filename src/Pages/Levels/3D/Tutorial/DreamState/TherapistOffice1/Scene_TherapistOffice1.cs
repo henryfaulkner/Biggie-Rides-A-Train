@@ -110,9 +110,19 @@ public partial class Scene_TherapistOffice1 : Node3D
 			var nextScene = (PackedScene)ResourceLoader.Load(_COMBAT_SCENE_MUSHROOM);
 			GetTree().ChangeSceneToPacked(nextScene);
 		}
+		else if (SubconsciousDialogueState == SubconsciousDialogueStates.PostMushroomCombat)
+		{
+			ProcessSubconsciousDialogue();
+		}
 		else if (SubconsciousDialogueState == SubconsciousDialogueStates.SubconsciousCombat)
 		{
 			var nextScene = (PackedScene)ResourceLoader.Load(_COMBAT_SCENE_SUBCONSCIOUS_1);
+			GetTree().ChangeSceneToPacked(nextScene);
+		}
+		else if (SubconsciousDialogueState == SubconsciousDialogueStates.PostSubconsiousCombat)
+		{
+			//WAKE UP
+			var nextScene = (PackedScene)ResourceLoader.Load("PLACEHOLDER");
 			GetTree().ChangeSceneToPacked(nextScene);
 		}
 	}
@@ -262,6 +272,7 @@ public partial class Scene_TherapistOffice1 : Node3D
 		MushroomCombat,
 		PostMushroomCombat,
 		SubconsciousCombat,
+		PostSubconsiousCombat,
 	}
 
 	private enum CombatSelectionOptions
