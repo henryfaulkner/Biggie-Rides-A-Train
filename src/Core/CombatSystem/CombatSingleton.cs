@@ -35,7 +35,7 @@ public partial class CombatSingleton : Node
 		EnemyTargetList = new List<EnemyTarget>();
 	}
 
-	public void AddEnemyTarget(int id, string name, Panel targetPanel, double totalEnemyPhysicalHealth, double totalEnemyEmotionalHealth)
+	public void AddEnemyTarget(int id, string name, Panel targetPanel, IEnemyAppearance appearance, double totalEnemyPhysicalHealth, double totalEnemyEmotionalHealth)
 	{
 		var tempEnemyPhysical = new CombatParticipantModel(totalEnemyPhysicalHealth);
 		var tempEnemyEmotional = new CombatParticipantModel(totalEnemyEmotionalHealth);
@@ -44,6 +44,7 @@ public partial class CombatSingleton : Node
 			Id = id,
 			Name = name,
 			TargetPanel = targetPanel,
+			Appearance = appearance,
 			EnemyPhysical = tempEnemyPhysical,
 			EnemyEmotional = tempEnemyEmotional,
 			BiggiePhysicalAttackProxy = new BiggieAttackProxy(BiggiePhysical, tempEnemyPhysical),

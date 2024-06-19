@@ -23,7 +23,6 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 	private Panel _nodeMushroomTarget1Panel = null;
 	private Sprite2D _nodeMushroomSprite1 = null;
 	public IEnemyAppearance MushroomAppearance1 { get; set; }
-	public List<IEnemyAppearance> AppearanceList { get; set; }
 
 	private CombatSingleton _globalCombatSingleton = null;
 	private SaveStateService _serviceSaveState = null;
@@ -44,15 +43,11 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 		_nodeMushroomSprite1 = GetNode<Sprite2D>("./CombatWrapper/Panel/MushroomTarget1/Sprite2D");
 		MushroomAppearance1 = new BasicEnemyAppearance(_nodeMushroomSprite1);
 		MushroomAppearance1.ApplyNeutralStyles();
-		AppearanceList = new List<IEnemyAppearance>()
-		{
-			MushroomAppearance1,
-		};
 
 		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 		_globalCombatSingleton.NewBattle(_MAX_HEALTH_PHYSICAL_BIGGIE, _MAX_HEALTH_PHYSICAL_MUSHROOM, _MAX_HEALTH_EMOTIONAL_MUSHROOM);
-		_globalCombatSingleton.AddEnemyTarget(0, "Mushroom 1", _nodeMushroomTarget1Panel, 9, 9);
+		_globalCombatSingleton.AddEnemyTarget(0, "Mushroom 1", _nodeMushroomTarget1Panel, MushroomAppearance1, 9, 9);
 		_globalCombatSingleton.CombatStateMachineService.SetCheckChatterConditions(CheckChatterConditions);
 		ChangeBiggieHealthBar();
 

@@ -28,7 +28,7 @@
   "IsSwitchDoorOpen": false,
   "IsButtonDoorOpen": false,
   "IsMushroomDead": false,
-  "IsMushroomMoved": false,
+  "IsMushroomMoved": true,
   "UserSettings": {
     "FxMuted": false
   }

@@ -79,7 +79,7 @@ public partial class InfoPagePanel : Panel
 	public bool InitializeTargetingPanels()
 	{
 		if (_serviceCombat.EnemyTargetList.Count == 0) return false;
-		SelectionHelperInstance = new TargetSelectionHelper();
+		SelectionHelperInstance = new TargetSelectionHelper(_serviceCombat);
 		GD.Print($"EnemyTarget Count: {_serviceCombat.EnemyTargetList.Count}");
 		foreach ((EnemyTarget target, int i) in _serviceCombat.EnemyTargetList.Select((value, i) => (value, i)))
 		{
@@ -190,7 +190,12 @@ public partial class InfoPagePanel : Panel
 
 	public void HandleInfoHover(int enemyTargetIndex)
 	{
-		if (enemyTargetIndex < 0) return;
+		bool isBackOption = enemyTargetIndex < 0;
+		if (isBackOption) 
+		{
+			_nodeRichTextLabel.Text = string.Empty;
+			return;
+		}
 
 		var name = _serviceCombat.EnemyTargetList[enemyTargetIndex].Name;
 		var biggiePhysicalAttackProxy = _serviceCombat.EnemyTargetList[enemyTargetIndex].BiggiePhysicalAttackProxy;

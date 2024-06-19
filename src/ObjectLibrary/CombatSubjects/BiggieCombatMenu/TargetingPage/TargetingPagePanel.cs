@@ -78,7 +78,7 @@ public partial class TargetingPagePanel : Panel
 	public bool InitializeTargetingPanels()
 	{
 		if (_serviceCombat.EnemyTargetList.Count == 0) return false;
-		SelectionHelperInstance = new TargetSelectionHelper();
+		SelectionHelperInstance = new TargetSelectionHelper(_serviceCombat);
 		//GD.Print($"EnemyTarget Count: {_serviceCombat.EnemyTargetList.Count}");
 		foreach ((EnemyTarget target, int i) in _serviceCombat.EnemyTargetList.Select((value, i) => (value, i)))
 		{

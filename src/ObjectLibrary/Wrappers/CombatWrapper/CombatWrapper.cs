@@ -596,9 +596,6 @@ public partial class CombatWrapper : Node2D
 				break;
 		}
 
-		int id = CheckForEnemyTargetDefeat();
-		if (id > -1) HandleEnemyTargetDefeat(id);
-
 		return;
 	}
 
@@ -607,6 +604,8 @@ public partial class CombatWrapper : Node2D
 	public void DealPhysicalDamage(double damage)
 	{
 		_globalCombatSingleton.TargetedBiggiePhysicalAttackProxy.DealDamage(damage);
+		int id = CheckForEnemyTargetDefeat();
+		if (id > -1) HandleEnemyTargetDefeat(id);
 		EmitSignal(SignalName.ProjectPhysicalDamage);
 	}
 
@@ -615,6 +614,8 @@ public partial class CombatWrapper : Node2D
 	public void DealEmotionalDamage(double damage)
 	{
 		_globalCombatSingleton.TargetedBiggieEmotionalAttackProxy.DealDamage(damage);
+		int id = CheckForEnemyTargetDefeat();
+		if (id > -1) HandleEnemyTargetDefeat(id);
 		EmitSignal(SignalName.ProjectPhysicalDamage);
 	}
 
@@ -634,10 +635,13 @@ public partial class CombatWrapper : Node2D
 	private void HandleEnemyTargetDefeat(int id)
 	{
 		GD.Print("HandleTargetDefeat");
+		GD.Print($"Before remove EnemyTargetList.Count : {_globalCombatSingleton.EnemyTargetList.Count}");
 		var target = _globalCombatSingleton.EnemyTargetList
 			.Where(x => x.Id == id)
 			.First();
+		target.TargetPanel.QueueFree();
 		_globalCombatSingleton.EnemyTargetList.Remove(target);
+		GD.Print($"After remove EnemyTargetList.Count : {_globalCombatSingleton.EnemyTargetList.Count}");
 	}
 
 	public void SetEnemyAttackContainerService(MarginContainer enemyAttackContainer)

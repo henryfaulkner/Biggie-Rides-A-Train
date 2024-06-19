@@ -33,8 +33,6 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 	private Sprite2D _nodeMushroomSprite2 = null;
 	public IEnemyAppearance MushroomAppearance2 { get; set; }
 
-	public List<IEnemyAppearance> AppearanceList { get; set; }
-
 	private CombatSingleton _globalCombatSingleton = null;
 	private SaveStateService _serviceSaveState = null;
 
@@ -64,17 +62,11 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		MushroomAppearance2 = new BasicEnemyAppearance(_nodeMushroomSprite2);
 		MushroomAppearance2.ApplyNeutralStyles();
 
-		AppearanceList = new List<IEnemyAppearance>()
-		{
-			MushroomAppearance1,
-			MushroomAppearance2,
-		};
-
 		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 		_globalCombatSingleton.NewBattle(_MAX_HEALTH_PHYSICAL_BIGGIE, _MAX_HEALTH_PHYSICAL_MUSHROOM, _MAX_HEALTH_EMOTIONAL_MUSHROOM);
-		_globalCombatSingleton.AddEnemyTarget(EnemyTarget1Id, "Mushroom 1", _nodeMushroomTarget1Panel, 3, 2);
-		_globalCombatSingleton.AddEnemyTarget(EnemyTarget2Id, "Mushroom 2", _nodeMushroomTarget2Panel, 3, 2);
+		_globalCombatSingleton.AddEnemyTarget(EnemyTarget1Id, "Mushroom 1", _nodeMushroomTarget1Panel, MushroomAppearance1, 3, 2);
+		_globalCombatSingleton.AddEnemyTarget(EnemyTarget2Id, "Mushroom 2", _nodeMushroomTarget2Panel, MushroomAppearance2, 3, 2);
 		_globalCombatSingleton.CombatStateMachineService.SetCheckChatterConditions(CheckChatterConditions);
 		HandleChangeBiggieHealthBar();
 
@@ -112,10 +104,10 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 
 	public void HandleStartEnemyAttackTurn()
 	{
-		var enemyTarget1 =
+		EnemyTarget enemyTarget1 =
 			_globalCombatSingleton.EnemyTargetList
 			.Where(x => x.Id == EnemyTarget1Id)
-			.First();
+			.FirstOrDefault();
 		GD.Print("HandleStartEnemyAttackTurn");
 		if (enemyTarget1 != null)
 		{
@@ -133,7 +125,7 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		var enemyTarget2 =
 			_globalCombatSingleton.EnemyTargetList
 			.Where(x => x.Id == EnemyTarget2Id)
-			.First();
+			.FirstOrDefault();
 		if (enemyTarget2 != null)
 		{
 			GD.Print("enemyTarget2 != null");
@@ -146,7 +138,7 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 				}
 			);
 		}
-		AppearanceList.ForEach(x => x.ApplyInactiveStyles());
+		_globalCombatSingleton.EnemyTargetList.ForEach(x => x.Appearance.ApplyInactiveStyles());
 
 		if (EnemyOpponentQueue.Any())
 		{
@@ -180,7 +172,7 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		}
 		else
 		{
-			AppearanceList.ForEach(x => x.ApplyNeutralStyles());
+			_globalCombatSingleton.EnemyTargetList.ForEach(x => x.Appearance.ApplyNeutralStyles());
 			_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishEnemyAttack);
 		}
 		return;
