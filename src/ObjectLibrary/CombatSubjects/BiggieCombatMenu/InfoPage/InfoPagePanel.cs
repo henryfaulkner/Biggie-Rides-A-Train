@@ -89,6 +89,7 @@ public partial class InfoPagePanel : Panel
 		// Add BACK Panel as an option.
 		SelectionHelperInstance.AddOption(-1, -1, false, _nodeBackSelectionPanel, _nodeBackOptionLabel);
 		ProcessSelection();
+		HandleInfoHover(SelectionHelperInstance.GetSelectedOptionId());
 		GD.Print($"InfoPagePanel Initialized this many options: {SelectionHelperInstance.OptionList.Count}");
 		return true;
 	}
@@ -102,7 +103,12 @@ public partial class InfoPagePanel : Panel
 				// -1 is the BACK Panel.
 				if (option.Id == -1)
 				{
-					if (option.IsSelected)
+					if (option.IsDisabled)
+					{
+						SelectionHelperInstance.ApplyDisabledPageLabelSettingOption(option.OptionLabel);
+						SelectionHelperInstance.ApplyDisabledPagePanelOption(option.SelectionPanel);
+					}
+					else if (option.IsSelected)
 					{
 						//GD.Print("ApplyActiveBack");
 						if (option.OptionLabel != null)
@@ -191,7 +197,7 @@ public partial class InfoPagePanel : Panel
 	public void HandleInfoHover(int enemyTargetIndex)
 	{
 		bool isBackOption = enemyTargetIndex < 0;
-		if (isBackOption) 
+		if (isBackOption)
 		{
 			_nodeRichTextLabel.Text = string.Empty;
 			return;

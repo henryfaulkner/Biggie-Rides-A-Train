@@ -100,7 +100,12 @@ public partial class ChatPageBasePanel : Panel
 		{
 			try
 			{
-				if (option.IsSelected)
+				if (option.IsDisabled)
+				{
+					SelectionHelperInstance.ApplyDisabledPageLabelSettingOption(option.OptionLabel);
+					SelectionHelperInstance.ApplyDisabledPagePanelOption(option.SelectionPanel);
+				}
+				else if (option.IsSelected)
 				{
 					SelectionHelperInstance.ApplyActivePageLabelSettingOption(option.OptionLabel);
 					SelectionHelperInstance.ApplyActivePagePanelOption(option.SelectionPanel);

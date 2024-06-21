@@ -1,22 +1,19 @@
 using Godot;
 using System;
 
-public partial class BasePageBasePanel : Panel
+public partial class FightPageBasePanelOld : Panel
 {
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
 	private static readonly StringName _LEFT_INPUT = new StringName("move_left");
 	private static readonly StringName _RIGHT_INPUT = new StringName("move_right");
 
 	private Panel _nodeSelf = null;
-	private Panel _nodeDescriptionPanel = null;
-	private Panel _nodeFightSelectionPanel = null;
-	private Label _nodeFightOptionLabel = null;
-	private Panel _nodeChatSelectionPanel = null;
-	private Label _nodeChatOptionLabel = null;
-	private Panel _nodeInfoSelectionPanel = null;
-	private Label _nodeInfoOptionLabel = null;
-	//private Panel _nodeExitSelectionPanel = null;
-	//private Label _nodeExitOptionLabel = null;
+	private Panel _nodeScratchSelectionPanel = null;
+	private Label _nodeScratchOptionLabel = null;
+	private Panel _nodeBiteSelectionPanel = null;
+	private Label _nodeBiteOptionLabel = null;
+	private Panel _nodeBackSelectionPanel = null;
+	private Label _nodeBackOptionLabel = null;
 
 	private Panel _nodeActionDescriptionMainPanel = null;
 	private Label _nodeActionTitleLabel = null;
@@ -33,15 +30,13 @@ public partial class BasePageBasePanel : Panel
 		// Combat Scene Nodes
 		_nodeSelf = GetNode<Panel>(".");
 
-		// Base Panel Nodes
-		_nodeFightSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/FightOptionContainer/MarginContainer/Button/Panel");
-		_nodeFightOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/FightOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
-		_nodeChatSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer/Button/Panel");
-		_nodeChatOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
-		_nodeInfoSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/InfoOptionContainer/MarginContainer/Button/Panel");
-		_nodeInfoOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/InfoOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
-		//_nodeExitSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/Button/Panel");
-		//_nodeExitOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
+		// Fight Panel Nodes
+		_nodeScratchSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/ScratchOptionContainer/MarginContainer/Button/Panel");
+		_nodeScratchOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/ScratchOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
+		_nodeBiteSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/BiteOptionContainer/MarginContainer/Button/Panel");
+		_nodeBiteOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/BiteOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
+		_nodeBackSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/Button/Panel");
+		_nodeBackOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
 
 		_nodeActionDescriptionMainPanel = GetNode<Panel>("../../../HudContainer/ActionInfo/Panel");
 		_nodeActionTitleLabel = GetNode<Label>("../../../HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer/ActionName");
@@ -51,14 +46,13 @@ public partial class BasePageBasePanel : Panel
 		_audioSwitch = GetNode<AudioStreamPlayer>("../Switch_AudioStreamPlayer");
 
 		SelectionHelperInstance = new SelectionHelper();
-		SelectionHelperInstance.AddOption(-1, (int)Enumerations.Combat.BasePagePanelOptions.Fight, true, _nodeFightSelectionPanel, _nodeFightOptionLabel);
-		SelectionHelperInstance.AddOption(-2, (int)Enumerations.Combat.BasePagePanelOptions.Chat, false, _nodeChatSelectionPanel, _nodeChatOptionLabel, true);
-		SelectionHelperInstance.AddOption(-3, (int)Enumerations.Combat.BasePagePanelOptions.Info, false, _nodeInfoSelectionPanel, _nodeInfoOptionLabel);
-		//SelectionHelperInstance.AddOption(-4, (int)Enumerations.Combat.BasePagePanelOptions.Exit, false, _nodeExitSelectionPanel, _nodeExitOptionLabel);
-		ProcessSelection();
+		SelectionHelperInstance.AddOption((int)Enumerations.Combat.CombatOptions.Scratch, (int)Enumerations.Combat.FightPagePanelOptions.Scratch, true, _nodeScratchSelectionPanel, _nodeScratchOptionLabel);
+		SelectionHelperInstance.AddOption((int)Enumerations.Combat.CombatOptions.Bite, (int)Enumerations.Combat.FightPagePanelOptions.Bite, false, _nodeBiteSelectionPanel, _nodeBiteOptionLabel);
+		SelectionHelperInstance.AddOption(-1, (int)Enumerations.Combat.FightPagePanelOptions.Back, false, _nodeBackSelectionPanel, _nodeBackOptionLabel);
+
 	}
 
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		if (!IsOpen)
 		{
@@ -78,9 +72,8 @@ public partial class BasePageBasePanel : Panel
 			if (Input.IsActionJustPressed(_INTERACT_INPUT))
 			{
 				_audioSelect.Play();
-				EmitSignal(SignalName.SelectBase, SelectionHelperInstance.GetSelectedOptionIndex());
+				EmitSignal(SignalName.SelectFight, SelectionHelperInstance.GetSelectedOptionIndex());
 			}
-
 			if (Input.IsActionJustPressed(_LEFT_INPUT))
 			{
 				////GD.Print("Left Input");
@@ -99,7 +92,7 @@ public partial class BasePageBasePanel : Panel
 	}
 
 	[Signal]
-	public delegate void SelectBaseEventHandler(int index);
+	public delegate void SelectFightEventHandler(int index);
 
 	public void ProcessSelection()
 	{
@@ -120,6 +113,7 @@ public partial class BasePageBasePanel : Panel
 					if (shouldShowActionInfo) EmitSignal(SignalName.ShowActionInfo);
 					else EmitSignal(SignalName.HideActionInfo);
 				}
+
 				else
 				{
 					SelectionHelperInstance.ApplyInactivePageLabelSettingOption(option.OptionLabel);

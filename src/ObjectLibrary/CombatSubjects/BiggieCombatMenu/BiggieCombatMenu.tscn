@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://clph2g6ck8ex3" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/BasePage/BasePagePanel.tscn" id="2_n6akt"]
 [ext_resource type="Texture2D" uid="uid://j8miv4eux0yf" path="res://Assets/Images/CombatScenes/BiggieTextCanvas.png" id="3_swir3"]
 [ext_resource type="PackedScene" uid="uid://kvnvsvcpssdn" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/ChatPage/ChatPagePanel.tscn" id="3_x1bsp"]
-[ext_resource type="PackedScene" uid="uid://btd1wre3iy1fx" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/FightPage/FightPagePanel.tscn" id="4_x0l5s"]
+[ext_resource type="PackedScene" uid="uid://c2vovde675y57" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/FightPage/FightPagePanel.tscn" id="4_x0l5s"]
 [ext_resource type="AudioStream" uid="uid://dw48r7oe41tp6" path="res://Assets/Sounds/13. Menu Scroll copy.wav" id="7_aqtjn"]
 [ext_resource type="PackedScene" uid="uid://bca6fiygoh0xn" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/TargetingPage/TargetingPagePanel.tscn" id="7_utkc1"]
 [ext_resource type="AudioStream" uid="uid://bycft7j8ap3vv" path="res://Assets/Sounds/2. Menu Select copy.wav" id="8_ng2te"]
@@ -41,11 +41,10 @@ expand_mode = 1
 visible = false
 layout_mode = 2
 
-[node name="ChatPagePanel" parent="TextBoxContainer" instance=ExtResource("3_x1bsp")]
-visible = false
+[node name="FightPagePanel" parent="TextBoxContainer" instance=ExtResource("4_x0l5s")]
 layout_mode = 2
 
-[node name="FightPagePanel" parent="TextBoxContainer" instance=ExtResource("4_x0l5s")]
+[node name="ChatPagePanel" parent="TextBoxContainer" instance=ExtResource("3_x1bsp")]
 visible = false
 layout_mode = 2
 

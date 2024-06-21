@@ -1,0 +1,13 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bokw2qxyuit2r"]
+
+[ext_resource type="FontFile" uid="uid://bw30lqs13nj3h" path="res://Assets/Fonts/Born2bSportyV2.ttf" id="1_n34t5"]
+
+[resource]
+font = ExtResource("1_n34t5")
+font_size = 128
+font_color = Color(1, 1, 1, 0.313726)
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 9
+shadow_color = Color(0, 0, 0, 0.337255)
+shadow_offset = Vector2(2, 2)

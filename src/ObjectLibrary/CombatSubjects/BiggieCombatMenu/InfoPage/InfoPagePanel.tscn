@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dag5rfc73l2kc"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/InfoPage/InfoPagePanel.cs" id="1_nrvcq"]
-[ext_resource type="StyleBox" uid="uid://b4x4mlujs27nj" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Inactive_PagePanelOption.tres" id="1_oxy3r"]
+[ext_resource type="StyleBox" uid="uid://b4n45wnqi4q4w" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Active_PagePanelOption.tres" id="2_hop87"]
 [ext_resource type="LabelSettings" uid="uid://c3r6y2vafo346" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Inactive_PageLabelSettingOption.tres" id="2_x8yxo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xsgjl"]
@@ -82,7 +82,7 @@ offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = ExtResource("1_oxy3r")
+theme_override_styles/panel = ExtResource("2_hop87")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/ExitOptionContainer/MarginContainer"]
 layout_mode = 2

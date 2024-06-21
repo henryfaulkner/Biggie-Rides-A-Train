@@ -4,17 +4,20 @@ using System.Collections.Generic;
 
 public class SelectionHelper : ISelectionHelper
 {
-
 	private static readonly StringName _STYLEBOX_NAME = new StringName("panel");
 	private static readonly StringName _ACTIVE_PAGE_LABEL_SETTING_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Active_PageLabelSettingOption.tres");
 	private static readonly StringName _INACTIVE_PAGE_LABEL_SETTING_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Inactive_PageLabelSettingOption.tres");
+	private static readonly StringName _DISABLED_PAGE_LABEL_SETTING_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Disabled_PageLabelSettingOption.tres");
 	private static readonly StringName _ACTIVE_PAGE_PANEL_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Active_PagePanelOption.tres");
 	private static readonly StringName _INACTIVE_PAGE_PANEL_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Inactive_PagePanelOption.tres");
+	private static readonly StringName _DISABLED_PAGE_PANEL_OPTION = new StringName("res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Disabled_PagePanelOption.tres");
 
 	private LabelSettings _styleActivePageLabelSettingOption = null;
 	private LabelSettings _styleInactivePageLabelSettingOption = null;
+	private LabelSettings _styleDisabledPageLabelSettingOption = null;
 	private StyleBoxFlat _styleActivePagePanelOption = null;
 	private StyleBoxFlat _styleInactivePagePanelOption = null;
+	private StyleBoxFlat _styleDisabledPagePanelOption = null;
 
 	public SelectionHelper()
 	{
@@ -29,16 +32,18 @@ public class SelectionHelper : ISelectionHelper
 		//GD.Print("SelectionHelper InstantiateSelectionStyles!!!");
 		_styleActivePageLabelSettingOption = GD.Load<LabelSettings>(_ACTIVE_PAGE_LABEL_SETTING_OPTION);
 		_styleInactivePageLabelSettingOption = GD.Load<LabelSettings>(_INACTIVE_PAGE_LABEL_SETTING_OPTION);
+		_styleDisabledPageLabelSettingOption = GD.Load<LabelSettings>(_DISABLED_PAGE_LABEL_SETTING_OPTION);
 		_styleActivePagePanelOption = GD.Load<StyleBoxFlat>(_ACTIVE_PAGE_PANEL_OPTION);
 		_styleInactivePagePanelOption = GD.Load<StyleBoxFlat>(_INACTIVE_PAGE_PANEL_OPTION);
+		_styleDisabledPagePanelOption = GD.Load<StyleBoxFlat>(_DISABLED_PAGE_PANEL_OPTION);
 	}
 
 	public List<OptionModel> OptionList { get; set; }
 	protected int CurrentSelectedOptionIndex { get; set; }
 
-	public void AddOption(int id, int uiId, bool isSelected, Panel panel, Label label)
+	public void AddOption(int id, int uiId, bool isSelected, Panel panel, Label label, bool isDisabled = false)
 	{
-		var option = new OptionModel(id, uiId, isSelected, panel, label);
+		var option = new OptionModel(id, uiId, isSelected, panel, label, isDisabled);
 		OptionList.Add(option);
 	}
 
@@ -61,7 +66,15 @@ public class SelectionHelper : ISelectionHelper
 		{
 			CurrentSelectedOptionIndex -= 1;
 		}
-		OptionList[CurrentSelectedOptionIndex].IsSelected = true;
+
+		if (OptionList[CurrentSelectedOptionIndex].IsDisabled)
+		{
+			ShiftSelectionLeft();
+		}
+		else
+		{
+			OptionList[CurrentSelectedOptionIndex].IsSelected = true;
+		}
 		return;
 	}
 
@@ -85,7 +98,15 @@ public class SelectionHelper : ISelectionHelper
 		{
 			CurrentSelectedOptionIndex += 1;
 		}
-		OptionList[CurrentSelectedOptionIndex].IsSelected = true;
+
+		if (OptionList[CurrentSelectedOptionIndex].IsDisabled)
+		{
+			ShiftSelectionRight();
+		}
+		else
+		{
+			OptionList[CurrentSelectedOptionIndex].IsSelected = true;
+		}
 		return;
 	}
 
@@ -111,6 +132,12 @@ public class SelectionHelper : ISelectionHelper
 		panel.AddThemeStyleboxOverride(_STYLEBOX_NAME, _styleInactivePagePanelOption);
 	}
 
+	public void ApplyDisabledPagePanelOption(Panel panel)
+	{
+		//GD.Print("ApplyInactivePagePanelOption");
+		panel.AddThemeStyleboxOverride(_STYLEBOX_NAME, _styleDisabledPagePanelOption);
+	}
+
 	public void ApplyActivePageLabelSettingOption(Label label)
 	{
 		//GD.Print("ApplyActivePageLabelSettingOption");
@@ -121,6 +148,12 @@ public class SelectionHelper : ISelectionHelper
 	{
 		//GD.Print("ApplyInactivePageLabelSettingOption");
 		label.LabelSettings = _styleInactivePageLabelSettingOption;
+	}
+
+	public void ApplyDisabledPageLabelSettingOption(Label label)
+	{
+		//GD.Print("ApplyInactivePageLabelSettingOption");
+		label.LabelSettings = _styleDisabledPageLabelSettingOption;
 	}
 
 	public bool HandleSelectedOptionDescription(int combatOptionId, Label titleLabel, Label subtitleLabel, Label desciptionLabel)
@@ -140,19 +173,30 @@ public class SelectionHelper : ISelectionHelper
 	{
 		CurrentSelectedOptionIndex = 0;
 		int len = OptionList.Count;
+		int h = 0;
 		for (int i = 0; i < len; i += 1)
 		{
-			if (i == 0)
+			if (OptionList[i].IsDisabled)
 			{
-				OptionList[i].IsSelected = true;
-				ApplyActivePagePanelOption(OptionList[i].SelectionPanel);
-				ApplyActivePageLabelSettingOption(OptionList[i].OptionLabel);
+				OptionList[i].IsSelected = false;
+				ApplyDisabledPagePanelOption(OptionList[i].SelectionPanel);
+				ApplyDisabledPageLabelSettingOption(OptionList[i].OptionLabel);
 			}
 			else
 			{
-				OptionList[i].IsSelected = false;
-				ApplyInactivePagePanelOption(OptionList[i].SelectionPanel);
-				ApplyInactivePageLabelSettingOption(OptionList[i].OptionLabel);
+				if (h == 0)
+				{
+					OptionList[i].IsSelected = true;
+					ApplyActivePagePanelOption(OptionList[i].SelectionPanel);
+					ApplyActivePageLabelSettingOption(OptionList[i].OptionLabel);
+				}
+				else
+				{
+					OptionList[i].IsSelected = false;
+					ApplyInactivePagePanelOption(OptionList[i].SelectionPanel);
+					ApplyInactivePageLabelSettingOption(OptionList[i].OptionLabel);
+				}
+				h += 1;
 			}
 		}
 	}

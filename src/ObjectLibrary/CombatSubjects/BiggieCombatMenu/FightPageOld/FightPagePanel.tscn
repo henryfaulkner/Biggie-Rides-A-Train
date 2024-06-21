@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2vovde675y57"]
+[gd_scene load_steps=5 format=3 uid="uid://btd1wre3iy1fx"]
 
-[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/FightPage/FightPageBasePanel.cs" id="1_53bd7"]
+[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/FightPageOld/FightPageBasePanel.cs" id="1_53bd7"]
 [ext_resource type="StyleBox" uid="uid://b4n45wnqi4q4w" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Active_PagePanelOption.tres" id="2_71gt2"]
 [ext_resource type="LabelSettings" uid="uid://dvfcsx453vpjn" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Active_PageLabelSettingOption.tres" id="3_slebl"]
 
@@ -30,10 +30,10 @@ layout_mode = 2
 [node name="OptionContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="AttackOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
+[node name="ScratchOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/AttackOptionContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/ScratchOptionContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 20
@@ -41,11 +41,11 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="Button" type="Button" parent="MarginContainer/OptionContainer/AttackOptionContainer/MarginContainer"]
+[node name="Button" type="Button" parent="MarginContainer/OptionContainer/ScratchOptionContainer/MarginContainer"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/AttackOptionContainer/MarginContainer/Button"]
+[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/ScratchOptionContainer/MarginContainer/Button"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -61,27 +61,27 @@ grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = ExtResource("2_71gt2")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/AttackOptionContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/ScratchOptionContainer/MarginContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/AttackOptionContainer/MarginContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/ScratchOptionContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 6
 
-[node name="Label" type="Label" parent="MarginContainer/OptionContainer/AttackOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer/OptionContainer/ScratchOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
-text = "ATTACK
+text = "SCRATCH
 "
 label_settings = ExtResource("3_slebl")
 
-[node name="ChatOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
+[node name="BiteOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/ChatOptionContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/BiteOptionContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 20
@@ -89,11 +89,11 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="Button" type="Button" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer"]
+[node name="Button" type="Button" parent="MarginContainer/OptionContainer/BiteOptionContainer/MarginContainer"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer/Button"]
+[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/BiteOptionContainer/MarginContainer/Button"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -109,20 +109,20 @@ grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = ExtResource("2_71gt2")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/BiteOptionContainer/MarginContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/BiteOptionContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 6
 
-[node name="Label" type="Label" parent="MarginContainer/OptionContainer/ChatOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer/OptionContainer/BiteOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
-text = "CHAT
+text = "BITE
 "
 label_settings = ExtResource("3_slebl")
 

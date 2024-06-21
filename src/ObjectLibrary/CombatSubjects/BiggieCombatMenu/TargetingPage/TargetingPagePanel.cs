@@ -103,7 +103,12 @@ public partial class TargetingPagePanel : Panel
 				// -1 is the BACK Panel.
 				if (option.Id == -1)
 				{
-					if (option.IsSelected)
+					if (option.IsDisabled)
+					{
+						SelectionHelperInstance.ApplyDisabledPageLabelSettingOption(option.OptionLabel);
+						SelectionHelperInstance.ApplyDisabledPagePanelOption(option.SelectionPanel);
+					}
+					else if (option.IsSelected)
 					{
 						//GD.Print("ApplyActiveBack");
 						if (option.OptionLabel != null)
