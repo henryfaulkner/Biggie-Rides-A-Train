@@ -30,10 +30,10 @@ layout_mode = 2
 [node name="OptionContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="AskOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
+[node name="SpecialAttackOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/AskOptionContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/SpecialAttackOptionContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 20
@@ -41,11 +41,11 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="Button" type="Button" parent="MarginContainer/OptionContainer/AskOptionContainer/MarginContainer"]
+[node name="Button" type="Button" parent="MarginContainer/OptionContainer/SpecialAttackOptionContainer/MarginContainer"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/AskOptionContainer/MarginContainer/Button"]
+[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/SpecialAttackOptionContainer/MarginContainer/Button"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -61,27 +61,27 @@ grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = ExtResource("2_vvdm8")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/AskOptionContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/SpecialAttackOptionContainer/MarginContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/AskOptionContainer/MarginContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/SpecialAttackOptionContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 6
 
-[node name="Label" type="Label" parent="MarginContainer/OptionContainer/AskOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer/OptionContainer/SpecialAttackOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 text = "ASK
 "
 label_settings = ExtResource("3_5pmio")
 
-[node name="CharmOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
+[node name="SpecialChatOptionContainer" type="VBoxContainer" parent="MarginContainer/OptionContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/CharmOptionContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/SpecialChatOptionContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 20
@@ -89,11 +89,11 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="Button" type="Button" parent="MarginContainer/OptionContainer/CharmOptionContainer/MarginContainer"]
+[node name="Button" type="Button" parent="MarginContainer/OptionContainer/SpecialChatOptionContainer/MarginContainer"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/CharmOptionContainer/MarginContainer/Button"]
+[node name="Panel" type="Panel" parent="MarginContainer/OptionContainer/SpecialChatOptionContainer/MarginContainer/Button"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -109,18 +109,18 @@ grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = ExtResource("2_vvdm8")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/CharmOptionContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/OptionContainer/SpecialChatOptionContainer/MarginContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/CharmOptionContainer/MarginContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OptionContainer/SpecialChatOptionContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 6
 
-[node name="Label" type="Label" parent="MarginContainer/OptionContainer/CharmOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer/OptionContainer/SpecialChatOptionContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 text = "CHARM
 "

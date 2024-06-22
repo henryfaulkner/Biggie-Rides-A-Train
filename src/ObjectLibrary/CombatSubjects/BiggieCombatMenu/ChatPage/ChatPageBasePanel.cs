@@ -8,10 +8,10 @@ public partial class ChatPageBasePanel : Panel
 	private static readonly StringName _RIGHT_INPUT = new StringName("move_right");
 
 	private Panel _nodeSelf = null;
-	private Panel _nodeAskSelectionPanel = null;
-	private Label _nodeAskOptionLabel = null;
-	private Panel _nodeCharmSelectionPanel = null;
-	private Label _nodeCharmOptionLabel = null;
+	private Panel _nodeSpecialAttackSelectionPanel = null;
+	private Label _nodeSpecialAttackOptionLabel = null;
+	private Panel _nodeSpecialChatSelectionPanel = null;
+	private Label _nodeSpecialChatOptionLabel = null;
 	private Panel _nodeBackSelectionPanel = null;
 	private Label _nodeBackOptionLabel = null;
 
@@ -31,10 +31,10 @@ public partial class ChatPageBasePanel : Panel
 		_nodeSelf = GetNode<Panel>(".");
 
 		// Chat Panel Nodes
-		_nodeAskSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/AskOptionContainer/MarginContainer/Button/Panel");
-		_nodeAskOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/AskOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
-		_nodeCharmSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/CharmOptionContainer/MarginContainer/Button/Panel");
-		_nodeCharmOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/CharmOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
+		_nodeSpecialAttackSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/SpecialAttackOptionContainer/MarginContainer/Button/Panel");
+		_nodeSpecialAttackOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/SpecialAttackOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
+		_nodeSpecialChatSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/SpecialChatOptionContainer/MarginContainer/Button/Panel");
+		_nodeSpecialChatOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/SpecialChatOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
 		_nodeBackSelectionPanel = GetNode<Panel>("./MarginContainer/OptionContainer/BackOptionContainer/MarginContainer/Button/Panel");
 		_nodeBackOptionLabel = GetNode<Label>("./MarginContainer/OptionContainer/BackOptionContainer/MarginContainer/HBoxContainer/MarginContainer/Label");
 
@@ -46,8 +46,8 @@ public partial class ChatPageBasePanel : Panel
 		_audioSwitch = GetNode<AudioStreamPlayer>("../Switch_AudioStreamPlayer");
 
 		SelectionHelperInstance = new SelectionHelper();
-		SelectionHelperInstance.AddOption((int)Enumerations.Combat.CombatOptions.Ask, (int)Enumerations.Combat.ChatPagePanelOptions.Ask, true, _nodeAskSelectionPanel, _nodeAskOptionLabel);
-		SelectionHelperInstance.AddOption((int)Enumerations.Combat.CombatOptions.Charm, (int)Enumerations.Combat.ChatPagePanelOptions.Charm, false, _nodeCharmSelectionPanel, _nodeCharmOptionLabel);
+		SelectionHelperInstance.AddOption((int)Enumerations.Combat.CombatOptions.SpecialAttack, (int)Enumerations.Combat.ChatPagePanelOptions.SpecialAttack, true, _nodeSpecialAttackSelectionPanel, _nodeSpecialAttackOptionLabel);
+		SelectionHelperInstance.AddOption((int)Enumerations.Combat.CombatOptions.SpecialChat, (int)Enumerations.Combat.ChatPagePanelOptions.SpecialChat, false, _nodeSpecialChatSelectionPanel, _nodeSpecialChatOptionLabel);
 		SelectionHelperInstance.AddOption(-1, (int)Enumerations.Combat.ChatPagePanelOptions.Back, false, _nodeBackSelectionPanel, _nodeBackOptionLabel);
 
 	}

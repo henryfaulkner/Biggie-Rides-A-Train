@@ -115,7 +115,7 @@ layout_mode = 2
 [node name="ActionName" type="Label" parent="HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_mbl4f")
-text = "Scratch"
+text = "Attack"
 
 [node name="Panel" type="Panel" parent="HBoxContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

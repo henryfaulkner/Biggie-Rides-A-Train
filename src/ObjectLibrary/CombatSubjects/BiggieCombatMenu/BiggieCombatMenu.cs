@@ -103,17 +103,17 @@ public partial class BiggieCombatMenu : CanvasLayer
 		{
 			switch (selection)
 			{
-				case (int)Enumerations.Combat.FightPagePanelOptions.Scratch:
+				case (int)Enumerations.Combat.FightPagePanelOptions.Attack:
 					if (_globalCombatSingleton.EnemyTargetList.Count == 1)
 					{
-						EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Scratch, 0);
+						EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Attack, 0);
 					}
 					else if (_globalCombatSingleton.EnemyTargetList.Count > 1)
 					{
 						_nodeTargetingPagePanel.IsOpen = true;
 						_nodeFightPagePanel.IsOpen = false;
 						HandleHideActionInfo();
-						_nodeTargetingPagePanel.ProcessSelection(Enumerations.Combat.CombatOptions.Scratch);
+						_nodeTargetingPagePanel.ProcessSelection(Enumerations.Combat.CombatOptions.Attack);
 						_nodeTargetingPagePanel.ShowSelectionPanels();
 					}
 					else
@@ -121,18 +121,18 @@ public partial class BiggieCombatMenu : CanvasLayer
 						//GD.Print("There are no enemy targets.");
 					}
 					break;
-				case (int)Enumerations.Combat.FightPagePanelOptions.Bite:
+				case (int)Enumerations.Combat.FightPagePanelOptions.Chat:
 					if (_globalCombatSingleton.EnemyTargetList.Count == 1)
 					{
-						////GD.Print("Bite");
-						EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Bite, 0);
+						////GD.Print("Chat");
+						EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Chat, 0);
 					}
 					else if (_globalCombatSingleton.EnemyTargetList.Count > 1)
 					{
 						_nodeTargetingPagePanel.IsOpen = true;
 						_nodeFightPagePanel.IsOpen = false;
 						HandleHideActionInfo();
-						_nodeTargetingPagePanel.ProcessSelection(Enumerations.Combat.CombatOptions.Bite);
+						_nodeTargetingPagePanel.ProcessSelection(Enumerations.Combat.CombatOptions.Chat);
 						_nodeTargetingPagePanel.ShowSelectionPanels();
 					}
 					else
@@ -163,18 +163,18 @@ public partial class BiggieCombatMenu : CanvasLayer
 		//////GD.Print("HandleChatSelection");
 		switch (selection)
 		{
-			case (int)Enumerations.Combat.ChatPagePanelOptions.Ask:
+			case (int)Enumerations.Combat.ChatPagePanelOptions.SpecialAttack:
 				if (_globalCombatSingleton.EnemyTargetList.Count == 1)
 				{
-					////GD.Print("Ask");
-					EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Ask, 0);
+					////GD.Print("SpecialAttack");
+					EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.SpecialAttack, 0);
 				}
 				else if (_globalCombatSingleton.EnemyTargetList.Count > 1)
 				{
 					_nodeTargetingPagePanel.IsOpen = true;
 					_nodeChatPagePanel.IsOpen = false;
 					HandleHideActionInfo();
-					_nodeTargetingPagePanel.ProcessSelection(Enumerations.Combat.CombatOptions.Ask);
+					_nodeTargetingPagePanel.ProcessSelection(Enumerations.Combat.CombatOptions.SpecialAttack);
 					_nodeTargetingPagePanel.ShowSelectionPanels();
 				}
 				else
@@ -182,18 +182,18 @@ public partial class BiggieCombatMenu : CanvasLayer
 					//GD.Print("There are no enemy targets.");
 				}
 				break;
-			case (int)Enumerations.Combat.ChatPagePanelOptions.Charm:
+			case (int)Enumerations.Combat.ChatPagePanelOptions.SpecialChat:
 				if (_globalCombatSingleton.EnemyTargetList.Count == 1)
 				{
-					////GD.Print("Charm");
-					EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Charm, 0);
+					////GD.Print("SpecialChat");
+					EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.SpecialChat, 0);
 				}
 				else if (_globalCombatSingleton.EnemyTargetList.Count > 1)
 				{
 					_nodeTargetingPagePanel.IsOpen = true;
 					_nodeChatPagePanel.IsOpen = false;
 					HandleHideActionInfo();
-					_nodeTargetingPagePanel.ProcessSelection(Enumerations.Combat.CombatOptions.Charm);
+					_nodeTargetingPagePanel.ProcessSelection(Enumerations.Combat.CombatOptions.SpecialChat);
 					_nodeTargetingPagePanel.ShowSelectionPanels();
 				}
 				else
@@ -227,20 +227,20 @@ public partial class BiggieCombatMenu : CanvasLayer
 		//GD.Print($"HandleTargetingSelection combatOption {combatOption}");
 		switch (combatOption)
 		{
-			case (int)Enumerations.Combat.CombatOptions.Ask:
-				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Ask, enemyTargetIndex);
+			case (int)Enumerations.Combat.CombatOptions.SpecialAttack:
+				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.SpecialAttack, enemyTargetIndex);
 				_nodeTargetingPagePanel.HideSelectionPanels();
 				break;
-			case (int)Enumerations.Combat.CombatOptions.Charm:
-				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Charm, enemyTargetIndex);
+			case (int)Enumerations.Combat.CombatOptions.SpecialChat:
+				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.SpecialChat, enemyTargetIndex);
 				_nodeTargetingPagePanel.HideSelectionPanels();
 				break;
-			case (int)Enumerations.Combat.CombatOptions.Scratch:
-				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Scratch, enemyTargetIndex);
+			case (int)Enumerations.Combat.CombatOptions.Attack:
+				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Attack, enemyTargetIndex);
 				_nodeTargetingPagePanel.HideSelectionPanels();
 				break;
-			case (int)Enumerations.Combat.CombatOptions.Bite:
-				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Bite, enemyTargetIndex);
+			case (int)Enumerations.Combat.CombatOptions.Chat:
+				EmitSignal(SignalName.EndBiggieCombatMenuTurn, (int)Enumerations.Combat.CombatOptions.Chat, enemyTargetIndex);
 				_nodeTargetingPagePanel.HideSelectionPanels();
 				break;
 			case (int)Enumerations.Combat.CombatOptions.Info:

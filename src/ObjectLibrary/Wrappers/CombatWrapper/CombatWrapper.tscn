@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dcdbd272fdx4j"]
+[gd_scene load_steps=22 format=3 uid="uid://dcdbd272fdx4j"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.cs" id="1_c2u0m"]
 [ext_resource type="PackedScene" uid="uid://cbnxk7w87v22a" path="res://ObjectLibrary/Wrappers/CombatWrapper/EnemyPhysicalHealth.tscn" id="1_cep38"]
@@ -40,6 +40,11 @@ public partial class SquareAttackContainer : MarginContainer
 	}
 }
 "
+
+[sub_resource type="LabelSettings" id="LabelSettings_8i30w"]
+font = ExtResource("4_qbxj4")
+font_size = 48
+font_color = Color(0.776471, 0.298039, 0.243137, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5xso"]
 bg_color = Color(0.776471, 0.298039, 0.243137, 1)
@@ -127,25 +132,30 @@ offset_top = 391.0
 offset_right = 1952.0
 offset_bottom = 691.0
 
-[node name="HealthContainer" type="MarginContainer" parent="HudContainer"]
+[node name="BarContainer" type="VBoxContainer" parent="HudContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HudContainer/BarContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 180
+
+[node name="SpecialContainer" type="MarginContainer" parent="HudContainer/BarContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/margin_right = 450
+theme_override_constants/margin_bottom = 60
 
-[node name="MarginContainer" type="MarginContainer" parent="HudContainer/HealthContainer"]
+[node name="Special" type="HBoxContainer" parent="HudContainer/BarContainer/MarginContainer/SpecialContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 240
 
-[node name="Health" type="HBoxContainer" parent="HudContainer/HealthContainer/MarginContainer"]
+[node name="SpTitleLabel" type="Label" parent="HudContainer/BarContainer/MarginContainer/SpecialContainer/Special"]
 layout_mode = 2
-size_flags_horizontal = 3
+text = "SP"
+label_settings = SubResource("LabelSettings_8i30w")
 
-[node name="HpTitleLabel" type="Label" parent="HudContainer/HealthContainer/MarginContainer/Health"]
-layout_mode = 2
-text = "HP"
-label_settings = ExtResource("2_jvtxu")
-
-[node name="MarginContainer" type="MarginContainer" parent="HudContainer/HealthContainer/MarginContainer/Health"]
+[node name="MarginContainer" type="MarginContainer" parent="HudContainer/BarContainer/MarginContainer/SpecialContainer/Special"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 15
@@ -153,7 +163,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 10
 
-[node name="ProgressBar" type="ProgressBar" parent="HudContainer/HealthContainer/MarginContainer/Health/MarginContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="HudContainer/BarContainer/MarginContainer/SpecialContainer/Special/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -162,7 +172,43 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_nvi10")
 value = 33.0
 show_percentage = false
 
-[node name="HpValueLabel" type="Label" parent="HudContainer/HealthContainer/MarginContainer/Health"]
+[node name="SpValueLabel" type="Label" parent="HudContainer/BarContainer/MarginContainer/SpecialContainer/Special"]
+layout_mode = 2
+text = "9/9"
+label_settings = ExtResource("2_jvtxu")
+
+[node name="HealthContainer" type="MarginContainer" parent="HudContainer/BarContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 450
+
+[node name="Health" type="HBoxContainer" parent="HudContainer/BarContainer/MarginContainer/HealthContainer"]
+layout_mode = 2
+
+[node name="HpTitleLabel" type="Label" parent="HudContainer/BarContainer/MarginContainer/HealthContainer/Health"]
+layout_mode = 2
+text = "HP"
+label_settings = ExtResource("2_jvtxu")
+
+[node name="MarginContainer" type="MarginContainer" parent="HudContainer/BarContainer/MarginContainer/HealthContainer/Health"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
+
+[node name="ProgressBar" type="ProgressBar" parent="HudContainer/BarContainer/MarginContainer/HealthContainer/Health/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_f5xso")
+theme_override_styles/fill = SubResource("StyleBoxFlat_nvi10")
+value = 33.0
+show_percentage = false
+
+[node name="HpValueLabel" type="Label" parent="HudContainer/BarContainer/MarginContainer/HealthContainer/Health"]
 layout_mode = 2
 text = "9/9"
 label_settings = ExtResource("2_jvtxu")
@@ -200,7 +246,7 @@ layout_mode = 2
 layout_mode = 2
 theme = SubResource("Theme_4qy4a")
 theme_override_colors/font_color = Color(0.921569, 0.815686, 0.654902, 1)
-text = "Scratch"
+text = "Attack"
 
 [node name="Panel" type="Panel" parent="HudContainer/ActionInfo/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)

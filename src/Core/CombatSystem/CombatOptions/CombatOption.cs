@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 
 public class CombatOption
 {
-	public static readonly StringName _ASK = new StringName("res://Core/CombatSystem/CombatOptions/Chat/Ask.json");
-	public static readonly StringName _CHARM = new StringName("res://Core/CombatSystem/CombatOptions/Chat/Charm.json");
-	public static readonly StringName _BITE = new StringName("res://Core/CombatSystem/CombatOptions/Fight/Bite.json");
-	public static readonly StringName _SCRATCH = new StringName("res://Core/CombatSystem/CombatOptions/Fight/Scratch.json");
+	public static readonly StringName _SPECIAL_ATTACK = new StringName("res://Core/CombatSystem/CombatOptions/Special/SpecialAttack.json");
+	public static readonly StringName _SPECIAL_CHAT = new StringName("res://Core/CombatSystem/CombatOptions/Special/SpecialChat.json");
+	public static readonly StringName _CHAT = new StringName("res://Core/CombatSystem/CombatOptions/Attack/Chat.json");
+	public static readonly StringName _ATTACK = new StringName("res://Core/CombatSystem/CombatOptions/Attack/Attack.json");
 
 	public CombatOption() { }
 	public CombatOption(int id)
@@ -17,17 +17,17 @@ public class CombatOption
 			string filePath = null;
 			switch (id)
 			{
-				case (int)Enumerations.Combat.CombatOptions.Ask:
-					filePath = _ASK;
+				case (int)Enumerations.Combat.CombatOptions.SpecialAttack:
+					filePath = _SPECIAL_ATTACK;
 					break;
-				case (int)Enumerations.Combat.CombatOptions.Charm:
-					filePath = _CHARM;
+				case (int)Enumerations.Combat.CombatOptions.SpecialChat:
+					filePath = _SPECIAL_CHAT;
 					break;
-				case (int)Enumerations.Combat.CombatOptions.Bite:
-					filePath = _BITE;
+				case (int)Enumerations.Combat.CombatOptions.Chat:
+					filePath = _CHAT;
 					break;
-				case (int)Enumerations.Combat.CombatOptions.Scratch:
-					filePath = _SCRATCH;
+				case (int)Enumerations.Combat.CombatOptions.Attack:
+					filePath = _ATTACK;
 					break;
 				case -1:
 					filePath = string.Empty;

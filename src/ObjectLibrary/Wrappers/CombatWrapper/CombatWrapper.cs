@@ -109,10 +109,10 @@ public partial class CombatWrapper : Node2D
 		var currStateId = _globalCombatSingleton.CombatStateMachineService.CurrentCombatState?.Id
 			?? Enumerations.Combat.StateMachine.States.BiggieCombatMenu;
 
-		if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieChatAsk
-			|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieChatCharm
-			|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieFightBite
-			|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieFightScratch
+		if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieChatSpecialAttack
+			|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieChatSpecialChat
+			|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieFightChat
+			|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieFightAttack
 		)
 		{
 			////GD.Print("Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFrom...");
@@ -149,8 +149,8 @@ public partial class CombatWrapper : Node2D
 				}
 			}
 		}
-		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightScratch
-				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightBite)
+		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightAttack
+				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightChat)
 		{
 			////GD.Print("Enumerations.Combat.StateMachine.States.TransitionToBiggieFight...");
 			if (!ProcessFirstPass())
@@ -169,8 +169,8 @@ public partial class CombatWrapper : Node2D
 				}
 			}
 		}
-		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatAsk
-				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatCharm)
+		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatSpecialAttack
+				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatSpecialChat)
 		{
 			////GD.Print("Enumerations.Combat.StateMachine.States.TransitionToBiggieChat...");
 			if (!ProcessFirstPass())
@@ -535,17 +535,18 @@ public partial class CombatWrapper : Node2D
 	{
 		switch (LastCombatOptionUsed)
 		{
-			case Enumerations.Combat.CombatOptions.Scratch:
-				DealPhysicalDamage(2 * damagePercentage);
-				break;
-			case Enumerations.Combat.CombatOptions.Bite:
+			case Enumerations.Combat.CombatOptions.Attack:
 				DealPhysicalDamage(3 * damagePercentage);
 				break;
-			case Enumerations.Combat.CombatOptions.Ask:
-				DealEmotionalDamage(2 * damagePercentage);
-				break;
-			case Enumerations.Combat.CombatOptions.Charm:
+			case Enumerations.Combat.CombatOptions.Chat:
 				DealEmotionalDamage(3 * damagePercentage);
+				break;
+			case Enumerations.Combat.CombatOptions.SpecialAttack:
+
+				DealPhysicalDamage(5 * damagePercentage);
+				break;
+			case Enumerations.Combat.CombatOptions.SpecialChat:
+				DealEmotionalDamage(5 * damagePercentage);
 				break;
 			default:
 				//GD.Print("CombatWrapper HandleEndBiggieAttackTurn LastCombatOptionUsed did not map.");
@@ -575,21 +576,21 @@ public partial class CombatWrapper : Node2D
 
 		switch ((Enumerations.Combat.CombatOptions)combatOption)
 		{
-			case Enumerations.Combat.CombatOptions.Ask:
+			case Enumerations.Combat.CombatOptions.SpecialAttack:
 				_globalCombatSingleton.TargetedBiggieEmotionalAttackProxy = _globalCombatSingleton.EnemyTargetList[enemyTargetIndex].BiggieEmotionalAttackProxy;
-				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatAsk);
+				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatSpecialAttack);
 				break;
-			case Enumerations.Combat.CombatOptions.Charm:
+			case Enumerations.Combat.CombatOptions.SpecialChat:
 				_globalCombatSingleton.TargetedBiggieEmotionalAttackProxy = _globalCombatSingleton.EnemyTargetList[enemyTargetIndex].BiggieEmotionalAttackProxy;
-				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatCharm);
+				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectChatSpecialChat);
 				break;
-			case Enumerations.Combat.CombatOptions.Scratch:
+			case Enumerations.Combat.CombatOptions.Attack:
 				_globalCombatSingleton.TargetedBiggiePhysicalAttackProxy = _globalCombatSingleton.EnemyTargetList[enemyTargetIndex].BiggiePhysicalAttackProxy;
-				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightScratch);
+				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightAttack);
 				break;
-			case Enumerations.Combat.CombatOptions.Bite:
+			case Enumerations.Combat.CombatOptions.Chat:
 				_globalCombatSingleton.TargetedBiggiePhysicalAttackProxy = _globalCombatSingleton.EnemyTargetList[enemyTargetIndex].BiggiePhysicalAttackProxy;
-				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightBite);
+				_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.SelectFightChat);
 				break;
 			default:
 				//GD.Print("CombatSceneDjBattle.EndBiggieCombatMenuTurn: Could not map combat options");

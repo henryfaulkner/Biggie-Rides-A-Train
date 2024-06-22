@@ -46,8 +46,8 @@ public partial class FightPageBasePanel : Panel
 		_audioSwitch = GetNode<AudioStreamPlayer>("../Switch_AudioStreamPlayer");
 
 		SelectionHelperInstance = new SelectionHelper();
-		SelectionHelperInstance.AddOption((int)Enumerations.Combat.CombatOptions.Scratch, (int)Enumerations.Combat.FightPagePanelOptions.Scratch, true, _nodeAttackSelectionPanel, _nodeAttackOptionLabel);
-		SelectionHelperInstance.AddOption((int)Enumerations.Combat.CombatOptions.Bite, (int)Enumerations.Combat.FightPagePanelOptions.Bite, false, _nodeChatSelectionPanel, _nodeChatOptionLabel);
+		SelectionHelperInstance.AddOption((int)Enumerations.Combat.CombatOptions.Attack, (int)Enumerations.Combat.FightPagePanelOptions.Attack, true, _nodeAttackSelectionPanel, _nodeAttackOptionLabel);
+		SelectionHelperInstance.AddOption((int)Enumerations.Combat.CombatOptions.Chat, (int)Enumerations.Combat.FightPagePanelOptions.Chat, false, _nodeChatSelectionPanel, _nodeChatOptionLabel);
 		SelectionHelperInstance.AddOption(-1, (int)Enumerations.Combat.FightPagePanelOptions.Back, false, _nodeBackSelectionPanel, _nodeBackOptionLabel);
 
 	}

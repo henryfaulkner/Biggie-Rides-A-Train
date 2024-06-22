@@ -111,45 +111,45 @@ public partial class CombatStateMachineService : Node
 		var result = new List<CombatStateModel>
 	{
 		new CombatStateModel(Enumerations.Combat.StateMachine.States.BiggieCombatMenu),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToBiggieChatAsk),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToBiggieChatCharm),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToBiggieFightScratch),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToBiggieFightBite),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.BiggieChatAsk),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.BiggieChatCharm),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.BiggieFightScratch),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.BiggieFightBite),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieChatAsk),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieChatCharm),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieFightScratch),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieFightBite),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToBiggieChatSpecialAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToBiggieChatSpecialChat),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToBiggieFightAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToBiggieFightChat),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.BiggieChatSpecialAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.BiggieChatSpecialChat),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.BiggieFightAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.BiggieFightChat),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieChatSpecialAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieChatSpecialChat),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieFightAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToEnemyAttackFromBiggieFightChat),
 		new CombatStateModel(Enumerations.Combat.StateMachine.States.EnemyAttack),
 		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToBiggieCombatMenu),
 		new CombatStateModel(Enumerations.Combat.StateMachine.States.BiggieDefeat),
 		new CombatStateModel(Enumerations.Combat.StateMachine.States.EnemyDefeatPhysical),
 		new CombatStateModel(Enumerations.Combat.StateMachine.States.EnemyDefeatEmotional),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectChatAsk),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromCombatMenu_SelectChatAsk),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectChatCharm),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromCombatMenu_SelectChatCharm),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectFightScratch),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromCombatMenu_SelectFightScratch),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectFightBite),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromCombatMenu_SelectFightBite),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieChatAsk),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromBiggieChatAsk),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieChatCharm),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromBiggieChatCharm),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieFightScratch),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromBiggieFightScratch),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieFightBite),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromBiggieFightBite),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectChatSpecialAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromCombatMenu_SelectChatSpecialAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectChatSpecialChat),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromCombatMenu_SelectChatSpecialChat),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectFightAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromCombatMenu_SelectFightAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectFightChat),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromCombatMenu_SelectFightChat),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieChatSpecialAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromBiggieChatSpecialAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieChatSpecialChat),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromBiggieChatSpecialChat),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieFightAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromBiggieFightAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieFightChat),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromBiggieFightChat),
 		new CombatStateModel(Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromEnemyAttack),
 		new CombatStateModel(Enumerations.Combat.StateMachine.States.ChatterTextBox_FromEnemyAttack),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieChatAsk),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieChatCharm),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieFightScratch),
-		new CombatStateModel(Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieFightBite)
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieChatSpecialAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieChatSpecialChat),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieFightAttack),
+		new CombatStateModel(Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieFightChat)
 	};
 		return result;
 	}
@@ -163,23 +163,23 @@ public partial class CombatStateMachineService : Node
 
 	public bool IsATransitionToChatterBox(Enumerations.Combat.StateMachine.States stateId)
 	{
-		return stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieChatAsk
-			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieChatCharm
-			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieFightBite
-			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieFightScratch
-			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectChatAsk
-			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectChatCharm
-			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectFightBite
-			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectFightScratch
+		return stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieChatSpecialAttack
+			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieChatSpecialChat
+			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieFightChat
+			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromBiggieFightAttack
+			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectChatSpecialAttack
+			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectChatSpecialChat
+			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectFightChat
+			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromCombatMenu_SelectFightAttack
 			|| stateId == Enumerations.Combat.StateMachine.States.TransitionToChatterTextBox_FromEnemyAttack;
 	}
 
 	public bool IsATargetEnemyTransition(Enumerations.Combat.StateMachine.States stateId)
 	{
-		return stateId == Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieChatAsk
-			|| stateId == Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieChatCharm
-			|| stateId == Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieFightBite
-			|| stateId == Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieFightScratch;
+		return stateId == Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieChatSpecialAttack
+			|| stateId == Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieChatSpecialChat
+			|| stateId == Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieFightChat
+			|| stateId == Enumerations.Combat.StateMachine.States.TargetEnemy_FromBiggieFightAttack;
 	}
 
 	private static readonly StringName _COMBAT_EVENT = new StringName("CombatEvent");

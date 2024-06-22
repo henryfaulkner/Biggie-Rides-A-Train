@@ -226,7 +226,7 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 		////GD.Print("CombatSceneMushroomBattle_1 CheckChatterConditions is false");
 		var currState = _globalCombatSingleton.CombatStateMachineService.CurrentCombatState;
 
-		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieChatAsk)
+		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieChatSpecialAttack)
 		{
 			var enemyEmotionalHealthPercentage = _globalCombatSingleton.TargetedBiggieEmotionalAttackProxy.GetTargetHealthPercentage();
 			if (enemyEmotionalHealthPercentage > 50 && !ask1)
@@ -258,7 +258,7 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 			}
 		}
 
-		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieChatCharm)
+		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieChatSpecialChat)
 		{
 			var enemyEmotionalHealthPercentage = _globalCombatSingleton.TargetedBiggieEmotionalAttackProxy.GetTargetHealthPercentage();
 			if (enemyEmotionalHealthPercentage > 50 && !charm1)
@@ -288,7 +288,7 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 			}
 		}
 
-		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieFightScratch)
+		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieFightAttack)
 		{
 			var enemyPhysicalHealthPercentage = _globalCombatSingleton.TargetedBiggiePhysicalAttackProxy.GetTargetHealthPercentage();
 			if (enemyPhysicalHealthPercentage > 50 & !scratch1)
@@ -318,7 +318,7 @@ public partial class CombatSceneMushroomBattle_2 : Node2D
 			}
 		}
 
-		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieFightBite)
+		if (currState.Id == Enumerations.Combat.StateMachine.States.BiggieFightChat)
 		{
 			var enemyPhysicalHealthPercentage = _globalCombatSingleton.TargetedBiggiePhysicalAttackProxy.GetTargetHealthPercentage();
 			if (enemyPhysicalHealthPercentage > 50 && !bite1)

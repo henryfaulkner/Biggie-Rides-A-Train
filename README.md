@@ -55,6 +55,7 @@ Various RPG-esc black and white textboxes for combat and dialogue.
 Arrow keys / WASD, spacebar
 
 #### Key Items + Locations:
+
 - Tape
 - Train Ticket #1
 - Train Ticket #2
@@ -62,23 +63,25 @@ Arrow keys / WASD, spacebar
 - Train Ticket #4
 
 #### Needed Audio Tracks:
+
 - Main Menu music (Optional)
 - Main Game music [Train Station]
 - Therapy jazz music [Therapist Office]
 - House music [Dance Club]
 
 #### Combat:
+
 - Biggie options:
   - Violence (damages physical health):
-    - Scratch
-    - Bite
+    - Attack
+    - Chat
   - Passive (damages mental health [hidden]):
     - Nuzzle
     - Unique option per fight
 
 #### Enemies:
+
 - Club DJ
   - Battle sequence
 - Aquarium
-  - Battle sequence 
-
+  - Battle sequence
