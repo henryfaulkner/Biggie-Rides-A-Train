@@ -34,6 +34,13 @@ public partial class CombatWrapper : Node2D
 	private PanelAnimationHelper MainAnimationHelper { get; set; }
 	private static readonly float _MAIN_SPEED = 20f;
 
+
+	private ProgressBar _nodeBiggieHpProgressBar = null;
+	private Label _nodeBiggieHpValueLabel = null;
+
+	private ProgressBar _nodeBiggieSpProgressBar = null;
+	private Label _nodeBiggieSpValueLabel = null;
+
 	private CombatSingleton _globalCombatSingleton = null;
 	private Enumerations.Combat.CombatOptions LastCombatOptionUsed { get; set; }
 
@@ -78,7 +85,21 @@ public partial class CombatWrapper : Node2D
 		_nodeBiggieCombatMenu.HideActionInfo += HideActionInfo;
 		_nodeBiggieAttackContainer.EndBiggieAttackTurn += HandleEndBiggieAttackTurn;
 
-		//ApplyCombatStateMachineEvents();
+		_nodeBiggieHpProgressBar = GetNode<ProgressBar>("./HudContainer/BarContainer/MarginContainer/HealthContainer/Health/MarginContainer/ProgressBar");
+		_nodeBiggieHpValueLabel = GetNode<Label>("./HudContainer/BarContainer/MarginContainer/HealthContainer/Health/HpValueLabel");
+
+		_nodeBiggieSpProgressBar = GetNode<ProgressBar>("./HudContainer/BarContainer/MarginContainer/SpecialContainer/Special/MarginContainer/ProgressBar");
+		_nodeBiggieSpValueLabel = GetNode<Label>("./HudContainer/BarContainer/MarginContainer/SpecialContainer/Special/SpValueLabel");
+		_globalCombatSingleton.SpecialMeter = new SpecialMeter()
+		{
+			MaxLevel = 9,
+			CurrentLevel = 1,
+			VisualLevel = 1,
+			ProgressBar = _nodeBiggieSpProgressBar,
+			ValueLabel = _nodeBiggieSpValueLabel
+		};
+		_globalCombatSingleton.SpecialMeter.ValueLabel.Text = "1/9";
+		_globalCombatSingleton.SpecialMeter.TweenVisualLevelTowardCurrentLevel();
 
 		HideEnemyAttackContainer();
 		HideBiggieAttackContainer();
@@ -678,5 +699,12 @@ public partial class CombatWrapper : Node2D
 		return !_nodeChatterTextBox.IsOpen()
 			&& !_globalCombatSingleton.AreAnyEnemiesPhysicallyDefeated()
 			&& _globalCombatSingleton.AreAllEnemiesDefeated();
+	}
+
+	public void ChangeBiggieHealthBar()
+	{
+		var tween = _nodeBiggieHpProgressBar.GetTree().CreateTween();
+		tween.TweenProperty(_nodeBiggieHpProgressBar, "value", _globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetHealthPercentage(), 1).SetTrans(Tween.TransitionType.Linear);
+		_nodeBiggieHpValueLabel.Text = $"{_globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetCurrentHealth()}/{_globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetMaxHealth()}";
 	}
 }

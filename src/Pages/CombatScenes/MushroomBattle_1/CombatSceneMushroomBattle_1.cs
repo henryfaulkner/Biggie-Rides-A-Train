@@ -16,8 +16,6 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 	private BiggieCombatMenu _nodeBiggieCombatMenu = null;
 	private MushroomAttackContainer _nodeMushroomAttackContainer = null;
 	private ChatterTextBox _nodeChatterTextBox = null;
-	private ProgressBar _nodeBiggieHealthBar = null;
-	private Label _nodeBiggieHpValueLabel = null;
 
 	private Node _nodeMushroomTarget1 = null;
 	private Panel _nodeMushroomTarget1Panel = null;
@@ -34,8 +32,7 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 		_nodeCombatWrapper = GetNode<CombatWrapper>("./CombatWrapper");
 		_nodeBiggieCombatMenu = GetNode<BiggieCombatMenu>("./CombatWrapper/BiggieCombatMenu");
 		_nodeChatterTextBox = GetNode<ChatterTextBox>("./CombatWrapper/ChatterTextBox");
-		_nodeBiggieHealthBar = GetNode<ProgressBar>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
-		_nodeBiggieHpValueLabel = GetNode<Label>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/HpValueLabel");
+
 
 		_nodeMushroomAttackContainer = GetNode<MushroomAttackContainer>("./CombatWrapper/EnemyAttackContainer/EnemyAttackPanel/MushroomAttackContainer");
 		_nodeMushroomTarget1 = GetNode<Node>("./CombatWrapper/Panel/MushroomTarget1");
@@ -103,8 +100,7 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 	public void ChangeBiggieHealthBar()
 	{
 		////GD.Print("Start ChangeBiggieHealthBar");
-		_nodeBiggieHealthBar.Value = _globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetHealthPercentage();
-		_nodeBiggieHpValueLabel.Text = $"{_globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetCurrentHealth()}/{_globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetMaxHealth()}";
+		_nodeCombatWrapper.ChangeBiggieHealthBar();
 		////GD.Print($"End ChangeBiggieHealthBar {_nodeBiggieHealthBar.Value}");
 	}
 

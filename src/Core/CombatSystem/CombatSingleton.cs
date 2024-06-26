@@ -25,7 +25,7 @@ public partial class CombatSingleton : Node
 		BiggiePhysical = new CombatBiggieModel(10);
 		EnemyPhysicalAttackProxy = new OpponentAttackProxy(EnemyPhysical, BiggiePhysical);
 		EnemyTargetList = new List<EnemyTarget>();
-		SpecialMeter = new SpecialMeter();
+		//SpecialMeter = new SpecialMeter();
 	}
 
 	public void NewBattle(double totalBiggiePhysicalHealth, double totalEnemyPhysicalHealth, double totalEnemyEmotionalHealth)
@@ -35,7 +35,7 @@ public partial class CombatSingleton : Node
 		BiggiePhysical = new CombatBiggieModel(totalBiggiePhysicalHealth);
 		EnemyPhysicalAttackProxy = new OpponentAttackProxy(EnemyPhysical, BiggiePhysical);
 		EnemyTargetList = new List<EnemyTarget>();
-		SpecialMeter = new SpecialMeter();
+		//SpecialMeter = new SpecialMeter();
 	}
 
 	public void AddEnemyTarget(int id, string name, Panel targetPanel, IEnemyAppearance appearance, double totalEnemyPhysicalHealth, double totalEnemyEmotionalHealth)

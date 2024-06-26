@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dcdbd272fdx4j"]
+[gd_scene load_steps=24 format=3 uid="uid://dcdbd272fdx4j"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.cs" id="1_c2u0m"]
 [ext_resource type="PackedScene" uid="uid://cbnxk7w87v22a" path="res://ObjectLibrary/Wrappers/CombatWrapper/EnemyPhysicalHealth.tscn" id="1_cep38"]
@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://bowqy7e1mg5bf" path="res://Assets/Sounds/17. Biggie Does A Hit copy.wav" id="7_cmx8w"]
 [ext_resource type="StyleBox" uid="uid://6ncfjc3ywwad" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/BiggieCombatStyleBox.tres" id="7_mfgg8"]
 [ext_resource type="AudioStream" uid="uid://or6ojto661ha" path="res://Assets/Sounds/23. Biggie Takes A Hit copy.wav" id="8_rvtu0"]
+[ext_resource type="LabelSettings" uid="uid://ykwvvspqyxqe" path="res://Assets/LabelSettings/SpecialBarLabelSettings.tres" id="9_tt5fe"]
 [ext_resource type="PackedScene" uid="uid://dfqa61mbuuw6m" path="res://ObjectLibrary/CombatSubjects/ChatterTextBox/ChatterTextBox.tscn" id="11_cx26k"]
 [ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/ChatterTextBox/ChatterTextBox.cs" id="12_bhne2"]
 [ext_resource type="PackedScene" uid="uid://dwlmfdqio1b4g" path="res://ObjectLibrary/UI/PauseMenu/PauseMenu.tscn" id="14_3soy4"]
@@ -41,10 +42,20 @@ public partial class SquareAttackContainer : MarginContainer
 }
 "
 
-[sub_resource type="LabelSettings" id="LabelSettings_8i30w"]
-font = ExtResource("4_qbxj4")
-font_size = 48
-font_color = Color(0.776471, 0.298039, 0.243137, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vn7d"]
+bg_color = Color(0.258824, 0.47451, 0.45098, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2swd"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5xso"]
 bg_color = Color(0.776471, 0.298039, 0.243137, 1)
@@ -153,7 +164,7 @@ layout_mode = 2
 [node name="SpTitleLabel" type="Label" parent="HudContainer/BarContainer/MarginContainer/SpecialContainer/Special"]
 layout_mode = 2
 text = "SP"
-label_settings = SubResource("LabelSettings_8i30w")
+label_settings = ExtResource("9_tt5fe")
 
 [node name="MarginContainer" type="MarginContainer" parent="HudContainer/BarContainer/MarginContainer/SpecialContainer/Special"]
 layout_mode = 2
@@ -167,15 +178,15 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-theme_override_styles/background = SubResource("StyleBoxFlat_f5xso")
-theme_override_styles/fill = SubResource("StyleBoxFlat_nvi10")
+theme_override_styles/background = SubResource("StyleBoxFlat_4vn7d")
+theme_override_styles/fill = SubResource("StyleBoxFlat_h2swd")
 value = 33.0
 show_percentage = false
 
 [node name="SpValueLabel" type="Label" parent="HudContainer/BarContainer/MarginContainer/SpecialContainer/Special"]
 layout_mode = 2
 text = "9/9"
-label_settings = ExtResource("2_jvtxu")
+label_settings = ExtResource("9_tt5fe")
 
 [node name="HealthContainer" type="MarginContainer" parent="HudContainer/BarContainer/MarginContainer"]
 layout_mode = 2

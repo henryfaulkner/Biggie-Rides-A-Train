@@ -16,8 +16,6 @@ public partial class CombatSceneDjBattle : Node2D
 	private DjAttackContainer _nodeDjAttackContainer = null;
 	private ChatterTextBox _nodeChatterTextBox = null;
 	private CanvasLayer _nodeHitCallout = null;
-	private ProgressBar _nodeBiggieHealthBar = null;
-	private Label _nodeBiggieHpValueLabel = null;
 	private ProgressBar _nodeDjHealthBar = null;
 	private Label _nodeDjHpValueLabel = null;
 
@@ -32,8 +30,6 @@ public partial class CombatSceneDjBattle : Node2D
 		_nodeDjAttackContainer = GetNode<DjAttackContainer>("./CombatWrapper/EnemyAttackContainer/EnemyAttackPanel/DjAttackContainer");
 		_nodeChatterTextBox = GetNode<ChatterTextBox>("./CombatWrapper/ChatterTextBox");
 		_nodeHitCallout = GetNode<CanvasLayer>("./CombatWrapper/HitCallout");
-		_nodeBiggieHealthBar = GetNode<ProgressBar>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
-		_nodeBiggieHpValueLabel = GetNode<Label>("./CombatWrapper/HudContainer/HealthContainer/MarginContainer/Health/HpValueLabel");
 		_nodeDjHealthBar = GetNode<ProgressBar>("./CombatWrapper/EnemyPhysicalHealth/HBoxContainer/HealthContainer/MarginContainer/Health/MarginContainer/ProgressBar");
 		_nodeDjHpValueLabel = GetNode<Label>("./CombatWrapper/EnemyPhysicalHealth/HBoxContainer/HealthContainer/MarginContainer/Health/HpValueLabel");
 
@@ -93,8 +89,7 @@ public partial class CombatSceneDjBattle : Node2D
 	public void ChangeBiggieHealthBar()
 	{
 		////GD.Print("Start ChangeBiggieHealthBar");
-		_nodeBiggieHealthBar.Value = _globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetHealthPercentage();
-		_nodeBiggieHpValueLabel.Text = $"{_globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetCurrentHealth()}/{_globalCombatSingleton.EnemyPhysicalAttackProxy.GetTargetMaxHealth()}";
+		_nodeCombatWrapper.ChangeBiggieHealthBar();
 		////GD.Print($"End ChangeBiggieHealthBar {_nodeBiggieHealthBar.Value}");
 	}
 

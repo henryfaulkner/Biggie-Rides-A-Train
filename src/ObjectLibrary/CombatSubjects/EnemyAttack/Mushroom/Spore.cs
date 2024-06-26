@@ -15,6 +15,14 @@ public partial class Spore : RigidBody2D
 	private Random Rand { get; set; }
 	private CollisionShape2D CollisionShape { get; set; }
 
+	// if biggie enters and leaves the SpecialZone 
+	// without colliding with the CollisionShape
+	// increment _globalCombatSingleton.SpecialMeter
+	// by 1
+	private Area2D SpecialZone { get; set; }
+	private CollisionShape2D SpecialZoneCollisionShape { get; set; }
+	private bool HasEnteredSpecialZone { get; set; }
+
 	private float ManifestGravity { get; set; }
 	private Vector2 ManifestWind { get; set; }
 	private CombatSingleton _globalCombatSingleton = null;
@@ -34,6 +42,8 @@ public partial class Spore : RigidBody2D
 
 		ManifestGravity = GetRandomGravity();
 		ManifestWind = GetRandomWind();
+
+		HasEnteredSpecialZone = false;
 	}
 
 	private float GravityScaleValue { get; set; }
@@ -106,7 +116,31 @@ public partial class Spore : RigidBody2D
 		{
 			//GD.Print("Emit Spore Interact");
 			EmitSignal(SignalName.SporeHitBiggie, this);
+			SpecialZone.QueueFree();
+			SpecialZone = null;
 			return;
+		}
+
+		if (SpecialZone != null)
+		{
+			if (!HasEnteredSpecialZone)
+			{
+				if (HelperFunctions.Contains("BiggieMushroomCombat", SpecialZone.GetOverlappingBodies()))
+				{
+					GD.Print("I Hit The SpecialZone!!");
+					HasEnteredSpecialZone = true;
+				}
+			}
+			else
+			{
+				if (!HelperFunctions.Contains("BiggieMushroomCombat", SpecialZone.GetOverlappingBodies()))
+				{
+					GD.Print("I Exited The SpecialZone!!");
+					_globalCombatSingleton.SpecialMeter.AddToSpecialMeter(1.0f);
+					SpecialZone.QueueFree();
+					SpecialZone = null;
+				}
+			}
 		}
 
 		this.xOff = Mathf.Sin(this.angle * 2) * 2 * this.r;
@@ -138,6 +172,7 @@ public partial class Spore : RigidBody2D
 				new Color(1, 0, 0, 1)
 			);
 			ApplyCollision(this.r);
+			ApplySpecialZone(this.r);
 		}
 		else
 		{
@@ -161,5 +196,16 @@ public partial class Spore : RigidBody2D
 		shape.Radius = radius;
 		CollisionShape.Shape = shape;
 		AddChild(CollisionShape);
+	}
+
+	private void ApplySpecialZone(float radius)
+	{
+		SpecialZone = new Area2D();
+		SpecialZoneCollisionShape = new CollisionShape2D();
+		CircleShape2D shape = new CircleShape2D();
+		shape.Radius = radius * 1.5f;
+		SpecialZoneCollisionShape.Shape = shape;
+		SpecialZone.AddChild(SpecialZoneCollisionShape);
+		AddChild(SpecialZone);
 	}
 }
