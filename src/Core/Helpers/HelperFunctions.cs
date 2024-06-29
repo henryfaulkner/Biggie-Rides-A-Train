@@ -6,6 +6,15 @@ using System.Threading;
 
 public static class HelperFunctions
 {
+	public static bool Contains(Node2D node, Array<Node2D> nodes)
+	{
+		foreach (var _node in nodes)
+		{
+			if (_node == node) return true;
+		}
+		return false;
+	}
+
 	public static bool Contains(string name, Array<Node2D> nodes)
 	{
 		foreach (var node in nodes)
@@ -14,7 +23,16 @@ public static class HelperFunctions
 		}
 		return false;
 	}
-	
+
+	public static bool ContainsAreas(Area2D area, Array<Area2D> areas)
+	{
+		foreach (var _area in areas)
+		{
+			if (_area == area) return true;
+		}
+		return false;
+	}
+
 	public static bool ContainsBiggie(Array<Node3D> nodes)
 	{
 		foreach (var node in nodes)
