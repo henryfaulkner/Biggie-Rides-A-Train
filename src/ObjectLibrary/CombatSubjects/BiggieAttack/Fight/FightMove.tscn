@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2o558kac2ldy"]
+
+[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieAttack/Fight/FightMove.cs" id="1_d0if3"]
+[ext_resource type="Texture2D" uid="uid://dilofe1ockehf" path="res://Assets/Images/CombatScenes/FightCombatZone.png" id="2_ymj51"]
+[ext_resource type="AudioStream" uid="uid://bowqy7e1mg5bf" path="res://Assets/Sounds/17. Biggie Does A Hit copy.wav" id="3_ysjwy"]
+[ext_resource type="AudioStream" uid="uid://or6ojto661ha" path="res://Assets/Sounds/23. Biggie Takes A Hit copy.wav" id="4_i5mam"]
+
+[node name="FightMove" type="Node2D"]
+script = ExtResource("1_d0if3")
+
+[node name="FightZoneSprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.74805, 1.57812)
+texture = ExtResource("2_ymj51")
+hframes = 5
+vframes = 24
+
+[node name="GoodHit_AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ysjwy")
+bus = &"Fx"
+
+[node name="BadHit_AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_i5mam")
+bus = &"Fx"

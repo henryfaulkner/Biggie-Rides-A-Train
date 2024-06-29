@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 public partial class ChatMove : Node2D
 {
@@ -35,13 +34,19 @@ public partial class ChatMove : Node2D
 	[Export]
 	private Sprite2D _nodeTargetThreeSprite = null;
 
-	public Area2D BiggieCollisionArea { get; set; }
+	protected Area2D BiggieCollisionArea { get; set; }
 	protected List<ChatMoveTarget> TargetList { get; set; }
+	protected int OriginalNumberOfTargets { get; set; }
+	protected Vector2 OriginalSpritScale { get; set; }
+	protected int HitIncrement { get; set; }
+
+	public bool IsActive { get; set; }
 
 	public override void _Ready()
 	{
 		BiggieCollisionArea = ApplyTargetCollision(_nodeBiggiePathFollow2D, _nodeBiggieSprite);
-		TargetList = new List<ChatMoveTarget>();
+		IsActive = false;
+		OriginalSpritScale = _nodeTargetOneSprite.Scale;
 
 		var curve = new Curve2D();
 		var vectorList1 = GetSineVectorList(150, 75);
@@ -62,64 +67,45 @@ public partial class ChatMove : Node2D
 		}
 		_nodePath.Curve = curve;
 		DrawLineAlongPath(_nodePath, _nodeLine);
-
-		var locations = new List<float>();
-		float tempLocation;
-
-		tempLocation = GetRandomTargetLocation(locations);
-		_nodeTargetOnePathFollow2D.ProgressRatio = tempLocation;
-		locations.Add(tempLocation);
-		TargetList.Add(new ChatMoveTarget()
-		{
-			PathFollow = _nodeTargetOnePathFollow2D,
-			Sprite = _nodeTargetOneSprite,
-			LocationRatio = tempLocation,
-			CollisionArea = ApplyTargetCollision(_nodeTargetOnePathFollow2D, _nodeTargetOneSprite),
-			IsMarkedForDeletion = false,
-			IsDeleted = false,
-		});
-
-		tempLocation = GetRandomTargetLocation(locations);
-		_nodeTargetTwoPathFollow2D.ProgressRatio = tempLocation;
-		locations.Add(tempLocation);
-		TargetList.Add(new ChatMoveTarget()
-		{
-			PathFollow = _nodeTargetTwoPathFollow2D,
-			Sprite = _nodeTargetTwoSprite,
-			LocationRatio = tempLocation,
-			CollisionArea = ApplyTargetCollision(_nodeTargetTwoPathFollow2D, _nodeTargetTwoSprite),
-			IsMarkedForDeletion = false,
-			IsDeleted = false,
-		});
-
-		tempLocation = GetRandomTargetLocation(locations);
-		_nodeTargetThreePathFollow2D.ProgressRatio = tempLocation;
-		TargetList.Add(new ChatMoveTarget()
-		{
-			PathFollow = _nodeTargetThreePathFollow2D,
-			Sprite = _nodeTargetThreeSprite,
-			LocationRatio = tempLocation,
-			CollisionArea = ApplyTargetCollision(_nodeTargetThreePathFollow2D, _nodeTargetThreeSprite),
-			IsMarkedForDeletion = false,
-			IsDeleted = false,
-		});
+		SetNewRound();
 	}
 
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
-		// move biggie
-		_nodeBiggiePathFollow2D.Progress += Speed * (float)delta;
+		if (!IsActive) return;
 
-		// handle target hitting
-		if (Input.IsActionJustReleased(_INTERACT_INPUT))
+		if (_nodeBiggiePathFollow2D.ProgressRatio > 0.99f)
 		{
-			foreach (var target in TargetList)
+			// handle wrapping up chat move
+			_nodeBiggiePathFollow2D.Hide();
+			var anyTargetsMarked = TargetList.Any(x => x.IsMarkedForDeletion);
+			if (!anyTargetsMarked)
 			{
-				if (target.IsDeleted || target.IsMarkedForDeletion) continue;
-				if (HelperFunctions.ContainsAreas(target.CollisionArea, BiggieCollisionArea.GetOverlappingAreas()))
+				float hitPercentage = HitIncrement / OriginalNumberOfTargets;
+				bool isPerfect = hitPercentage == 1.0f;
+				bool isTrash = hitPercentage == 0.0f;
+				EmitSignal(SignalName.EndBiggieAttackTurn, hitPercentage, isPerfect, isTrash);
+				SetNewRound();
+				return;
+			}
+		}
+		else
+		{
+			// move biggie
+			_nodeBiggiePathFollow2D.Progress += Speed * (float)delta;
+
+			// handle target hitting
+			if (Input.IsActionJustReleased(_INTERACT_INPUT))
+			{
+				foreach (var target in TargetList)
 				{
-					EmitSignal(SignalName.ChatTargetHit);
-					target.IsMarkedForDeletion = true;
+					if (target.IsDeleted || target.IsMarkedForDeletion) continue;
+					if (HelperFunctions.ContainsAreas(target.CollisionArea, BiggieCollisionArea.GetOverlappingAreas()))
+					{
+						EmitSignal(SignalName.ChatTargetHit);
+						target.IsMarkedForDeletion = true;
+						HitIncrement += 1;
+					}
 				}
 			}
 		}
@@ -133,7 +119,6 @@ public partial class ChatMove : Node2D
 			}
 			if (TargetList[i].IsDeleted)
 			{
-				TargetList[i].QueueFree();
 				TargetList.RemoveAt(i);
 				i -= 1;
 			}
@@ -142,6 +127,8 @@ public partial class ChatMove : Node2D
 
 	[Signal]
 	public delegate void ChatTargetHitEventHandler();
+	[Signal]
+	public delegate void EndBiggieAttackTurnEventHandler(float hitPercentage, bool isPerfect, bool isTrash);
 
 	private float GetRandomTargetLocation(List<float> otherLocations)
 	{
@@ -170,6 +157,7 @@ public partial class ChatMove : Node2D
 		if (!firstThird)
 		{
 			result = (float)random.NextDouble() * 0.33f;
+			if (result < 0.05f) result += 0.05f;
 		}
 		else if (!secondThird)
 		{
@@ -198,8 +186,6 @@ public partial class ChatMove : Node2D
 
 	private List<Vector2> GetSineVectorList(float width, float height, double phaseShift = 0)
 	{
-		GD.Print($"Call GetSineCurve2D");
-		GD.Print($"NumberOfPoints: {NumberOfPoints}");
 		var result = new List<Vector2>();
 		for (int i = 0; i < NumberOfPoints; i += 1)
 		{
@@ -212,10 +198,8 @@ public partial class ChatMove : Node2D
 			// Scale the x and y coordinates to fit the given width and height
 			double xScaled = (x - phaseShift) / (2 * Math.PI) * width;
 			double yScaled = (y + 1) / 2 * height;  // shift sine from [-1, 1] to [0, 1]
-			GD.Print($"xScaled: {xScaled}, yScaled: {yScaled}");
 			result.Add(new Vector2((float)xScaled, (float)yScaled));
 		}
-		GD.Print($"End GetSineCurve2D");
 		return result;
 	}
 
@@ -227,12 +211,64 @@ public partial class ChatMove : Node2D
 
 	private void DrawLineAlongPath(Path2D path, Line2D line)
 	{
-		line.DefaultColor = new Color(1, 1, 1, 1);
-		line.Width = 2;
 		foreach (Vector2 point in path.Curve.GetBakedPoints())
 		{
 			line.AddPoint(point + path.Position);
 		}
+	}
+
+	public void SetNewRound()
+	{
+		TargetList = new List<ChatMoveTarget>();
+		var locations = new List<float>();
+		float tempLocation;
+
+		_nodeBiggiePathFollow2D.ProgressRatio = 0.0f;
+		_nodeBiggiePathFollow2D.Show();
+
+		tempLocation = GetRandomTargetLocation(locations);
+		_nodeTargetOnePathFollow2D.ProgressRatio = tempLocation;
+		_nodeTargetOneSprite.Scale = OriginalSpritScale;
+		locations.Add(tempLocation);
+		TargetList.Add(new ChatMoveTarget()
+		{
+			PathFollow = _nodeTargetOnePathFollow2D,
+			Sprite = _nodeTargetOneSprite,
+			LocationRatio = tempLocation,
+			CollisionArea = ApplyTargetCollision(_nodeTargetOnePathFollow2D, _nodeTargetOneSprite),
+			IsMarkedForDeletion = false,
+			IsDeleted = false,
+		});
+
+		tempLocation = GetRandomTargetLocation(locations);
+		_nodeTargetTwoPathFollow2D.ProgressRatio = tempLocation;
+		_nodeTargetTwoSprite.Scale = OriginalSpritScale;
+		locations.Add(tempLocation);
+		TargetList.Add(new ChatMoveTarget()
+		{
+			PathFollow = _nodeTargetTwoPathFollow2D,
+			Sprite = _nodeTargetTwoSprite,
+			LocationRatio = tempLocation,
+			CollisionArea = ApplyTargetCollision(_nodeTargetTwoPathFollow2D, _nodeTargetTwoSprite),
+			IsMarkedForDeletion = false,
+			IsDeleted = false,
+		});
+
+		tempLocation = GetRandomTargetLocation(locations);
+		_nodeTargetThreePathFollow2D.ProgressRatio = tempLocation;
+		_nodeTargetThreeSprite.Scale = OriginalSpritScale;
+		TargetList.Add(new ChatMoveTarget()
+		{
+			PathFollow = _nodeTargetThreePathFollow2D,
+			Sprite = _nodeTargetThreeSprite,
+			LocationRatio = tempLocation,
+			CollisionArea = ApplyTargetCollision(_nodeTargetThreePathFollow2D, _nodeTargetThreeSprite),
+			IsMarkedForDeletion = false,
+			IsDeleted = false,
+		});
+
+		OriginalNumberOfTargets = TargetList.Count;
+		HitIncrement = 0;
 	}
 
 	protected class ChatMoveTarget

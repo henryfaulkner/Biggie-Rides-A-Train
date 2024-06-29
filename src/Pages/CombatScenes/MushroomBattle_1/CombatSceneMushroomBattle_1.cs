@@ -45,12 +45,13 @@ public partial class CombatSceneMushroomBattle_1 : Node2D
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 		_globalCombatSingleton.NewBattle(_MAX_HEALTH_PHYSICAL_BIGGIE, _MAX_HEALTH_PHYSICAL_MUSHROOM, _MAX_HEALTH_EMOTIONAL_MUSHROOM);
 		_globalCombatSingleton.AddEnemyTarget(0, "Mushroom 1", _nodeMushroomTarget1Panel, MushroomAppearance1, 9, 9);
+		_globalCombatSingleton.TargetedBiggiePhysicalAttackProxy = _globalCombatSingleton.EnemyTargetList[0].BiggiePhysicalAttackProxy;
+		_globalCombatSingleton.TargetedBiggieEmotionalAttackProxy = _globalCombatSingleton.EnemyTargetList[0].BiggieEmotionalAttackProxy;
 		_globalCombatSingleton.CombatStateMachineService.SetCheckChatterConditions(CheckChatterConditions);
 		ChangeBiggieHealthBar();
 
 		_nodeCombatWrapper.StartBiggieTextTurn += StartBiggieTextTurn;
 		_nodeCombatWrapper.StartEnemyAttackTurn += StartEnemyAttackTurn;
-		//_nodeCombatWrapper.ProjectPhysicalDamage += ChangeDjHealthBar;
 		_nodeCombatWrapper.ProjectPhysicalDamage += () => _globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
 		_nodeCombatWrapper.ProjectEmotionalDamage += () => _globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
 		_nodeCombatWrapper.BiggieDefeat += HandleBiggieDefeat;

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://bo487ymdem65b"]
 
-[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieAttack/ChatMove.cs" id="1_0m5ow"]
-[ext_resource type="Texture2D" uid="uid://dqwv5jlw4r8pt" path="res://Assets/Images/CombatScenes/TargetSvg/target-2-svgrepo-com.svg" id="1_7k0jt"]
+[ext_resource type="Script" path="res://ObjectLibrary/CombatSubjects/BiggieAttack/Chat/ChatMove.cs" id="1_0m5ow"]
 [ext_resource type="Texture2D" uid="uid://cvegqxpxkm8ie" path="res://Assets/Images/CombatScenes/BiggieCombat.png" id="1_bc6oy"]
+[ext_resource type="Texture2D" uid="uid://d1jocstxv02r4" path="res://Assets/Images/CombatScenes/TargetSvg/target-2-svgrepo-co-red.svg" id="2_e765l"]
 
 [sub_resource type="Curve2D" id="Curve2D_osmbf"]
 _data = {
@@ -11,7 +11,6 @@ _data = {
 point_count = 28
 
 [node name="ChatMove" type="Node2D" node_paths=PackedStringArray("_nodePath", "_nodeLine", "_nodeBiggiePathFollow2D", "_nodeBiggieSprite", "_nodeTargetOnePathFollow2D", "_nodeTargetOneSprite", "_nodeTargetTwoPathFollow2D", "_nodeTargetTwoSprite", "_nodeTargetThreePathFollow2D", "_nodeTargetThreeSprite")]
-position = Vector2(500, 504)
 script = ExtResource("1_0m5ow")
 Speed = 100.0
 NumberOfPoints = 250
@@ -31,6 +30,8 @@ scale = Vector2(4, 4)
 curve = SubResource("Curve2D_osmbf")
 
 [node name="Line2D" type="Line2D" parent="Path2D"]
+width = 6.0
+default_color = Color(0.905882, 0.815686, 0.67451, 1)
 
 [node name="TargetOnePathFollow2D" type="PathFollow2D" parent="Path2D"]
 position = Vector2(12.2022, 5.81756)
@@ -38,8 +39,8 @@ progress = 145.423
 rotates = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Path2D/TargetOnePathFollow2D"]
-scale = Vector2(0.03, 0.03)
-texture = ExtResource("1_7k0jt")
+scale = Vector2(0.023, 0.023)
+texture = ExtResource("2_e765l")
 
 [node name="TargetTwoPathFollow2D" type="PathFollow2D" parent="Path2D"]
 position = Vector2(71.657, 14.9123)
@@ -47,8 +48,8 @@ progress = 245.548
 rotates = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Path2D/TargetTwoPathFollow2D"]
-scale = Vector2(0.03, 0.03)
-texture = ExtResource("1_7k0jt")
+scale = Vector2(0.023, 0.023)
+texture = ExtResource("2_e765l")
 
 [node name="TargetThreePathFollow2D" type="PathFollow2D" parent="Path2D"]
 position = Vector2(129.556, -48.1599)
@@ -56,13 +57,13 @@ progress = 350.44
 rotates = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Path2D/TargetThreePathFollow2D"]
-scale = Vector2(0.03, 0.03)
-texture = ExtResource("1_7k0jt")
+scale = Vector2(0.023, 0.023)
+texture = ExtResource("2_e765l")
 
 [node name="BiggiePathFollow2D" type="PathFollow2D" parent="Path2D"]
 position = Vector2(-64, 1)
 rotation = -1.04272
 
 [node name="Sprite2D" type="Sprite2D" parent="Path2D/BiggiePathFollow2D"]
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("1_bc6oy")

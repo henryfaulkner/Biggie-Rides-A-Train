@@ -22,7 +22,11 @@ public class SpecialMeter
 
 	public void AddToSpecialMeter(float amount)
 	{
-		if (CurrentLevel + amount < MaxLevel)
+		if (amount < 0 && CurrentLevel + amount < 0)
+		{
+			CurrentLevel = 0;
+		}
+		else if (CurrentLevel + amount < MaxLevel)
 		{
 			CurrentLevel += amount;
 		}

@@ -25,8 +25,10 @@ public partial class CombatWrapper : Node2D
 	private MarginContainer _nodeChatterTextBoxTextContainer = null;
 	private MarginContainer _nodeEnemyAttackContainer = null;
 	private Panel _nodeEnemyAttackPanel = null;
-	private BiggieAttackContainer _nodeBiggieAttackContainer = null;
+	private MarginContainer _nodeBiggieAttackContainer = null;
 	private Panel _nodeBiggieAttackPanel = null;
+	private FightMove _nodeBiggieFightMove = null;
+	private ChatMove _nodeBiggieChatMove = null;
 
 	private PanelAnimationHelper HudAnimationHelper { get; set; }
 	private static readonly float _HUD_SPEED_SLOW = 5f;
@@ -72,8 +74,10 @@ public partial class CombatWrapper : Node2D
 		_nodeChatterTextBoxTextContainer = GetNode<MarginContainer>("./ChatterTextBox/TextBoxContainer");
 		_nodeEnemyAttackContainer = GetNode<MarginContainer>("./EnemyAttackContainer");
 		_nodeEnemyAttackPanel = GetNode<Panel>("./EnemyAttackContainer/EnemyAttackPanel");
-		_nodeBiggieAttackContainer = GetNode<BiggieAttackContainer>("./BiggieAttackContainer");
+		_nodeBiggieAttackContainer = GetNode<MarginContainer>("./BiggieAttackContainer");
 		_nodeBiggieAttackPanel = GetNode<Panel>("./BiggieAttackContainer/BiggieAttackPanel");
+		_nodeBiggieFightMove = GetNode<FightMove>("./BiggieAttackContainer/FightMove");
+		_nodeBiggieChatMove = GetNode<ChatMove>("./BiggieAttackContainer/ChatMove");
 
 		_globalCombatSingleton = GetNode<CombatSingleton>("/root/CombatSingleton");
 		SetEnemyAttackContainerService(_nodeEnemyAttackContainer);
@@ -83,7 +87,8 @@ public partial class CombatWrapper : Node2D
 		_nodeBiggieCombatMenu.EndBiggieCombatMenuTurn += HandleEndBiggieCombatMenuTurn;
 		_nodeBiggieCombatMenu.ShowActionInfo += ShowActionInfo;
 		_nodeBiggieCombatMenu.HideActionInfo += HideActionInfo;
-		_nodeBiggieAttackContainer.EndBiggieAttackTurn += HandleEndBiggieAttackTurn;
+		_nodeBiggieFightMove.EndBiggieAttackTurn += HandleEndBiggieAttackTurn;
+		_nodeBiggieChatMove.EndBiggieAttackTurn += HandleEndBiggieAttackTurn;
 
 		_nodeBiggieHpProgressBar = GetNode<ProgressBar>("./HudContainer/BarContainer/MarginContainer/HealthContainer/Health/MarginContainer/ProgressBar");
 		_nodeBiggieHpValueLabel = GetNode<Label>("./HudContainer/BarContainer/MarginContainer/HealthContainer/Health/HpValueLabel");
@@ -93,12 +98,12 @@ public partial class CombatWrapper : Node2D
 		_globalCombatSingleton.SpecialMeter = new SpecialMeter()
 		{
 			MaxLevel = 9,
-			CurrentLevel = 1,
-			VisualLevel = 1,
+			CurrentLevel = 0,
+			VisualLevel = 0,
 			ProgressBar = _nodeBiggieSpProgressBar,
 			ValueLabel = _nodeBiggieSpValueLabel
 		};
-		_globalCombatSingleton.SpecialMeter.ValueLabel.Text = "1/9";
+		_globalCombatSingleton.SpecialMeter.ValueLabel.Text = $"{_globalCombatSingleton.SpecialMeter.CurrentLevel}/{_globalCombatSingleton.SpecialMeter.MaxLevel}";
 		_globalCombatSingleton.SpecialMeter.TweenVisualLevelTowardCurrentLevel();
 
 		HideEnemyAttackContainer();
@@ -140,7 +145,8 @@ public partial class CombatWrapper : Node2D
 			if (!ProcessFirstPass())
 			{
 				HideBiggieAttackContainer();
-				_nodeBiggieAttackContainer.IsActive = false;
+				_nodeBiggieFightMove.IsActive = false;
+				_nodeBiggieChatMove.IsActive = false;
 				HideChatterTextBoxTextContainer();
 				if (TransitionToEnemyAttack(skipTransition))
 				{
@@ -171,7 +177,7 @@ public partial class CombatWrapper : Node2D
 			}
 		}
 		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightAttack
-				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightChat)
+				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatSpecialAttack)
 		{
 			////GD.Print("Enumerations.Combat.StateMachine.States.TransitionToBiggieFight...");
 			if (!ProcessFirstPass())
@@ -185,12 +191,15 @@ public partial class CombatWrapper : Node2D
 					HideSubjectPanel();
 					EmitSignal(SignalName.StartBiggieAttackTurn);
 					ShowBiggieAttackContainer();
-					_nodeBiggieAttackContainer.IsActive = true;
+					_nodeBiggieFightMove.IsActive = true;
+					_nodeBiggieFightMove.Show();
+					_nodeBiggieChatMove.IsActive = false;
+					_nodeBiggieChatMove.Hide();
 					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
 				}
 			}
 		}
-		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatSpecialAttack
+		else if (currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieFightChat
 				|| currStateId == Enumerations.Combat.StateMachine.States.TransitionToBiggieChatSpecialChat)
 		{
 			////GD.Print("Enumerations.Combat.StateMachine.States.TransitionToBiggieChat...");
@@ -205,7 +214,10 @@ public partial class CombatWrapper : Node2D
 					HideSubjectPanel();
 					EmitSignal(SignalName.StartBiggieAttackTurn);
 					ShowBiggieAttackContainer();
-					_nodeBiggieAttackContainer.IsActive = true;
+					_nodeBiggieFightMove.IsActive = false;
+					_nodeBiggieFightMove.Hide();
+					_nodeBiggieChatMove.IsActive = true;
+					_nodeBiggieChatMove.Show();
 					_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishTransition);
 				}
 			}
@@ -216,7 +228,8 @@ public partial class CombatWrapper : Node2D
 			if (!ProcessFirstPass())
 			{
 				HideBiggieAttackContainer();
-				_nodeBiggieAttackContainer.IsActive = false;
+				_nodeBiggieFightMove.IsActive = false;
+				_nodeBiggieChatMove.IsActive = false;
 				HideEnemyAttackContainer();
 				HideBiggieCombatMenuTextContainer();
 				HideActionInfo();
@@ -552,7 +565,7 @@ public partial class CombatWrapper : Node2D
 		return finished;
 	}
 
-	private void HandleEndBiggieAttackTurn(double damagePercentage)
+	private void HandleEndBiggieAttackTurn(float damagePercentage, bool isPerfect, bool isTrash)
 	{
 		switch (LastCombatOptionUsed)
 		{
@@ -563,7 +576,6 @@ public partial class CombatWrapper : Node2D
 				DealEmotionalDamage(3 * damagePercentage);
 				break;
 			case Enumerations.Combat.CombatOptions.SpecialAttack:
-
 				DealPhysicalDamage(5 * damagePercentage);
 				break;
 			case Enumerations.Combat.CombatOptions.SpecialChat:
@@ -574,12 +586,20 @@ public partial class CombatWrapper : Node2D
 				break;
 		}
 
+		if (isPerfect)
+		{
+			_globalCombatSingleton.SpecialMeter.AddToSpecialMeter(1);
+		}
+		else if (isTrash)
+		{
+			_globalCombatSingleton.SpecialMeter.AddToSpecialMeter(-1);
+		}
+
 		Action action = () =>
 		{
 			//_globalCombatSingleton.CombatStateMachineService.EmitCombatEvent(Enumerations.Combat.StateMachine.Events.FinishBiggieAttack);
 		};
 		HelperFunctions.SetTimeout(action);
-
 	}
 
 	[Signal]

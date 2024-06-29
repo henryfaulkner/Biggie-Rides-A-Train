@@ -1,7 +1,8 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
-public partial class BiggieAttackContainer : MarginContainer
+public partial class FightMove : Node2D
 {
 	#region Fight Zone Frame Details
 	public static readonly int _SPRITESHEET_LENGTH = 119;
@@ -25,8 +26,6 @@ public partial class BiggieAttackContainer : MarginContainer
 
 	private static readonly StringName _SPACE_INPUT = new StringName("interact");
 
-	private MarginContainer _nodeSelf = null;
-	private Panel _nodePanel = null;
 	private Sprite2D _nodeFightZoneSprite2D = null;
 	private AudioStreamPlayer _nodeGoodHitAudio = null;
 	private AudioStreamPlayer _nodeBadHitAudio = null;
@@ -46,8 +45,6 @@ public partial class BiggieAttackContainer : MarginContainer
 	{
 		ZoneSpriteIndex = 0;
 
-		_nodeSelf = GetNode<MarginContainer>(".");
-		_nodePanel = GetNode<Panel>("./BiggieAttackPanel");
 		_nodeFightZoneSprite2D = GetNode<Sprite2D>("./FightZoneSprite2D");
 		_nodeGoodHitAudio = GetNode<AudioStreamPlayer>("./GoodHit_AudioStreamPlayer");
 		_nodeBadHitAudio = GetNode<AudioStreamPlayer>("./BadHit_AudioStreamPlayer");
@@ -67,12 +64,14 @@ public partial class BiggieAttackContainer : MarginContainer
 	}
 
 	[Signal]
-	public delegate void EndBiggieAttackTurnEventHandler(double damagePercentage);
+	public delegate void EndBiggieAttackTurnEventHandler(float damagePercentage, bool isPerfect, bool isTrash);
 	private void DealDamage(int frameIndex)
 	{
 		var damageZone = GetDamageZone(frameIndex);
 		var damagePercentage = GetDamagePercentage(damageZone);
-		EmitSignal(SignalName.EndBiggieAttackTurn, damagePercentage);
+		bool isPerfect = damagePercentage == 1.0f;
+		bool isTrash = damagePercentage == 0.0f;
+		EmitSignal(SignalName.EndBiggieAttackTurn, damagePercentage, isPerfect, isTrash);
 	}
 
 	private DamageZones GetDamageZone(int frameIndex)
@@ -115,22 +114,22 @@ public partial class BiggieAttackContainer : MarginContainer
 		return DamageZones.Trash;
 	}
 
-	private double GetDamagePercentage(DamageZones damageZone)
+	private float GetDamagePercentage(DamageZones damageZone)
 	{
-		double result = 0.0;
+		float result = 0.0f;
 		switch (damageZone)
 		{
 			case DamageZones.Trash:
-				result = 0.0;
+				result = 0.0f;
 				break;
 			case DamageZones.Bad:
-				result = .334;
+				result = 0.334f;
 				break;
 			case DamageZones.Good:
-				result = .667;
+				result = 0.667f;
 				break;
 			case DamageZones.Perfect:
-				result = 1.0;
+				result = 1.0f;
 				break;
 			default:
 				break;
@@ -138,4 +137,3 @@ public partial class BiggieAttackContainer : MarginContainer
 		return result;
 	}
 }
-

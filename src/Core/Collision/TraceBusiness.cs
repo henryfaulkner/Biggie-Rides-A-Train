@@ -143,9 +143,6 @@ public partial class TraceBusiness : Node3D
 
 		// Check the transform matrix
 		var det = shapeParams.Transform.Basis.Determinant();
-		GD.Print($"Transform determinant: {det}");
-		GD.Print($"Transform Basis: {shapeParams.Transform.Basis}");
-		GD.Print($"Transform Origin: {shapeParams.Transform.Origin}");
 		if (det == 0)
 		{
 			GD.PrintErr("The transform basis is non-invertible.");
