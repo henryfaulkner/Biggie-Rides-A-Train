@@ -1,17 +1,45 @@
-[gd_scene load_steps=9 format=3 uid="uid://ci62f51xm0q63"]
+[gd_scene load_steps=12 format=3 uid="uid://ci62f51xm0q63"]
 
 [ext_resource type="Script" path="res://Pages/CombatScenes/MushroomBattle_1/CombatSceneMushroomBattle_1.cs" id="1_g2ggb"]
 [ext_resource type="PackedScene" uid="uid://dcdbd272fdx4j" path="res://ObjectLibrary/Wrappers/CombatWrapper/CombatWrapper.tscn" id="1_ovtpk"]
 [ext_resource type="PackedScene" uid="uid://cbe22sj2cy0ic" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/Mushroom/MushroomAttackContainer.tscn" id="2_et7vv"]
+[ext_resource type="Shader" path="res://Assets/Images/CombatScenes/Backgrounds/Video Drug.gdshader" id="2_lo4l3"]
+[ext_resource type="Texture2D" uid="uid://bw6ywhowtj14p" path="res://Assets/Images/CombatScenes/Backgrounds/Earthbound-like.tga" id="3_b0wg5"]
 [ext_resource type="PackedScene" uid="uid://2mh1lln1nml3" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/EnemyAttackContainer/EnemyAttackContainer.tscn" id="3_kdd11"]
 [ext_resource type="PackedScene" uid="uid://cbxe4ywsrbc2y" path="res://ObjectLibrary/CombatSubjects/EnemyAttack/EnemyAttackContainer/EnemyAttackPanel.tscn" id="4_6v26q"]
 [ext_resource type="Texture2D" uid="uid://co7aoj6hlth3i" path="res://Assets/Images/Objects/Therapist.png" id="6_oiufs"]
 [ext_resource type="StyleBox" uid="uid://dectwjukpq2an" path="res://ObjectLibrary/CombatSubjects/BiggieCombatMenu/PageStyles/Inactive_EnemyTargetPanelOption.tres.tres" id="6_t4r47"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1hlks"]
+shader = ExtResource("2_lo4l3")
+shader_parameter/horizontal_distortion = true
+shader_parameter/vertical_distortion = 1
+shader_parameter/amplitude = Vector2(0, 0.2)
+shader_parameter/frequency = Vector2(2, 2)
+shader_parameter/scale = 1.0
+shader_parameter/move = Vector2(-0.02, -0.01)
+shader_parameter/ping_pong = false
+shader_parameter/palette_shifting_speed = 0.0
+shader_parameter/palette_shifting = false
+shader_parameter/interleaved = 0
+shader_parameter/screen_height = 180.0
+shader_parameter/screen_width = 320.0
+shader_parameter/barrel = false
+shader_parameter/effect = 1.0
+shader_parameter/effect_scale = 2.0
+shader_parameter/barrelxy = Vector2(1, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pmj34"]
 
 [node name="CombatSceneMushroomBattle1" type="Node2D"]
 script = ExtResource("1_g2ggb")
+
+[node name="FlowerBackground" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_1hlks")
+offset_right = 2048.0
+offset_bottom = 1024.0
+texture = ExtResource("3_b0wg5")
+stretch_mode = 1
 
 [node name="CombatWrapper" parent="." instance=ExtResource("1_ovtpk")]
 

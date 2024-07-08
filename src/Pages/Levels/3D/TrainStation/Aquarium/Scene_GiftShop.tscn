@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Images/Objects/Teller.png" id="4_dcll8"]
 [ext_resource type="Texture2D" uid="uid://duun5cslc1hp8" path="res://Assets/Images/PrototypeTextures/Orange/texture_05.png" id="5_u1ikw"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="6_3tpsf"]
-[ext_resource type="Script" path="res://Pages/Levels/3D/TrainStation/MainTerminal/AquariumGiftShop.cs" id="6_q8ij8"]
+[ext_resource type="Script" path="res://Pages/Levels/3D/TrainStation/Aquarium/GiftShop/AquariumGiftShop.cs" id="6_q8ij8"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_ayqc1"]
 [ext_resource type="Texture2D" uid="uid://cqic03fqsmvf4" path="res://Assets/Images/Misc./AquariumLogo.png" id="7_o3j7v"]
 [ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="8_djith"]
@@ -234,7 +234,7 @@ mesh = SubResource("PlaneMesh_kk43k")
 environment = SubResource("Environment_l2k56")
 
 [node name="PhantomCamera3D" type="Node3D" parent="." node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.866023, 0.499999, 0, -0.499999, 0.866023, 3.10957, 2.46603, 12.3082)
+transform = Transform3D(1, 0, 0, 0, 0.866023, 0.499999, 0, -0.499999, 0.866023, 3.10957, 2.46538, 12.3082)
 script = ExtResource("6_3tpsf")
 follow_mode = 5
 follow_target = NodePath("../LevelWrapper/TextBoxWrapper/Biggie3D")
@@ -249,7 +249,7 @@ spring_length = 4.0
 look_at_damping = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.866023, 0.499999, 0, -0.499999, 0.866023, 3.10957, 2.46603, 12.3082)
+transform = Transform3D(1, 0, 0, 0, 0.866023, 0.499999, 0, -0.499999, 0.866023, 3.10957, 2.46538, 12.3082)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 script = ExtResource("9_qbjdk")

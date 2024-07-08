@@ -1,10 +1,5 @@
 {
-  "StoredLocation": {
-    "SceneId": 6,
-    "X": 2.0,
-    "Y": 0.0,
-    "Z": 3.0
-  },
+  "StoredLocation": null,
   "AdditionalStoredLocation": null,
   "HasItemTicketPieceOne": false,
   "HasItemTicketPieceTwo": false,
@@ -23,7 +18,7 @@
   "IsSwitchDoorOpen": false,
   "IsButtonDoorOpen": false,
   "IsMushroomDead": false,
-  "IsMushroomMoved": true,
+  "IsMushroomMoved": false,
   "IsDoubleMushroomDefeated": false,
   "UserSettings": {
     "FxMuted": false

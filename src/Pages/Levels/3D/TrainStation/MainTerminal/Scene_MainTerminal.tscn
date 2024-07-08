@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://0v6ujein2rgj"]
+[gd_scene load_steps=69 format=3 uid="uid://0v6ujein2rgj"]
 
 [ext_resource type="Script" path="res://Pages/Levels/3D/TrainStation/MainTerminal/Scene_MainTerminal.cs" id="1_2yt3o"]
 [ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_g0fpa"]
@@ -14,15 +14,11 @@
 [ext_resource type="Material" uid="uid://damkwcny37uf8" path="res://Assets/Materials/GlassMaterial.tres" id="10_fx1ky"]
 [ext_resource type="PackedScene" uid="uid://uuyhg1mhqlj" path="res://ObjectLibrary/NPCs/3D/Lion3D/Lion3D.tscn" id="11_6ugy6"]
 [ext_resource type="ArrayMesh" uid="uid://c1virn0w6msoc" path="res://Assets/3D_Models/PedestalStand.obj" id="11_h3yda"]
-[ext_resource type="Texture2D" uid="uid://cqic03fqsmvf4" path="res://Assets/Images/Misc./AquariumLogo.png" id="12_4ddlx"]
-[ext_resource type="Script" path="res://Pages/Levels/3D/TrainStation/MainTerminal/AquariumGiftShop.cs" id="12_ukh6g"]
-[ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh_instance.gd" id="13_pnp1v"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="13_wjk60"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="14_1tbbb"]
-[ext_resource type="Script" path="res://addons/sprite_mesh/sprite_mesh.gd" id="14_8enif"]
-[ext_resource type="Texture2D" uid="uid://cd4f4osl4meik" path="res://Assets/Images/Misc./AquariumDoor.png" id="15_4wsmh"]
+[ext_resource type="PackedScene" uid="uid://p5crv76o8xtp" path="res://Pages/Levels/3D/TrainStation/Aquarium/GiftShop/Scene_AquariumGiftShop.tscn" id="14_q4n2b"]
+[ext_resource type="Script" path="res://Pages/Levels/3D/TrainStation/MainTerminal/MoveToPathTest.cs" id="15_mjqsr"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="15_tb6mm"]
-[ext_resource type="Script" path="res://Pages/Levels/3D/TrainStation/MainTerminal/BehindDoorDarkness.gd" id="17_4v0y8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvmyi"]
 albedo_texture = ExtResource("5_74ffu")
@@ -163,60 +159,12 @@ points = PackedVector3Array(17.8853, -32.8413, 24.1996, 7.47361, -46.0281, 26.28
 [sub_resource type="BoxShape3D" id="BoxShape3D_cio7y"]
 size = Vector3(3, 20, 20)
 
-[sub_resource type="BoxMesh" id="BoxMesh_77reh"]
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_ms1sv"]
-_surfaces = [{
-"aabb": AABB(-1.98, -1.64, -0.005, 3.96, 3.28001, 0.01001),
-"attribute_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 181, 126, 165, 58, 0, 0, 0, 0, 181, 126, 165, 58, 0, 0, 0, 0, 181, 126, 165, 58, 0, 0, 128, 63, 181, 126, 165, 58, 0, 0, 128, 63, 65, 173, 127, 63, 0, 0, 0, 0, 65, 173, 127, 63, 0, 0, 0, 0, 65, 173, 127, 63, 0, 0, 128, 63, 65, 173, 127, 63, 0, 0, 128, 63, 0, 0, 0, 0, 12, 206, 199, 58, 0, 0, 128, 63, 12, 206, 199, 58, 0, 0, 128, 63, 12, 206, 199, 58, 0, 0, 0, 0, 12, 206, 199, 58, 0, 0, 0, 0, 25, 156, 127, 63, 0, 0, 128, 63, 25, 156, 127, 63, 0, 0, 128, 63, 25, 156, 127, 63, 0, 0, 0, 0, 25, 156, 127, 63),
-"format": 34359742487,
-"index_count": 36,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 6, 0, 8, 0, 9, 0, 10, 0, 11, 0, 12, 0, 10, 0, 12, 0, 13, 0, 14, 0, 15, 0, 16, 0, 14, 0, 16, 0, 17, 0, 18, 0, 19, 0, 20, 0, 18, 0, 20, 0, 21, 0, 22, 0, 23, 0, 24, 0, 22, 0, 24, 0, 25, 0),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 26,
-"vertex_data": PackedByteArray(163, 112, 253, 191, 133, 235, 209, 63, 10, 215, 163, 59, 163, 112, 253, 63, 133, 235, 209, 63, 10, 215, 163, 59, 163, 112, 253, 63, 133, 235, 209, 191, 10, 215, 163, 59, 163, 112, 253, 191, 133, 235, 209, 63, 10, 215, 163, 59, 163, 112, 253, 63, 133, 235, 209, 191, 10, 215, 163, 59, 163, 112, 253, 191, 133, 235, 209, 191, 10, 215, 163, 59, 163, 112, 253, 63, 133, 235, 209, 63, 10, 215, 163, 187, 163, 112, 253, 191, 133, 235, 209, 63, 10, 215, 163, 187, 163, 112, 253, 191, 133, 235, 209, 191, 10, 215, 163, 187, 163, 112, 253, 63, 133, 235, 209, 191, 10, 215, 163, 187, 163, 112, 253, 191, 133, 235, 209, 63, 10, 215, 163, 187, 163, 112, 253, 191, 133, 235, 209, 63, 10, 215, 163, 59, 163, 112, 253, 191, 133, 235, 209, 191, 10, 215, 163, 59, 163, 112, 253, 191, 133, 235, 209, 191, 10, 215, 163, 187, 163, 112, 253, 63, 133, 235, 209, 63, 10, 215, 163, 59, 163, 112, 253, 63, 133, 235, 209, 63, 10, 215, 163, 187, 163, 112, 253, 63, 133, 235, 209, 191, 10, 215, 163, 187, 163, 112, 253, 63, 133, 235, 209, 191, 10, 215, 163, 59, 163, 112, 253, 191, 133, 235, 209, 63, 10, 215, 163, 187, 163, 112, 253, 63, 133, 235, 209, 63, 10, 215, 163, 187, 163, 112, 253, 63, 133, 235, 209, 63, 10, 215, 163, 59, 163, 112, 253, 191, 133, 235, 209, 63, 10, 215, 163, 59, 163, 112, 253, 191, 133, 235, 209, 191, 10, 215, 163, 59, 163, 112, 253, 63, 133, 235, 209, 191, 10, 215, 163, 59, 163, 112, 253, 63, 133, 235, 209, 191, 10, 215, 163, 187, 163, 112, 253, 191, 133, 235, 209, 191, 10, 215, 163, 187, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191)
-}]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fpt78"]
-albedo_texture = ExtResource("12_4ddlx")
-texture_filter = 0
-
-[sub_resource type="Resource" id="Resource_m2ho4"]
-script = ExtResource("14_8enif")
-meshes = Array[ArrayMesh]([SubResource("ArrayMesh_ms1sv")])
-material = SubResource("StandardMaterial3D_fpt78")
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_mo6ag"]
-_surfaces = [{
-"aabb": AABB(-0.31, -5.1, -0.005, 5.71, 10.2, 0.01001),
-"attribute_data": PackedByteArray(192, 77, 241, 62, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 192, 77, 241, 62, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 192, 77, 241, 62, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 0, 192, 77, 241, 62, 0, 0, 0, 0, 192, 77, 241, 62, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 110, 138, 241, 62, 0, 0, 0, 0, 110, 138, 241, 62, 0, 0, 0, 0, 110, 138, 241, 62, 0, 0, 128, 63, 110, 138, 241, 62, 0, 0, 128, 63, 169, 225, 127, 63, 0, 0, 0, 0, 169, 225, 127, 63, 0, 0, 0, 0, 169, 225, 127, 63, 0, 0, 128, 63, 169, 225, 127, 63, 0, 0, 128, 63, 192, 77, 241, 62, 129, 128, 0, 58, 0, 0, 128, 63, 129, 128, 0, 58, 0, 0, 128, 63, 129, 128, 0, 58, 192, 77, 241, 62, 129, 128, 0, 58, 192, 77, 241, 62, 224, 223, 127, 63, 0, 0, 128, 63, 224, 223, 127, 63, 0, 0, 128, 63, 224, 223, 127, 63, 192, 77, 241, 62, 224, 223, 127, 63),
-"format": 34359742487,
-"index_count": 36,
-"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 6, 0, 8, 0, 9, 0, 10, 0, 11, 0, 12, 0, 10, 0, 12, 0, 13, 0, 14, 0, 15, 0, 16, 0, 14, 0, 16, 0, 17, 0, 18, 0, 19, 0, 20, 0, 18, 0, 20, 0, 21, 0, 22, 0, 23, 0, 24, 0, 22, 0, 24, 0, 25, 0),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 26,
-"vertex_data": PackedByteArray(82, 184, 158, 190, 51, 51, 163, 64, 10, 215, 163, 59, 205, 204, 172, 64, 51, 51, 163, 64, 10, 215, 163, 59, 205, 204, 172, 64, 51, 51, 163, 192, 10, 215, 163, 59, 82, 184, 158, 190, 51, 51, 163, 64, 10, 215, 163, 59, 205, 204, 172, 64, 51, 51, 163, 192, 10, 215, 163, 59, 82, 184, 158, 190, 51, 51, 163, 192, 10, 215, 163, 59, 205, 204, 172, 64, 51, 51, 163, 64, 10, 215, 163, 187, 82, 184, 158, 190, 51, 51, 163, 64, 10, 215, 163, 187, 82, 184, 158, 190, 51, 51, 163, 192, 10, 215, 163, 187, 205, 204, 172, 64, 51, 51, 163, 192, 10, 215, 163, 187, 82, 184, 158, 190, 51, 51, 163, 64, 10, 215, 163, 187, 82, 184, 158, 190, 51, 51, 163, 64, 10, 215, 163, 59, 82, 184, 158, 190, 51, 51, 163, 192, 10, 215, 163, 59, 82, 184, 158, 190, 51, 51, 163, 192, 10, 215, 163, 187, 205, 204, 172, 64, 51, 51, 163, 64, 10, 215, 163, 59, 205, 204, 172, 64, 51, 51, 163, 64, 10, 215, 163, 187, 205, 204, 172, 64, 51, 51, 163, 192, 10, 215, 163, 187, 205, 204, 172, 64, 51, 51, 163, 192, 10, 215, 163, 59, 82, 184, 158, 190, 51, 51, 163, 64, 10, 215, 163, 187, 205, 204, 172, 64, 51, 51, 163, 64, 10, 215, 163, 187, 205, 204, 172, 64, 51, 51, 163, 64, 10, 215, 163, 59, 82, 184, 158, 190, 51, 51, 163, 64, 10, 215, 163, 59, 82, 184, 158, 190, 51, 51, 163, 192, 10, 215, 163, 59, 205, 204, 172, 64, 51, 51, 163, 192, 10, 215, 163, 59, 205, 204, 172, 64, 51, 51, 163, 192, 10, 215, 163, 187, 82, 184, 158, 190, 51, 51, 163, 192, 10, 215, 163, 187, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 127, 255, 127, 255, 255, 255, 191, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 255, 255, 255, 255, 255, 255, 255, 63, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 0, 0, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 255, 255, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191, 255, 127, 0, 0, 255, 255, 255, 191)
-}]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tg23m"]
-albedo_texture = ExtResource("15_4wsmh")
-texture_filter = 0
-
-[sub_resource type="Resource" id="Resource_06jxx"]
-script = ExtResource("14_8enif")
-meshes = Array[ArrayMesh]([SubResource("ArrayMesh_mo6ag")])
-material = SubResource("StandardMaterial3D_tg23m")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_gqs4f"]
-size = Vector3(1, 1, 0.806701)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2o3nw"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_g43r4"]
-material = SubResource("StandardMaterial3D_2o3nw")
+[sub_resource type="Curve3D" id="Curve3D_oi22b"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
 
 [sub_resource type="Environment" id="Environment_s1o1x"]
 ambient_light_color = Color(1, 1, 1, 1)
@@ -242,308 +190,295 @@ far = 4000.0
 [node name="SceneMainTerminal" type="Node3D"]
 script = ExtResource("1_2yt3o")
 
-[node name="TextBoxWrapper" parent="." instance=ExtResource("2_kjt3v")]
+[node name="LevelWrapper" parent="." instance=ExtResource("1_g0fpa")]
 
-[node name="LevelWrapper" parent="TextBoxWrapper" instance=ExtResource("1_g0fpa")]
+[node name="TextBoxWrapper" parent="LevelWrapper" instance=ExtResource("2_kjt3v")]
 
-[node name="Biggie3D" parent="TextBoxWrapper/LevelWrapper" instance=ExtResource("3_g8h4i")]
+[node name="Biggie3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("3_g8h4i")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 23.8097, 0.923772, 21.3311)
 
-[node name="Facade" type="Node3D" parent="TextBoxWrapper/LevelWrapper"]
+[node name="Facade" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
 
-[node name="Floor" type="MeshInstance3D" parent="TextBoxWrapper/LevelWrapper/Facade"]
-transform = Transform3D(37.143, 0, 0, 0, 7.429, 0, 0, 0, 13, 20.282, 0, 11.0603)
+[node name="Floor" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(20.1674, 0, 0, 0, 7.429, 0, 0, 0, 6.95631, 20.282, 0, 11.0603)
 mesh = SubResource("PlaneMesh_2qm52")
 skeleton = NodePath("")
 
-[node name="LeftWall" type="MeshInstance3D" parent="TextBoxWrapper/LevelWrapper/Facade"]
+[node name="LeftWall" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
 transform = Transform3D(-0.0201059, 0.499994, -2.18554e-08, 0, -2.18557e-08, -0.5, -3.99995, -0.00251324, 1.09857e-10, -0.900512, 1.83798, 5.07393)
 mesh = SubResource("BoxMesh_be5k0")
 skeleton = NodePath("")
 
-[node name="BackWall" type="MeshInstance3D" parent="TextBoxWrapper/LevelWrapper/Facade"]
+[node name="BackWall" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
 transform = Transform3D(-0.00010053, 8.99989, -2.18554e-08, 0, -3.93403e-07, -0.5, -0.0199997, -0.0452383, 1.09857e-10, 20.6862, 1.83798, 0.0806475)
 mesh = SubResource("BoxMesh_be5k0")
 skeleton = NodePath("")
 
-[node name="LeftWall2" type="MeshInstance3D" parent="TextBoxWrapper/LevelWrapper/Facade"]
-transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 3, 41.3651, 1.94969, 10.7102)
+[node name="LeftWall2" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 3.1536, 41.3651, 1.94969, 1.02847)
 mesh = SubResource("BoxMesh_be5k0")
 skeleton = NodePath("")
 
-[node name="SceneBorders" type="Node3D" parent="TextBoxWrapper/LevelWrapper"]
+[node name="LeftWall3" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Facade"]
+transform = Transform3D(0.18, 0, 0, 0, 1, 0, 0, 0, 2, 41.4713, 1.98452, 32.7099)
+mesh = SubResource("BoxMesh_be5k0")
+skeleton = NodePath("")
 
-[node name="TopMostBarrier" type="StaticBody3D" parent="TextBoxWrapper/LevelWrapper/SceneBorders"]
+[node name="SceneBorders" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+
+[node name="TopMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.4515, 0.579015, 0.548595)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SceneBorders/TopMostBarrier"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/TopMostBarrier"]
 shape = SubResource("BoxShape3D_5krpv")
 
-[node name="RightMostBarrier" type="StaticBody3D" parent="TextBoxWrapper/LevelWrapper/SceneBorders"]
+[node name="RightMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8352, 0.925612, 7.47801)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SceneBorders/RightMostBarrier"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/RightMostBarrier"]
 shape = SubResource("BoxShape3D_6ut1i")
+disabled = true
 
-[node name="BottomMostBarrier" type="StaticBody3D" parent="TextBoxWrapper/LevelWrapper/SceneBorders"]
+[node name="BottomMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 23.9389)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SceneBorders/BottomMostBarrier"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/BottomMostBarrier"]
 shape = SubResource("BoxShape3D_sgm5a")
 
-[node name="LeftMostBarrier" type="StaticBody3D" parent="TextBoxWrapper/LevelWrapper/SceneBorders"]
+[node name="LeftMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0346346, 0.389235, 2.90152)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SceneBorders/LeftMostBarrier"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/LeftMostBarrier"]
 shape = SubResource("BoxShape3D_6ut1i")
 
-[node name="FloorMostBarrier" type="StaticBody3D" parent="TextBoxWrapper/LevelWrapper/SceneBorders"]
+[node name="FloorMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 20, 6.38081, 0.045277, 1.93252)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SceneBorders/FloorMostBarrier"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/FloorMostBarrier"]
 shape = SubResource("BoxShape3D_77vuk")
 
-[node name="ForwardWallMostBarrier" type="StaticBody3D" parent="TextBoxWrapper/LevelWrapper/SceneBorders"]
+[node name="ForwardWallMostBarrier" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12.7616, -0.535829, 0.834153)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SceneBorders/ForwardWallMostBarrier"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SceneBorders/ForwardWallMostBarrier"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.758507, -3.73999)
 shape = SubResource("BoxShape3D_77vuk")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="TextBoxWrapper/LevelWrapper"]
+[node name="SpotLight3D" type="SpotLight3D" parent="LevelWrapper/TextBoxWrapper"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5037, 4.42847, 15.6656)
 spot_range = 1e+06
 
-[node name="Teller" type="StaticBody3D" parent="TextBoxWrapper/LevelWrapper"]
+[node name="Teller" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper"]
 transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 23.944, -0.607, 11.2896)
 script = ExtResource("6_0obci")
 
-[node name="TellerMesh" type="MeshInstance3D" parent="TextBoxWrapper/LevelWrapper/Teller"]
+[node name="TellerMesh" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Teller"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 mesh = ExtResource("8_6ptmk")
-skeleton = NodePath("../../..")
+skeleton = NodePath("../..")
 
-[node name="SpotLight3D" type="OmniLight3D" parent="TextBoxWrapper/LevelWrapper/Teller/TellerMesh"]
+[node name="SpotLight3D" type="OmniLight3D" parent="LevelWrapper/TextBoxWrapper/Teller/TellerMesh"]
 transform = Transform3D(1, 8.52651e-14, 3.04932e-21, -8.52651e-14, 1, 2.13163e-14, -3.04932e-21, -2.13163e-14, 1, 0, -5.53795, 19.1177)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/Teller"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/Teller"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_5s2yh")
 
-[node name="InteractableArea3D" type="Area3D" parent="TextBoxWrapper/LevelWrapper/Teller"]
+[node name="InteractableArea3D" type="Area3D" parent="LevelWrapper/TextBoxWrapper/Teller"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 24)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/Teller/InteractableArea3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/Teller/InteractableArea3D"]
 shape = SubResource("BoxShape3D_5n2nm")
 
-[node name="Lion3D" parent="TextBoxWrapper/LevelWrapper" instance=ExtResource("11_6ugy6")]
+[node name="Lion3D" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("11_6ugy6")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 24.063, 0.8, 11.1706)
 
-[node name="Pedestal" type="Node3D" parent="TextBoxWrapper/LevelWrapper"]
+[node name="Pedestal" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3801, 0, 10.5244)
 
-[node name="PedestalGlass" type="StaticBody3D" parent="TextBoxWrapper/LevelWrapper/Pedestal"]
+[node name="PedestalGlass" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/Pedestal"]
 transform = Transform3D(0.052, 0, 0, 0, 0.052, 0, 0, 0, 0.052, 0, 1.177, 0.3)
 
-[node name="PedestalGlassMesh" type="MeshInstance3D" parent="TextBoxWrapper/LevelWrapper/Pedestal/PedestalGlass"]
+[node name="PedestalGlassMesh" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Pedestal/PedestalGlass"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 mesh = ExtResource("9_m4j3f")
-skeleton = NodePath("../../../..")
+skeleton = NodePath("../../..")
 surface_material_override/0 = ExtResource("10_fx1ky")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/Pedestal/PedestalGlass"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/Pedestal/PedestalGlass"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_4q5xu")
 
-[node name="PedestalStand" type="StaticBody3D" parent="TextBoxWrapper/LevelWrapper/Pedestal"]
+[node name="PedestalStand" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper/Pedestal"]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
 
-[node name="PedestalStandMesh" type="MeshInstance3D" parent="TextBoxWrapper/LevelWrapper/Pedestal/PedestalStand"]
+[node name="PedestalStandMesh" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/Pedestal/PedestalStand"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 mesh = ExtResource("11_h3yda")
-skeleton = NodePath("../../../..")
+skeleton = NodePath("../../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/Pedestal/PedestalStand"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/Pedestal/PedestalStand"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_v7p45")
 
-[node name="SpiralStaircase" type="StaticBody3D" parent="TextBoxWrapper/LevelWrapper"]
+[node name="SpiralStaircase" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper"]
 transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 36.713, 8.77848, 10.7534)
 
-[node name="SpiralStaircaseMesh" type="MeshInstance3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="SpiralStaircaseMesh" type="MeshInstance3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 mesh = ExtResource("7_a5qd7")
-skeleton = NodePath("../../..")
+skeleton = NodePath("../..")
 
-[node name="@CollisionShape3D@38311" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38311" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_7qnrg")
 
-[node name="@CollisionShape3D@38310" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38310" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_qxk7q")
 
-[node name="@CollisionShape3D@38309" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38309" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_el48b")
 
-[node name="@CollisionShape3D@38308" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38308" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_2h5s8")
 
-[node name="@CollisionShape3D@38307" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38307" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_va2u7")
 
-[node name="@CollisionShape3D@38306" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38306" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_njnnd")
 
-[node name="@CollisionShape3D@38305" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38305" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_uq6nl")
 
-[node name="@CollisionShape3D@38304" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38304" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_du56e")
 
-[node name="@CollisionShape3D@38303" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38303" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_ai3h5")
 
-[node name="@CollisionShape3D@38302" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38302" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_mfuw2")
 
-[node name="@CollisionShape3D@38301" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38301" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_wjvpx")
 
-[node name="@CollisionShape3D@38300" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38300" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_l468p")
 
-[node name="@CollisionShape3D@38299" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38299" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_lp3hp")
 
-[node name="@CollisionShape3D@38298" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38298" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_05yc2")
 
-[node name="@CollisionShape3D@38297" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38297" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_xfne7")
 
-[node name="@CollisionShape3D@38296" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38296" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_g7lon")
 
-[node name="@CollisionShape3D@38295" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38295" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_33xgp")
 
-[node name="@CollisionShape3D@38294" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38294" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_g6eqa")
 
-[node name="@CollisionShape3D@38293" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38293" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_u8ksa")
 
-[node name="@CollisionShape3D@38292" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38292" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_1hp4y")
 
-[node name="@CollisionShape3D@38291" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38291" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_0yh8u")
 
-[node name="@CollisionShape3D@38290" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38290" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_xliqn")
 
-[node name="@CollisionShape3D@38289" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38289" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_vnsid")
 
-[node name="@CollisionShape3D@38288" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38288" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_wlx0f")
 
-[node name="@CollisionShape3D@38287" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38287" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_y4ue5")
 
-[node name="@CollisionShape3D@38286" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38286" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_b8hge")
 
-[node name="@CollisionShape3D@38285" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38285" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_a5uu0")
 
-[node name="@CollisionShape3D@38284" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38284" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_4kb5k")
 
-[node name="@CollisionShape3D@38283" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38283" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_0dqq4")
 
-[node name="@CollisionShape3D@38282" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38282" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_lico6")
 
-[node name="@CollisionShape3D@38281" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="@CollisionShape3D@38281" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_gt5q1")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SpiralStaircase"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SpiralStaircase"]
 transform = Transform3D(1, 0, 0, 0, 1, -2.4869e-15, 0, 3.55271e-15, 0.7, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_oeid6")
 
-[node name="SlopeTest" type="StaticBody3D" parent="TextBoxWrapper/LevelWrapper"]
+[node name="SlopeTest" type="StaticBody3D" parent="LevelWrapper/TextBoxWrapper"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/SlopeTest"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelWrapper/TextBoxWrapper/SlopeTest"]
 transform = Transform3D(-0.0347296, 0, 0.196962, 0.196962, -8.74228e-09, 0.0347296, 8.60947e-09, 0.2, 1.51808e-09, 31.1305, 0.0461111, 9.15147)
 shape = SubResource("BoxShape3D_cio7y")
 
-[node name="AquariumGiftShop" type="Node3D" parent="TextBoxWrapper/LevelWrapper"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.0023, 0, 19.6274)
-script = ExtResource("12_ukh6g")
+[node name="AquariumGiftShop" parent="LevelWrapper/TextBoxWrapper" instance=ExtResource("14_q4n2b")]
+transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1, 39.488, -0.115026, 19.627)
 
-[node name="OuterAquarium" type="MeshInstance3D" parent="TextBoxWrapper/LevelWrapper/AquariumGiftShop"]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 6, 1.25827, 2.0875, 0.132172)
-mesh = SubResource("BoxMesh_77reh")
+[node name="MoveToPathTest" type="Node3D" parent="LevelWrapper/TextBoxWrapper"]
+transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 49.651, 1.05678, 14.1407)
+script = ExtResource("15_mjqsr")
 
-[node name="AquariumLogo" type="MeshInstance3D" parent="TextBoxWrapper/LevelWrapper/AquariumGiftShop/OuterAquarium"]
-transform = Transform3D(-4.37114e-09, 0, -0.5, 0, 0.1, 0, 0.1, 0, -2.18557e-08, -0.50313, 0.279023, 0)
-mesh = SubResource("ArrayMesh_ms1sv")
-surface_material_override/0 = SubResource("StandardMaterial3D_fpt78")
-script = ExtResource("13_pnp1v")
-texture = ExtResource("12_4ddlx")
-generated_sprite_mesh = SubResource("Resource_m2ho4")
+[node name="Lion3D" parent="LevelWrapper/TextBoxWrapper/MoveToPathTest" instance=ExtResource("11_6ugy6")]
 
-[node name="AquariumDoor" type="MeshInstance3D" parent="TextBoxWrapper/LevelWrapper/AquariumGiftShop/OuterAquarium"]
-transform = Transform3D(-1.74846e-09, 0, -0.8, 0, 0.05, 0, 0.04, 0, -3.49691e-08, -0.511002, -0.246418, -0.100484)
-mesh = SubResource("ArrayMesh_mo6ag")
-surface_material_override/0 = SubResource("StandardMaterial3D_tg23m")
-script = ExtResource("13_pnp1v")
-texture = ExtResource("15_4wsmh")
-generated_sprite_mesh = SubResource("Resource_06jxx")
+[node name="Path3D" type="Path3D" parent="LevelWrapper/TextBoxWrapper/MoveToPathTest"]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 3.32034, 0, 0)
+curve = SubResource("Curve3D_oi22b")
 
-[node name="InteractableArea3D" type="Area3D" parent="TextBoxWrapper/LevelWrapper/AquariumGiftShop/OuterAquarium/AquariumDoor"]
-transform = Transform3D(1.06999e-13, 1.31134e-06, 35, 44.8, -1.04907e-06, 0, 1.71477e-07, 2.10158, -1.07173e-07, 1.33166, -0.563197, 0.279919)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TextBoxWrapper/LevelWrapper/AquariumGiftShop/OuterAquarium/AquariumDoor/InteractableArea3D"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.0126461, -0.0386519, 0.0346525)
-shape = SubResource("BoxShape3D_gqs4f")
-
-[node name="OutsideGiftShopDoor" type="MeshInstance3D" parent="TextBoxWrapper/LevelWrapper/AquariumGiftShop/OuterAquarium"]
-transform = Transform3D(-1.22392e-08, -0.2, 0, 0.28, -8.74228e-09, 0, 0, 0, 0.1, -0.500994, -0.274578, 0.00297952)
-mesh = SubResource("PlaneMesh_g43r4")
-script = ExtResource("17_4v0y8")
+[node name="PathFollow3D" type="PathFollow3D" parent="LevelWrapper/TextBoxWrapper/MoveToPathTest/Path3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+tilt_enabled = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s1o1x")
@@ -552,7 +487,7 @@ environment = SubResource("Environment_s1o1x")
 transform = Transform3D(1, 0, 0, 0, 0.866023, 0.499999, 0, -0.499999, 0.866023, 23.8097, 2.92377, 24.7952)
 script = ExtResource("13_wjk60")
 follow_mode = 5
-follow_target = NodePath("../TextBoxWrapper/LevelWrapper/Biggie3D")
+follow_target = NodePath("../LevelWrapper/TextBoxWrapper/Biggie3D")
 tween_resource = SubResource("Resource_ptedk")
 camera_3d_resource = SubResource("Resource_jvoeq")
 follow_damping = true
@@ -567,7 +502,7 @@ look_at_damping = true
 transform = Transform3D(-1, 4.37115e-08, -7.57105e-08, 0, 0.866027, 0.500001, 8.74228e-08, 0.500001, -0.866027, 23.8097, 2.92378, 17.867)
 script = ExtResource("13_wjk60")
 follow_mode = 5
-follow_target = NodePath("../TextBoxWrapper/LevelWrapper/Biggie3D")
+follow_target = NodePath("../LevelWrapper/TextBoxWrapper/Biggie3D")
 tween_resource = SubResource("Resource_ptedk")
 camera_3d_resource = SubResource("Resource_jvoeq")
 follow_damping = true

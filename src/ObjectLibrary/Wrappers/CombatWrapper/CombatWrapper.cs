@@ -582,7 +582,7 @@ public partial class CombatWrapper : Node2D
 				DealEmotionalDamage(5 * damagePercentage);
 				break;
 			default:
-				//GD.Print("CombatWrapper HandleEndBiggieAttackTurn LastCombatOptionUsed did not map.");
+				GD.Print("CombatWrapper HandleEndBiggieAttackTurn LastCombatOptionUsed did not map.");
 				break;
 		}
 

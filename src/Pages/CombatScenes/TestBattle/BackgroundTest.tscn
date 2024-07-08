@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://7l11rodxw2o7"]
+
+[ext_resource type="Texture2D" uid="uid://bw6ywhowtj14p" path="res://Assets/Images/CombatScenes/Backgrounds/Earthbound-like.tga" id="1_am5iv"]
+[ext_resource type="Shader" path="res://Assets/Images/CombatScenes/Backgrounds/Video Drug.gdshader" id="1_lrvxd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5fqks"]
+shader = ExtResource("1_lrvxd")
+shader_parameter/horizontal_distortion = true
+shader_parameter/vertical_distortion = 1
+shader_parameter/amplitude = Vector2(0, 0.2)
+shader_parameter/frequency = Vector2(2, 2)
+shader_parameter/scale = 1.0
+shader_parameter/move = Vector2(-0.02, -0.01)
+shader_parameter/ping_pong = false
+shader_parameter/palette_shifting_speed = 0.0
+shader_parameter/palette_shifting = false
+shader_parameter/interleaved = 0
+shader_parameter/screen_height = 180.0
+shader_parameter/screen_width = 320.0
+shader_parameter/barrel = false
+shader_parameter/effect = 1.0
+shader_parameter/effect_scale = 2.0
+shader_parameter/barrelxy = Vector2(1, 1)
+
+[node name="BackgroundTest" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_5fqks")
+offset_right = 2006.0
+offset_bottom = 1002.0
+texture = ExtResource("1_am5iv")
+stretch_mode = 1
