@@ -19,13 +19,13 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-CombatSingleton="*res://Core/CombatSystem/CombatSingleton.cs"
-LoggingService="*res://Core/LoggingService/LoggingService.cs"
-RelocationService="*res://Core/RelocationService/RelocationService.cs"
+CombatSingleton="*res://Core/Services/CombatSystem/CombatSingleton.cs"
+LoggingService="*res://Core/Services/LoggingService/LoggingService.cs"
+RelocationService="*res://Core/Services/RelocationService/RelocationService.cs"
 GDEnumService="*res://Core/GDEnumService.gd"
-SaveStateService="*res://Core/SaveStateService/SaveStateService.cs"
-GravityService="*res://Core/Physics/GravityService.cs"
-RotationService="*res://Core/Physics/RotationService.cs"
+SaveStateService="*res://Core/Services/SaveStateService/SaveStateService.cs"
+GravityService="*res://Core/Services/Physics/GravityService.cs"
+RotationService="*res://Core/Services/Physics/RotationService.cs"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 
 [display]
