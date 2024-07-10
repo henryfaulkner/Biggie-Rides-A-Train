@@ -15,7 +15,7 @@ public partial class MoveToPathTest : Node3D
 		_nodeLion = GetNode<Lion3D>("./Lion3D");
 		_nodePathParent = GetNode<Node3D>(".");
 		_nodePath = GetNode<Path3D>("./Path3D");
-		_nodePathFollow = GetNode<PathFollow3D>("./PathFollow3D");
+		_nodePathFollow = GetNode<PathFollow3D>("./Path3D/PathFollow3D");
 		SyncBit = false;
 	}
 

@@ -15,17 +15,16 @@ public partial class Therapist3D_Shitty : Node3D
 	private Node3D _nodeSelf = null;
 	private Area3D _nodeInteractableArea = null;
 	private Node _nodeGoatBodySprites = null;
-	private TextBox _nodeTextBox = null;
-	private InteractionTextBox _nodeInteractionTextBox = null;
+
+	private TextBoxService _serviceTextBox = null;
 
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Node3D>(".");
 		_nodeInteractableArea = GetNode<Area3D>("./InteractableArea3D");
 		_nodeGoatBodySprites = GetNode("./StaticBody3D/BodySpriteMeshInstance");
-		_nodeTextBox = GetNode<TextBox>("../TextBox");
-		_nodeInteractionTextBox = GetNode<InteractionTextBox>("../InteractionTextBox");
-		_nodeInteractionTextBox.SelectedOptionId += HandleInteraction;
+		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
+		_serviceTextBox.InteractionTextBox.SelectedOptionId += HandleInteraction;
 	}
 
 	public override void _Process(double delta)
@@ -37,7 +36,7 @@ public partial class Therapist3D_Shitty : Node3D
 			DisplayDialogue();
 		}
 
-		if (_nodeTextBox.IsOpen())
+		if (_serviceTextBox.TextBox.IsOpen())
 		{
 			_nodeGoatBodySprites.Call("set_frame", _SPRITE_FRAME_GOAT_SPEAKING);
 		}
@@ -49,28 +48,28 @@ public partial class Therapist3D_Shitty : Node3D
 
 	private void DisplayDialogue()
 	{
-		if (!_nodeTextBox.CanCreateDialogue()) return;
+		if (!_serviceTextBox.TextBox.CanCreateDialogue()) return;
 		using (var context = new SaveStateService())
 		{
 			var contextState = context.Load();
 			switch (contextState.DialogueStateTherapist)
 			{
 				case Enumerations.DialogueStates.Therapist.Introduce:
-					_nodeTextBox.AddDialogue("Hi. Welcome to Therapy. Please take a seat.");
-					_nodeTextBox.ExecuteDialogueQueue();
+					_serviceTextBox.TextBox.AddDialogue("Hi. Welcome to Therapy. Please take a seat.");
+					_serviceTextBox.TextBox.ExecuteDialogueQueue();
 					contextState.DialogueStateTherapist = Enumerations.DialogueStates.Therapist.OfferTherapy;
 					context.Commit(contextState);
 					break;
 				case Enumerations.DialogueStates.Therapist.OfferTherapy:
-					_nodeTextBox.AddDialogue("Please take a seat.");
-					_nodeTextBox.ExecuteDialogueQueue();
+					_serviceTextBox.TextBox.AddDialogue("Please take a seat.");
+					_serviceTextBox.TextBox.ExecuteDialogueQueue();
 					contextState.DialogueStateTherapist = Enumerations.DialogueStates.Therapist.TestBattle;
 					context.Commit(contextState);
 					break;
 				case Enumerations.DialogueStates.Therapist.TestBattle:
-					_nodeInteractionTextBox.StartInteraction("Do we need to test battle?", "Yes", 0);
-					_nodeInteractionTextBox.AddOption("No", 1);
-					_nodeInteractionTextBox.Execute();
+					_serviceTextBox.InteractionTextBox.StartInteraction("Do we need to test battle?", "Yes", 0);
+					_serviceTextBox.InteractionTextBox.AddOption("No", 1);
+					_serviceTextBox.InteractionTextBox.Execute();
 					break;
 				default:
 					break;
@@ -87,8 +86,8 @@ public partial class Therapist3D_Shitty : Node3D
 				GetTree().ChangeSceneToPacked(nextScene);
 				break;
 			case 1:
-				_nodeTextBox.AddDialogue("Wack!");
-				_nodeTextBox.ExecuteDialogueQueue();
+				_serviceTextBox.TextBox.AddDialogue("Wack!");
+				_serviceTextBox.TextBox.ExecuteDialogueQueue();
 				break;
 			default:
 				//////GD.Print("DJ.HandleInteraction option id did not map.");

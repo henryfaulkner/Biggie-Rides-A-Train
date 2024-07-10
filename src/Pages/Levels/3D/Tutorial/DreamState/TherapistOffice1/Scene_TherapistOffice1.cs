@@ -8,8 +8,6 @@ public partial class Scene_TherapistOffice1 : Node3D
 	private static readonly StringName _COMBAT_SCENE_SUBCONSCIOUS_1 = new StringName("");
 
 	private Therapist3D _nodeTherapist = null;
-	private TextBox _nodeTextBox = null;
-	private InteractionTextBox _nodeInteractionTextBox = null;
 	private SceneBarrier _nodeSceneBarrier = null;
 	private AutoWalk_InteractableArea3D_1 _nodeAutoWalkCollision = null;
 	private Subconscious _nodeSubconscious = null;
@@ -21,6 +19,7 @@ public partial class Scene_TherapistOffice1 : Node3D
 	private Camera3D _nodeCameraTalk_2 = null;
 
 	private SaveStateService _serviceSaveState = null;
+	private TextBoxService _serviceTextBox = null;
 
 	private bool ProcessingAutoWalk_1 { get; set; }
 	private bool ProcessingAutoWalk_2 { get; set; }
@@ -30,8 +29,6 @@ public partial class Scene_TherapistOffice1 : Node3D
 	public override void _Ready()
 	{
 		_nodeTherapist = GetNode<Therapist3D>("./LevelWrapper/TextBoxWrapper/Therapist3D");
-		_nodeTextBox = GetNode<TextBox>("./LevelWrapper/TextBoxWrapper/TextBox");
-		_nodeInteractionTextBox = GetNode<InteractionTextBox>("./LevelWrapper/TextBoxWrapper/InteractionTextBox");
 		_nodeSceneBarrier = GetNode<SceneBarrier>("./LevelWrapper/TextBoxWrapper/SceneBarrier");
 		_nodeAutoWalkCollision = GetNode<AutoWalk_InteractableArea3D_1>("./LevelWrapper/TextBoxWrapper/AutoWalk_InteractableArea3D_1");
 		_nodeSubconscious = GetNode<Subconscious>("./LevelWrapper/TextBoxWrapper/Subconscious");
@@ -42,10 +39,12 @@ public partial class Scene_TherapistOffice1 : Node3D
 		_nodeCameraTalk_1 = GetNode<Camera3D>("./LevelWrapper/Camera3D2");
 		_nodeCameraTalk_2 = GetNode<Camera3D>("./LevelWrapper/Camera3D4");
 
+		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
+
 		_nodeTherapist.Interact += ProcessTherapistDialogue;
 		TherapistDialogueState = TherapistDialogueStates.First;
 		SubconsciousDialogueState = SubconsciousDialogueStates.First;
-		_nodeInteractionTextBox.SelectedOptionId += ReactToInteractSelection_1;
+		_serviceTextBox.InteractionTextBox.SelectedOptionId += ReactToInteractSelection_1;
 		_nodeAutoWalkCollision.Collision += () => ProcessingAutoWalk_1 = true;
 		ProcessingAutoWalk_1 = false;
 		ProcessingAutoWalk_2 = false;
@@ -83,8 +82,8 @@ public partial class Scene_TherapistOffice1 : Node3D
 			}
 		}
 
-		if (!_nodeTextBox.CanCreateDialogue()) return;
-		if (!_nodeInteractionTextBox.CanCreateDialogue()) return;
+		if (!_serviceTextBox.TextBox.CanCreateDialogue()) return;
+		if (!_serviceTextBox.InteractionTextBox.CanCreateDialogue()) return;
 		if (SubconsciousDialogueState == SubconsciousDialogueStates.Second)
 		{
 			ProcessSubconsciousDialogue();
@@ -134,20 +133,20 @@ public partial class Scene_TherapistOffice1 : Node3D
 		{
 			case TherapistDialogueStates.First:
 				//GD.Print("case TherapistDialogueStates.First");
-				if (!_nodeTextBox.CanCreateDialogue()) return;
-				_nodeTextBox.AddDialogue("Welcome. I am glad to see you’re here.");
-				_nodeTextBox.AddDialogue("Your attention is needed here and outside, and neither can be ignored.");
-				_nodeTextBox.AddDialogue("Biggie, beyond this barrier here, your opponent awaits your arrival.");
-				_nodeTextBox.AddDialogue("Do not doubt yourself. You will visit me again soon.");
-				_nodeTextBox.ExecuteDialogueQueue();
+				if (!_serviceTextBox.TextBox.CanCreateDialogue()) return;
+				_serviceTextBox.TextBox.AddDialogue("Welcome. I am glad to see you’re here.");
+				_serviceTextBox.TextBox.AddDialogue("Your attention is needed here and outside, and neither can be ignored.");
+				_serviceTextBox.TextBox.AddDialogue("Biggie, beyond this barrier here, your opponent awaits your arrival.");
+				_serviceTextBox.TextBox.AddDialogue("Do not doubt yourself. You will visit me again soon.");
+				_serviceTextBox.TextBox.ExecuteDialogueQueue();
 				TherapistDialogueState = TherapistDialogueStates.Default;
 				_nodeSceneBarrier.CanOpen = true;
 				break;
 			default:
 				//GD.Print("case TherapistDialogueStates.Default or default");
-				if (!_nodeTextBox.CanCreateDialogue()) return;
-				_nodeTextBox.AddDialogue("Good luck.");
-				_nodeTextBox.ExecuteDialogueQueue();
+				if (!_serviceTextBox.TextBox.CanCreateDialogue()) return;
+				_serviceTextBox.TextBox.AddDialogue("Good luck.");
+				_serviceTextBox.TextBox.ExecuteDialogueQueue();
 				break;
 		}
 	}
@@ -169,36 +168,36 @@ public partial class Scene_TherapistOffice1 : Node3D
 
 	private void ProcessSubconsciousDialogue()
 	{
-		if (!_nodeTextBox.CanCreateDialogue()) return;
-		if (!_nodeInteractionTextBox.CanCreateDialogue()) return;
+		if (!_serviceTextBox.TextBox.CanCreateDialogue()) return;
+		if (!_serviceTextBox.InteractionTextBox.CanCreateDialogue()) return;
 
 		switch (SubconsciousDialogueState)
 		{
 			case SubconsciousDialogueStates.First:
 				//GD.Print("SubconsciousDialogueStates.First");
-				_nodeTextBox.AddDialogue("Hi Biggie. It’s good to see you. I’ve been meaning to talk to you.");
-				_nodeTextBox.AddDialogue("I think you are making a mistake, going to the train station like you are.");
-				_nodeTextBox.ExecuteDialogueQueue();
+				_serviceTextBox.TextBox.AddDialogue("Hi Biggie. It’s good to see you. I’ve been meaning to talk to you.");
+				_serviceTextBox.TextBox.AddDialogue("I think you are making a mistake, going to the train station like you are.");
+				_serviceTextBox.TextBox.ExecuteDialogueQueue();
 				SubconsciousDialogueState = SubconsciousDialogueStates.Second;
 				break;
 			case SubconsciousDialogueStates.Second:
 				//GD.Print("SubconsciousDialogueStates.Second");
-				_nodeTextBox.AddDialogue("That train is bad news. You’ll probably get hurt getting on the train.");
-				_nodeTextBox.AddDialogue("You’re not strong enough to follow in the [color=red]conductor’s[/color] footsteps. Don’t find him.");
-				_nodeTextBox.ExecuteDialogueQueue();
+				_serviceTextBox.TextBox.AddDialogue("That train is bad news. You’ll probably get hurt getting on the train.");
+				_serviceTextBox.TextBox.AddDialogue("You’re not strong enough to follow in the [color=red]conductor’s[/color] footsteps. Don’t find him.");
+				_serviceTextBox.TextBox.ExecuteDialogueQueue();
 				SubconsciousDialogueState = SubconsciousDialogueStates.Interaction_1;
 				break;
 			case SubconsciousDialogueStates.Interaction_1:
 				//GD.Print("SubconsciousDialogueStates.Interaction_1");
-				_nodeInteractionTextBox.StartInteraction("Will you promise me that you will come back home and forget about the train station?", "No", (int)CombatSelectionOptions.Option_1);
-				_nodeInteractionTextBox.AddOption("No", (int)CombatSelectionOptions.Option_2);
-				_nodeInteractionTextBox.Execute();
+				_serviceTextBox.InteractionTextBox.StartInteraction("Will you promise me that you will come back home and forget about the train station?", "No", (int)CombatSelectionOptions.Option_1);
+				_serviceTextBox.InteractionTextBox.AddOption("No", (int)CombatSelectionOptions.Option_2);
+				_serviceTextBox.InteractionTextBox.Execute();
 				break;
 			case SubconsciousDialogueStates.MushroomCombat_Talk:
-				_nodeInteractionTextBox.SelectedOptionId += ReactToInteractSelection_2;
-				_nodeTextBox.AddDialogue("That’s unfortunate. I can see you are not understanding my concern.");
-				_nodeTextBox.AddDialogue("Please go ahead and fight these two mushrooms. [wave amp=50 freq=6]This should show him he isn’t strong enough[/wave]");
-				_nodeTextBox.ExecuteDialogueQueue();
+				_serviceTextBox.InteractionTextBox.SelectedOptionId += ReactToInteractSelection_2;
+				_serviceTextBox.TextBox.AddDialogue("That’s unfortunate. I can see you are not understanding my concern.");
+				_serviceTextBox.TextBox.AddDialogue("Please go ahead and fight these two mushrooms. [wave amp=50 freq=6]This should show him he isn’t strong enough[/wave]");
+				_serviceTextBox.TextBox.ExecuteDialogueQueue();
 				SubconsciousDialogueState = SubconsciousDialogueStates.MushroomCombat;
 				break;
 			case SubconsciousDialogueStates.PostMushroomCombat:
@@ -206,10 +205,10 @@ public partial class Scene_TherapistOffice1 : Node3D
 				bool mushroomDead = true;
 				bool mushroomChat = true;
 
-				if (mushroomDead) _nodeTextBox.AddDialogue("Hmmm… those must have been the weakest fungi of all time.");
-				else if (mushroomChat) _nodeTextBox.AddDialogue("Why have they stopped expelling spores? The mind mushroom really is a pathetic species.");
-				_nodeTextBox.AddDialogue("The point is… You can’t go.");
-				_nodeTextBox.ExecuteDialogueQueue();
+				if (mushroomDead) _serviceTextBox.TextBox.AddDialogue("Hmmm… those must have been the weakest fungi of all time.");
+				else if (mushroomChat) _serviceTextBox.TextBox.AddDialogue("Why have they stopped expelling spores? The mind mushroom really is a pathetic species.");
+				_serviceTextBox.TextBox.AddDialogue("The point is… You can’t go.");
+				_serviceTextBox.TextBox.ExecuteDialogueQueue();
 				SubconsciousDialogueState = SubconsciousDialogueStates.SubconsciousCombat;
 				break;
 			default:

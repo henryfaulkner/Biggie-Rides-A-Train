@@ -11,8 +11,6 @@ public partial class Biggie3DWalls : CharacterBody3D
 	private static readonly int _SPRITE_FRAME_IDLE = 0;
 
 	private Node _nodeBiggieSpriteMeshInstance = null;
-	private TextBox _nodeTextBox = null;
-	private InteractionTextBox _nodeInteractionTextBox = null;
 
 	private bool _isMoving = false;
 	private bool _canMove = true;
@@ -26,8 +24,6 @@ public partial class Biggie3DWalls : CharacterBody3D
 	public override void _Ready()
 	{
 		_nodeBiggieSpriteMeshInstance = GetNode("./SpriteMeshInstance");
-		_nodeTextBox = GetNode<TextBox>("../TextBox");
-		_nodeInteractionTextBox = GetNode<InteractionTextBox>("../InteractionTextBox");
 
 		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
 	}

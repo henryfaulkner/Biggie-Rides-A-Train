@@ -7,10 +7,9 @@ public partial class Scene_MushroomFight : Node3D
 
 	private Node3D _nodeSelf = null;
 	private Mushroom3D _nodeMushroom = null;
-	private TextBox _nodeTextBox = null;
-	private InteractionTextBox _nodeInteractionTextBox = null;
 
 	private SaveStateService _serviceSaveState = null;
+	private TextBoxService _serviceTextBox = null;
 
 	private MushroomDialogueStates MushroomDialogueState { get; set; }
 
@@ -18,12 +17,12 @@ public partial class Scene_MushroomFight : Node3D
 	{
 		_nodeSelf = GetNode<Node3D>(".");
 		_nodeMushroom = GetNode<Mushroom3D>("./LevelWrapper/TextBoxWrapper/Mushroom3D");
-		_nodeTextBox = GetNode<TextBox>("./LevelWrapper/TextBoxWrapper/TextBox");
-		_nodeInteractionTextBox = GetNode<InteractionTextBox>("./LevelWrapper/TextBoxWrapper/InteractionTextBox");
+
+		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
 
 		_nodeMushroom.Interact += ProcessMushroomDialogue;
 		MushroomDialogueState = MushroomDialogueStates.Discovery;
-		_nodeInteractionTextBox.SelectedOptionId += ReactToMushroomSelection;
+		_serviceTextBox.InteractionTextBox.SelectedOptionId += ReactToMushroomSelection;
 
 		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
 		var context = _serviceSaveState.Load();
@@ -48,17 +47,17 @@ public partial class Scene_MushroomFight : Node3D
 		{
 			case MushroomDialogueStates.Discovery:
 				//GD.Print("case MushroomDialogueStates.Discovery");
-				if (!_nodeTextBox.CanCreateDialogue()) return;
-				_nodeTextBox.AddDialogue("This mushroom seems content with resting in front of the door.");
-				_nodeTextBox.ExecuteDialogueQueue();
+				if (!_serviceTextBox.TextBox.CanCreateDialogue()) return;
+				_serviceTextBox.TextBox.AddDialogue("This mushroom seems content with resting in front of the door.");
+				_serviceTextBox.TextBox.ExecuteDialogueQueue();
 				MushroomDialogueState = MushroomDialogueStates.Combat;
 				break;
 			case MushroomDialogueStates.Combat:
 				//GD.Print("case MushroomDialogueStates.Combat");
-				if (!_nodeInteractionTextBox.CanCreateDialogue()) return;
-				_nodeInteractionTextBox.StartInteraction("Would you like to remove the mushroom in front of the door?", "Yes", (int)MushroomSelectionOptions.CombatYes);
-				_nodeInteractionTextBox.AddOption("No", (int)MushroomSelectionOptions.CombatNo);
-				_nodeInteractionTextBox.Execute();
+				if (!_serviceTextBox.InteractionTextBox.CanCreateDialogue()) return;
+				_serviceTextBox.InteractionTextBox.StartInteraction("Would you like to remove the mushroom in front of the door?", "Yes", (int)MushroomSelectionOptions.CombatYes);
+				_serviceTextBox.InteractionTextBox.AddOption("No", (int)MushroomSelectionOptions.CombatNo);
+				_serviceTextBox.InteractionTextBox.Execute();
 				break;
 			default:
 				break;
@@ -74,8 +73,8 @@ public partial class Scene_MushroomFight : Node3D
 				GetTree().ChangeSceneToPacked(nextScene);
 				return;
 			case (int)MushroomSelectionOptions.CombatNo:
-				_nodeTextBox.AddDialogue("The mushroom remains in front of the door.");
-				_nodeTextBox.ExecuteDialogueQueue();
+				_serviceTextBox.TextBox.AddDialogue("The mushroom remains in front of the door.");
+				_serviceTextBox.TextBox.ExecuteDialogueQueue();
 				MushroomDialogueState = MushroomDialogueStates.Discovery;
 				break;
 			default:

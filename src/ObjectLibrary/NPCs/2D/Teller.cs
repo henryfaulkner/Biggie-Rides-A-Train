@@ -7,15 +7,15 @@ public partial class Teller : StaticBody2D
 
 	private Teller _nodeSelf = null;
 	private Area2D _nodeInteractableArea = null;
-	private TextBox _nodeTextBox = null;
-	private InteractionTextBox _nodeInteractionTextBox = null;
+
+	private TextBoxService _serviceTextBox = null;
 
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Teller>(".");
 		_nodeInteractableArea = GetNode<Area2D>("./InteractableArea");
-		_nodeTextBox = GetNode<TextBox>("../TextBox");
-		_nodeInteractionTextBox = GetNode<InteractionTextBox>("../InteractionTextBox");
+
+		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
 	}
 
 	public override void _Process(double delta)
@@ -29,36 +29,36 @@ public partial class Teller : StaticBody2D
 
 	private void DisplayDialogue()
 	{
-		if (!_nodeTextBox.CanCreateDialogue()) return;
+		if (!_serviceTextBox.TextBox.CanCreateDialogue()) return;
 		using (var context = new SaveStateService())
 		{
 			var contextState = context.Load();
 			switch (contextState.DialogueStateTeller)
 			{
 				case Enumerations.DialogueStates.Teller.Introduce:
-					_nodeTextBox.AddDialogue("Hi, welcome to the Station's Teller Station. I can take your [wave amp=50 freq=6]train ticket[/wave] if you have one.");
-					_nodeTextBox.AddDialogue("Usually, I sell train ticket but not today. Today's train is SOLD OUT. Apparently, there is some huge show happening at the CATHEDRAL in West Bay.");
-					_nodeTextBox.AddDialogue("Probably another one of the CONDUCTOR'S doing. What a genius.");
-					_nodeTextBox.AddDialogue("I can tell you don't have a [wave amp=50 freq=6]train ticket[/wave] right now. Come back when you have one.");
-					_nodeTextBox.ExecuteDialogueQueue();
+					_serviceTextBox.TextBox.AddDialogue("Hi, welcome to the Station's Teller Station. I can take your [wave amp=50 freq=6]train ticket[/wave] if you have one.");
+					_serviceTextBox.TextBox.AddDialogue("Usually, I sell train ticket but not today. Today's train is SOLD OUT. Apparently, there is some huge show happening at the CATHEDRAL in West Bay.");
+					_serviceTextBox.TextBox.AddDialogue("Probably another one of the CONDUCTOR'S doing. What a genius.");
+					_serviceTextBox.TextBox.AddDialogue("I can tell you don't have a [wave amp=50 freq=6]train ticket[/wave] right now. Come back when you have one.");
+					_serviceTextBox.TextBox.ExecuteDialogueQueue();
 					contextState.DialogueStateTeller = Enumerations.DialogueStates.Teller.AskForTicket;
 					context.Commit(contextState);
 					break;
 				case Enumerations.DialogueStates.Teller.AskForTicket:
-					_nodeTextBox.AddDialogue("You have a [wave amp=50 freq=6]train ticket[/wave] yet?");
+					_serviceTextBox.TextBox.AddDialogue("You have a [wave amp=50 freq=6]train ticket[/wave] yet?");
 					if (CheckForTicket(contextState))
 					{
-						_nodeTextBox.AddDialogue("It looks like you got your hands on a [wave amp=50 freq=6]train ticket![/wave]");
-						_nodeTextBox.ExecuteDialogueQueue();
-						_nodeInteractionTextBox.StartInteraction("Are you ready to depart?", "Yes", 1);
-						_nodeInteractionTextBox.AddOption("No", 2);
-						_nodeInteractionTextBox.SelectedOptionId += HandleInteraction_Boarding;
-						_nodeInteractionTextBox.Execute();
+						_serviceTextBox.TextBox.AddDialogue("It looks like you got your hands on a [wave amp=50 freq=6]train ticket![/wave]");
+						_serviceTextBox.TextBox.ExecuteDialogueQueue();
+						_serviceTextBox.InteractionTextBox.StartInteraction("Are you ready to depart?", "Yes", 1);
+						_serviceTextBox.InteractionTextBox.AddOption("No", 2);
+						_serviceTextBox.InteractionTextBox.SelectedOptionId += HandleInteraction_Boarding;
+						_serviceTextBox.InteractionTextBox.Execute();
 					}
 					else
 					{
-						_nodeTextBox.AddDialogue("It seems like you don't. Come back when you have [wave amp=50 freq=6]train ticket[/wave].");
-						_nodeTextBox.ExecuteDialogueQueue();
+						_serviceTextBox.TextBox.AddDialogue("It seems like you don't. Come back when you have [wave amp=50 freq=6]train ticket[/wave].");
+						_serviceTextBox.TextBox.ExecuteDialogueQueue();
 					}
 					break;
 				default:
@@ -84,8 +84,8 @@ public partial class Teller : StaticBody2D
 		}
 		else
 		{
-			_nodeTextBox.AddDialogue("No problemo. Come back when you're ready to board.");
-			_nodeTextBox.ExecuteDialogueQueue();
+			_serviceTextBox.TextBox.AddDialogue("No problemo. Come back when you're ready to board.");
+			_serviceTextBox.TextBox.ExecuteDialogueQueue();
 		}
 	}
 

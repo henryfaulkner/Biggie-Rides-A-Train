@@ -23,8 +23,6 @@ public partial class Biggie3D : CharacterBody3D
 
 	private Biggie3D _nodeSelf = null;
 	private Node _nodeBiggieSpriteMeshInstance = null;
-	private TextBox _nodeTextBox = null;
-	private InteractionTextBox _nodeInteractionTextBox = null;
 	private CollisionShape3D _nodeCollider = null;
 
 	private bool _isMoving = false;
@@ -35,27 +33,27 @@ public partial class Biggie3D : CharacterBody3D
 	private RelocationService _serviceRelocation = null;
 	private GravityService _serviceGravity = null;
 	private RotationService _serviceRotation = null;
+	private TextBoxService _serviceTextBox = null;
 
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Biggie3D>(".");
 		_nodeBiggieSpriteMeshInstance = GetNode("./SpriteMeshInstance");
-		_nodeTextBox = GetNode<TextBox>("../TextBox");
-		_nodeInteractionTextBox = GetNode<InteractionTextBox>("../InteractionTextBox");
 		_nodeCollider = GetNode<CollisionShape3D>("./CollisionShape3D");
 
 		_serviceRelocation = GetNode<RelocationService>("/root/RelocationService");
 		AttemptStoredLocationApplication();
 		_serviceGravity = GetNode<GravityService>("/root/GravityService");
 		_serviceRotation = GetNode<RotationService>("/root/RotationService");
+		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		if (_canMove
 			&& _nodeSelf.IsVisibleInTree()
-			&& (_nodeTextBox == null || !_nodeTextBox.IsOpen())
-			&& (_nodeInteractionTextBox == null || !_nodeInteractionTextBox.IsOpen))
+			&& (_serviceTextBox.TextBox == null || !_serviceTextBox.TextBox.IsOpen())
+			&& (_serviceTextBox.InteractionTextBox == null || !_serviceTextBox.InteractionTextBox.IsOpen))
 		{
 			ProcessGravity(delta);
 			var collision = Movement(delta);
@@ -90,7 +88,7 @@ public partial class Biggie3D : CharacterBody3D
 				_currentFrameDirection = Enumerations.Movement.Directions.Left;
 			}
 			else
-			{ 
+			{
 				inputDirection = _serviceRotation.ApplyRightDirection(inputDirection, -_BIGGIE_SPEED_X_RATIO);
 				_currentFrameDirection = Enumerations.Movement.Directions.Right;
 			}

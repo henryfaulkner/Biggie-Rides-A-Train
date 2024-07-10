@@ -7,15 +7,16 @@ public partial class WoodSign : Node3D
 
 	private Node3D _nodeSelf = null;
 	private Area3D _nodeInteractableArea = null;
-	private HoverTextBox _nodeHoverTextBox = null;
 	private HoverTextBoxHelper HoverTextBoxHelper { get; set; }
+
+	private TextBoxService _serviceTextBox = null;
 
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Node3D>(".");
 		_nodeInteractableArea = GetNode<Area3D>("./InteractableArea3D");
-		_nodeHoverTextBox = GetNode<HoverTextBox>("../HoverTextBox");
-		HoverTextBoxHelper = new HoverTextBoxHelper(_nodeSelf, _nodeInteractableArea, _nodeHoverTextBox, _TEXT);
+		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
+		HoverTextBoxHelper = new HoverTextBoxHelper(_nodeSelf, _nodeInteractableArea, _serviceTextBox.HoverTextBox, _TEXT);
 	}
 
 	public override void _Process(double delta)

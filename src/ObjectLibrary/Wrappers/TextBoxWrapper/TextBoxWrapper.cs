@@ -9,8 +9,15 @@ public partial class TextBoxWrapper : Node2D
 	private static readonly StringName _TERMINATE_GAME_INPUT = new StringName("terminate_game");
 	private static readonly StringName _CLEAR_SAVE_STATE_INPUT = new StringName("clear_save_state");
 
+	private TextBoxService _serviceTextBox = null;
+
 	public override void _Ready()
 	{
+		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
+		_serviceTextBox.InteractionTextBox = GetNode<InteractionTextBox>("./InteractionTextBox");
+		_serviceTextBox.TextBox = GetNode<TextBox>("./TextBox");
+		_serviceTextBox.HoverTextBox = GetNode<HoverTextBox>("./HoverTextBox");
+
 		((Window)GetViewport()).Size = _windowSize;
 		((Window)GetViewport()).Unresizable = true;
 	}

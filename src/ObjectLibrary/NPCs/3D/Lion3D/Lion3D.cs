@@ -7,7 +7,8 @@ public partial class Lion3D : Node3D
 
 	private Node3D _nodeSelf = null;
 	private Area3D _nodeInteractableArea = null;
-	private HoverTextBox _nodeHoverTextBox = null;
+
+	private TextBoxService _serviceTextBox = null;
 
 	[Export]
 	public float Speed { get; set; }
@@ -16,7 +17,7 @@ public partial class Lion3D : Node3D
 	{
 		_nodeSelf = GetNode<Node3D>(".");
 		_nodeInteractableArea = GetNode<Area3D>("./InteractableArea3D");
-		_nodeHoverTextBox = GetNode<HoverTextBox>("../HoverTextBox");
+		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
 	}
 
 	[Signal]
@@ -42,13 +43,13 @@ public partial class Lion3D : Node3D
 
 	public void HandleInteractableAreaHover()
 	{
-		_nodeHoverTextBox.SetText("Use either wasd or arrow keys to move.");
-		_nodeHoverTextBox.ShowTextBox();
+		_serviceTextBox.HoverTextBox.SetText("Use either wasd or arrow keys to move.");
+		_serviceTextBox.HoverTextBox.ShowTextBox();
 	}
 
 	public void HandleInteractableAreaLeave()
 	{
-		_nodeHoverTextBox.HideTextBox();
-		_nodeHoverTextBox.ClearText();
+		_serviceTextBox.HoverTextBox.HideTextBox();
+		_serviceTextBox.HoverTextBox.ClearText();
 	}
 }

@@ -2,7 +2,7 @@ extends MeshInstance3D
 
 const _SCENE = preload ("res://Pages/Levels/3D/TrainStation/Aquarium/Scene_GiftShop.tscn")
 const _SCENE_DOOR_NODE_PATH = "./LevelWrapper/TextBoxWrapper/AquariumGiftShop/OuterAquarium/AquariumDoor"
-const _RELOCATION_SERVICE_SCRIPT = preload ("res://Core/RelocationService/RelocationService.cs")
+const _RELOCATION_SERVICE_SCRIPT = preload ("res://Core/Services/RelocationService/RelocationService.cs")
 
 var _nodeDoor: MeshInstance3D = null
 var _relocation_service = null

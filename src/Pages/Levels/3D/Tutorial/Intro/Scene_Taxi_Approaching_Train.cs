@@ -8,21 +8,22 @@ public partial class Scene_Taxi_Approaching_Train : Node3D
 	private static readonly int _REDIRECT_AT_THIS_INCREMENT = 300;
 
 	private Node3D _nodeSelf = null;
-	private TextBox _nodeTextBox = null;
 	private CharacterBody3D _nodeTaxi = null;
 	private AudioStreamPlayer _nodeAudio = null;
 
 	private int FrameIncrement { get; set; }
 	private bool PauseIncrement { get; set; }
 
+	private TextBoxService _serviceTextBox = null;
+
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Node3D>(".");
-		_nodeTextBox = GetNode<TextBox>("./LevelWrapper/TextBoxWrapper/TextBox");
 		_nodeTaxi = GetNode<CharacterBody3D>("./LevelWrapper/TextBoxWrapper/TaxiCharacterBody3D");
 		_nodeAudio = GetNode<AudioStreamPlayer>("./AudioStreamPlayer");
+		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
 
-		_nodeTextBox.HidingTextBox += ContinuePlay;
+		_serviceTextBox.TextBox.HidingTextBox += ContinuePlay;
 		_nodeAudio.Play();
 	}
 
@@ -30,7 +31,7 @@ public partial class Scene_Taxi_Approaching_Train : Node3D
 	{
 		if (FrameIncrement == _OPEN_TEXTBOX_AT_THIS_INCREMENT)
 		{
-			CreateDialogue1(_nodeTextBox);
+			CreateDialogue1(_serviceTextBox.TextBox);
 
 			PauseIncrement = true;
 			FrameIncrement += 1;
@@ -44,7 +45,7 @@ public partial class Scene_Taxi_Approaching_Train : Node3D
 
 		if (!PauseIncrement)
 		{
-			_nodeTaxi.Velocity = new Vector3(0.8f, 0, 0); 
+			_nodeTaxi.Velocity = new Vector3(0.8f, 0, 0);
 			_nodeTaxi.MoveAndSlide();
 			FrameIncrement += 1;
 		}

@@ -16,14 +16,14 @@ public partial class Scene_MainTerminal : Node3D
 
 	public override void _Ready()
 	{
-		_nodeBiggie = GetNode<Biggie3D>("./TextBoxWrapper/LevelWrapper/Biggie3D");
+		_nodeBiggie = GetNode<Biggie3D>("./LevelWrapper/TextBoxWrapper/Biggie3D");
 		_nodeDefaultPCam = GetNode<Node>("./DefaultPCam");
 		_nodeMirrorPCam = GetNode<Node>("./MirrorPCam");
 
 		CameraBusinessInstance = new CameraBusiness(_nodeBiggie, _nodeDefaultPCam, _nodeMirrorPCam);
 		CameraBusinessInstance.SetDefaultCamera();
 
-		_nodeMoveToPathTest = GetNode<MoveToPathTest>("TextBoxWrapper/LevelWrapper/MoveToPathTest");
+		_nodeMoveToPathTest = GetNode<MoveToPathTest>("./LevelWrapper/TextBoxWrapper/MoveToPathTest");
 	}
 
 	public override void _PhysicsProcess(double _delta)

@@ -8,7 +8,8 @@ public partial class Scene_Intro_Sleep : Node2D
 	private static readonly int _REDIRECT_AT_THIS_INCREMENT = 200;
 
 	private Node2D _nodeSelf = null;
-	private TextBox _nodeTextBox = null;
+
+	private TextBoxService _serviceTextBox = null;
 
 	private int FrameIncrement { get; set; }
 	private bool PauseIncrement { get; set; }
@@ -16,18 +17,18 @@ public partial class Scene_Intro_Sleep : Node2D
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Node2D>(".");
-		_nodeTextBox = GetNode<TextBox>("./TextBoxWrapper/TextBox");
 		var biggie = GetNode<Biggie>("TextBoxWrapper/Biggie");
 		biggie.CanMove(false);
 
-		_nodeTextBox.HidingTextBox += ContinuePlay;
+		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
+		_serviceTextBox.TextBox.HidingTextBox += ContinuePlay;
 	}
 
 	public override void _PhysicsProcess(double _delta)
 	{
 		if (FrameIncrement == _OPEN_TEXTBOX_AT_THIS_INCREMENT)
 		{
-			CreateDialogue1(_nodeTextBox);
+			CreateDialogue1(_serviceTextBox.TextBox);
 
 			PauseIncrement = true;
 			FrameIncrement += 1;

@@ -19,19 +19,19 @@ public partial class Biggie : CharacterBody2D
 
 	private Biggie _nodeSelf = null;
 	private Sprite2D _nodeBiggieSprites = null;
-	private TextBox _nodeTextBox = null;
-	private InteractionTextBox _nodeInteractionTextBox = null;
 
 	private bool _isMoving = false;
 	private bool _canMove = true;
 	private int _frameIncrement = 0;
 
+	private TextBoxService _serviceTextBox = null;
+
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Biggie>(".");
 		_nodeBiggieSprites = GetNode<Sprite2D>("./BiggieSprites");
-		_nodeTextBox = GetNode<TextBox>("../TextBox");
-		_nodeInteractionTextBox = GetNode<InteractionTextBox>("../InteractionTextBox");
+
+		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
 
 		//AttemptStoredLocationApplication();
 	}
@@ -40,8 +40,8 @@ public partial class Biggie : CharacterBody2D
 	{
 		if (_canMove
 			&& _nodeSelf.IsVisibleInTree()
-			&& (_nodeTextBox == null || !_nodeTextBox.IsOpen())
-			&& (_nodeInteractionTextBox == null || !_nodeInteractionTextBox.IsOpen))
+			&& (_serviceTextBox.TextBox == null || !_serviceTextBox.TextBox.IsOpen())
+			&& (_serviceTextBox.InteractionTextBox == null || !_serviceTextBox.InteractionTextBox.IsOpen))
 		{
 			var collision = Movement(delta);
 			if (collision != null)

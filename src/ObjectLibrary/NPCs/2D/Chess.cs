@@ -7,13 +7,15 @@ public partial class Chess : Node2D
 
 	private Node2D _nodeSelf = null;
 	private Area2D _nodeInteractableArea = null;
-	private TextBox _nodeTextBox = null;
+
+	private TextBoxService _serviceTextBox = null;
 
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Node2D>(".");
 		_nodeInteractableArea = GetNode<Area2D>("./InteractableArea");
-		_nodeTextBox = GetNode<TextBox>("../TextBox");
+
+		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
 	}
 
 	public override void _Process(double delta)
@@ -27,23 +29,23 @@ public partial class Chess : Node2D
 
 	private void DisplayDialogue()
 	{
-		if (!_nodeTextBox.CanCreateDialogue()) return;
+		if (!_serviceTextBox.TextBox.CanCreateDialogue()) return;
 		using (var context = new SaveStateService())
 		{
 			var contextState = context.Load();
 			switch (contextState.DialogueStateChess)
 			{
 				case Enumerations.DialogueStates.Chess.Introduce:
-					_nodeTextBox.AddDialogue("Player 1: Hmmmmm...");
-					_nodeTextBox.AddDialogue("Player 2: Hmmmmm...");
-					_nodeTextBox.AddDialogue("*Both players act like it is their turn and are in deep focus*");
-					_nodeTextBox.ExecuteDialogueQueue();
+					_serviceTextBox.TextBox.AddDialogue("Player 1: Hmmmmm...");
+					_serviceTextBox.TextBox.AddDialogue("Player 2: Hmmmmm...");
+					_serviceTextBox.TextBox.AddDialogue("*Both players act like it is their turn and are in deep focus*");
+					_serviceTextBox.TextBox.ExecuteDialogueQueue();
 					contextState.DialogueStateChess = Enumerations.DialogueStates.Chess.PlayOpponent;
 					context.Commit(contextState);
 					break;
 				case Enumerations.DialogueStates.Chess.PlayOpponent:
-					_nodeTextBox.AddDialogue("*Both player look to be focusing intensely but neither has made a move since you have been here*");
-					_nodeTextBox.ExecuteDialogueQueue();
+					_serviceTextBox.TextBox.AddDialogue("*Both player look to be focusing intensely but neither has made a move since you have been here*");
+					_serviceTextBox.TextBox.ExecuteDialogueQueue();
 					break;
 				default:
 					break;
