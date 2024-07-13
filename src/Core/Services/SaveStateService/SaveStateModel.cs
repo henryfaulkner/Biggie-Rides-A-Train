@@ -69,15 +69,23 @@ public class SaveStateModel
 	public bool IsMushroomDead { get; set; }
 	[JsonProperty("IsMushroomMoved")]
 	public bool IsMushroomMoved { get; set; }
-	
+
 	[JsonProperty("IsDoubleMushroomDefeated")]
 	public bool IsDoubleMushroomDefeated { get; set; }
 
 	public UserSettingsModel UserSettings { get; set; }
+
+	public NpcStates NpcStates { get; set; }
 }
 
 public class UserSettingsModel
 {
 	[JsonProperty("FxMuted")]
 	public bool FxMuted { get; set; }
+}
+
+public class NpcStates
+{
+	[JsonProperty("LionState")]
+	public LionStateMachine.LionStates LionState { get; set; }
 }

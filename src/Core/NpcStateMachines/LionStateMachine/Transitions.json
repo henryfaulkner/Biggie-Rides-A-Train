@@ -1,0 +1,42 @@
+{
+    {
+        "StateId": 1,
+        "EventId": 2,
+        "NextStateId": 2
+    },
+    {
+        "StateId": 1,
+        "EventId": 3,
+        "NextStateId": 3
+    },
+    {
+        "StateId": 1,
+        "EventId": 4,
+        "NextStateId": 4
+    },
+    {
+        "StateId": 2,
+        "EventId": 1,
+        "NextStateId": 5
+    },
+    {
+        "StateId": 3,
+        "EventId": 1,
+        "NextStateId": 5
+    },
+    {
+        "StateId": 4,
+        "EventId": 2,
+        "NextStateId": 2
+    },
+    {
+        "StateId": 4,
+        "EventId": 3,
+        "NextStateId": 3
+    },
+    {
+        "StateId": 4,
+        "EventId": 4,
+        "NextStateId": 4
+    }
+}

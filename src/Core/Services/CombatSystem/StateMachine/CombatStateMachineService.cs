@@ -6,7 +6,7 @@ using System.Linq;
 
 public partial class CombatStateMachineService : Node
 {
-	private static readonly StringName _TRANSITIONS_FILE = new StringName("res://Core/CombatSystem/StateMachine/Transitions.json");
+	private static readonly StringName _TRANSITIONS_FILE = new StringName("res://Core/Services/CombatSystem/StateMachine/Transitions.json");
 
 	public CombatStateMachineService()
 	{
