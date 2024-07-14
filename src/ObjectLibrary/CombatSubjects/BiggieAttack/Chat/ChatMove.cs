@@ -179,7 +179,9 @@ public partial class ChatMove : Node2D
 		circle.Radius = sprite.Scale.X * sprite.Texture.GetWidth() / 2;
 		collisionShape.Shape = circle;
 		collisionArea.AddChild(collisionShape);
+		collisionShape.Owner = collisionArea;
 		nodeTarget.AddChild(collisionArea);
+		collisionArea.Owner = nodeTarget;
 		return collisionArea;
 	}
 

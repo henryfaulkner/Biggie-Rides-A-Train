@@ -136,6 +136,7 @@ public partial class Lion3D : Node3D
 		_nodeSelf.GetParent().RemoveChild(_nodeSelf);
 		IsOnPathFollow = true;
 		pathFollow.AddChild(_nodeSelf);
+		Owner = pathFollow;
 	}
 
 	private void DetachFromPathFollow()
@@ -143,5 +144,6 @@ public partial class Lion3D : Node3D
 		_nodeSelf.GetParent().RemoveChild(_nodeSelf);
 		IsOnPathFollow = false;
 		ParentScene.AddChild(_nodeSelf);
+		Owner = ParentScene;
 	}
 }

@@ -48,10 +48,12 @@ public partial class MoveToPathTest : Node3D
 	public void SetLionAsPathFollowChild(Node3D node, PathFollow3D pathFollow)
 	{
 		pathFollow.AddChild(node);
+		node.Owner = pathFollow;
 	}
 
 	public void DetachLionFromPath(Node3D node, Node3D pathParent)
 	{
 		pathParent.AddChild(node);
+		node.Owner = pathParent;
 	}
 }

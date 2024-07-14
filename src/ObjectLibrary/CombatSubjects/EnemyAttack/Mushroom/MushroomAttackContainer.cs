@@ -34,6 +34,7 @@ public partial class MushroomAttackContainer : AbstractEnemyAttackContainer
 		IsAttacking = true;
 		SporeFallInstance = SpawnSporeFall();
 		AddChild(SporeFallInstance);
+		SporeFallInstance.Owner = this;
 		SporeFallInstance.SporeHitBiggie += HandleSporeHitBiggie;
 	}
 

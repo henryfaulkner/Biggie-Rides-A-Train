@@ -36,6 +36,7 @@ public partial class SporeFall : Node2D
 				Position = new Vector2(x, y)
 			};
 			AddChild(spore);
+			spore.Owner = this;
 			_nodeSporeList.Add(spore);
 			spore.SporeHitBiggie += SporeHitBiggieFunc;
 		}

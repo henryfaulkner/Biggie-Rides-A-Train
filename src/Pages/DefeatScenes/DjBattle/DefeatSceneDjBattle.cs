@@ -48,6 +48,7 @@ public partial class DefeatSceneDjBattle : Node2D
 		var nextLevelResource = GD.Load<PackedScene>(_LEVEL_MAIN_MENU);
 		var nextLevel = nextLevelResource.Instantiate<Node>();
 		root.AddChild(nextLevel);
+		nextLevel.Owner = root;
 	}
 }
 

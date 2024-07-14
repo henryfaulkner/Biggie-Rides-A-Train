@@ -158,6 +158,7 @@ public partial class Biggie3D : CharacterBody3D
 		Vector3 up;
 		TraceBusiness trace = new TraceBusiness();
 		AddChild(trace);
+		trace.Owner = this;
 
 		// Get destination position that is one step-size above the intended move
 		dest = originalPosition;

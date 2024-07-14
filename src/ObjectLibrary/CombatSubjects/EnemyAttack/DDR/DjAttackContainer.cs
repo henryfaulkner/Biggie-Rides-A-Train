@@ -197,24 +197,28 @@ public partial class DjAttackContainer : AbstractEnemyAttackContainer
 						var instanceUp = FallingArrowFactory.SpawnFallingArrowUp();
 						FallingArrowUpQueue.Enqueue(instanceUp);
 						_nodeSelf.AddChild(instanceUp);
+						instanceUp.Owner = this;
 						break;
 					case CompositionTokens.Right:
 						str = str + "Right";
 						var instanceRight = FallingArrowFactory.SpawnFallingArrowRight();
 						FallingArrowRightQueue.Enqueue(instanceRight);
 						_nodeSelf.AddChild(instanceRight);
+						instanceRight.Owner = this;
 						break;
 					case CompositionTokens.Down:
 						str = str + "Down";
 						var instanceDown = FallingArrowFactory.SpawnFallingArrowDown();
 						FallingArrowDownQueue.Enqueue(instanceDown);
 						_nodeSelf.AddChild(instanceDown);
+						instanceDown.Owner = this;
 						break;
 					case CompositionTokens.Left:
 						str = str + "Left";
 						var instanceLeft = FallingArrowFactory.SpawnFallingArrowLeft();
 						FallingArrowLeftQueue.Enqueue(instanceLeft);
 						_nodeSelf.AddChild(instanceLeft);
+						instanceLeft.Owner = this;
 						break;
 					default:
 						//////GD.Print("A FallingArrow Token did not map.");

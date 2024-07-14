@@ -78,6 +78,7 @@ public partial class InteractionTextBox : TextBoxProcess
 		Label nodeOptionLabel = (Label)instance.FindChild("Option", false, false);
 		nodeOptionLabel.Text = optionText;
 		_nodeVBoxContainer.AddChild(instance);
+		instance.Owner = _nodeVBoxContainer;
 		OptionContainerList.Add(instance);
 	}
 

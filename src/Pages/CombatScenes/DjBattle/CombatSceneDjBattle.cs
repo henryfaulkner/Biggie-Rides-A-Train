@@ -116,6 +116,7 @@ public partial class CombatSceneDjBattle : Node2D
 		var nextLevelResource = GD.Load<PackedScene>(_SCENE_BIGGIE_DEFEAT);
 		var nextLevel = nextLevelResource.Instantiate<Node>();
 		root.AddChild(nextLevel);
+		nextLevel.Owner = root;
 	}
 
 	public void HandleDjPhysicalDefeat()

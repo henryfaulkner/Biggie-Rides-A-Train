@@ -196,6 +196,7 @@ public partial class Spore : RigidBody2D
 		shape.Radius = radius;
 		CollisionShape.Shape = shape;
 		AddChild(CollisionShape);
+		CollisionShape.Owner = this;
 	}
 
 	private void ApplySpecialZone(float radius)
@@ -206,6 +207,8 @@ public partial class Spore : RigidBody2D
 		shape.Radius = radius * 1.5f;
 		SpecialZoneCollisionShape.Shape = shape;
 		SpecialZone.AddChild(SpecialZoneCollisionShape);
+		SpecialZoneCollisionShape.Owner = SpecialZone;
 		AddChild(SpecialZone);
+		SpecialZone.Owner = this;
 	}
 }
