@@ -22,5 +22,8 @@
   "IsDoubleMushroomDefeated": false,
   "UserSettings": {
     "FxMuted": false
+  },
+  "NpcStates": {
+    "LionState": 6
   }
 }

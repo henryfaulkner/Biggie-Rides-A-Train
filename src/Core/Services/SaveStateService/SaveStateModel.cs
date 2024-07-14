@@ -8,6 +8,7 @@ public class SaveStateModel
 		StoredLocation = null;
 		AdditionalStoredLocation = null;
 		UserSettings = new UserSettingsModel();
+		NpcStates = new NpcStates();
 	}
 
 	[JsonProperty("StoredLocation")]
@@ -80,12 +81,22 @@ public class SaveStateModel
 
 public class UserSettingsModel
 {
+	public UserSettingsModel()
+	{
+		FxMuted = false;
+	}
+
 	[JsonProperty("FxMuted")]
 	public bool FxMuted { get; set; }
 }
 
 public class NpcStates
 {
+	public NpcStates()
+	{
+		LionState = LionStateMachine.LionStates.Introduction;
+	}
+
 	[JsonProperty("LionState")]
 	public LionStateMachine.LionStates LionState { get; set; }
 }

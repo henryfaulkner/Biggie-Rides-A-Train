@@ -15,9 +15,9 @@ public partial class AquariumGiftShop : Node3D
 
 	public override void _Ready()
 	{
-		_nodeAquariumDoor = GetNode<Node3D>("./OuterAquarium/AquariumDoor");
-		_nodeOutsideGiftShopDoor = GetNode<Node>("./OuterAquarium/OutsideGiftShopDoor");
-		_nodeInteractableArea = GetNode<Area3D>("./OuterAquarium/AquariumDoor/InteractableArea3D");
+		//_nodeAquariumDoor = GetNode<Node3D>("./OuterAquarium/AquariumDoor");
+		//_nodeOutsideGiftShopDoor = GetNode<Node>("./OuterAquarium/OutsideGiftShopDoor");
+		//_nodeInteractableArea = GetNode<Area3D>("./OuterAquarium/AquariumDoor/InteractableArea3D");
 
 		FrameIndex = 0;
 		BeginToOpenDoor = false;
@@ -25,13 +25,13 @@ public partial class AquariumGiftShop : Node3D
 
 	public override void _PhysicsProcess(double _delta)
 	{
-		if (Input.IsActionJustPressed(_INTERACT_INPUT)
-			&& HelperFunctions.ContainsBiggie(_nodeInteractableArea.GetOverlappingBodies()))
-		{
-			BeginToOpenDoor = true;
-		}
-
-		if (BeginToOpenDoor && ProcessOpenDoor()) NavigateToGiftShop();
+		//if (Input.IsActionJustPressed(_INTERACT_INPUT)
+			//&& HelperFunctions.ContainsBiggie(_nodeInteractableArea.GetOverlappingBodies()))
+		//{
+			//BeginToOpenDoor = true;
+		//}
+//
+		//if (BeginToOpenDoor && ProcessOpenDoor()) NavigateToGiftShop();
 	}
 
 	//

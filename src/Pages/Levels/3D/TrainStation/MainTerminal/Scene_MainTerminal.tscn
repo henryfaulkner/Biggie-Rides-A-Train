@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_g0fpa"]
 [ext_resource type="PackedScene" uid="uid://xexs3slgxyya" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.tscn" id="2_kjt3v"]
 [ext_resource type="PackedScene" uid="uid://rnc3kww1v7jc" path="res://ObjectLibrary/Biggie/Biggie3D.tscn" id="3_g8h4i"]
-[ext_resource type="Texture2D" uid="uid://ckk6i4magan6p" path="res://Assets/Images/Objects/Teller.png" id="5_74ffu"]
+[ext_resource type="Texture2D" uid="uid://dhwopxe6tbw6k" path="res://Assets/Images/PrototypeTextures/Light/texture_05.png" id="5_88b1b"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_rkbc3"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/TrainStation/MainTerminal/Teller3D.cs" id="6_0obci"]
 [ext_resource type="Texture2D" uid="uid://duun5cslc1hp8" path="res://Assets/Images/PrototypeTextures/Orange/texture_05.png" id="6_f722h"]
@@ -21,7 +21,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="15_tb6mm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvmyi"]
-albedo_texture = ExtResource("5_74ffu")
+albedo_texture = ExtResource("5_88b1b")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_2qm52"]
 material = SubResource("StandardMaterial3D_vvmyi")
@@ -470,9 +470,11 @@ transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1, 39.488, -0.115026, 19.627)
 transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 49.651, 1.05678, 14.1407)
 script = ExtResource("15_mjqsr")
 
-[node name="Lion3D" parent="LevelWrapper/TextBoxWrapper/MoveToPathTest" node_paths=PackedStringArray("RestingLocation", "MoveToAquariumPathFollow") instance=ExtResource("11_6ugy6")]
-RestingLocation = NodePath("..")
+[node name="Lion3D" parent="LevelWrapper/TextBoxWrapper/MoveToPathTest" node_paths=PackedStringArray("ParentScene", "MoveToAquariumPathFollow") instance=ExtResource("11_6ugy6")]
+transform = Transform3D(1, 0, 4.06576e-20, 0, 1, 0, -4.06576e-20, 0, 1, 0, 0, 0)
+ParentScene = NodePath("..")
 MoveToAquariumPathFollow = NodePath("../Path3D/PathFollow3D")
+Speed = 1.0
 
 [node name="Path3D" type="Path3D" parent="LevelWrapper/TextBoxWrapper/MoveToPathTest"]
 transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 3.32034, 0, 0)
@@ -480,6 +482,7 @@ curve = SubResource("Curve3D_oi22b")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="LevelWrapper/TextBoxWrapper/MoveToPathTest/Path3D"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+loop = false
 tilt_enabled = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

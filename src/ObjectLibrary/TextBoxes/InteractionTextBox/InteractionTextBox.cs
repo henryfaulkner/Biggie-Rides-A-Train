@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class InteractionTextBox : CanvasLayer
+public partial class InteractionTextBox : TextBoxProcess
 {
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
 	private static readonly StringName _UP_INPUT = new StringName("move_up");
@@ -83,7 +83,7 @@ public partial class InteractionTextBox : CanvasLayer
 
 	// call this to display the constructed prompt and option list
 	// to the screen
-	public void Execute()
+	public override void ExecuteProcess()
 	{
 		//GD.Print("InteractionTextBox Execute and Show");
 		IsOpen = true;
@@ -95,11 +95,14 @@ public partial class InteractionTextBox : CanvasLayer
 	// respond to an option, whose selection was submitted
 	[Signal]
 	public delegate void SelectedOptionIdEventHandler(int selectionOptionId);
+	[Signal]
+	public delegate void CompleteProcessEventHandler();
 
 	public void HandleInteraction()
 	{
 		EmitSignal(SignalName.SelectedOptionId, OptionContainerList[CurrentSelectedOptionIndex].Id);
 		HideTextBox();
+		EmitSignal(SignalName.CompleteProcess);
 	}
 
 	public bool CanCreateDialogue()

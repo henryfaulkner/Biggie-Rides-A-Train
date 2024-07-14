@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-public partial class TextBox : CanvasLayer
+public partial class TextBox : TextBoxProcess
 {
 	private static readonly int _DEFAULT_PAGE_LENGTH = 225;
 	private static readonly StringName _INTERACT_INPUT = new StringName("interact");
@@ -79,7 +79,7 @@ public partial class TextBox : CanvasLayer
 		_dialogueListQueue.Enqueue(SplitDialogue(fullDialogue, _DEFAULT_PAGE_LENGTH));
 	}
 
-	public void ExecuteDialogueQueue()
+	public override void ExecuteProcess()
 	{
 		//DebugDialogueQueue();
 		_isReading = true;
@@ -124,6 +124,7 @@ public partial class TextBox : CanvasLayer
 			{
 				HideTextBox();
 				EmitSignal(SignalName.HidingTextBox);
+				EmitSignal(SignalName.CompleteProcess);
 			}
 		}
 		else
@@ -134,6 +135,8 @@ public partial class TextBox : CanvasLayer
 
 	[Signal]
 	public delegate void HidingTextBoxEventHandler();
+	[Signal]
+	public delegate void CompleteProcessEventHandler();
 
 	public void HideTextBox()
 	{

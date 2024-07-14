@@ -1,4 +1,4 @@
-{
+[
     {
         "StateId": 1,
         "EventId": 2,
@@ -38,5 +38,10 @@
         "StateId": 4,
         "EventId": 4,
         "NextStateId": 4
+    },
+    {
+        "StateId": 5,
+        "EventId": 1,
+        "NextStateId": 6
     }
-}
+]
