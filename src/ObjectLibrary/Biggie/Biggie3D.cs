@@ -52,8 +52,7 @@ public partial class Biggie3D : CharacterBody3D
 	{
 		if (_canMove
 			&& _nodeSelf.IsVisibleInTree()
-			&& (_serviceTextBox.TextBox == null || !_serviceTextBox.TextBox.IsOpen())
-			&& (_serviceTextBox.InteractionTextBox == null || !_serviceTextBox.InteractionTextBox.IsOpen))
+			&& !_serviceTextBox.HasTextBoxOpen())
 		{
 			ProcessGravity(delta);
 			var collision = Movement(delta);

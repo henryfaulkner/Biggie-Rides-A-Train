@@ -57,6 +57,7 @@ public partial class Scene_Taxi_Approaching_Train : Node3D
 		processTextBox.AddDialogue("In a land, not unlike our own, one cat is in a taxicar. He appears to be slimbering peacefully. Biggie, the cat in sleep, is approaching his destination.\n\nPress spacebar to advance text forward.");
 		processTextBox.AddDialogue("The boy has yet to consider his fate. The date, he may soon realize, is closer than it may seem.");
 		processTextBox.AddDialogue("You can hear the train whistle, muffled by the space between Biggie and the station. You drift closer to our traveler, who is gathering his thoughts.");
+		processTextBox.HidingTextBox += ContinuePlay;
 		_serviceTextBox.EnqueueProcess(processTextBox);
 		_serviceTextBox.ExecuteQueuedProcesses();
 	}

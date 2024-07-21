@@ -3,7 +3,7 @@ extends Area2D
 var _INTERACT_INPUT := "interact"
 const _SCENE = preload ("res://Pages/Levels/2D/MainStation/LevelMainStation.tscn")
 const _SCENE_DOOR_NODE_PATH = "./OutsideStationDoor"
-const _RELOCATION_SERVICE_SCRIPT = preload ("res://Core/RelocationService/RelocationService.cs")
+const _RELOCATION_SERVICE_SCRIPT = preload ("res://Core/Services/RelocationService/RelocationService.cs")
 
 var _nodeSelf: Area2D = null
 var _nodeDoor: Area2D = null

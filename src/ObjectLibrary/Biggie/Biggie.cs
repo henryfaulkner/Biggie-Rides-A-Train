@@ -40,8 +40,7 @@ public partial class Biggie : CharacterBody2D
 	{
 		if (_canMove
 			&& _nodeSelf.IsVisibleInTree()
-			&& (!_serviceTextBox.TextBox.IsOpen())
-			&& (!_serviceTextBox.InteractionTextBox.IsOpen))
+			&& !_serviceTextBox.HasTextBoxOpen())
 		{
 			var collision = Movement(delta);
 			if (collision != null)

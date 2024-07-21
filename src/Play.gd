@@ -11,7 +11,7 @@ const _MUSHROOM_BATTLE_1_COMBAT_SCENE = preload ("res://Pages/CombatScenes/Mushr
 
 var _nodeSelectAudio = null
 
-const _RELOCATION_SERVICE_SCRIPT = preload ("res://Core/RelocationService/RelocationService.cs")
+const _RELOCATION_SERVICE_SCRIPT = preload ("res://Core/Services/RelocationService/RelocationService.cs")
 var _relocation_service = null
 
 # Called when the node enters the scene tree for the first time.

@@ -135,8 +135,6 @@ public partial class TextBox : TextBoxProcess
 
 	[Signal]
 	public delegate void HidingTextBoxEventHandler();
-	[Signal]
-	public delegate void CompleteProcessEventHandler();
 
 	public void HideTextBox()
 	{

@@ -96,8 +96,6 @@ public partial class InteractionTextBox : TextBoxProcess
 	// respond to an option, whose selection was submitted
 	[Signal]
 	public delegate void SelectedOptionIdEventHandler(int selectionOptionId);
-	[Signal]
-	public delegate void CompleteProcessEventHandler();
 
 	public void HandleInteraction()
 	{

@@ -50,6 +50,7 @@ public partial class Scene_Intro_Sleep : Node2D
 	{
 		var processTextBox = _serviceTextBox.CreateTextBox();
 		processTextBox.AddDialogue("Biggie is fast asleep. Let's visit him in his dreams.");
+		processTextBox.HidingTextBox += ContinuePlay;
 		_serviceTextBox.EnqueueProcess(processTextBox);
 		_serviceTextBox.ExecuteQueuedProcesses();
 	}
