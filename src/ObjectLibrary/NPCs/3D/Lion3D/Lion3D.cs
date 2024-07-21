@@ -53,35 +53,59 @@ public partial class Lion3D : Node3D
 		switch (StateMachine.GetStateId())
 		{
 			case LionStateMachine.LionStates.Introduction:
-				_serviceTextBox.TextBox.AddDialogue("FISH FOOD! Fish are food... but you're not food.");
-				_serviceTextBox.TextBox.AddDialogue("Actually, very few of my fish are. You're like an honorary fish.");
-				_serviceTextBox.TextBox.AddDialogue("Welcome to the station's [color=Aqua][b]BEST[/b] aquarium gift shop[/color], honor fish.");
-				_serviceTextBox.TextBox.ExecuteDialogueQueue();
-				_serviceTextBox.InteractionTextBox.StartInteraction("Are fish food or foe? You tell me.", "Food", 1);
-				_serviceTextBox.InteractionTextBox.AddOption("Foe", 2);
-				_serviceTextBox.InteractionTextBox.AddOption("*evade this conversation*", 3);
-				_serviceTextBox.InteractionTextBox.SelectedOptionId += HandleFoodOrFoeQuestion;
-				_serviceTextBox.InteractionTextBox.Execute();
+				{
+					var processTextBox = _serviceTextBox.CreateTextBox();
+					processTextBox.AddDialogue("FISH FOOD! Fish are food... but you're not food.");
+					processTextBox.AddDialogue("Actually, very few of my fish are. You're like an honorary fish.");
+					processTextBox.AddDialogue("Welcome to the station's [color=Aqua][b]BEST[/b] aquarium gift shop[/color], honor fish.");
+					_serviceTextBox.EnqueueProcess(processTextBox);
+
+					var processInteractionTextBox = _serviceTextBox.CreateInteractionTextBox();
+					processInteractionTextBox.StartInteraction("Are fish food or foe? You tell me.", "Food", 1);
+					processInteractionTextBox.AddOption("Foe", 2);
+					processInteractionTextBox.AddOption("*evade this conversation*", 3);
+					processInteractionTextBox.SelectedOptionId += HandleFoodOrFoeQuestion;
+					_serviceTextBox.EnqueueProcess(processInteractionTextBox);
+
+					_serviceTextBox.ExecuteQueuedProcesses();
+				}
 				break;
 			case LionStateMachine.LionStates.EvadedFoodOrFoeQuestion:
-				_serviceTextBox.TextBox.AddDialogue("YARRRRR! He returns, the honor fish.");
-				_serviceTextBox.TextBox.ExecuteDialogueQueue();
-				_serviceTextBox.InteractionTextBox.StartInteraction("Do they be food or foe?", "Food", 1);
-				_serviceTextBox.InteractionTextBox.AddOption("Foe", 2);
-				_serviceTextBox.InteractionTextBox.AddOption("*leave again*", 3);
-				_serviceTextBox.InteractionTextBox.SelectedOptionId += HandleFoodOrFoeQuestion;
-				_serviceTextBox.InteractionTextBox.Execute();
+				{
+					var processTextBox = _serviceTextBox.CreateTextBox();
+					processTextBox.AddDialogue("YARRRRR! He returns, the honor fish.");
+					_serviceTextBox.EnqueueProcess(processTextBox);
+
+					var processInteractionTextBox = _serviceTextBox.CreateInteractionTextBox();
+					processInteractionTextBox.StartInteraction("Do they be food or foe?", "Food", 1);
+					processInteractionTextBox.AddOption("Foe", 2);
+					processInteractionTextBox.AddOption("*leave again*", 3);
+					processInteractionTextBox.SelectedOptionId += HandleFoodOrFoeQuestion;
+					_serviceTextBox.EnqueueProcess(processInteractionTextBox);
+
+					_serviceTextBox.ExecuteQueuedProcesses();
+				}
 				break;
 			case LionStateMachine.LionStates.Food:
-				_serviceTextBox.TextBox.AddDialogue("Geez.. You're a weird fish. I was looking for foe to be completely honest.");
-				_serviceTextBox.TextBox.AddDialogue("Come with me to the [color=Aqua]aquarium[/color]. You will see.");
-				_serviceTextBox.TextBox.ExecuteDialogueQueue();
+				{
+					var processTextBox = _serviceTextBox.CreateTextBox();
+					processTextBox.AddDialogue("Geez.. You're a weird fish. I was looking for foe to be completely honest.");
+					processTextBox.AddDialogue("Come with me to the [color=Aqua]aquarium[/color]. You will see.");
+					_serviceTextBox.EnqueueProcess(processTextBox);
+
+					_serviceTextBox.ExecuteQueuedProcesses();
+				}
 				StateMachine.Transition(LionStateMachine.LionEvents.GeneralProgreesion);
 				break;
 			case LionStateMachine.LionStates.Foe:
-				_serviceTextBox.TextBox.AddDialogue("Exactly what I have been saying!! or at least recently. Usually, I think of them more as a tax right-off.");
-				_serviceTextBox.TextBox.AddDialogue("Come with me to the [color=Aqua]aquarium[/color]. You will see.");
-				_serviceTextBox.TextBox.ExecuteDialogueQueue();
+				{
+					var processTextBox = _serviceTextBox.CreateTextBox();
+					processTextBox.AddDialogue("Exactly what I have been saying!! or at least recently. Usually, I think of them more as a tax right-off.");
+					processTextBox.AddDialogue("Come with me to the [color=Aqua]aquarium[/color]. You will see.");
+					_serviceTextBox.EnqueueProcess(processTextBox);
+
+					_serviceTextBox.ExecuteQueuedProcesses();
+				}
 				StateMachine.Transition(LionStateMachine.LionEvents.GeneralProgreesion);
 				break;
 			default:

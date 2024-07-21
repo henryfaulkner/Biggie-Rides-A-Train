@@ -29,36 +29,48 @@ public partial class Teller : StaticBody2D
 
 	private void DisplayDialogue()
 	{
-		if (!_serviceTextBox.TextBox.CanCreateDialogue()) return;
+		//if (!_serviceTextBox.TextBox.CanCreateDialogue()) return;
 		using (var context = new SaveStateService())
 		{
 			var contextState = context.Load();
 			switch (contextState.DialogueStateTeller)
 			{
 				case Enumerations.DialogueStates.Teller.Introduce:
-					_serviceTextBox.TextBox.AddDialogue("Hi, welcome to the Station's Teller Station. I can take your [wave amp=50 freq=6]train ticket[/wave] if you have one.");
-					_serviceTextBox.TextBox.AddDialogue("Usually, I sell train ticket but not today. Today's train is SOLD OUT. Apparently, there is some huge show happening at the CATHEDRAL in West Bay.");
-					_serviceTextBox.TextBox.AddDialogue("Probably another one of the CONDUCTOR'S doing. What a genius.");
-					_serviceTextBox.TextBox.AddDialogue("I can tell you don't have a [wave amp=50 freq=6]train ticket[/wave] right now. Come back when you have one.");
-					_serviceTextBox.TextBox.ExecuteDialogueQueue();
+					{
+						var processTextBox = _serviceTextBox.CreateTextBox();
+						processTextBox.AddDialogue("Hi, welcome to the Station's Teller Station. I can take your [wave amp=50 freq=6]train ticket[/wave] if you have one.");
+						processTextBox.AddDialogue("Usually, I sell train ticket but not today. Today's train is SOLD OUT. Apparently, there is some huge show happening at the CATHEDRAL in West Bay.");
+						processTextBox.AddDialogue("Probably another one of the CONDUCTOR'S doing. What a genius.");
+						processTextBox.AddDialogue("I can tell you don't have a [wave amp=50 freq=6]train ticket[/wave] right now. Come back when you have one.");
+						_serviceTextBox.EnqueueProcess(processTextBox);
+
+						_serviceTextBox.ExecuteQueuedProcesses();
+					}
+
 					contextState.DialogueStateTeller = Enumerations.DialogueStates.Teller.AskForTicket;
 					context.Commit(contextState);
 					break;
 				case Enumerations.DialogueStates.Teller.AskForTicket:
-					_serviceTextBox.TextBox.AddDialogue("You have a [wave amp=50 freq=6]train ticket[/wave] yet?");
-					if (CheckForTicket(contextState))
 					{
-						_serviceTextBox.TextBox.AddDialogue("It looks like you got your hands on a [wave amp=50 freq=6]train ticket![/wave]");
-						_serviceTextBox.TextBox.ExecuteDialogueQueue();
-						_serviceTextBox.InteractionTextBox.StartInteraction("Are you ready to depart?", "Yes", 1);
-						_serviceTextBox.InteractionTextBox.AddOption("No", 2);
-						_serviceTextBox.InteractionTextBox.SelectedOptionId += HandleInteraction_Boarding;
-						_serviceTextBox.InteractionTextBox.Execute();
-					}
-					else
-					{
-						_serviceTextBox.TextBox.AddDialogue("It seems like you don't. Come back when you have [wave amp=50 freq=6]train ticket[/wave].");
-						_serviceTextBox.TextBox.ExecuteDialogueQueue();
+						var processTextBox = _serviceTextBox.CreateTextBox();
+						processTextBox.AddDialogue("You have a [wave amp=50 freq=6]train ticket[/wave] yet?");
+						if (CheckForTicket(contextState))
+						{
+							processTextBox.AddDialogue("It looks like you got your hands on a [wave amp=50 freq=6]train ticket![/wave]");
+							_serviceTextBox.EnqueueProcess(processTextBox);
+
+							var processInteractionTextBox = _serviceTextBox.CreateInteractionTextBox();
+							processInteractionTextBox.StartInteraction("Are you ready to depart?", "Yes", 1);
+							processInteractionTextBox.AddOption("No", 2);
+							processInteractionTextBox.SelectedOptionId += HandleInteraction_Boarding;
+							_serviceTextBox.EnqueueProcess(processInteractionTextBox);
+						}
+						else
+						{
+							processTextBox.AddDialogue("It seems like you don't. Come back when you have [wave amp=50 freq=6]train ticket[/wave].");
+							_serviceTextBox.EnqueueProcess(processTextBox);
+						}
+						_serviceTextBox.ExecuteQueuedProcesses();
 					}
 					break;
 				default:
@@ -84,8 +96,11 @@ public partial class Teller : StaticBody2D
 		}
 		else
 		{
-			_serviceTextBox.TextBox.AddDialogue("No problemo. Come back when you're ready to board.");
-			_serviceTextBox.TextBox.ExecuteDialogueQueue();
+			var processTextBox = _serviceTextBox.CreateTextBox();
+			processTextBox.AddDialogue("No problemo. Come back when you're ready to board.");
+			_serviceTextBox.EnqueueProcess(processTextBox);
+
+			_serviceTextBox.ExecuteQueuedProcesses();
 		}
 	}
 

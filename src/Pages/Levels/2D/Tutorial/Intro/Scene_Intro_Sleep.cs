@@ -21,14 +21,14 @@ public partial class Scene_Intro_Sleep : Node2D
 		biggie.CanMove(false);
 
 		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
-		_serviceTextBox.TextBox.HidingTextBox += ContinuePlay;
+		//_serviceTextBox.TextBox.HidingTextBox += ContinuePlay;
 	}
 
 	public override void _PhysicsProcess(double _delta)
 	{
 		if (FrameIncrement == _OPEN_TEXTBOX_AT_THIS_INCREMENT)
 		{
-			CreateDialogue1(_serviceTextBox.TextBox);
+			CreateDialogue1();
 
 			PauseIncrement = true;
 			FrameIncrement += 1;
@@ -46,10 +46,12 @@ public partial class Scene_Intro_Sleep : Node2D
 		}
 	}
 
-	private void CreateDialogue1(TextBox textBox)
+	private void CreateDialogue1()
 	{
-		textBox.AddDialogue("Biggie is fast asleep. Let's visit him in his dreams.");
-		textBox.ExecuteDialogueQueue();
+		var processTextBox = _serviceTextBox.CreateTextBox();
+		processTextBox.AddDialogue("Biggie is fast asleep. Let's visit him in his dreams.");
+		_serviceTextBox.EnqueueProcess(processTextBox);
+		_serviceTextBox.ExecuteQueuedProcesses();
 	}
 
 

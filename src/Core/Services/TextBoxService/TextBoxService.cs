@@ -6,11 +6,7 @@ using System.Linq;
 
 public partial class TextBoxService : Node
 {
-    public InteractionTextBox InteractionTextBox { get; set; }
-    public TextBox TextBox { get; set; }
-
-    // HoverTextBox is not participating in the ProcessQueue
-    public HoverTextBox HoverTextBox { get; set; }
+    private TextBoxWrapper _nodeTextBoxWrapper = null;
 
     private Queue<TextBoxProcess> ProcessQueue { get; set; }
     private TextBoxProcess? CurrentProcess { get; set; }
@@ -18,6 +14,8 @@ public partial class TextBoxService : Node
 
     public override void _Ready()
     {
+        _nodeTextBoxWrapper = (TextBoxWrapper)GetNode("/root").FindChild("TextBoxWrapper");
+
         ProcessQueue = new Queue<TextBoxProcess>();
         CurrentProcess = null;
         IsInboundQueuing = true;
@@ -37,11 +35,15 @@ public partial class TextBoxService : Node
         }
     }
 
+    public void ExecuteQueuedProcesses()
+    {
+        throw new NotImplementedException();
+    }
+
     public void CompleteProcess(TextBoxProcess process)
     {
-        ProcessQueue.Dequeue();
+        process.QueueFree();
         CurrentProcess = null;
-        IsInboundQueuing = true;
     }
 
     public void EnqueueProcess(TextBoxProcess process)
@@ -54,5 +56,23 @@ public partial class TextBoxService : Node
     {
         CurrentProcess = null;
         IsInboundQueuing = true;
+    }
+
+    public InteractionTextBox CreateInteractionTextBox()
+    {
+        var result = TextBoxFactory.SpawnInteractionTextBox();
+        return result;
+    }
+
+    public TextBox CreateTextBox()
+    {
+        var result = TextBoxFactory.SpawnTextBox();
+        return result;
+    }
+
+    public HoverTextBox CreateHoverTextBox()
+    {
+        var result = TextBoxFactory.SpawnHoverTextBox();
+        return result;
     }
 }

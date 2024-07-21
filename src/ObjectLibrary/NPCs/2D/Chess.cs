@@ -29,23 +29,33 @@ public partial class Chess : Node2D
 
 	private void DisplayDialogue()
 	{
-		if (!_serviceTextBox.TextBox.CanCreateDialogue()) return;
+		//if (!processTextBox.CanCreateDialogue()) return;
 		using (var context = new SaveStateService())
 		{
 			var contextState = context.Load();
 			switch (contextState.DialogueStateChess)
 			{
 				case Enumerations.DialogueStates.Chess.Introduce:
-					_serviceTextBox.TextBox.AddDialogue("Player 1: Hmmmmm...");
-					_serviceTextBox.TextBox.AddDialogue("Player 2: Hmmmmm...");
-					_serviceTextBox.TextBox.AddDialogue("*Both players act like it is their turn and are in deep focus*");
-					_serviceTextBox.TextBox.ExecuteDialogueQueue();
+					{
+						var processTextBox = _serviceTextBox.CreateTextBox();
+						processTextBox.AddDialogue("Player 1: Hmmmmm...");
+						processTextBox.AddDialogue("Player 2: Hmmmmm...");
+						processTextBox.AddDialogue("*Both players act like it is their turn and are in deep focus*");
+						_serviceTextBox.EnqueueProcess(processTextBox);
+
+						_serviceTextBox.ExecuteQueuedProcesses();
+					}
 					contextState.DialogueStateChess = Enumerations.DialogueStates.Chess.PlayOpponent;
 					context.Commit(contextState);
 					break;
 				case Enumerations.DialogueStates.Chess.PlayOpponent:
-					_serviceTextBox.TextBox.AddDialogue("*Both player look to be focusing intensely but neither has made a move since you have been here*");
-					_serviceTextBox.TextBox.ExecuteDialogueQueue();
+					{
+						var processTextBox = _serviceTextBox.CreateTextBox();
+						processTextBox.AddDialogue("*Both player look to be focusing intensely but neither has made a move since you have been here*");
+						_serviceTextBox.EnqueueProcess(processTextBox);
+
+						_serviceTextBox.ExecuteQueuedProcesses();
+					}
 					break;
 				default:
 					break;

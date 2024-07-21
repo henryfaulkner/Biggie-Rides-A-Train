@@ -23,7 +23,7 @@ public partial class Scene_Taxi_Approaching_Train : Node3D
 		_nodeAudio = GetNode<AudioStreamPlayer>("./AudioStreamPlayer");
 		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
 
-		_serviceTextBox.TextBox.HidingTextBox += ContinuePlay;
+		//_serviceTextBox.TextBox.HidingTextBox += ContinuePlay;
 		_nodeAudio.Play();
 	}
 
@@ -31,7 +31,7 @@ public partial class Scene_Taxi_Approaching_Train : Node3D
 	{
 		if (FrameIncrement == _OPEN_TEXTBOX_AT_THIS_INCREMENT)
 		{
-			CreateDialogue1(_serviceTextBox.TextBox);
+			CreateDialogue1();
 
 			PauseIncrement = true;
 			FrameIncrement += 1;
@@ -51,12 +51,14 @@ public partial class Scene_Taxi_Approaching_Train : Node3D
 		}
 	}
 
-	private void CreateDialogue1(TextBox textBox)
+	private void CreateDialogue1()
 	{
-		textBox.AddDialogue("In a land, not unlike our own, one cat is in a taxicar. He appears to be slimbering peacefully. Biggie, the cat in sleep, is approaching his destination.\n\nPress spacebar to advance text forward.");
-		textBox.AddDialogue("The boy has yet to consider his fate. The date, he may soon realize, is closer than it may seem.");
-		textBox.AddDialogue("You can hear the train whistle, muffled by the space between Biggie and the station. You drift closer to our traveler, who is gathering his thoughts.");
-		textBox.ExecuteDialogueQueue();
+		var processTextBox = _serviceTextBox.CreateTextBox();
+		processTextBox.AddDialogue("In a land, not unlike our own, one cat is in a taxicar. He appears to be slimbering peacefully. Biggie, the cat in sleep, is approaching his destination.\n\nPress spacebar to advance text forward.");
+		processTextBox.AddDialogue("The boy has yet to consider his fate. The date, he may soon realize, is closer than it may seem.");
+		processTextBox.AddDialogue("You can hear the train whistle, muffled by the space between Biggie and the station. You drift closer to our traveler, who is gathering his thoughts.");
+		_serviceTextBox.EnqueueProcess(processTextBox);
+		_serviceTextBox.ExecuteQueuedProcesses();
 	}
 
 

@@ -18,6 +18,8 @@ public partial class LevelOutsideStation : Node2D
 
 	private bool _arrivalSceneConcluded = false;
 
+	private TextBoxService _serviceTextBox = null;
+
 	public override void _Ready()
 	{
 		_level = GetNode<Node2D>("/root/LevelOutsideStation");
@@ -31,6 +33,8 @@ public partial class LevelOutsideStation : Node2D
 		_viewportY = ((Window)GetViewport()).Size.Y;
 
 		_biggie.Hide();
+
+		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
 	}
 
 	public override void _Process(double delta)
@@ -44,10 +48,15 @@ public partial class LevelOutsideStation : Node2D
 		else if (!_arrivalSceneConcluded)
 		{
 			_taxi.SetMovingBit(false);
-			_textbox.AddDialogue("Alright. Here you are. The Eastbay Station. Destination, I've got to assume the Westbay for that Westbay Cathedral venue.");
-			_textbox.AddDialogue("Everyone raves about the Conductor that place has. I'll get there one day. Hey, I hope you have a TICKET for that here train. You'll need one if you're wanting to board.");
-			_textbox.AddDialogue("Anyways, good luck, have fun.");
-			_textbox.ExecuteDialogueQueue();
+
+			var processTextBox = _serviceTextBox.CreateTextBox();
+			processTextBox.AddDialogue("Alright. Here you are. The Eastbay Station. Destination, I've got to assume the Westbay for that Westbay Cathedral venue.");
+			processTextBox.AddDialogue("Everyone raves about the Conductor that place has. I'll get there one day. Hey, I hope you have a TICKET for that here train. You'll need one if you're wanting to board.");
+			processTextBox.AddDialogue("Anyways, good luck, have fun.");
+			_serviceTextBox.EnqueueProcess(processTextBox);
+			_serviceTextBox.ExecuteQueuedProcesses();
+
+
 			_arrivalSceneConcluded = true;
 			_biggie.Show();
 			_biggie.CanMove(false);

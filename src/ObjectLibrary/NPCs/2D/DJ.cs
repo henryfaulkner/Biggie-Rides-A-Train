@@ -23,7 +23,6 @@ public partial class DJ : Node2D
 		_nodeInteractableArea = GetNode<Area2D>("./InteractableArea");
 		_nodeGoatSprites = GetNode<Sprite2D>("./VBoxContainer/Goat/Sprite2D");
 		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
-		_serviceTextBox.InteractionTextBox.SelectedOptionId += HandleInteraction;
 	}
 
 	public override void _Process(double delta)
@@ -34,34 +33,45 @@ public partial class DJ : Node2D
 			DisplayDialogue();
 		}
 
-		if (_serviceTextBox.TextBox.IsOpen())
-		{
-			_nodeGoatSprites.Frame = _SPRITE_FRAME_GOAT_SPEAKING;
-		}
-		else
-		{
-			_nodeGoatSprites.Frame = _SPRITE_FRAME_GOAT_IDLE;
-		}
+		// if (_serviceTextBox.TextBox.IsOpen())
+		// {
+		// 	_nodeGoatSprites.Frame = _SPRITE_FRAME_GOAT_SPEAKING;
+		// }
+		// else
+		// {
+		// 	_nodeGoatSprites.Frame = _SPRITE_FRAME_GOAT_IDLE;
+		// }
 	}
 
 	private void DisplayDialogue()
 	{
-		if (!_serviceTextBox.TextBox.CanCreateDialogue()) return;
+		//if (!_serviceTextBox.TextBox.CanCreateDialogue()) return;
 		using (var context = new SaveStateService())
 		{
 			var contextState = context.Load();
 			switch (contextState.DialogueStateDJ)
 			{
 				case Enumerations.DialogueStates.DJ.Introduce:
-					_serviceTextBox.TextBox.AddDialogue("Hi. Welcome to The Club. Please stand up.");
-					_serviceTextBox.TextBox.ExecuteDialogueQueue();
+					{
+						var processTextBox = _serviceTextBox.CreateTextBox();
+						processTextBox.AddDialogue("Hi. Welcome to The Club. Please stand up.");
+						_serviceTextBox.EnqueueProcess(processTextBox);
+
+						_serviceTextBox.ExecuteQueuedProcesses();
+					}
 					contextState.DialogueStateDJ = Enumerations.DialogueStates.DJ.Battle;
 					context.Commit(contextState);
 					break;
 				case Enumerations.DialogueStates.DJ.Battle:
-					_serviceTextBox.InteractionTextBox.StartInteraction("Do we need to dance battle?", "Yes", 0);
-					_serviceTextBox.InteractionTextBox.AddOption("No", 1);
-					_serviceTextBox.InteractionTextBox.Execute();
+					{
+						var processInteractionTextBox = _serviceTextBox.CreateInteractionTextBox();
+						processInteractionTextBox.StartInteraction("Do we need to dance battle?", "Yes", 0);
+						processInteractionTextBox.AddOption("No", 1);
+						processInteractionTextBox.SelectedOptionId += HandleInteraction;
+						_serviceTextBox.EnqueueProcess(processInteractionTextBox);
+
+						_serviceTextBox.ExecuteQueuedProcesses();
+					}
 					break;
 				default:
 					break;
@@ -78,8 +88,13 @@ public partial class DJ : Node2D
 				GetTree().ChangeSceneToPacked(nextScene);
 				break;
 			case 1:
-				_serviceTextBox.TextBox.AddDialogue("Wack!");
-				_serviceTextBox.TextBox.ExecuteDialogueQueue();
+				{
+					var processTextBox = _serviceTextBox.CreateTextBox();
+					processTextBox.AddDialogue("Wack!");
+					_serviceTextBox.EnqueueProcess(processTextBox);
+
+					_serviceTextBox.ExecuteQueuedProcesses();
+				}
 				break;
 			default:
 				//////GD.Print("DJ.HandleInteraction option id did not map.");

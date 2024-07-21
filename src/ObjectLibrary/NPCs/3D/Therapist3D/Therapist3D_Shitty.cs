@@ -24,7 +24,6 @@ public partial class Therapist3D_Shitty : Node3D
 		_nodeInteractableArea = GetNode<Area3D>("./InteractableArea3D");
 		_nodeGoatBodySprites = GetNode("./StaticBody3D/BodySpriteMeshInstance");
 		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
-		_serviceTextBox.InteractionTextBox.SelectedOptionId += HandleInteraction;
 	}
 
 	public override void _Process(double delta)
@@ -36,40 +35,56 @@ public partial class Therapist3D_Shitty : Node3D
 			DisplayDialogue();
 		}
 
-		if (_serviceTextBox.TextBox.IsOpen())
-		{
-			_nodeGoatBodySprites.Call("set_frame", _SPRITE_FRAME_GOAT_SPEAKING);
-		}
-		else
-		{
-			_nodeGoatBodySprites.Call("set_frame", _SPRITE_FRAME_GOAT_IDLE);
-		}
+		// if (_serviceTextBox.TextBox.IsOpen())
+		// {
+		// 	_nodeGoatBodySprites.Call("set_frame", _SPRITE_FRAME_GOAT_SPEAKING);
+		// }
+		// else
+		// {
+		// 	_nodeGoatBodySprites.Call("set_frame", _SPRITE_FRAME_GOAT_IDLE);
+		// }
 	}
 
 	private void DisplayDialogue()
 	{
-		if (!_serviceTextBox.TextBox.CanCreateDialogue()) return;
+		//if (!_serviceTextBox.TextBox.CanCreateDialogue()) return;
 		using (var context = new SaveStateService())
 		{
 			var contextState = context.Load();
 			switch (contextState.DialogueStateTherapist)
 			{
 				case Enumerations.DialogueStates.Therapist.Introduce:
-					_serviceTextBox.TextBox.AddDialogue("Hi. Welcome to Therapy. Please take a seat.");
-					_serviceTextBox.TextBox.ExecuteDialogueQueue();
+					{
+						var processTextBox = _serviceTextBox.CreateTextBox();
+						processTextBox.AddDialogue("Hi. Welcome to Therapy. Please take a seat.");
+						_serviceTextBox.EnqueueProcess(processTextBox);
+
+						_serviceTextBox.ExecuteQueuedProcesses();
+					}
 					contextState.DialogueStateTherapist = Enumerations.DialogueStates.Therapist.OfferTherapy;
 					context.Commit(contextState);
 					break;
 				case Enumerations.DialogueStates.Therapist.OfferTherapy:
-					_serviceTextBox.TextBox.AddDialogue("Please take a seat.");
-					_serviceTextBox.TextBox.ExecuteDialogueQueue();
+					{
+						var processTextBox = _serviceTextBox.CreateTextBox();
+						processTextBox.AddDialogue("Please take a seat.");
+						_serviceTextBox.EnqueueProcess(processTextBox);
+
+						_serviceTextBox.ExecuteQueuedProcesses();
+					}
 					contextState.DialogueStateTherapist = Enumerations.DialogueStates.Therapist.TestBattle;
 					context.Commit(contextState);
 					break;
 				case Enumerations.DialogueStates.Therapist.TestBattle:
-					_serviceTextBox.InteractionTextBox.StartInteraction("Do we need to test battle?", "Yes", 0);
-					_serviceTextBox.InteractionTextBox.AddOption("No", 1);
-					_serviceTextBox.InteractionTextBox.Execute();
+					{
+						var processInteractionTextBox = _serviceTextBox.CreateInteractionTextBox();
+						processInteractionTextBox.StartInteraction("Do we need to test battle?", "Yes", 0);
+						processInteractionTextBox.AddOption("No", 1);
+						processInteractionTextBox.SelectedOptionId += HandleInteraction;
+						_serviceTextBox.EnqueueProcess(processInteractionTextBox);
+
+						_serviceTextBox.ExecuteQueuedProcesses();
+					}
 					break;
 				default:
 					break;
@@ -86,8 +101,13 @@ public partial class Therapist3D_Shitty : Node3D
 				GetTree().ChangeSceneToPacked(nextScene);
 				break;
 			case 1:
-				_serviceTextBox.TextBox.AddDialogue("Wack!");
-				_serviceTextBox.TextBox.ExecuteDialogueQueue();
+				{
+					var processTextBox = _serviceTextBox.CreateTextBox();
+					processTextBox.AddDialogue("Wack!");
+					_serviceTextBox.EnqueueProcess(processTextBox);
+
+					_serviceTextBox.ExecuteQueuedProcesses();
+				}
 				break;
 			default:
 				//////GD.Print("DJ.HandleInteraction option id did not map.");
