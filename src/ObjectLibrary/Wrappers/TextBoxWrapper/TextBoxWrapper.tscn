@@ -1,15 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://xexs3slgxyya"]
+[gd_scene load_steps=2 format=3 uid="uid://xexs3slgxyya"]
 
 [ext_resource type="Script" path="res://ObjectLibrary/Wrappers/TextBoxWrapper/TextBoxWrapper.cs" id="1_esufc"]
-[ext_resource type="PackedScene" uid="uid://b5dk4plb8i67w" path="res://ObjectLibrary/TextBoxes/InteractionTextBox/InteractionTextBox.tscn" id="2_ddmi0"]
-[ext_resource type="PackedScene" uid="uid://b7731gnrl0uck" path="res://ObjectLibrary/TextBoxes/TextBox/TextBox.tscn" id="3_uc7y4"]
-[ext_resource type="PackedScene" uid="uid://bcqv7uxn2uljg" path="res://ObjectLibrary/TextBoxes/HoverTextBox/HoverTextBox.tscn" id="4_i4c3a"]
 
 [node name="TextBoxWrapper" type="Node2D"]
 script = ExtResource("1_esufc")
-
-[node name="InteractionTextBox" parent="." instance=ExtResource("2_ddmi0")]
-
-[node name="TextBox" parent="." instance=ExtResource("3_uc7y4")]
-
-[node name="HoverTextBox" parent="." instance=ExtResource("4_i4c3a")]

@@ -11,6 +11,13 @@ public partial class WoodSign2 : Node3D
 
 	private TextBoxService _serviceTextBox = null;
 
+	private bool InitBit { get; set; }
+
+	public WoodSign2()
+	{
+		InitBit = false;
+	}
+
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Node3D>(".");
@@ -23,6 +30,13 @@ public partial class WoodSign2 : Node3D
 
 	public override void _Process(double delta)
 	{
+		if (!InitBit)
+		{
+			var hoverTextBox = _serviceTextBox.CreateHoverTextBox();
+			HoverTextBoxHelper = new HoverTextBoxHelper(_nodeSelf, _nodeInteractableArea, hoverTextBox, _TEXT);
+			InitBit = true;
+		}
+
 		HoverTextBoxHelper.Process();
 	}
 }

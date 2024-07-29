@@ -14,19 +14,30 @@ public partial class SceneBarrier : Node3D
 
 	public bool CanOpen { get; set; }
 
+	private bool InitBit { get; set; }
+
+	public SceneBarrier()
+	{
+		CanOpen = false;
+		InitBit = false;
+	}
+
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Node3D>(".");
 		_nodeInteractableArea = GetNode<Area3D>("./InteractableArea3D");
 		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
-
-		var hoverTextBox = _serviceTextBox.CreateHoverTextBox();
-		HoverTextBoxHelper = new HoverTextBoxHelper(_nodeSelf, _nodeInteractableArea, hoverTextBox, _TEXT);
-		CanOpen = false;
 	}
 
 	public override void _Process(double delta)
 	{
+		if (!InitBit)
+		{
+			var hoverTextBox = _serviceTextBox.CreateHoverTextBox();
+			HoverTextBoxHelper = new HoverTextBoxHelper(_nodeSelf, _nodeInteractableArea, hoverTextBox, _TEXT);
+			InitBit = true;
+		}
+
 		if (CanOpen)
 		{
 			HoverTextBoxHelper.Process();

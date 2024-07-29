@@ -42,7 +42,7 @@ public partial class Biggie3D : CharacterBody3D
 		_nodeCollider = GetNode<CollisionShape3D>("./CollisionShape3D");
 
 		_serviceRelocation = GetNode<RelocationService>("/root/RelocationService");
-		AttemptStoredLocationApplication();
+		//AttemptStoredLocationApplication();
 		_serviceGravity = GetNode<GravityService>("/root/GravityService");
 		_serviceRotation = GetNode<RotationService>("/root/RotationService");
 		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");

@@ -16,6 +16,7 @@ public partial class TextBoxService : Node
 	{
 		ProcessQueue = new Queue<TextBoxProcess>();
 		CurrentProcess = null;
+		GD.Print("IsInboundQueuing = true");
 		IsInboundQueuing = true;
 	}
 
@@ -37,7 +38,7 @@ public partial class TextBoxService : Node
 			}
 			if (!ProcessQueue.Any())
 			{
-				GD.PrintErr("ExecuteQueuedProcesses exit early. ProcessQueue is empty.");
+				GD.Print("ProcessQueue is empty. Resume inbound queuing.");
 				ResumeInboundQueuing();
 				return;
 			}
@@ -54,6 +55,7 @@ public partial class TextBoxService : Node
 
 	public void ExecuteQueuedProcesses()
 	{
+		GD.Print("IsInboundQueuing = false");
 		IsInboundQueuing = false;
 	}
 
@@ -66,12 +68,15 @@ public partial class TextBoxService : Node
 
 	public void EnqueueProcess(TextBoxProcess process)
 	{
+		if (!IsInboundQueuing) return;
+		GD.Print("EnqueueProcess");
 		process.CompleteProcess += () => CompleteProcess(process);
 		ProcessQueue.Enqueue(process);
 	}
 
 	public void ResumeInboundQueuing()
 	{
+		GD.Print("IsInboundQueuing = true");
 		IsInboundQueuing = true;
 	}
 

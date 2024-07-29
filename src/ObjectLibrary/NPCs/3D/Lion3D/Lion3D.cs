@@ -91,22 +91,22 @@ public partial class Lion3D : Node3D
 					var processTextBox = _serviceTextBox.CreateTextBox();
 					processTextBox.AddDialogue("Geez.. You're a weird fish. I was looking for foe to be completely honest.");
 					processTextBox.AddDialogue("Come with me to the [color=Aqua]aquarium[/color]. You will see.");
+					processTextBox.CompleteProcess += () => StateMachine.Transition(LionStateMachine.LionEvents.GeneralProgreesion);
 					_serviceTextBox.EnqueueProcess(processTextBox);
 
 					_serviceTextBox.ExecuteQueuedProcesses();
 				}
-				StateMachine.Transition(LionStateMachine.LionEvents.GeneralProgreesion);
 				break;
 			case LionStateMachine.LionStates.Foe:
 				{
 					var processTextBox = _serviceTextBox.CreateTextBox();
 					processTextBox.AddDialogue("Exactly what I have been saying!! or at least recently. Usually, I think of them more as a tax right-off.");
 					processTextBox.AddDialogue("Come with me to the [color=Aqua]aquarium[/color]. You will see.");
+					processTextBox.CompleteProcess += () => StateMachine.Transition(LionStateMachine.LionEvents.GeneralProgreesion);
 					_serviceTextBox.EnqueueProcess(processTextBox);
 
 					_serviceTextBox.ExecuteQueuedProcesses();
 				}
-				StateMachine.Transition(LionStateMachine.LionEvents.GeneralProgreesion);
 				break;
 			default:
 				GD.Print("Lion3D is in an unmapped state.");
