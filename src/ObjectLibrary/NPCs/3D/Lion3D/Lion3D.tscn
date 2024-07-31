@@ -86,3 +86,5 @@ transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableArea3D"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.0126461, -0.0386519, 0.0346525)
 shape = SubResource("BoxShape3D_02bme")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

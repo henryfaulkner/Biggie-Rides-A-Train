@@ -1,31 +1,35 @@
 using Godot;
 using System;
 
-public partial class Lion3D : Node3D
+public partial class Lion3D : CharacterBody3D
 {
 	private readonly StringName _INTERACT_INPUT = new StringName("interact");
 
-	[Export]
-	private Node3D ParentScene { get; set; }
-
-	[Export]
-	private PathFollow3D MoveToAquariumPathFollow { get; set; }
-
 	private Node3D _nodeSelf = null;
 	private Area3D _nodeInteractableArea = null;
+	private NavigationAgent3D _nodeNavigationAgent = null;
+
+
+	[Export]
+	public Marker3D MarkerNearDoor { get; set; }
+	[Export]
+	public Marker3D MarkerPastDoor { get; set; }
 
 	private TextBoxService _serviceTextBox = null;
 	private SaveStateService _serviceSaveState = null;
 
 	[Export]
 	public float Speed { get; set; }
+	[Export]
+	public float Acceleration { get; set; }
 	public LionStateMachine StateMachine { get; set; }
-	public bool IsOnPathFollow { get; set; }
 
 	public override void _Ready()
 	{
 		_nodeSelf = GetNode<Node3D>(".");
 		_nodeInteractableArea = GetNode<Area3D>("./InteractableArea3D");
+		_nodeNavigationAgent = GetNode<NavigationAgent3D>("./NavigationAgent3D");
+
 		_serviceTextBox = GetNode<TextBoxService>("/root/TextBoxService");
 		_serviceSaveState = GetNode<SaveStateService>("/root/SaveStateService");
 		StateMachine = new LionStateMachine(_serviceSaveState);
@@ -42,7 +46,7 @@ public partial class Lion3D : Node3D
 			EmitSignal(SignalName.InteractLion);
 			ProcessInteractionState();
 		}
-		else if (ParentScene != null && MoveToAquariumPathFollow != null)
+		else
 		{
 			ProcessWalkState(delta);
 		}
@@ -119,20 +123,7 @@ public partial class Lion3D : Node3D
 		switch (StateMachine.GetStateId())
 		{
 			case LionStateMachine.LionStates.WalkIntoAquarium:
-				if (!IsOnPathFollow)
-				{
-					GD.Print("AttachToPathFollow");
-					AttachToPathFollow(MoveToAquariumPathFollow);
-				}
-
-				MoveToAquariumPathFollow.ProgressRatio += Speed * (float)delta;
-
-				if (MoveToAquariumPathFollow.ProgressRatio > 0.98f)
-				{
-					GD.Print("DetachFromPathFollow");
-					DetachFromPathFollow();
-					StateMachine.Transition(LionStateMachine.LionEvents.GeneralProgreesion);
-				}
+				MoveTowardTarget(MarkerPastDoor, delta);
 				break;
 			default:
 				break;
@@ -155,19 +146,16 @@ public partial class Lion3D : Node3D
 		}
 	}
 
-	private void AttachToPathFollow(PathFollow3D pathFollow)
+	private void MoveTowardTarget(Marker3D target, double delta)
 	{
-		_nodeSelf.GetParent().RemoveChild(_nodeSelf);
-		IsOnPathFollow = true;
-		pathFollow.AddChild(_nodeSelf);
-		Owner = pathFollow;
-	}
+		var direction = new Vector3();
 
-	private void DetachFromPathFollow()
-	{
-		_nodeSelf.GetParent().RemoveChild(_nodeSelf);
-		IsOnPathFollow = false;
-		ParentScene.AddChild(_nodeSelf);
-		Owner = ParentScene;
+		_nodeNavigationAgent.TargetPosition = target.GlobalPosition;
+
+		direction = _nodeNavigationAgent.GetNextPathPosition() - GlobalPosition;
+		direction = direction.Normalized();
+
+		Velocity = Velocity.Lerp(direction * Speed, Acceleration * (float)delta);
+		MoveAndSlide();
 	}
 }

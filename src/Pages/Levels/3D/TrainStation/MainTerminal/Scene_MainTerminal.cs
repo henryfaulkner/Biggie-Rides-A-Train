@@ -16,14 +16,12 @@ public partial class Scene_MainTerminal : Node3D
 
 	public override void _Ready()
 	{
-		_nodeBiggie = GetNode<Biggie3D>("./LevelWrapper/TextBoxWrapper/Biggie3D");
+		_nodeBiggie = GetNode<Biggie3D>("./LevelWrapper/TextBoxWrapper/NavigationRegion3D/Biggie3D");
 		_nodeDefaultPCam = GetNode<Node>("./DefaultPCam");
 		_nodeMirrorPCam = GetNode<Node>("./MirrorPCam");
 
 		CameraBusinessInstance = new CameraBusiness(_nodeBiggie, _nodeDefaultPCam, _nodeMirrorPCam);
 		CameraBusinessInstance.SetDefaultCamera();
-
-		_nodeMoveToPathTest = GetNode<MoveToPathTest>("./LevelWrapper/TextBoxWrapper/MoveToPathTest");
 	}
 
 	public override void _PhysicsProcess(double _delta)
@@ -35,11 +33,6 @@ public partial class Scene_MainTerminal : Node3D
 		else if (Input.IsActionJustPressed(_SHIFT_CAMERA_INPUT) && CameraBusinessInstance.UsingMirrorPCam)
 		{
 			CameraBusinessInstance.SetDefaultCamera();
-		}
-
-		if (Input.IsActionJustPressed(_INTERACT_INPUT))
-		{
-			_nodeMoveToPathTest.StartMoveTowardPath();
 		}
 	}
 }
