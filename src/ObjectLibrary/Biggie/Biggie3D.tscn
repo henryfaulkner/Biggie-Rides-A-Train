@@ -101,3 +101,5 @@ hframes = 2
 vframes = 3
 region_rect = Rect2i(0, 0, 1, 1)
 generated_sprite_mesh = SubResource("Resource_sisuh")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

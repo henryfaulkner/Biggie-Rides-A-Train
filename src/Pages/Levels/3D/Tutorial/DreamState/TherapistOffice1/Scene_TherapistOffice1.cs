@@ -22,18 +22,26 @@ public partial class Scene_TherapistOffice1 : Node3D
 	private TextBoxService _serviceTextBox = null;
 
 	private bool ProcessingAutoWalk_1 { get; set; }
+	[Export]
+	public Marker3D OneBiggieMarker { get; set; }
+
 	private bool ProcessingAutoWalk_2 { get; set; }
+	[Export]
+	public Marker3D TwoBiggieMarker { get; set; }
+	[Export]
+	public Marker3D TwoSubconsiousMarker { get; set; }
+
 	private TherapistDialogueStates TherapistDialogueState { get; set; }
 	private SubconsciousDialogueStates SubconsciousDialogueState { get; set; }
 
 	public override void _Ready()
 	{
-		_nodeTherapist = GetNode<Therapist3D>("./LevelWrapper/TextBoxWrapper/Therapist3D");
-		_nodeSceneBarrier = GetNode<SceneBarrier>("./LevelWrapper/TextBoxWrapper/SceneBarrier");
-		_nodeAutoWalkCollision = GetNode<AutoWalk_InteractableArea3D_1>("./LevelWrapper/TextBoxWrapper/AutoWalk_InteractableArea3D_1");
-		_nodeSubconscious = GetNode<Subconscious>("./LevelWrapper/TextBoxWrapper/Subconscious");
-		_nodeBiggie = GetNode<Biggie3D>("./LevelWrapper/TextBoxWrapper/Biggie3D");
-		_nodeMushroomFight_2 = GetNode<Node3D>("./LevelWrapper/TextBoxWrapper/MushroomFight_2");
+		_nodeTherapist = GetNode<Therapist3D>("./LevelWrapper/TextBoxWrapper/NavigationRegion3D/Therapist3D");
+		_nodeSceneBarrier = GetNode<SceneBarrier>("./LevelWrapper/TextBoxWrapper/NavigationRegion3D/SceneBarrier");
+		_nodeAutoWalkCollision = GetNode<AutoWalk_InteractableArea3D_1>("./LevelWrapper/TextBoxWrapper/NavigationRegion3D/AutoWalk_InteractableArea3D_1");
+		_nodeSubconscious = GetNode<Subconscious>("./LevelWrapper/TextBoxWrapper/NavigationRegion3D/Subconscious");
+		_nodeBiggie = GetNode<Biggie3D>("./LevelWrapper/TextBoxWrapper/NavigationRegion3D/Biggie3D");
+		_nodeMushroomFight_2 = GetNode<Node3D>("./LevelWrapper/TextBoxWrapper/NavigationRegion3D/MushroomFight_2");
 
 		_nodeMainCamera = GetNode<FramedLevelCamera>("./LevelWrapper/Camera3D");
 		_nodeCameraTalk_1 = GetNode<Camera3D>("./LevelWrapper/Camera3D2");
@@ -161,14 +169,14 @@ public partial class Scene_TherapistOffice1 : Node3D
 	public bool ProcessAutoWalk_1(double delta)
 	{
 		//GD.Print("ProcessAutoWalk_1");
-		return _nodeBiggie.ForceWalk(_nodeSubconscious.Position + new Vector3(-3.0f, 0.0f, 0.3f), delta);
+		return _nodeBiggie.ForceWalk(OneBiggieMarker, delta);
 	}
 
 	public bool ProcessAutoWalk_2(double delta)
 	{
 		//GD.Print("ProcessAutoWalk_2");
-		bool result = _nodeBiggie.ForceWalk(_nodeMushroomFight_2.Position + new Vector3(-2.0f, 0.0f, 1.3f), delta);
-		result = _nodeSubconscious.ForceWalk(_nodeMushroomFight_2.Position + new Vector3(2.0f, 0.0f, 0.8f), delta)
+		bool result = _nodeBiggie.ForceWalk(TwoBiggieMarker, delta);
+		result = _nodeSubconscious.ForceWalk(TwoSubconsiousMarker, delta)
 			&& result;
 		return result;
 	}

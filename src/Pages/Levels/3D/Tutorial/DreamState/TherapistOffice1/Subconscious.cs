@@ -20,6 +20,12 @@ public partial class Subconscious : CharacterBody3D
 	public static readonly float _BIGGIE_SPEED_Z_RATIO = 0.7f;
 
 	private Node _nodeBiggieSpriteMeshInstance = null;
+	private NavigationAgent3D _nodeNavigationAgent = null;
+
+	[Export]
+	public float Speed { get; set; }
+	[Export]
+	public float Acceleration { get; set; }
 
 	private bool _isMoving = false;
 	private bool _canMove = true;
@@ -29,6 +35,7 @@ public partial class Subconscious : CharacterBody3D
 	public override void _Ready()
 	{
 		_nodeBiggieSpriteMeshInstance = GetNode("./SpriteMeshInstance");
+		_nodeNavigationAgent = GetNode<NavigationAgent3D>("./NavigationAgent3D");
 	}
 
 	public override void _PhysicsProcess(double _delta)
@@ -55,50 +62,33 @@ public partial class Subconscious : CharacterBody3D
 		_canMove = canMove;
 	}
 
-	public bool ForceWalk(Vector3 target, double delta)
+	public bool ForceWalk(Marker3D target, double delta)
 	{
 		//GD.Print("Subconscious ForceWalk");
 		CanMove(false);
-		Vector3 direction = (target - Position).Normalized();
-		Vector3 inputDirection = Vector3.Zero;
-		////GD.Print($"ForceWalk Direction X:{direction.X} Y:{direction.Y} Z:{direction.Z}");
-		// //GD.Print($"target Position X:{target.X} Y:{target.Y} Z:{target.Z}");
-		// //GD.Print($"subconscious Position X:{Position.X} Y:{Position.Y} Z:{Position.Z}");
+		var direction = MoveTowardTarget(target, delta);
 
-		if (direction.X - 0.5f > 0) // RIGHT
+		if (direction.X > 0) // RIGHT
 		{
-			inputDirection.X = _BIGGIE_SPEED_X_RATIO;
 			_isMoving = true;
 			_frameIncrement += 1;
 			_currentFrameDirection = Enumerations.Movement.Directions.Left;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
-		else if (direction.X + 0.5f < 0) // LEFT
+		else if (direction.X < 0) // LEFT
 		{
-			inputDirection.X = _BIGGIE_SPEED_X_RATIO;
 			_isMoving = true;
 			_frameIncrement -= 1;
 			_currentFrameDirection = Enumerations.Movement.Directions.Right;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
 
-		if (direction.Z + 0.5f < 0) // UP
+		if (direction.Z != 0) // UP or DOWN
 		{
-			inputDirection.Z -= _BIGGIE_SPEED_Z_RATIO;
 			_isMoving = true;
 			_frameIncrement = 1;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
-		else if (direction.Z - 0.5f > 0) // DOWN
-		{
-			inputDirection.Z += _BIGGIE_SPEED_Z_RATIO;
-			_isMoving = true;
-			_frameIncrement = 1;
-			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
-		}
-
-		Velocity = inputDirection * _BIGGIE_SPEED;
-		MoveAndCollide(Velocity * (float)delta);
 
 		// opposite the other conditionals in this function
 		bool atTarget = direction.X - 0.5f < 0
@@ -108,5 +98,19 @@ public partial class Subconscious : CharacterBody3D
 		CanMove(atTarget);
 		//GD.Print($"Subconscious atTarget: {atTarget}");
 		return atTarget;
+	}
+
+	private Vector3 MoveTowardTarget(Marker3D target, double delta)
+	{
+		var direction = new Vector3();
+
+		_nodeNavigationAgent.TargetPosition = target.GlobalPosition;
+
+		direction = _nodeNavigationAgent.GetNextPathPosition() - GlobalPosition;
+		direction = direction.Normalized();
+
+		Velocity = Velocity.Lerp(direction * Speed, Acceleration * (float)delta);
+		MoveAndSlide();
+		return direction;
 	}
 }

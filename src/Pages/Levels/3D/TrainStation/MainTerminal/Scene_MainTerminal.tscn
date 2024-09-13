@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://0v6ujein2rgj"]
+[gd_scene load_steps=67 format=3 uid="uid://0v6ujein2rgj"]
 
 [ext_resource type="Script" path="res://Pages/Levels/3D/TrainStation/MainTerminal/Scene_MainTerminal.cs" id="1_2yt3o"]
 [ext_resource type="PackedScene" uid="uid://c7a2u8logiptn" path="res://ObjectLibrary/Wrappers/LevelWrapper/LevelWrapper.tscn" id="1_g0fpa"]
@@ -12,7 +12,6 @@
 [ext_resource type="ArrayMesh" uid="uid://77hh2xhqqyp8" path="res://Assets/3D_Models/Teller.obj" id="8_6ptmk"]
 [ext_resource type="ArrayMesh" uid="uid://ogi7a7un8vm5" path="res://Assets/3D_Models/PedestalGlass.obj" id="9_m4j3f"]
 [ext_resource type="Material" uid="uid://damkwcny37uf8" path="res://Assets/Materials/GlassMaterial.tres" id="10_fx1ky"]
-[ext_resource type="PackedScene" uid="uid://uuyhg1mhqlj" path="res://ObjectLibrary/NPCs/3D/Lion3D/Lion3D.tscn" id="11_6ugy6"]
 [ext_resource type="ArrayMesh" uid="uid://c1virn0w6msoc" path="res://Assets/3D_Models/PedestalStand.obj" id="11_h3yda"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="13_wjk60"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="14_1tbbb"]
@@ -461,19 +460,6 @@ shape = SubResource("BoxShape3D_cio7y")
 
 [node name="AquariumGiftShop" parent="LevelWrapper/TextBoxWrapper/NavigationRegion3D" instance=ExtResource("14_q4n2b")]
 transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1, 39.5055, -0.115026, 19.627)
-
-[node name="AquariumOwner" parent="LevelWrapper/TextBoxWrapper/NavigationRegion3D" node_paths=PackedStringArray("MarkerNearDoor", "MarkerPastDoor") instance=ExtResource("11_6ugy6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.4518, 1.05678, 13.4692)
-MarkerNearDoor = NodePath("../Marker3D")
-MarkerPastDoor = NodePath("../Marker3D2")
-Speed = 2.0
-Acceleration = 1.0
-
-[node name="Marker3D" type="Marker3D" parent="LevelWrapper/TextBoxWrapper/NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.2328, 0, 17.5105)
-
-[node name="Marker3D2" type="Marker3D" parent="LevelWrapper/TextBoxWrapper/NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.6992, 0, 15.1788)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s1o1x")

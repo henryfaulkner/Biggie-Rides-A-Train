@@ -28,6 +28,7 @@ offset_bottom = 960.0
 layout_mode = 2
 
 [node name="DjAttackContainer" parent="CombatWrapper/EnemyAttackContainer/EnemyAttackPanel" instance=ExtResource("5_ou5ha")]
+layout_mode = 0
 offset_left = -724.0
 offset_top = -32.0
 offset_right = -124.0

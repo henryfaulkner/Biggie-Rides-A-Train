@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://p5crv76o8xtp"]
+[gd_scene load_steps=39 format=3 uid="uid://p5crv76o8xtp"]
 
 [ext_resource type="Script" path="res://Pages/Levels/3D/TrainStation/Aquarium/GiftShop/AquariumGiftShop.cs" id="1_nnle5"]
 [ext_resource type="Texture2D" uid="uid://cqic03fqsmvf4" path="res://Assets/Images/Misc./AquariumLogo.png" id="2_sofw3"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cd4f4osl4meik" path="res://Assets/Images/Misc./AquariumDoor.png" id="5_bedam"]
 [ext_resource type="Script" path="res://Pages/Levels/3D/TrainStation/MainTerminal/BehindDoorDarkness.gd" id="6_ppuos"]
 [ext_resource type="Material" uid="uid://cm27r3iwjy6e6" path="res://Assets/Materials/FloorTiles.tres" id="7_5hhae"]
+[ext_resource type="PackedScene" uid="uid://uuyhg1mhqlj" path="res://ObjectLibrary/NPCs/3D/Lion3D/Lion3D.tscn" id="8_jyjhf"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_77reh"]
 
@@ -126,26 +127,29 @@ points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 
 transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_nnle5")
 
-[node name="OuterAquarium2" type="MeshInstance3D" parent="."]
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="OuterAquarium2" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 0.01, 1.258, 2.088, 3.05893)
 mesh = SubResource("BoxMesh_77reh")
 skeleton = NodePath("../OuterAquarium")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="OuterAquarium2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/OuterAquarium2"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="OuterAquarium2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/OuterAquarium2/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_0ip7a")
 
-[node name="OuterAquarium" type="MeshInstance3D" parent="."]
+[node name="OuterAquarium" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(4, 0, 0, 0, 0.001, 0, 0, 0, 6, 1.25827, 3.98302, 0.132172)
 mesh = SubResource("BoxMesh_77reh")
+skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="OuterAquarium"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/OuterAquarium"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="OuterAquarium/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/OuterAquarium/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_ebyif")
 
-[node name="AquariumLogo" type="MeshInstance3D" parent="."]
+[node name="AquariumLogo" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(-1.74846e-08, 0, -2, 0, 0.4, 0, 0.6, 0, -1.31134e-07, -0.75425, 3.20359, 0.132172)
 mesh = SubResource("ArrayMesh_ms1sv")
 skeleton = NodePath("../OuterAquarium")
@@ -155,7 +159,7 @@ texture = ExtResource("2_sofw3")
 region_rect = Rect2i(0, 0, 1, 1)
 generated_sprite_mesh = SubResource("Resource_m2ho4")
 
-[node name="AquariumDoor" type="MeshInstance3D" parent="."]
+[node name="AquariumDoor" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(-0.24, 0, -2.79753e-07, 0, 0.2, 0, 2.09815e-08, 0, -3.2, -0.785738, 1.10183, -0.470732)
 mesh = SubResource("ArrayMesh_mo6ag")
 skeleton = NodePath("../OuterAquarium")
@@ -165,172 +169,189 @@ texture = ExtResource("5_bedam")
 region_rect = Rect2i(0, 0, 1, 1)
 generated_sprite_mesh = SubResource("Resource_06jxx")
 
-[node name="InteractableArea3D" type="Area3D" parent="AquariumDoor"]
+[node name="InteractableArea3D" type="Area3D" parent="Node3D/AquariumDoor"]
 transform = Transform3D(1.06999e-13, 1.31134e-06, 35, 44.8, -1.04907e-06, 0, 1.71477e-07, 2.10158, -1.07173e-07, 1.33166, -0.563197, 0.279919)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AquariumDoor/InteractableArea3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/AquariumDoor/InteractableArea3D"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.0126461, -0.0386519, 0.0346525)
 shape = SubResource("BoxShape3D_gqs4f")
 
-[node name="OutsideGiftShopDoor" type="MeshInstance3D" parent="."]
+[node name="OutsideGiftShopDoor" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(-4.89568e-08, -0.8, 0, 1.12, -3.49691e-08, 0, 0, 0, 0.6, -0.745706, 0.989188, 0.150049)
 visible = false
 mesh = SubResource("PlaneMesh_g43r4")
 skeleton = NodePath("../OuterAquarium")
 script = ExtResource("6_ppuos")
 
-[node name="OuterAquarium3" type="MeshInstance3D" parent="."]
+[node name="OuterAquarium3" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 0.01, 1.25827, 2.0875, -2.85217)
 mesh = SubResource("BoxMesh_77reh")
+skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="OuterAquarium3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/OuterAquarium3"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="OuterAquarium3/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/OuterAquarium3/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_f1l7p")
 
-[node name="OuterAquarium4" type="MeshInstance3D" parent="."]
+[node name="OuterAquarium4" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(0.01, 0, 0, 0, 4, 0, 0, 0, 6, 3.21586, 2.0875, 6.06964)
 mesh = SubResource("BoxMesh_77reh")
+skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="OuterAquarium4"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/OuterAquarium4"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="OuterAquarium4/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/OuterAquarium4/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_yhvox")
 
-[node name="Front" type="Node3D" parent="."]
+[node name="Front" type="Node3D" parent="Node3D"]
 
-[node name="OuterAquarium5" type="MeshInstance3D" parent="Front"]
+[node name="OuterAquarium5" type="MeshInstance3D" parent="Node3D/Front"]
 transform = Transform3D(0.01, 0, 0, 0, 4, 0, 0, 0, 2.27888, -0.654176, 2.0875, 1.93772)
 mesh = SubResource("BoxMesh_77reh")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Front/OuterAquarium5"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/Front/OuterAquarium5"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Front/OuterAquarium5/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Front/OuterAquarium5/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_xi3sg")
 
-[node name="OuterAquarium6" type="MeshInstance3D" parent="Front"]
+[node name="OuterAquarium6" type="MeshInstance3D" parent="Node3D/Front"]
 transform = Transform3D(0.01, 0, 0, 0, 4, 0, 0, 0, 2.2983, -0.654176, 2.0875, -1.74053)
 mesh = SubResource("BoxMesh_77reh")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Front/OuterAquarium6"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/Front/OuterAquarium6"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Front/OuterAquarium6/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Front/OuterAquarium6/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_5wa61")
 
-[node name="OuterAquarium7" type="MeshInstance3D" parent="Front"]
+[node name="OuterAquarium7" type="MeshInstance3D" parent="Node3D/Front"]
 transform = Transform3D(0.01, 0, 0, 0, 2.26342, 0, 0, 0, 6, -0.654176, 2.93283, 0.132172)
+mesh = SubResource("BoxMesh_77reh")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/Front/OuterAquarium7"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Front/OuterAquarium7/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_8ul2w")
+
+[node name="OuterAquarium5" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(0.01, 0, 0, 0, 4, 0, 0, 0, 6, 3.21586, 2.0875, -5.91958)
 mesh = SubResource("BoxMesh_77reh")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Front/OuterAquarium7"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/OuterAquarium5"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Front/OuterAquarium7/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_8ul2w")
-
-[node name="OuterAquarium5" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.01, 0, 0, 0, 4, 0, 0, 0, 6, 3.21586, 2.0875, -5.91958)
-mesh = SubResource("BoxMesh_77reh")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="OuterAquarium5"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="OuterAquarium5/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/OuterAquarium5/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_ooygb")
 
-[node name="OuterAquarium6" type="MeshInstance3D" parent="."]
+[node name="OuterAquarium6" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(12, 0, 0, 0, 4, 0, 0, 0, 0.01, 9.11915, 2.0875, -8.88067)
 mesh = SubResource("BoxMesh_77reh")
+skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="OuterAquarium6"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/OuterAquarium6"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="OuterAquarium6/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/OuterAquarium6/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_vk861")
 
-[node name="OuterAquarium9" type="MeshInstance3D" parent="."]
+[node name="OuterAquarium9" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(12, 0, 0, 0, 4, 0, 0, 0, 0.01, 9.11915, 2.0875, 4.97093)
 transparency = 0.2
 mesh = SubResource("BoxMesh_m4d5s")
+skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="OuterAquarium9"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/OuterAquarium9"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="OuterAquarium9/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/OuterAquarium9/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_vk861")
 
-[node name="OuterAquarium7" type="MeshInstance3D" parent="."]
+[node name="OuterAquarium7" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(4, 0, 0, 0, 0.001, 0, 0, 0, 6, 1.25827, 0.219616, 0.132172)
 mesh = SubResource("BoxMesh_iwfi8")
+skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="OuterAquarium7"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/OuterAquarium7"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="OuterAquarium7/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/OuterAquarium7/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_oaytd")
 
-[node name="OuterAquarium8" type="MeshInstance3D" parent="."]
+[node name="OuterAquarium8" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(16, 0, 0, 0, 0.001, 0, 0, 0, 18, 8.78256, 0.219616, 0.0337733)
 mesh = SubResource("BoxMesh_h6jiu")
+skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="OuterAquarium8"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/OuterAquarium8"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="OuterAquarium8/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/OuterAquarium8/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_bi731")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="Node3D"]
 transform = Transform3D(0.666667, 0, 0, 0, 1, 0, 0, 0, 1, 1.96775, 2.60789, -0.869153)
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+[node name="OmniLight3D2" type="OmniLight3D" parent="Node3D"]
 transform = Transform3D(0.666667, 0, 0, 0, 1, 0, 0, 0, 1, 1.96775, 2.60789, 1.95686)
 
-[node name="Front2" type="Node3D" parent="."]
+[node name="Front2" type="Node3D" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.1279, 0, 0)
 
-[node name="OuterAquarium5" type="MeshInstance3D" parent="Front2"]
+[node name="OuterAquarium5" type="MeshInstance3D" parent="Node3D/Front2"]
 transform = Transform3D(0.01, 0, 0, 0, 4, 0, 0, 0, 2.27888, -0.654176, 2.0875, 1.93772)
 mesh = SubResource("BoxMesh_77reh")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Front2/OuterAquarium5"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/Front2/OuterAquarium5"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Front2/OuterAquarium5/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Front2/OuterAquarium5/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_ihsq7")
 
-[node name="OuterAquarium6" type="MeshInstance3D" parent="Front2"]
+[node name="OuterAquarium6" type="MeshInstance3D" parent="Node3D/Front2"]
 transform = Transform3D(0.01, 0, 0, 0, 4, 0, 0, 0, 2.2983, -0.654176, 2.0875, -1.74053)
 mesh = SubResource("BoxMesh_77reh")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Front2/OuterAquarium6"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/Front2/OuterAquarium6"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Front2/OuterAquarium6/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Front2/OuterAquarium6/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_351b7")
 
-[node name="OuterAquarium7" type="MeshInstance3D" parent="Front2"]
+[node name="OuterAquarium7" type="MeshInstance3D" parent="Node3D/Front2"]
 transform = Transform3D(0.01, 0, 0, 0, 2.26342, 0, 0, 0, 6, -0.654176, 2.93283, 6.86649)
 mesh = SubResource("BoxMesh_77reh")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Front2/OuterAquarium7"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/Front2/OuterAquarium7"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Front2/OuterAquarium7/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Front2/OuterAquarium7/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_0i4oa")
 
-[node name="OuterAquarium8" type="MeshInstance3D" parent="Front2"]
+[node name="OuterAquarium8" type="MeshInstance3D" parent="Node3D/Front2"]
 transform = Transform3D(0.01, 0, 0, 0, 4, 0, 0, 0, 2.27888, -0.654176, 2.0875, 4.0876)
 mesh = SubResource("BoxMesh_77reh")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Front2/OuterAquarium8"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/Front2/OuterAquarium8"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Front2/OuterAquarium8/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Front2/OuterAquarium8/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_jkcjy")
 
-[node name="OuterAquarium9" type="MeshInstance3D" parent="Front2"]
+[node name="OuterAquarium9" type="MeshInstance3D" parent="Node3D/Front2"]
 transform = Transform3D(0.01, 0, 0, 0, 4, 0, 0, 0, 7, -0.654176, 2.0875, -6.36875)
 mesh = SubResource("BoxMesh_77reh")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Front2/OuterAquarium9"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/Front2/OuterAquarium9"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Front2/OuterAquarium9/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Front2/OuterAquarium9/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_5auos")
+
+[node name="AquariumOwner" parent="." instance=ExtResource("8_jyjhf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.53517, 1.17518, -4.82092)
+Speed = 2.0
+Acceleration = 1.0
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.53517, 0.118405, -4.82092)
+
+[node name="Marker3D2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.53517, 0.118405, -4.82092)

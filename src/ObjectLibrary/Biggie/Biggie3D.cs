@@ -18,12 +18,14 @@ public partial class Biggie3D : CharacterBody3D
 	public static readonly int _SPRITE_FRAME_CHANGE_INTERVAL = 45;
 	public static readonly int _SPRITE_WALK_FRAME_LENGTH = 2;
 	public static readonly float _BIGGIE_SPEED = 1.4f;
+	public static readonly float _BIGGIE_ACCEL = 1.4f;
 	public static readonly float _BIGGIE_SPEED_X_RATIO = 1.0f;
 	public static readonly float _BIGGIE_SPEED_Z_RATIO = 0.7f;
 
 	private Biggie3D _nodeSelf = null;
 	private Node _nodeBiggieSpriteMeshInstance = null;
 	private CollisionShape3D _nodeCollider = null;
+	private NavigationAgent3D _nodeNavigationAgent = null;
 
 	private bool _isMoving = false;
 	private bool _canMove = true;
@@ -40,6 +42,7 @@ public partial class Biggie3D : CharacterBody3D
 		_nodeSelf = GetNode<Biggie3D>(".");
 		_nodeBiggieSpriteMeshInstance = GetNode("./SpriteMeshInstance");
 		_nodeCollider = GetNode<CollisionShape3D>("./CollisionShape3D");
+		_nodeNavigationAgent = GetNode<NavigationAgent3D>("./NavigationAgent3D");
 
 		_serviceRelocation = GetNode<RelocationService>("/root/RelocationService");
 		//AttemptStoredLocationApplication();
@@ -208,49 +211,33 @@ public partial class Biggie3D : CharacterBody3D
 		_canMove = canMove;
 	}
 
-	public bool ForceWalk(Vector3 target, double delta)
+	public bool ForceWalk(Marker3D target, double delta)
 	{
 		//GD.Print("Biggie ForceWalk");
 		CanMove(false);
-		Vector3 direction = (target - Position).Normalized();
-		Vector3 inputDirection = Vector3.Zero;
-		// //GD.Print($"target Position X:{target.X} Y:{target.Y} Z:{target.Z}");
-		// //GD.Print($"biggie Position X:{Position.X} Y:{Position.Y} Z:{Position.Z}");
+		var direction = MoveTowardTarget(target, delta);
 
-		if (direction.X - 0.5f > 0) // RIGHT
+		if (direction.X > 0) // RIGHT
 		{
-			inputDirection.X = _BIGGIE_SPEED_X_RATIO;
 			_isMoving = true;
 			_frameIncrement += 1;
 			_currentFrameDirection = Enumerations.Movement.Directions.Left;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
-		else if (direction.X + 0.5f < 0) // LEFT
+		else if (direction.X < 0) // LEFT
 		{
-			inputDirection.X = _BIGGIE_SPEED_X_RATIO;
 			_isMoving = true;
 			_frameIncrement -= 1;
 			_currentFrameDirection = Enumerations.Movement.Directions.Right;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
 
-		if (direction.Z + 0.5f < 0) // UP
+		if (direction.Z != 0) // UP or DOWN
 		{
-			inputDirection.Z -= _BIGGIE_SPEED_Z_RATIO;
 			_isMoving = true;
 			_frameIncrement = 1;
 			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
 		}
-		else if (direction.Z - 0.5f > 0) // DOWN
-		{
-			inputDirection.Z += _BIGGIE_SPEED_Z_RATIO;
-			_isMoving = true;
-			_frameIncrement = 1;
-			_nodeBiggieSpriteMeshInstance.Call("set_frame", ReturnSpriteWalkFrame(_frameIncrement));
-		}
-
-		Velocity = inputDirection * _BIGGIE_SPEED;
-		MoveAndCollide(Velocity * (float)delta);
 
 		// opposite the other conditionals in this function
 		bool atTarget = direction.X - 0.5f < 0
@@ -260,6 +247,21 @@ public partial class Biggie3D : CharacterBody3D
 		CanMove(atTarget);
 		//GD.Print($"Biggie3D atTarget: {atTarget}");
 		return atTarget;
+	}
+
+	private Vector3 MoveTowardTarget(Marker3D target, double delta)
+	{
+		var direction = new Vector3();
+
+		_nodeNavigationAgent.TargetPosition = target.GlobalPosition;
+
+		direction = _nodeNavigationAgent.GetNextPathPosition() - GlobalPosition;
+		direction = direction.Normalized();
+
+		Velocity = Velocity.Lerp(direction * _BIGGIE_SPEED, _BIGGIE_ACCEL * (float)delta);
+		MoveAndSlide();
+		
+		return direction;
 	}
 
 	private bool IsIdle()
